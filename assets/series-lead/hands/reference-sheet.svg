@@ -308,15 +308,15 @@
   <g id="bar-hold" transform="translate(924 765)">
     <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
     <g transform="translate(20 12)">
-      <path d="M100 105 Q90 108 85 119 Q82 128 85 139 Q86 146 92 152 Q98 157 108 154 Q114 152 114 147 Q114 142 108 141 L101 141 Q98 135 101 130 L111 119Z" fill="#c88e72" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M100 105 Q90 108 85 119 Q79 130 82 143 Q82 151 88 155 Q93 159 100 155 Q104 153 104 148 Q104 144 98 143 L95 143 Q92 137 97 132 L111 119Z" fill="#c88e72" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M10 111 H230 V138 H10Z" fill="#d2ad69" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M10 111 H230 V119 H10Z" fill="#ebc686" stroke="#253a3b" stroke-width="1.65" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M10 138 H230 V146 H10Z" fill="#9e7947" stroke="#253a3b" stroke-width="1.65" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M90 123 Q108 108 145 113 L170 120 V136 H88Z" fill="#a8824c" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M99 61 Q102 72 96 83 Q90 95 91 109 Q91 118 95 123 Q97 130 98 140 Q100 148 107 147 Q113 146 113 139 L114 124 Q116 131 117 143 Q118 152 125 151 Q132 151 132 143 L132 124 Q135 131 136 141 Q137 148 143 147 Q149 145 150 138 L149 122 Q153 128 155 134 Q158 140 164 137 Q169 135 168 128 L164 112 Q161 100 154 94 Q143 81 139 61Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M139 63 Q143 80 154 94 Q161 100 164 112 L168 128 Q169 134 164 137 Q158 139 155 134 L150 123 Q156 117 154 110 Q148 99 140 93 Q130 82 130 63Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M99 61 Q102 72 96 83 Q90 95 91 109 Q91 118 95 123 Q97 130 98 147 Q98 158 101 162 Q106 168 112 162 Q115 159 115 151 L114 128 Q117 137 118 153 Q119 166 124 168 Q131 171 135 165 Q137 161 135 153 L132 128 Q136 136 139 153 Q141 163 146 163 Q154 163 155 156 Q156 151 152 142 L149 125 Q154 132 157 144 Q160 153 166 153 Q173 152 172 145 Q170 132 164 112 Q161 100 154 94 Q143 81 139 61Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M139 63 Q143 80 154 94 Q161 100 164 112 L172 145 Q173 152 166 152 Q160 153 157 144 L150 123 Q156 117 154 110 Q148 99 140 93 Q130 82 130 63Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M98 106 Q98 88 106 79 Q117 77 133 87 Q143 94 146 104 Q133 102 124 105 Q110 106 98 106Z" fill="#f3c39d" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M98 114 Q104 109 110 113 M117 116 Q123 110 129 114 M136 115 Q142 109 146 112 M153 117 L160 115 M101 133 Q106 130 110 132 M120 136 Q125 132 129 135 M138 134 L146 132" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M98 114 Q104 109 110 113 M117 116 Q123 110 129 114 M136 115 Q142 109 146 112 M153 117 L160 115 M101 136 Q106 133 111 135 M121 140 Q126 136 131 139 M140 138 L148 136 M158 136 L166 133 M101 154 Q107 151 112 154 M122 158 Q127 154 133 157 M143 153 Q147 150 153 151" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
       <g transform="translate(118 66) rotate(180) scale(.83 .82)">
         <g transform="translate(0 0) scale(1 1)">
           <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
