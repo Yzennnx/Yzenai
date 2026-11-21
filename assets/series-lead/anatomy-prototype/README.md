@@ -2,6 +2,19 @@
 
 The [motion index](../README.md#find-a-reference-by-action) groups the clips by angle. The times below are local to each clip at 24 fps and frames start at zero.
 
+## Dynamic survival movements
+
+Open the combined [dynamic movement showcase reel](dynamic-movements-reel.mp4) (`17.0 s`, `408` OpenToonz frames at `24 fps`) or inspect the individual side-view clips below. All six actions are exported from [poses.mjs](poses.mjs) (`sneakAt`, `sprintAt`, and `dynamicScenes`) and IK-validated on import.
+
+| Action | Clip | Reuse API | Key beats and contacts to study |
+| --- | --- | --- | --- |
+| Stealth crouch-creep | [sneak.mp4](sneak.mp4) (`3.0 s`) | `sneakAt(frame)` | 36-frame crouched loop with `head-sneak`, level gaze, forward-balanced hands, and toe-first quiet landings. |
+| Scare flinch & stumble back | [flinch.mp4](flinch.mp4) (`2.5 s`) | `dynamicScenes[1]` | Alert idle (`0.00–0.45 s`), recoil lean + defensive guard (`0.52–1.05 s`, `head-alarm` → `head-dread`), stumble step back into `head-panic` (`1.45–2.50 s`). |
+| Desperate full-out sprint | [sprint.mp4](sprint.mp4) (`3.0 s`) | `sprintAt(frame)` | 17-frame sprint cycle with `24°` forward lean, wide counter-pumping arms, high knee drive, and airborne flight phase (`head-determined`). |
+| Heavy barricade shove | [shove.mp4](shove.mp4) (`3.0 s`) | `dynamicScenes[3]` | Back-foot coil (`0.00–0.48 s`), flush two-hand barricade drive (`0.82–1.85 s`, `hand-brace` + `head-strain`), exhausted step-back recovery (`2.15–3.00 s`). |
+| Weapon windup & snappy slash | [slash.mp4](slash.mp4) (`2.5 s`) | `dynamicScenes[4]` | Coiled windup (`0.00–0.52 s`), lunge + wrist-locked steel pipe slash (`0.54–0.76 s`, `hand-pipe` + `head-angry`), combat guard recovery (`1.35–2.50 s`). |
+| One-handed obstacle vault | [vault.mp4](vault.mp4) (`3.0 s`) | `dynamicScenes[5]` | Crouch launch (`0.00–0.42 s`), planted palm contact on barrier top (`0.74–1.22 s`, `hand-brace` + `head-strain`), tucked mid-air pass (`1.18 s`), far-side landing (`1.76–2.42 s`). |
+
 ## Running
 
 Open the [side](run-side.mp4), [front](run-front.mp4), or [back](run-rear.mp4) clip. Each repeats the same 18-frame cycle four times.
@@ -31,11 +44,13 @@ Open the [side](brace.mp4), [front](brace-front.mp4), or [back](brace-rear.mp4) 
 
 The [pose tracks](poses.mjs) key the pelvis, chest, neck, head, shoulder reach, wrists, and ankles independently. Each action selects its elbow bend. The [artwork](art.js) includes a slim shirt silhouette, tapered thighs and calves, shaped elbows, separate hands, and shoes with distinct heel and toe contact points. The movement reel uses the side rig and tests the flat bracing hand in motion. The [character turnaround](../reference-sheet.png) supplies the other camera angles for shot design.
 
-Render from the project root with the installed local Edge, OpenToonz, and FFmpeg. The default command rebuilds the original side studies and their reel. Add `--motion` to build the angle library, or `--motion run` to rebuild only one action. The new angle clips are motion studies from the same joint tracks, with separate artwork needed for episode framing, contact props, and expression close-ups.
+Render from the project root with the installed local Edge, OpenToonz, and FFmpeg. The default command rebuilds the original side studies and their reel. Add `--reference` to rebuild the 3-view turnaround and 12-reaction sheets, `--dynamic` to rebuild the 6-action dynamic survival reel and clips, or `--motion` (`--motion run`) to rebuild the multi-angle gait studies.
 
 ```powershell
+node assets/series-lead/anatomy-prototype/render.mjs --reference
+node assets/series-lead/anatomy-prototype/render.mjs --dynamic
 node assets/series-lead/anatomy-prototype/render.mjs
 node assets/series-lead/anatomy-prototype/render.mjs --motion
 ```
 
-The render checks joint reach over all 252 frames, seat height after contact, the palm and front foot during the brace, and both heel and toe anchor points during the step. OpenToonz composites the pieces using [the prototype rig script](articulate.toonzscript).
+The render checks joint reach over all frames (252 base study frames and 408 dynamic survival frames), seat height after contact, the palm and front foot during the brace, and both heel and toe anchor points during the step. OpenToonz composites the pieces using [the prototype rig script](articulate.toonzscript).

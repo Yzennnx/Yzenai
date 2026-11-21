@@ -1,0 +1,18 @@
+{
+  "duration": 64,
+  "captionsFile": "episode-voice.json",
+  "topCaptionsFrom": 0,
+  "topCaptionOffset": 220,
+  "shots": [
+    { "name": "Freezer door slams shut", "start": 0 },
+    { "name": "Bare palm freezes to aluminum bar", "start": 3.5 },
+    { "name": "Recoil and raw palm", "start": 8 },
+    { "name": "Vasoconstriction cutaway", "start": 14 },
+    { "name": "Violent shivering and bar slip", "start": 22 },
+    { "name": "Shivering stops and brace collapse", "start": 32 },
+    { "name": "Vasodilation cutaway", "start": 36.5 },
+    { "name": "Paradoxical warmth and tie loosen", "start": 41 },
+    { "name": "Frozen safety plunger POV", "start": 50 },
+    { "name": "Severe hypothermia collapse and freeze", "start": 57 }
+  ]
+}

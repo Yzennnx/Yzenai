@@ -41,22 +41,21 @@ window.drawAnatomyReference = async (panels, frames, parts, backgrounds, walking
   text('Character turnaround, motion poses, expressions, and hands', 50, 144, 23, 400, secondary);
 
   const views = [
-    ['front', 'Front'], ['front-quarter', 'Front three-quarter'], ['profile', 'Side'],
-    ['rear-quarter', 'Rear three-quarter'], ['rear', 'Back'],
+    ['front', 'Front'], ['profile', 'Side'], ['rear', 'Back'],
   ];
   const profile = await load(frames[0]);
   const floor = 548;
   for (const [i, [view, label]] of views.entries()) {
-    const x = 48 + i * 304;
-    card(x, 174, 288, 400);
+    const x = 48 + i * 508;
+    card(x, 174, 488, 400);
     ctx.fillStyle = '#d9cdb5';
-    ctx.fillRect(x + 19, floor, 250, 1);
+    ctx.fillRect(x + 40, floor, 408, 1);
     if (view === 'profile') {
-      ctx.drawImage(profile, 320, 512, 440, 1000, x + 68, floor - 345, 151.8, 345);
+      ctx.drawImage(profile, 320, 512, 440, 1000, x + 168, floor - 345, 151.8, 345);
     } else {
-      drawAnatomyTurnaround(ctx, x + 144, floor, .69, view);
+      drawAnatomyTurnaround(ctx, x + 244, floor, .69, view);
     }
-    text(label, x + 16, 602, 24, 700);
+    text(label, x + 18, 602, 24, 700);
   }
   text('Motion poses', 48, 644, 26, 700);
   ctx.translate(0, 484);
@@ -130,20 +129,49 @@ window.drawAnatomyReference = async (panels, frames, parts, backgrounds, walking
   }
   const walking = png();
 
-  canvas.height = 470;
+  const allReactions = [
+    ['head', 'Neutral'], ['head-notice', 'Alert / Noticing'], ['head-alarm', 'Shock / Gasp'], ['head-dread', 'Cold Dread'],
+    ['head-panic', 'Panic'], ['head-strain', 'Heavy Effort'], ['head-determined', 'Determined'], ['head-angry', 'Fierce / Shout'],
+    ['head-exhausted', 'Exhausted'], ['head-pain', 'Pain / Wince'], ['head-sneak', 'Stealth'], ['head-relief', 'Relief / Exhale'],
+  ];
+
+  // High-res 12-reaction Front expression sheet (4x3 grid, 1600x1160)
+  canvas.height = 1160;
   ctx.fillStyle = backgroundColor;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  text('Front-view reactions', 48, 73, 49, 700);
-  for (const [i, [part, label]] of expressions.entries()) {
-    const x = 48 + i * 304;
-    card(x, 118, 288, 278);
+  text('Front-view reactions (12 expressions)', 48, 72, 46, 700);
+  text('Sculpted planes, lidded eyes with iris & catchlight, sweat & shadow cues', 50, 108, 22, 400, secondary);
+  for (const [i, [part, label]] of allReactions.entries()) {
+    const col = i % 4, row = Math.floor(i / 4);
+    const x = 48 + col * 380;
+    const y = 136 + row * 336;
+    card(x, y, 364, 276);
     ctx.save();
     ctx.beginPath();
-    ctx.rect(x + 1, 119, 286, 276);
+    ctx.rect(x + 1, y + 1, 362, 274);
     ctx.clip();
-    drawAnatomyTurnaround(ctx, x + 144, 1515, 2.85, 'front', { hideLimbs: true, expression: part });
+    drawAnatomyTurnaround(ctx, x + 182, y + 1390, 2.85, 'front', { hideLimbs: true, expression: part });
     ctx.restore();
-    text(label, x + 10, 434, 26, 700);
+    text(label, x + 12, y + 312, 24, 700);
   }
-  return { overview, walking, reactions: png() };
+  const reactions = png();
+
+  // High-res 12-reaction Side profile expression sheet (4x3 grid, 1600x1160)
+  canvas.height = 1160;
+  ctx.fillStyle = backgroundColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  text('Side-profile reactions (12 expressions)', 48, 72, 46, 700);
+  text('Matching OpenToonz cutout head layers for all 12 emotions', 50, 108, 22, 400, secondary);
+  await Promise.all(allReactions.map(async ([part, label], i) => {
+    const col = i % 4, row = Math.floor(i / 4);
+    const x = 48 + col * 380;
+    const y = 136 + row * 336;
+    card(x, y, 364, 276);
+    const image = await load(parts[part]);
+    fit(image, [224, 134, 206, 206], x + 56, y + 18, 252, 244);
+    text(label, x + 12, y + 312, 24, 700);
+  }));
+  const reactionsSide = png();
+
+  return { overview, walking, reactions, reactionsSide };
 };

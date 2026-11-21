@@ -6,20 +6,25 @@ import { Audio } from '@remotion/media';
 const FPS = 24;
 const toFrame = (seconds, fps) => Math.ceil(seconds * fps - 1e-9);
 
-function Captions({ pages, topFrom }) {
+function Captions({ pages, topFrom, top, widescreen }) {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width } = useVideoConfig();
   const time = frame / fps;
   const page = pages.find(({ start, end }) => start <= time && time < end);
   if (!page) return null;
 
+  const boxWidth = widescreen ? Math.round(width * 0.78) : 850;
+  const left = Math.round((width - boxWidth) / 2);
+  const pos = widescreen
+    ? { bottom: 68 }
+    : (time >= topFrom ? { top } : { bottom: 345 });
+
   return (
     <div style={{
-      position: 'absolute', left: 95, width: 850,
-      ...(time >= topFrom ? { top: 298 } : { bottom: 345 }),
+      position: 'absolute', left, width: boxWidth, ...pos,
       textAlign: 'center', fontFamily: 'Arial, sans-serif', fontWeight: 900,
-      fontSize: 68, lineHeight: 1.08, color: '#fff7e5',
-      WebkitTextStroke: '11px #101615', paintOrder: 'stroke fill',
+      fontSize: widescreen ? 54 : 68, lineHeight: 1.12, color: '#fff7e5',
+      WebkitTextStroke: widescreen ? '9px #101615' : '11px #101615', paintOrder: 'stroke fill',
     }}>
       {page.text.split(' ').map((word, index) => (
         <React.Fragment key={index}>
@@ -33,8 +38,9 @@ function Captions({ pages, topFrom }) {
   );
 }
 
-function Episode({ duration, shots, picture, audio, captions, topCaptionsFrom }) {
-  const { fps } = useVideoConfig();
+function Episode({ duration, shots, picture, audio, captions, topCaptionsFrom, topCaptionOffset = 298 }) {
+  const { fps, width, height } = useVideoConfig();
+  const widescreen = width > height;
   return (
     <AbsoluteFill style={{ backgroundColor: '#101615' }}>
       <Track name="Picture">
@@ -50,7 +56,7 @@ function Episode({ duration, shots, picture, audio, captions, topCaptionsFrom })
         })}
       </Track>
       <Audio name="Narration and effects" src={staticFile(audio ?? picture)} />
-      <Captions pages={captions} topFrom={topCaptionsFrom ?? Infinity} />
+      <Captions pages={captions} topFrom={topCaptionsFrom ?? Infinity} top={topCaptionOffset} widescreen={widescreen} />
     </AbsoluteFill>
   );
 }
@@ -60,11 +66,16 @@ function Root() {
     durationInFrames={FPS}
     defaultProps={{ duration: 1, shots: [], picture: 'remotion-picture.mp4', captions: [] }}
     calculateMetadata={async ({ props }) => {
-      if (!props.captionsFile) return { durationInFrames: toFrame(props.duration, FPS) };
+      const dims = {
+        width: props.width ?? 1080,
+        height: props.height ?? 1920,
+        durationInFrames: toFrame(props.duration, FPS),
+      };
+      if (!props.captionsFile) return dims;
       const response = await fetch(staticFile(props.captionsFile));
       if (!response.ok) throw new Error(`Could not load ${props.captionsFile}`);
       return {
-        durationInFrames: toFrame(props.duration, FPS),
+        ...dims,
         props: { ...props, captions: await response.json() },
       };
     }} />;

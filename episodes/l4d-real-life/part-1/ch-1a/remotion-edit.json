@@ -1,0 +1,23 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "duration": 75,
+  "captionsFile": "chapter-voice.json",
+  "shots": [
+    { "name": "OTS rear-3/4 gaming desk", "start": 0 },
+    { "name": "Top-down desk phone alert", "start": 3.583333 },
+    { "name": "POV red lockdown alert", "start": 6.583333 },
+    { "name": "Front to 3/4 siren reaction", "start": 11.583333 },
+    { "name": "Side panic brace and resolve", "start": 15.5 },
+    { "name": "Walk to apartment door", "start": 22 },
+    { "name": "POV brass deadbolt snap", "start": 25 },
+    { "name": "Heavy bookshelf barricade push", "start": 27.5 },
+    { "name": "Fridge walk and door pull", "start": 34.25 },
+    { "name": "POV empty 5-day fridge", "start": 37.25 },
+    { "name": "OTS 7th-floor window skyline", "start": 43.25 },
+    { "name": "Aerial street frenzy L4D infected", "start": 49 },
+    { "name": "Kitchen drawer weapon search", "start": 60 },
+    { "name": "POV stainless kitchen knife draw", "start": 64 },
+    { "name": "Front-3/4 hero knife hold", "start": 68 }
+  ]
+}

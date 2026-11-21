@@ -79,3 +79,13 @@ The review cut left the diver offscreen for most of the aftermath. Stage the rev
 - Keep this episode's approved narration and caption cues, the on-character consequences, and the empty-board callback. Use the existing Canvas diver for the revised poses.
 - From the project root, run `node episodes/lava-pool/render-preview.mjs --full --edit-source` to generate the clean picture and mix. Run `node tools/remotion/edit.mjs lava-pool --studio` to review the [edit](remotion-edit.json) or omit `--studio` to export. [Remotion workflow and license](../../tools/remotion/README.md)
 - Fully decoded the [55-second Remotion revision](exports/lava-pool-remotion-revision.mp4) at 1080 × 1920, 24 fps, with H.264 and AAC. Compared the push-off, flight, contact, and recoil against the prior cut at phone size. Checked caption placement at the skin and circulation diagrams and the empty-board callback. The audio matches the revised local mix, with a decoded peak of −0.7 dBFS.
+
+## Social post copy
+
+**Post caption** — What if you jumped into a pool of lava?
+
+**Description** — A diver takes the plunge in this animated what-if. Follow what happens at contact and why the danger can continue after a rescue.
+
+**Tags** — What Happens Next, lava, volcano science, human body, what if animation
+
+**Hashtags** — #WhatHappensNext #Lava #VolcanoScience #HumanBody

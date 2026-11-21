@@ -98,3 +98,13 @@ Treat this as one severe hypothetical exposure. Concentrated sodium hypochlorite
 **Opening previews:** [Measured](exports/bleach-opening-measured.mp4) and [early quick audition](exports/bleach-opening-quick.mp4). The measured preview closes the gap between the rim and lips, adds a swallow motion, and shows the lead grabbing their throat after setting down the glass.  
 **Verified episode export:** [Concentrated bleach](exports/concentrated-bleach.mp4), 46 seconds, 1080 × 1920 at 24 fps, H.264 with 48 kHz AAC and burned-in captions.  
 **Review notes:** The full cut stays on the lead for the first breathing change, shows the airway narrowing, then returns to the lead with their hand still at their throat. Both the glass and the phone are visible in the closing shot. The final cutaway labels stay readable during the caption-free hold. Visual review used sampled frames, and audio review used waveform levels and local transcription.
+
+## Social post copy
+
+**Post caption** — What if you mistook concentrated bleach for water?
+
+**Description** — One wrong sip changes everything. This fictional animation follows the lead as throat pain turns into trouble breathing and they reach for help.
+
+**Tags** — What Happens Next, concentrated bleach, accidental poisoning, human body, what if animation
+
+**Hashtags** — #WhatHappensNext #AccidentalPoisoning #HumanBody #AnimatedShort

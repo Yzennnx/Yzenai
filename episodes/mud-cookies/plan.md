@@ -103,3 +103,13 @@ These two worked examples describe the verified cut. Frame numbers are episode f
 **Opening preview path and review notes:** [13-second opening](exports/mud-cookies-opening.mp4). The measured read leaves about one second between the end of the question and the bite at 0:02.42. It matched 25 of 26 words in the local transcription, compared with 24 of 26 for the quick read. The measured PCM is reused verbatim in the full track. The revised preview shows the glass tip at the lips and lower with less water. Opening audio review used local word timestamps and level measurements.
 **Verified export path:** [66-second drinking and bathroom revision](exports/mud-cookies-remotion-revision.mp4).  
 **Review notes:** Checked the glass pickup, rim contact, tilt, and drop in water level in the captioned export at phone size. Checked the seated silhouette, warm-to-red face, pellet drop, and relief after the cut back. The full 1080 × 1920 export decoded without errors and measured −16.2 LUFS integrated with a −0.5 dBFS true peak. The audio check used decoding and level measurements.
+
+## Social post copy
+
+**Post caption** — What if you ate nothing but mud cookies for seven days?
+
+**Description** — One gritty bite turns into a week of mud cookies. Follow the lead as their digestion changes and their body runs short of usable energy in this fictional scenario.
+
+**Tags** — What Happens Next, mud cookies, digestion, nutrition, what if animation
+
+**Hashtags** — #WhatHappensNext #Digestion #Nutrition #AnimatedShort

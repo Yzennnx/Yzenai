@@ -6,7 +6,7 @@ import { basename, dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { setTimeout as delay } from 'node:timers/promises';
 import { renderCutout } from '../../../tools/opentoonz/render-cutout.mjs';
-import { floor, fps, gaitAt, rigAt, scenes, seat, table } from './poses.mjs';
+import { dynamicScenes, floor, fps, gaitAt, rigAt, scenes, seat, table } from './poses.mjs';
 
 const tools = join(process.env.LOCALAPPDATA, 'AIShortVideos');
 const release = (await readdir(tools)).find(name => /^ffmpeg-.*_build$/.test(name));
@@ -16,6 +16,7 @@ const edge = join(process.env['ProgramFiles(x86)'], 'Microsoft', 'Edge', 'Applic
 const work = await mkdtemp(join(tools, 'anatomy-test-'));
 const reference = process.argv[2] === '--reference';
 const motion = process.argv[2] === '--motion';
+const dynamic = process.argv[2] === '--dynamic';
 const panels = [
   { id: 'ready', scene: 0, frame: 0, crop: [126,256,295,536], label: 'Ready stance', contact: 'Hips, chest, and head on separate pivots' },
   { id: 'sit', scene: 0, frame: 62, crop: [111,260,335,531], label: 'Seat contact', contact: 'Hips on the seat, feet planted' },
@@ -106,6 +107,8 @@ async function renderMotion() {
 try {
   if (motion) {
     await renderMotion();
+  } else if (dynamic) {
+    await renderDynamic();
   } else {
     await renderAnatomy();
   }
@@ -114,6 +117,58 @@ try {
   assert(dirname(cache) === await realpath(tools) && basename(cache).startsWith('anatomy-test-'));
   await rm(cache, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 })
     .catch(error => console.warn(`Could not clean prototype cache: ${error.message}`));
+}
+
+async function renderDynamic() {
+  const poses = dynamicScenes.flatMap(action => {
+    const count = Math.round(action.seconds * fps);
+    return Array.from({ length: count }, (_, frame) =>
+      action.poseAt ? action.poseAt(frame) : rigAt(action.scene, frame));
+  });
+  const partNames = [...new Set(poses.flatMap(pose => pose.map(([part]) => part)))];
+  const art = await readFile(new URL('./art.js', import.meta.url), 'utf8');
+  const page = join(work, 'art-dyn.html');
+  const layout = { floor, seat, table, ids: dynamicScenes.map(a => a.id) };
+  await writeFile(page, `<!doctype html><meta charset="utf-8"><pre id="result"></pre>
+    <script>${art}</script><script>
+    document.getElementById('result').textContent =
+      JSON.stringify(makeAnatomyAssets(${JSON.stringify(partNames)}, ${JSON.stringify(layout)}));
+    </script>`);
+  const result = readPage(page);
+  assert(result, 'Edge did not create dynamic artwork');
+  const { parts, backgrounds } = JSON.parse(result);
+  const shotFile = join(work, 'poses.toonzscript');
+  await writeFile(shotFile, `var poses = ${JSON.stringify(poses)};`);
+  const frames = await renderCutout({
+    work,
+    shotFile,
+    rigFile: new URL('./articulate.toonzscript', import.meta.url),
+    partNames,
+    frameCount: poses.length,
+    drawPart: part => Buffer.from(parts[part], 'base64'),
+  });
+  const encode = args => execFileSync(ffmpeg, ['-hide_banner', '-v', 'error', '-y', ...args],
+    { stdio: 'inherit', windowsHide: true });
+  let first = 1;
+  for (const action of dynamicScenes) {
+    const count = Math.round(action.seconds * fps);
+    const background = join(work, `${action.id}.png`);
+    await writeFile(background, Buffer.from(backgrounds[action.id], 'base64'));
+    const safeLabel = action.label.replace(/'/g, '');
+    encode(['-loop', '1', '-framerate', String(fps), '-i', background,
+      '-framerate', String(fps), '-start_number', String(first),
+      '-i', join(dirname(frames[0]), 'cutout-%05d.png'),
+      '-filter_complex', `[0:v][1:v]overlay,drawbox=x=0:y=0:w=iw:h=68:color=#152028cc:t=fill,drawtext=text='${safeLabel}':fontcolor=#fff7e5:fontsize=26:x=24:y=22`,
+      '-frames:v', String(count), '-an', '-c:v', 'libx264', '-preset', 'fast',
+      '-crf', '17', '-pix_fmt', 'yuv420p', join(work, `${action.id}.mp4`)]);
+    await copyFile(join(work, `${action.id}.mp4`), join(import.meta.dirname, `${action.id}.mp4`));
+    first += count;
+  }
+  const list = join(work, 'dyn-sequence.txt');
+  await writeFile(list, dynamicScenes.map(({ id }) => `file '${id}.mp4'`).join('\n') + '\n');
+  const output = join(import.meta.dirname, 'dynamic-movements-reel.mp4');
+  encode(['-f', 'concat', '-safe', '1', '-i', list, '-c', 'copy', '-movflags', '+faststart', output]);
+  console.log(`Rendered ${frames.length} dynamic OpenToonz frames.\n${output}`);
 }
 
 async function renderAnatomy() {
@@ -128,7 +183,10 @@ async function renderAnatomy() {
   }));
   const partNames = [...new Set([
     ...poses.flatMap(pose => pose.map(([part]) => part)), 'hand-grip',
-    ...(reference ? ['head-notice', 'head-alarm', 'head-strain', 'head-relief'] : []),
+    ...(reference ? [
+      'head-notice', 'head-alarm', 'head-dread', 'head-panic', 'head-strain',
+      'head-determined', 'head-angry', 'head-exhausted', 'head-pain', 'head-sneak', 'head-relief',
+    ] : []),
   ])];
   const art = await readFile(new URL('./art.js', import.meta.url), 'utf8');
   const page = join(work, 'art.html');
@@ -157,11 +215,11 @@ async function renderAnatomy() {
     const pngFrames = await Promise.all(frames.map(async file => (await readFile(file)).toString('base64')));
     const view = panels.map(({ crop, ...panel }) => ({ ...panel, crop: crop.map(value => value * 2) }));
     const walkingPoses = [0, 3, 8, 16].map(frame => [frame, gaitAt('walk', frame)]);
-    const { overview, walking, reactions } = await drawInEdge('sheet-edge', [art, referenceArt], 'drawAnatomyReference',
+    const { overview, walking, reactions, reactionsSide } = await drawInEdge('sheet-edge', [art, referenceArt], 'drawAnatomyReference',
       [view, pngFrames, parts, backgrounds, walkingPoses, floor]);
     for (const [image, height, name] of [
       [overview, 1524, 'reference-sheet.png'], [walking, 590, 'walking-front.png'],
-      [reactions, 470, 'reactions-front.png'],
+      [reactions, 1160, 'reactions-front.png'], [reactionsSide, 1160, 'reactions-side.png'],
     ]) {
       const png = Buffer.from(image, 'base64');
       assert(png.subarray(0, 8).equals(Buffer.from('89504e470d0a1a0a', 'hex')));

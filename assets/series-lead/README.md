@@ -1,6 +1,25 @@
 # Series lead
 
-The [reference sheet](reference-sheet.png) shows the lead from the front, front three-quarter, side, rear three-quarter, and back. The revised design uses a slim chest, swept chestnut fringe, sharper eyes, a cream collared shirt, a burgundy tie, charcoal-blue trousers, and brown shoes. The sheet also shows the ready stance, seat contact, palm brace, and heel-first landing, plus five profile expressions and three hand poses.
+The [reference sheet](reference-sheet.png) shows the lead from the **front, side, and back only** (front and rear three-quarter views are intentionally excluded). The revised design uses a slim chest, swept chestnut fringe, sharper sculpted eyes with irises and catchlights, cheek/jaw shading, a cream collared shirt, a burgundy tie, charcoal-blue trousers, and brown shoes. The sheet also shows the ready stance, seat contact, palm brace, and heel-first landing, plus profile expressions and hand poses.
+
+## Face expressions
+
+Use the 12-emotion [front reaction sheet](reactions-front.png) and [side reaction sheet](reactions-side.png) when planning close-ups, reaction beats, and expression swaps. Both sheets share the same 12 expression keys in [art.js](anatomy-prototype/art.js):
+
+| Expression key | Emotion / use |
+| --- | --- |
+| `head` | Neutral |
+| `head-notice` | Alert / Noticing |
+| `head-alarm` | Shock / Gasp |
+| `head-dread` | Cold Dread (upper-face horror shadow) |
+| `head-panic` | Panic |
+| `head-strain` | Heavy Effort / Strain |
+| `head-determined` | Determined |
+| `head-angry` | Fierce / Shout |
+| `head-exhausted` | Exhausted |
+| `head-pain` | Pain / Wince |
+| `head-sneak` | Stealth / Narrowed focus |
+| `head-relief` | Relief / Exhale |
 
 ## Close-up hand references
 
@@ -27,11 +46,12 @@ These sources informed the other original drawings. The photos and footage serve
 
 ## Find a reference by action
 
-Use the [five-view turnaround](reference-sheet.png) for the face, outfit, or proportions. For motion, choose the action and camera angle below. Use the clips to review what the viewer sees and the [pose tracks](anatomy-prototype/poses.mjs) for precise joint positions, timing, and reuse. The frame guides point to the contacts, holds, and releases.
+Use the [three-view turnaround](reference-sheet.png) for the face, outfit, or proportions. For motion, choose the action and camera angle below. Use the clips to review what the viewer sees and the [pose tracks](anatomy-prototype/poses.mjs) for precise joint positions, timing, and reuse. The frame guides point to the contacts, holds, and releases.
 
 | Action | Side | Front | Back | Key frames |
 | --- | --- | --- | --- | --- |
-| Face reaction | [Profile expressions](reference-sheet.png) | [Front reactions](reactions-front.png) |  | Neutral, noticing, alarm, strain, relief |
+| Face reactions (12 emotions) | [Side reactions](reactions-side.png) | [Front reactions](reactions-front.png) |  | [Face expressions](#face-expressions) |
+| Dynamic survival reel (6 actions) | [Showcase reel](anatomy-prototype/dynamic-movements-reel.mp4) |  |  | [Dynamic survival movements](anatomy-prototype/README.md#dynamic-survival-movements) · [Stealth](anatomy-prototype/sneak.mp4) · [Flinch](anatomy-prototype/flinch.mp4) · [Sprint](anatomy-prototype/sprint.mp4) · [Shove](anatomy-prototype/shove.mp4) · [Slash](anatomy-prototype/slash.mp4) · [Vault](anatomy-prototype/vault.mp4) |
 | Run | [Clip](anatomy-prototype/run-side.mp4) | [Clip](anatomy-prototype/run-front.mp4) | [Clip](anatomy-prototype/run-rear.mp4) | [Running](anatomy-prototype/README.md#running) |
 | Walk or step | [Walk cycle](anatomy-prototype/walk-side.mp4) · [Single step](anatomy-prototype/step.mp4) | [Clip](anatomy-prototype/walk-front.mp4) · [Pose sheet](walking-front.png) | [Clip](anatomy-prototype/walk-rear.mp4) | [Walking](anatomy-prototype/README.md#walking-and-stepping) |
 | Sit down | [Clip](anatomy-prototype/sit.mp4) | [Clip](anatomy-prototype/sit-front.mp4) |  | [Seat contact](anatomy-prototype/README.md#sitting) |
@@ -41,14 +61,15 @@ When a new action has a reusable preview, add it here under its action and angle
 
 ## Character build for new episodes
 
-Use the same [artwork](anatomy-prototype/art.js) and [articulated pose system](anatomy-prototype/poses.mjs) in previews and final builds. Key the pelvis, chest, neck, head, shoulders, feet, and wrists for the shot. Match the sleeve color, hand, and grip when cutting from an external view to first person. Use the motion reference for the matching angle to plan shot-specific layers. The side rig is ready for OpenToonz. The front and back studies project its joint tracks for planning.
+Use the same [artwork](anatomy-prototype/art.js) and [articulated pose system](anatomy-prototype/poses.mjs) in previews and final builds. Key the pelvis, chest, neck, head, shoulders, feet, and wrists for the shot, or start directly from the exported generators (`gaitAt`, `sprintAt`, `sneakAt`, `rigAt`, and `dynamicScenes` in [poses.mjs](anatomy-prototype/poses.mjs)). Match the sleeve color, hand, and grip when cutting from an external view to first person. Stick to **Front, Side, and Back** views (avoid front/rear three-quarter views). The side rig is ready for OpenToonz. The front and back studies project its joint tracks for planning.
 
-Choose expression or hand assets with `[seconds, partName]` keys in `scene.expression`, `scene.nearHand`, and `scene.farHand`. The neutral head is `head`. Alternate faces are `head-notice`, `head-alarm`, `head-strain`, and `head-relief`. Use `hand-near` or `hand-far` for the relaxed poses, `hand-grip` for a grip, and `hand-brace` for the flat palm. Use `[seconds, x, y, angle]` wrist keys when the hand needs an independent angle. Keep prop contact consistent with the hand's wrist position and angle.
+Choose expression or hand assets with `[seconds, partName]` keys in `scene.expression`, `scene.nearHand`, and `scene.farHand`. The neutral head is `head`. Alternate faces are `head-notice`, `head-alarm`, `head-dread`, `head-panic`, `head-strain`, `head-determined`, `head-angry`, `head-exhausted`, `head-pain`, `head-sneak`, and `head-relief`. Use `hand-near` or `hand-far` for the relaxed poses, `hand-run-near` / `hand-run-far` for sprinting fists, `hand-grip` for an empty grip, `hand-pipe` for a wrist-locked steel survival pipe grip, and `hand-brace` for the flat palm. Use `[seconds, x, y, angle]` wrist keys when the hand needs an independent angle. Keep prop contact consistent with the hand's wrist position and angle.
 
-Regenerate the turnaround, front walk, and front reaction sheets with the local render command.
+Regenerate the turnaround, 12-reaction sheets, and dynamic movement reel with the local render commands.
 
 ```powershell
 node assets/series-lead/anatomy-prototype/render.mjs --reference
+node assets/series-lead/anatomy-prototype/render.mjs --dynamic
 ```
 
 ## Original cutout layers for existing episodes

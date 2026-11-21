@@ -4,8 +4,8 @@ import { access, mkdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
 const [episode, mode] = process.argv.slice(2);
-assert(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(episode ?? '') && (!mode || mode === '--studio'),
-  'Usage: node tools/remotion/edit.mjs <episode-slug> [--studio]');
+assert(/^[a-z0-9]+(?:-[a-z0-9]+)*(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)*$/.test(episode ?? '') && (!mode || mode === '--studio'),
+  'Usage: node tools/remotion/edit.mjs <episode-slug-or-chapter-path> [--studio]');
 
 const tool = import.meta.dirname;
 const folder = resolve(tool, '../../episodes', episode);
@@ -18,7 +18,8 @@ assert(Number.isFinite(duration) && duration > 0 && shots?.[0]?.start === 0 &&
 for (const file of [picture, audio, captionsFile].filter(Boolean)) await access(join(assets, file));
 
 const studio = mode === '--studio';
-const output = join(folder, 'exports', `${episode}-remotion-revision.mp4`);
+const exportSlug = episode.split('/').at(-1);
+const output = join(folder, 'exports', `${exportSlug}-remotion-revision.mp4`);
 const cli = join(tool, 'node_modules', '@remotion', 'cli', 'remotion-cli.js');
 await access(cli).catch(() => { throw new Error('Install the local editor with npm ci --prefix tools/remotion'); });
 if (!studio) await mkdir(join(folder, 'exports'), { recursive: true });

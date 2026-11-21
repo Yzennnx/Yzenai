@@ -89,3 +89,13 @@ The episode uses dream logic. The person who died can see and hear the waking wo
 **Opening preview path and review notes:** [13-second measured opening](exports/dream-death-opening-measured.mp4) and [opening pose reference](assets/opening-reference.png). The hand release, outside view of the fall, door, and double are legible at phone size.  
 **Verified export path:** [Dream death, 60-second MP4](exports/dream-death.mp4).  
 **Review notes:** The first fall cuts to black around 0:04. The bedside alarm stops around 0:10, before the double finishes sitting up. The final alarm returns around 0:59 and continues over black.
+
+## Social post copy
+
+**Post caption** — What if your heart stopped while you were dreaming?
+
+**Description** — A rooftop nightmare cuts to a real emergency in this fictional short. The story follows the lead’s partner from finding them unresponsive to starting CPR.
+
+**Tags** — What Happens Next, cardiac arrest, CPR, dreams, what if animation
+
+**Hashtags** — #WhatHappensNext #CardiacArrest #CPR #AnimatedShort

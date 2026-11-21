@@ -54,16 +54,27 @@
   <g id="edge" transform="translate(628 125)">
     <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
     <g transform="translate(20 12)">
-      <path d="M112 156 Q120 140 118 122 L115 101 L119 68 Q121 60 127 61 Q133 62 132 70 L131 84 L134 74 Q136 69 141 72 Q145 74 144 81 L141 108 L138 132 Q134 151 130 167Z" fill="#ce9479" stroke="#253a3b" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M104 169 Q103 151 95 142 C90 137 86 130 84 125 L72 108 Q68 101 73 97 Q78 93 84 99 L97 111 Q100 114 102 110 L100 92 Q97 85 94 76 L87 58 Q84 50 90 47 Q97 43 101 51 L111 68 L105 51 Q102 43 109 40 Q115 38 119 46 L127 69 Q132 86 133 102 Q139 123 134 140 Q131 150 130 169Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M127 68 Q131 85 132 102 Q139 123 133 140 Q130 151 129 167 H121 Q122 149 128 134 Q131 117 126 102 Q126 87 120 73Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M98 113 Q107 109 113 123 Q118 135 110 145 Q101 141 96 133 L88 117Z" fill="#f3c39d" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M111 68 Q115 77 116 84 M94 68 L99 67 M110 59 L116 57 M116 77 L121 75 M99 114 Q105 118 108 126 M95 134 Q101 136 104 142 M113 155 Q119 157 125 155" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M90 50 Q94 47 96 51 L99 57 Q95 60 92 57Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
-      <g transform="translate(117 166) rotate(-5) scale(.57 .9)">
+      <!-- Far fingers staggered behind index in relaxed C-curve cascade -->
+      <path d="M113 114 Q102 96 95 83 Q92 77 97 74 Q102 71 107 78 L119 98Z" fill="#c78d73" stroke="#253a3b" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M118 106 Q107 82 99 66 Q96 59 102 56 Q108 53 112 61 L125 90Z" fill="#d3987a" stroke="#253a3b" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M124 98 Q115 70 108 52 Q105 44 111 41 Q118 39 122 48 L134 86 Q137 98 135 110Z" fill="#dca383" stroke="#253a3b" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/>
+      <!-- Near index finger & slender dorsal hand profile -->
+      <path d="M104 168 Q103 153 98 141 Q95 130 98 117 Q103 106 105 97 L101 82 Q97 68 95 57 Q94 49 100 47 Q107 45 111 53 L119 73 Q125 87 132 103 Q139 121 136 141 Q133 153 132 168Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <!-- Dorsal core shadow & warm radial plane highlight -->
+      <path d="M117 78 Q127 98 134 118 Q137 136 131 167 H123 Q126 146 127 130 Q127 109 115 80Z" fill="#c88e72" stroke="none"/>
+      <path d="M106 96 Q116 96 121 112 Q123 128 117 142 Q108 138 104 126Z" fill="#f3c39d" stroke="none"/>
+      <!-- Index dorsal side fingernail & subtle joint creases -->
+      <path d="M103 49 Q107 48 109 53 L111 59 Q108 61 105 58Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M102 68 L109 65 M107 82 L114 79 M114 155 Q121 157 127 155" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <!-- Relaxed thumb on near radial side with thenar volume -->
+      <path d="M106 155 Q95 147 90 135 Q85 123 82 111 L77 95 Q75 88 81 86 Q87 84 91 91 L97 104 Q103 113 111 118" fill="#e7ae87" stroke="#253a3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M104 150 Q94 143 90 132 Q87 122 84 111 L90 112 Q95 126 105 138Z" fill="#f3c39d" stroke="none"/>
+      <path d="M78 90 Q81 87 84 91 L86 97 Q83 99 80 96Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M84 109 Q89 107 93 108 M96 126 Q104 130 108 139" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <g transform="translate(118 166) rotate(-4) scale(.62 .92)">
         <g transform="translate(0 0) scale(1 1)">
           <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none"/>
           <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
           <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
           <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
@@ -110,21 +121,36 @@
   <g id="chalk-grip" transform="translate(36 445)">
     <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
     <g transform="translate(20 12)">
-      <g transform="translate(0 -5)">
-        <path d="M139 65 Q146 62 153 65 L153 120 Q146 123 139 120Z" fill="#f1e9d7" stroke="#253a3b" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M149 65 L152 66 L152 120 L148 120Z" fill="#c9bb9e" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M140 67 Q146 70 152 67" fill="none" stroke="#fff6e4" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M64 157 Q76 146 83 129 C91 111 102 105 121 99 L135 92 Q141 89 146 94 L154 102 Q161 105 163 113 Q164 118 161 123 Q166 129 160 137 Q161 143 156 148 C147 160 127 169 108 177 Q96 183 88 192Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M162 114 Q165 119 160 123 Q165 131 159 137 Q161 145 154 150 Q137 167 109 177 L94 185 L87 178 Q100 168 120 159 Q145 147 154 131Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M79 151 Q90 133 98 123 Q110 110 128 105 Q114 122 120 136 Q106 149 87 158Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M161 122 Q156 124 151 125 M159 137 Q154 140 149 141 M154 147 L149 150" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M107 140 Q118 128 124 118 Q129 110 133 105 L140 92 Q144 86 150 87 Q157 89 156 96 Q156 104 148 112 L137 123 Q132 130 131 135" fill="#e7ae87" stroke="#253a3b" stroke-width="1.95" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M145 91 Q149 88 152 92 Q154 95 151 99 L146 102 Q142 100 143 96Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M133 108 Q135 112 139 114 M129 114 L133 118 M100 149 Q104 155 109 156" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-        <g transform="translate(76 172) rotate(34) scale(.78 1)">
+      <g transform="translate(2 -4)">
+        <!-- Curled pinky & ring tucked below in clean depth tiers -->
+        <path d="M108 134 L145 142 Q151 151 141 161 Q127 170 106 172 L96 154Z" fill="#c58b72" stroke="#253a3b" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M112 118 L156 127 Q162 139 150 148 Q136 156 116 154 L106 138Z" fill="#d2977a" stroke="#253a3b" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Middle finger cradling behind the lower chalk shaft -->
+        <path d="M116 102 L159 105 Q168 116 157 129 Q143 139 122 137 L110 120Z" fill="#dda484" stroke="#253a3b" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Dorsal hand + arched index finger (upper/far side of chalk pinch) -->
+        <path d="M56 160 Q72 142 84 122 Q95 104 110 92 Q121 82 135 76 Q145 73 153 77 Q160 82 156 90 Q152 96 144 96 L128 97 Q122 106 123 122 L127 156 Q113 172 90 183 L80 188Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M74 148 Q87 126 100 110 Q112 97 127 89 Q114 106 111 124 Q96 141 80 153Z" fill="#f3c39d" stroke="none"/>
+        <path d="M123 132 L127 156 Q113 170 90 181 L80 186 L74 179 Q96 167 113 153Z" fill="#c88e72" stroke="none"/>
+        <!-- Short white chalk stick sandwiched cleanly between index tip and thumb -->
+        <g transform="rotate(14 150 96)">
+          <path d="M142 54 Q149 51 156 54 L156 116 Q149 119 142 116Z" fill="#f2ead8" stroke="#253a3b" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M151 54 L155 55 L155 116 L151 116Z" fill="#c8baa0" stroke="none"/>
+          <ellipse cx="149" cy="54" rx="6.5" ry="2.4" fill="#fff8ea" stroke="#253a3b" stroke-width="1.4"/>
+        </g>
+        <!-- Index fingertip wrapping slightly onto left edge of chalk + nail & creases -->
+        <path d="M135 76 Q145 73 151 77 Q155 82 151 89 Q146 95 138 94" fill="#e7ae87" stroke="#253a3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M143 77 Q148 76 151 80 Q150 85 145 85 L141 82Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M123 84 Q126 89 128 93 M135 79 Q137 83 138 87" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Opposing slender thumb pinching near side of chalk -->
+        <path d="M90 158 Q100 144 108 132 Q115 120 124 110 L137 95 Q143 89 149 93 Q154 98 149 105 L136 121 Q128 132 122 144 Q114 157 100 168" fill="#e7ae87" stroke="#253a3b" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M147 98 Q151 102 146 107 L134 122 Q125 135 118 147 Q110 158 98 168 L94 163 Q108 151 116 138 Q125 123 139 107Z" fill="#c88e72" stroke="none"/>
+        <!-- Proportional side thumbnail & thumb creases -->
+        <path d="M138 95 Q143 92 146 96 Q147 100 143 103 L138 104 Q136 100 138 95Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M123 112 Q126 116 131 118 M119 117 Q122 121 126 123 M96 150 Q101 155 107 157" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(68 173) rotate(36) scale(.76 .95)">
           <g transform="translate(0 0) scale(1 1)">
             <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none"/>
             <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
             <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
             <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
@@ -143,16 +169,27 @@
         <path d="M185 50 L216 53 V137" fill="none" stroke="#83988b" stroke-width="1.35" stroke-linejoin="round" stroke-linecap="round"/>
         <path d="M196 82 C204 82 210 87 210 95 C210 102 204 108 196 108 C190 108 184 103 184 95 C184 88 190 82 196 82Z" fill="#917046" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
         <path d="M196 85 C202 85 207 89 207 95 C207 101 202 105 196 105 C190 105 187 101 187 95 C187 89 190 85 196 85Z" fill="#d3ab67" stroke="#253a3b" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <g transform="translate(-12 0)">
-          <path d="M47 136 Q66 126 81 116 Q95 106 108 105 Q122 105 134 105 Q144 101 154 96 L170 88 Q175 86 178 90 Q182 94 177 98 L162 109 L148 118 Q151 122 148 129 Q146 136 139 136 Q137 144 129 144 Q123 151 115 148 Q107 154 98 149 Q81 154 66 160Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M148 121 Q151 128 141 135 L137 136 Q136 145 129 143 Q123 150 115 147 Q107 153 99 148 Q84 153 68 159 L61 152 Q76 148 92 141 Q111 146 123 137 Q138 134 143 126Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M67 130 L89 115 Q100 109 111 109 Q119 109 125 111 Q113 116 106 126 Q91 135 73 137Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M99 119 Q116 117 126 121 Q132 124 137 123 M139 136 Q135 134 130 134 M129 144 Q124 141 120 142 M114 148 L109 144 M105 130 Q102 135 104 139" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M147 105 L151 110" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-          <g transform="translate(55 148) rotate(58) scale(.64 .72)">
+        <g transform="translate(-4 1)">
+          <!-- Curled pinky, ring, and middle fingers tucked cleanly in layered depth -->
+          <path d="M104 143 Q120 142 126 149 Q129 156 120 160 Q107 163 94 157Z" fill="#c2876f" stroke="#253a3b" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M113 130 Q133 128 139 136 Q142 145 132 149 Q117 152 103 145Z" fill="#cf9378" stroke="#253a3b" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M122 114 Q144 112 150 121 Q153 131 142 136 Q127 139 113 132Z" fill="#dba081" stroke="#253a3b" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Main dorsal hand & proportional pointing index finger (~0.85x palm length) -->
+          <path d="M48 137 Q68 122 87 108 Q101 99 116 97 Q127 95 140 92 L159 88 Q166 87 169 91 Q172 95 166 99 L147 104 Q135 108 124 115 L112 145 Q93 155 68 161Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M64 130 L90 112 Q103 103 118 102 Q125 102 132 104 Q118 109 107 120 Q92 132 72 137Z" fill="#f3c39d" stroke="none"/>
+          <path d="M115 137 Q98 148 70 158 L64 151 Q87 143 107 132Z" fill="#c88e72" stroke="none"/>
+          <!-- Subtle dorsal index nail & PIP/DIP creases -->
+          <path d="M159 89 Q165 88 168 91 Q167 95 162 95 L158 93Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M135 95 L137 101 M150 91 L152 97 M115 101 Q120 103 123 107" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Near-side thumb resting naturally against the curled middle finger -->
+          <path d="M88 137 Q96 127 104 120 Q112 114 122 114 L135 115 Q143 116 143 123 Q142 129 134 130 L120 131 Q109 135 98 144 Q92 149 84 152" fill="#e7ae87" stroke="#253a3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M141 124 Q140 128 133 129 L119 130 Q108 134 97 143 Q91 147 85 150 L82 146 Q94 138 103 131 Q113 126 125 125Z" fill="#c88e72" stroke="none"/>
+          <path d="M133 117 Q139 117 141 121 Q139 125 134 125 L131 121Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M118 117 Q119 122 118 126 M98 131 Q101 136 105 139" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <g transform="translate(55 148) rotate(59) scale(.66 .78)">
             <g transform="translate(0 0) scale(1 1)">
               <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none"/>
               <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
               <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
               <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
@@ -171,17 +208,28 @@
         <path d="M184 45 L218 48 Q222 49 222 53 V137 Q222 142 218 143 L184 146 Q180 146 180 142 V49 Q180 45 184 45Z" fill="#526d66" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
         <path d="M185 50 L216 53 V137" fill="none" stroke="#83988b" stroke-width="1.35" stroke-linejoin="round" stroke-linecap="round"/>
         <path d="M196 82 C204 82 210 87 210 95 C210 102 204 108 196 108 C190 108 184 103 184 95 C184 88 190 82 196 82Z" fill="#917046" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M196 85 C202 85 207 89 207 95 C207 101 202 105 196 105 C190 105 187 101 187 95 C187 89 190 85 196 85Z" fill="#e8b968" stroke="#253a3b" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <g transform="translate(0 0)">
-          <path d="M47 136 Q66 126 81 116 Q95 106 108 105 Q122 105 134 105 Q144 102 157 98 L177 93 Q182 91 190 90 Q196 90 197 95 Q196 99 190 100 L166 108 Q158 110 148 118 Q151 122 148 129 Q146 136 139 136 Q137 144 129 144 Q123 151 115 148 Q107 154 98 149 Q81 154 66 160Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M148 121 Q151 128 141 135 L137 136 Q136 145 129 143 Q123 150 115 147 Q107 153 99 148 Q84 153 68 159 L61 152 Q76 148 92 141 Q111 146 123 137 Q138 134 143 126Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M67 130 L89 115 Q100 109 111 109 Q119 109 125 111 Q113 116 106 126 Q91 135 73 137Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M99 119 Q116 117 126 121 Q132 124 137 123 M139 136 Q135 134 130 134 M129 144 Q124 141 120 142 M114 148 L109 144 M105 130 Q102 135 104 139" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M148 105 L151 110" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-          <g transform="translate(55 148) rotate(58) scale(.64 .72)">
+        <path d="M197 85 C203 85 208 89 208 95 C208 101 203 105 197 105 C191 105 188 101 188 95 C188 89 191 85 197 85Z" fill="#e8b968" stroke="#253a3b" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Whole hand advances forward to press button instead of stretching the index finger -->
+        <g transform="translate(22 1)">
+          <!-- Curled pinky, ring, and middle fingers -->
+          <path d="M104 143 Q120 142 126 149 Q129 156 120 160 Q107 163 94 157Z" fill="#c2876f" stroke="#253a3b" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M113 130 Q133 128 139 136 Q142 145 132 149 Q117 152 103 145Z" fill="#cf9378" stroke="#253a3b" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M122 114 Q144 112 150 121 Q153 131 142 136 Q127 139 113 132Z" fill="#dba081" stroke="#253a3b" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Main dorsal hand & exact same-length index finger pressing button pad -->
+          <path d="M48 137 Q68 122 87 108 Q101 99 116 97 Q128 96 142 93 L163 89 Q169 88 172 92 Q173 97 167 99 L148 104 Q135 108 124 115 L112 145 Q93 155 68 161Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M64 130 L90 112 Q103 103 118 102 Q125 102 132 104 Q118 109 107 120 Q92 132 72 137Z" fill="#f3c39d" stroke="none"/>
+          <path d="M115 137 Q98 148 70 158 L64 151 Q87 143 107 132Z" fill="#c88e72" stroke="none"/>
+          <path d="M161 90 Q167 89 170 92 Q169 96 164 96 L160 94Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M136 96 L138 102 M152 93 L154 98 M115 101 Q120 103 123 107" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Near-side thumb resting against curled middle finger -->
+          <path d="M88 137 Q96 127 104 120 Q112 114 122 114 L135 115 Q143 116 143 123 Q142 129 134 130 L120 131 Q109 135 98 144 Q92 149 84 152" fill="#e7ae87" stroke="#253a3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M141 124 Q140 128 133 129 L119 130 Q108 134 97 143 Q91 147 85 150 L82 146 Q94 138 103 131 Q113 126 125 125Z" fill="#c88e72" stroke="none"/>
+          <path d="M133 117 Q139 117 141 121 Q139 125 134 125 L131 121Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M118 117 Q119 122 118 126 M98 131 Q101 136 105 139" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <g transform="translate(55 148) rotate(59) scale(.66 .78)">
             <g transform="translate(0 0) scale(1 1)">
               <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none"/>
               <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
               <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
               <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
@@ -201,16 +249,26 @@
         <path d="M185 50 L216 53 V137" fill="none" stroke="#83988b" stroke-width="1.35" stroke-linejoin="round" stroke-linecap="round"/>
         <path d="M196 82 C204 82 210 87 210 95 C210 102 204 108 196 108 C190 108 184 103 184 95 C184 88 190 82 196 82Z" fill="#917046" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
         <path d="M196 85 C202 85 207 89 207 95 C207 101 202 105 196 105 C190 105 187 101 187 95 C187 89 190 85 196 85Z" fill="#d3ab67" stroke="#253a3b" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <g transform="translate(-15 13)">
-          <path d="M47 136 Q66 126 81 116 Q95 106 108 105 Q122 105 134 105 Q142 105 153 100 L165 94 Q170 91 174 95 Q178 99 172 104 L161 113 L148 119 Q151 122 148 129 Q146 136 139 136 Q137 144 129 144 Q123 151 115 148 Q107 154 98 149 Q81 154 66 160Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M148 121 Q151 128 141 135 L137 136 Q136 145 129 143 Q123 150 115 147 Q107 153 99 148 Q84 153 68 159 L61 152 Q76 148 92 141 Q111 146 123 137 Q138 134 143 126Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M67 130 L89 115 Q100 109 111 109 Q119 109 125 111 Q113 116 106 126 Q91 135 73 137Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M99 119 Q116 117 126 121 Q132 124 137 123 M139 136 Q135 134 130 134 M129 144 Q124 141 120 142 M114 148 L109 144 M105 130 Q102 135 104 139" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-          <path d="M147 105 L151 110" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-          <g transform="translate(55 148) rotate(58) scale(.64 .72)">
+        <g transform="translate(-8 12) rotate(5 64 146)">
+          <!-- Curled pinky, ring, and middle fingers -->
+          <path d="M104 143 Q120 142 126 149 Q129 156 120 160 Q107 163 94 157Z" fill="#c2876f" stroke="#253a3b" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M113 130 Q133 128 139 136 Q142 145 132 149 Q117 152 103 145Z" fill="#cf9378" stroke="#253a3b" stroke-width="2.0" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M122 114 Q144 112 150 121 Q153 131 142 136 Q127 139 113 132Z" fill="#dba081" stroke="#253a3b" stroke-width="2.1" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Main dorsal hand & proportional relaxing index finger withdrawing -->
+          <path d="M48 137 Q68 122 87 108 Q101 99 116 97 Q127 96 140 94 Q151 92 161 95 Q167 97 167 102 Q165 106 158 105 L143 105 Q133 108 124 115 L112 145 Q93 155 68 161Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M64 130 L90 112 Q103 103 118 102 Q125 102 132 104 Q118 109 107 120 Q92 132 72 137Z" fill="#f3c39d" stroke="none"/>
+          <path d="M115 137 Q98 148 70 158 L64 151 Q87 143 107 132Z" fill="#c88e72" stroke="none"/>
+          <path d="M156 96 Q162 96 165 99 Q163 102 158 102 L154 99Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M135 97 L137 103 M149 95 L150 101 M115 101 Q120 103 123 107" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <!-- Near-side thumb resting against curled middle finger -->
+          <path d="M88 137 Q96 127 104 120 Q112 114 122 114 L135 115 Q143 116 143 123 Q142 129 134 130 L120 131 Q109 135 98 144 Q92 149 84 152" fill="#e7ae87" stroke="#253a3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M141 124 Q140 128 133 129 L119 130 Q108 134 97 143 Q91 147 85 150 L82 146 Q94 138 103 131 Q113 126 125 125Z" fill="#c88e72" stroke="none"/>
+          <path d="M133 117 Q139 117 141 121 Q139 125 134 125 L131 121Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M118 117 Q119 122 118 126 M98 131 Q101 136 105 139" fill="none" stroke="#9e6755" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+          <g transform="translate(55 148) rotate(59) scale(.66 .78)">
             <g transform="translate(0 0) scale(1 1)">
               <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none"/>
               <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
               <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
               <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
@@ -228,16 +286,18 @@
       <path d="M9 79 H231 V95 H9Z" fill="#9e7947" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M9 79 H231 V90 H9Z" fill="#d2ad69" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M12 83 H228" fill="none" stroke="#ebc686" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
-      <g transform="translate(122 212) scale(1.24) translate(-116 -161)">
-        <path d="M98 161 Q101 147 95 137 Q90 129 86 121 L79 113 Q71 105 74 99 Q77 94 82 96 Q88 97 93 103 L99 108 L96 88 Q94 79 100 77 Q108 75 111 82 L116 101 L114 78 Q113 70 119 68 Q126 67 129 74 L134 98 L132 79 Q132 72 138 71 Q145 70 148 78 L151 101 L153 87 Q155 80 161 81 Q167 82 166 90 L162 110 Q162 109 157 120 Q153 132 143 141 Q136 148 135 161Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M161 103 Q161 110 157 120 Q151 133 143 142 Q137 149 134 160 L125 160 Q129 145 136 134 Q147 121 149 110Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M103 111 Q115 101 134 103 Q142 104 143 112 Q135 127 113 132 Q109 120 103 111Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M96 110 Q102 117 104 127" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M98 86 Q103 82 108 85 M117 78 Q122 74 127 77 M135 81 Q140 77 145 80 M154 91 Q158 88 163 90 M100 96 L107 94 M118 92 L126 91 M136 92 L144 90" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-        <g transform="translate(116 158) scale(.76 .33)">
+      <!-- Sleek tapered right hand matching #back/#bar-press scale, clear gap below bar, foreshortened curled fingers -->
+      <g transform="translate(120 188) scale(1.12 1.09) translate(-119 -167)">
+        <path d="M101 169 Q100 156 93 145 L75 123 Q70 116 75 111 Q80 108 86 114 L96 125 Q98 126 99 123 L98 106 Q98 96 105 95 Q111 94 112 104 L113 119 L114 98 Q114 89 121 89 Q128 89 128 99 L128 119 L131 102 Q132 93 139 94 Q145 95 144 105 L142 123 L147 112 Q149 105 155 107 Q160 110 158 120 L152 141 Q148 154 139 161 L138 169Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+        <!-- Shaded foreshortened curled tips turning away from camera + ulnar core shadow -->
+        <path d="M156 117 L151 141 Q147 154 138 161 L137 168 H129 Q132 156 139 146 Q146 135 148 120Z" fill="#c88e72" stroke="none"/>
+        <path d="M104 128 Q116 120 133 124 L138 139 Q124 150 109 149Z" fill="#f3c39d" stroke="none"/>
+        <!-- Subtle PIP knuckle crests & MCP tendons -->
+        <path d="M100 106 Q105 103 110 105 M116 101 Q121 98 126 101 M133 105 Q138 102 142 105 M148 116 Q152 113 156 116 M103 123 Q107 121 111 122 M118 121 Q122 119 126 121 M133 123 Q137 121 140 123 M96 131 Q101 137 103 145" fill="none" stroke="#9e6755" stroke-width="1.45" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(119 167) scale(.84 .64)">
           <g transform="translate(0 0) scale(1 1)">
             <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none"/>
             <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
             <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
             <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
@@ -285,16 +345,16 @@
       <path d="M9 79 H231 V95 H9Z" fill="#9e7947" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M9 79 H231 V90 H9Z" fill="#d2ad69" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M12 83 H228" fill="none" stroke="#ebc686" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
-      <g transform="translate(128 212) rotate(9) scale(1.24) translate(-116 -161)">
-        <path d="M98 161 Q101 147 95 137 Q90 129 86 121 L79 113 Q71 105 74 99 Q77 94 82 96 Q88 97 93 103 L99 108 L97 101 Q93 92 97 85 Q102 80 108 84 Q113 87 117 104 L115 91 Q111 79 117 75 Q124 71 129 79 L135 102 L133 89 Q131 80 136 77 Q143 73 148 81 L152 105 L155 94 Q157 85 163 87 Q170 91 166 99 L161 112 Q162 109 157 120 Q153 132 143 141 Q136 148 135 161Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M161 103 Q161 110 157 120 Q151 133 143 142 Q137 149 134 160 L125 160 Q129 145 136 134 Q147 121 149 110Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M103 111 Q115 101 134 103 Q142 104 143 112 Q135 127 113 132 Q109 120 103 111Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M96 110 Q102 117 104 127" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M97 94 Q103 89 109 94 M117 86 Q122 81 127 85 M137 88 Q142 83 147 87 M155 97 Q159 93 164 96 M101 100 L109 98 M120 95 L128 93 M138 97 L146 94" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-        <g transform="translate(116 158) scale(.76 .33)">
+      <!-- Sleek tapered right hand withdrawing downward with fingers curled tighter -->
+      <g transform="translate(126 192) rotate(7) scale(1.12 1.09) translate(-119 -167)">
+        <path d="M101 169 Q100 156 93 145 L76 125 Q71 118 76 114 Q81 111 86 117 L96 127 Q98 128 99 125 L98 112 Q98 103 105 102 Q111 102 112 111 L113 123 L114 106 Q115 97 122 97 Q128 97 128 107 L128 123 L131 109 Q132 101 139 102 Q145 103 144 112 L142 127 L147 118 Q149 112 155 114 Q160 117 158 125 L152 144 Q148 155 139 162 L138 169Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M156 122 L151 144 Q147 155 138 162 L137 168 H129 Q132 157 139 147 Q146 137 148 124Z" fill="#c88e72" stroke="none"/>
+        <path d="M104 132 Q116 124 133 128 L138 142 Q124 152 109 151Z" fill="#f3c39d" stroke="none"/>
+        <path d="M100 112 Q105 109 110 111 M116 108 Q121 105 126 108 M133 111 Q138 108 142 111 M148 121 Q152 118 156 121 M103 126 Q107 124 111 125 M118 125 Q122 123 126 125 M133 127 Q137 125 140 127 M96 133 Q101 139 103 146" fill="none" stroke="#9e6755" stroke-width="1.45" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(119 167) scale(.84 .56)">
           <g transform="translate(0 0) scale(1 1)">
             <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
-            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none"/>
             <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
             <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
             <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>

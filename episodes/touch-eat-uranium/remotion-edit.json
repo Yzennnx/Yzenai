@@ -1,0 +1,17 @@
+{
+  "duration": 60,
+  "captionsFile": "episode-voice.json",
+  "topCaptionsFrom": 0,
+  "topCaptionOffset": 208,
+  "shots": [
+    { "name": "Fingertip contact and pickup", "start": 0 },
+    { "name": "The swallow", "start": 6.75 },
+    { "name": "Through the gut", "start": 12.5 },
+    { "name": "Read the label", "start": 22 },
+    { "name": "Into the blood", "start": 27.25 },
+    { "name": "The kidneys", "start": 34 },
+    { "name": "Reach for help", "start": 43.75 },
+    { "name": "Sample cup", "start": 48 },
+    { "name": "Clinic callback", "start": 54.75 }
+  ]
+}
