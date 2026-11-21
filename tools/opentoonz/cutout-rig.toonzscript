@@ -1,0 +1,76 @@
+// Loaded by render-cutout.mjs after the episode's shot settings.
+var art = {};
+for (var i = 0; i < parts.length; i++) {
+  art[parts[i]] = new Image(workDir + '/' + parts[i] + '.png');
+}
+
+var centerX = shot.bounds[0] + shot.bounds[2] / 2;
+var centerY = shot.bounds[1] + shot.bounds[3] / 2;
+
+function sample(track, frame) {
+  for (var j = 1; j < track.length; j++) {
+    var a = track[j - 1], b = track[j];
+    if (frame > b[0]) continue;
+    var fraction = (frame - a[0]) / (b[0] - a[0]);
+    var blend = fraction * (0.58 + fraction * (1.26 - 0.84 * fraction));
+    var values = [];
+    for (var k = 1; k < b.length; k++) values.push(a[k] + (b[k] - a[k]) * blend);
+    return values;
+  }
+  return track[track.length - 1].slice(1);
+}
+
+function place(builder, part, x, y, clockwise) {
+  builder.add(art[part], new Transform().rotate(-clockwise).translate(2*(x-centerX), 2*(centerY-y)));
+}
+
+function chain(builder, part, side, start, target, upper, lower, bend) {
+  var dx = target[0] - start[0], dy = target[1] - start[1];
+  var distance = Math.sqrt(dx*dx + dy*dy);
+  var reach = Math.max(Math.abs(upper - lower) + 0.1, Math.min(distance, upper + lower - 0.1));
+  var angle = Math.atan2(dy, dx);
+  var offset = Math.acos(Math.max(-1, Math.min(1, (upper*upper + reach*reach - lower*lower) / (2*upper*reach))));
+  var jointAngle = angle + bend * offset;
+  var joint = [start[0] + upper*Math.cos(jointAngle), start[1] + upper*Math.sin(jointAngle)];
+  var end = [start[0] + reach*Math.cos(angle), start[1] + reach*Math.sin(angle)];
+  var lowerAngle = Math.atan2(end[1] - joint[1], end[0] - joint[0]);
+  place(builder, part + 'Upper' + side, start[0], start[1], jointAngle * 180 / Math.PI - 90);
+  place(builder, part + 'Lower' + side, joint[0], joint[1], lowerAngle * 180 / Math.PI - 90);
+  return end;
+}
+
+for (var index = 0; index < frameCount; index++) {
+  var frame = startFrame + index;
+  var hip = sample(shot.pelvis, frame);
+  var angle = hip[2] * Math.PI / 180;
+  function attached(x, y) {
+    return [hip[0] + x*Math.cos(angle) - y*Math.sin(angle),
+            hip[1] + x*Math.sin(angle) + y*Math.cos(angle)];
+  }
+
+  var builder = new ImageBuilder(2 * shot.bounds[2], 2 * shot.bounds[3]);
+  var feet = [sample(shot.feet[0], frame), sample(shot.feet[1], frame)];
+  for (var sideIndex = 0; sideIndex < 2; sideIndex++) {
+    var side = sideIndex === 0 ? 'Far' : 'Near';
+    var foot = feet[sideIndex];
+    var legSide = shot.alternateLegs && frame >= shot.alternateLegs[0] && frame < shot.alternateLegs[1] ? side + 'Alt' : side;
+    var ankle = chain(builder, 'leg', legSide, attached(sideIndex === 0 ? 7 : -7, -4), foot, 55, 53, 1);
+    if (Math.abs(ankle[1] - foot[1]) > 1) throw new Error('Foot target outside the rig at frame ' + frame);
+    place(builder, 'shoe' + side, foot[0], foot[1], foot[2]);
+  }
+
+  var farShoulder = attached(17, -69);
+  var far = sample(shot.wrists[0], frame);
+  var farTarget = shot.wristSpace === 'scene' ? far : [farShoulder[0]+far[0], farShoulder[1]+far[1]];
+  chain(builder, 'arm', 'Far', farShoulder, farTarget, 34, 31, -1);
+  var expression = 0;
+  for (var cue = 0; cue < shot.expressions.length && shot.expressions[cue][0] <= frame; cue++) {
+    expression = shot.expressions[cue][1];
+  }
+  place(builder, 'body' + expression, hip[0], hip[1], hip[2]);
+  var nearShoulder = attached(-16, -68);
+  var near = sample(shot.wrists[1], frame);
+  var nearTarget = shot.wristSpace === 'scene' ? near : [nearShoulder[0]+near[0], nearShoulder[1]+near[1]];
+  chain(builder, 'arm', 'Near', nearShoulder, nearTarget, 34, 31, 1);
+  builder.image.save(workDir + '/cutout-' + ('0000' + (index + 1)).slice(-5) + '.png');
+}

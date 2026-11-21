@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img" aria-labelledby="title description">
+  <title id="title">What Happens Next? social avatar</title>
+  <desc id="description">The series lead facing forward in a cream shirt and burgundy tie, with a plum question-mark bruise on one cheek.</desc>
+  <defs>
+    <radialGradient id="background" cx="53%" cy="35%" r="74%">
+      <stop stop-color="#315052"/>
+      <stop offset="1" stop-color="#111d24"/>
+    </radialGradient>
+    <radialGradient id="paper" cx="41%" cy="27%" r="82%">
+      <stop stop-color="#f0d397"/>
+      <stop offset=".67" stop-color="#d7a765"/>
+      <stop offset="1" stop-color="#a76d53"/>
+    </radialGradient>
+    <clipPath id="portrait">
+      <circle cx="512" cy="512" r="420"/>
+    </clipPath>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".73" numOctaves="3" seed="21" stitchTiles="stitch"/>
+    </filter>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#background)"/>
+  <circle cx="512" cy="512" r="446" fill="#182c30" stroke="#d4af72" stroke-width="9"/>
+  <g clip-path="url(#portrait)">
+    <circle cx="512" cy="512" r="420" fill="url(#paper)"/>
+    <path d="M189 765A410 410 0 0 0 856 724" fill="none" stroke="#a97452" stroke-width="16" opacity=".35"/>
+    <path d="M193 326 217 306 204 335 178 350ZM811 690 837 679 830 700 803 714Z" fill="#f9e5ad" opacity=".58"/>
+
+    <!-- Face proportions and palette follow the series lead's front turnaround. -->
+    <g transform="translate(512 3501) scale(6.95)" stroke="#253a3b" stroke-width="2.35" stroke-linejoin="round" stroke-linecap="round">
+      <g transform="translate(0 -12)">
+        <path d="M-10-413H10Q9-389 12-376Q0-370-12-376Q-9-389-10-413Z" fill="#cf956f"/>
+        <path d="M-12-382C-31-381-44-374-49-360L-47-333H47L49-360C44-374 31-381 12-382Q0-372-12-382Z" fill="#e8e1cc"/>
+        <path d="M-48-359Q-35-332-17-333H-47Z" fill="#bab49f" stroke="none"/>
+        <path d="M-4-366H4L7-335H-7Z" fill="#813b43"/>
+        <path d="M-12-382 0-368 12-382 20-374 9-358 0-367-9-358-20-374Z" fill="#f6efdf" stroke-width="1.6"/>
+        <path d="M-6-367H6L3-357H-3Z" fill="#813b43" stroke-width="1.5"/>
+      </g>
+      <ellipse cx="-36" cy="-431" rx="6" ry="9" fill="#dda07d"/>
+      <ellipse cx="36" cy="-431" rx="6" ry="9" fill="#dda07d"/>
+      <path d="M-34-450C-34-470-18-483 0-484C18-483 34-470 34-450L31-431Q30-418 22-412L8-402Q0-396-8-402L-22-412Q-30-418-31-431Z" fill="#e7ae87"/>
+      <path d="M-32-430Q-40-439-39-452Q-38-476-17-480Q10-492 29-472Q39-465 38-439L33-434 29-449 24-448 20-456 10-448 11-457-1-448 0-456-13-448-11-455Q-26-452-32-430Z" fill="#644638"/>
+      <path d="M-31-453Q-15-477 6-477Q22-475 30-464Q9-474-1-461L-16-448-10-460Z" fill="#89624c" stroke="none"/>
+      <path d="M-23-442Q-15-445-7-442M7-442Q15-445 23-442" fill="none" stroke-width="1.8"/>
+      <path d="M-23-435Q-15-442-7-435Q-15-430-23-435ZM7-435Q15-442 23-435Q15-430 7-435Z" fill="#fff1dd" stroke-width="1.1"/>
+      <ellipse cx="-15" cy="-435.4" rx="2.6" ry="3.3" fill="#543e39" stroke="none"/>
+      <ellipse cx="15" cy="-435.4" rx="2.6" ry="3.3" fill="#543e39" stroke="none"/>
+      <path d="M0-432Q.6-426 4-422Q4-420 0-420Q-4-420-4-422Q-1-425 0-432Z" fill="#cf956f" stroke="none"/>
+      <path d="M-3.8-421.8Q-2.2-422.5-1.5-421.3M1.5-421.3Q2.2-422.5 3.8-421.8" fill="none" stroke="#805144" stroke-width="1.15"/>
+      <path d="M-7-412Q0-413 7-412" fill="none" stroke-width="1.4"/>
+
+      <!-- The bruise stays inside the cheek and also reads as the series' question mark. -->
+      <g transform="translate(-2.22 -66.48) scale(.84)">
+        <path d="M-27-428Q-23-435-13-434Q-7-432-7-426Q-8-420-12-418Q-10-413-13-410Q-20-409-23-416Q-29-421-27-428Z" fill="#af6074" opacity=".57" stroke="none"/>
+        <path d="M-23-427C-23-433-11-434-11-427C-11-423-18-423-17-419" fill="none" stroke="#673653" stroke-width="4"/>
+        <circle cx="-16.5" cy="-414" r="2.45" fill="#673653" stroke="none"/>
+        <path d="M-22.6-428.2Q-20-431.5-16.7-431.4" fill="none" stroke="#e1a0a0" stroke-width="1.1"/>
+      </g>
+    </g>
+    <rect width="1024" height="1024" filter="url(#grain)" opacity=".13" style="mix-blend-mode:multiply"/>
+  </g>
+  <circle cx="512" cy="512" r="420" fill="none" stroke="#2b3b3b" stroke-width="5"/>
+</svg>

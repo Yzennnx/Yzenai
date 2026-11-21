@@ -1,0 +1,10 @@
+[
+  {"start":0.24,"end":0.90,"text":"WHAT IF EVERY EXIT","emphasis":["EXIT"]},
+  {"start":0.90,"end":2.08,"text":"LED BACK TO THIS BENCH?","emphasis":["BENCH"]},
+  {"start":3.34,"end":4.08,"text":"YOU PUSH THROUGH.","emphasis":["PUSH"]},
+  {"start":5.60,"end":6.74,"text":"AND STEP RIGHT BACK IN.","emphasis":["BACK"]},
+  {"start":8.25,"end":8.99,"text":"SAME BENCH.","emphasis":["SAME"]},
+  {"start":9.10,"end":9.74,"text":"SAME TICKET.","emphasis":["TICKET"]},
+  {"start":10.05,"end":10.68,"text":"THE DOOR SENT YOU","emphasis":[]},
+  {"start":10.68,"end":11.46,"text":"ACROSS THE ROOM.","emphasis":["ACROSS"]}
+]

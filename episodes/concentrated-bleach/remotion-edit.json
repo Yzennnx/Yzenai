@@ -1,0 +1,15 @@
+{
+  "duration": 60,
+  "captionsFile": "revision-episode-voice.json",
+  "topCaptionsFrom": 37,
+  "shots": [
+    { "start": 0, "name": "Lift the glass" },
+    { "start": 3.5, "name": "Sip and recoil" },
+    { "start": 5.88, "name": "Set the glass down and grab throat" },
+    { "start": 24, "name": "Airway cutaway" },
+    { "start": 30, "name": "Breathing at the counter" },
+    { "start": 37, "name": "Brace and hit the floor" },
+    { "start": 52.2, "name": "Press call" },
+    { "start": 54.38, "name": "Hold on the glass and phone" }
+  ]
+}

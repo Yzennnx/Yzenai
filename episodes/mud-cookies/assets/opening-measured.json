@@ -1,0 +1,63 @@
+[
+  {
+    "start": 0,
+    "end": 0.96,
+    "text": "WHAT IF YOU ONLY ATE",
+    "emphasis": [
+      "MUD",
+      "COOKIES"
+    ]
+  },
+  {
+    "start": 0.96,
+    "end": 1.46,
+    "text": "MUD COOKIES?",
+    "emphasis": [
+      "MUD",
+      "COOKIES"
+    ]
+  },
+  {
+    "start": 3.2,
+    "end": 4.18,
+    "text": "IT CRUNCHES LIKE GRAVEL.",
+    "emphasis": [
+      "GRAVEL"
+    ]
+  },
+  {
+    "start": 5.26,
+    "end": 6.12,
+    "text": "YOU FORCE DOWN A SWALLOW.",
+    "emphasis": [
+      "SWALLOW"
+    ]
+  },
+  {
+    "start": 7.04,
+    "end": 7.92,
+    "text": "INSIDE YOUR STOMACH,",
+    "emphasis": [
+      "STOMACH",
+      "SLURRY"
+    ]
+  },
+  {
+    "start": 8.34,
+    "end": 9.42,
+    "text": "THAT MOUTHFUL CHURNS",
+    "emphasis": [
+      "STOMACH",
+      "SLURRY"
+    ]
+  },
+  {
+    "start": 9.42,
+    "end": 10.44,
+    "text": "INTO A GRITTY SLURRY.",
+    "emphasis": [
+      "STOMACH",
+      "SLURRY"
+    ]
+  }
+]

@@ -1,0 +1,27 @@
+// Frame zero is 2.5 seconds into the original cut. Contact and release
+// are keyed in street coordinates so that the supporting shoe can stay planted.
+var nearFoot = [[0,248,680,0], [8,248,680,0], [13,279,665,23], [17,303,680,0],
+                [22,314,680,-6], [31,324,680,0], [83,324,680,0]];
+var farFoot = [[0,270,675,0], [6,291,675,0], [15,291,675,0], [21,340,675,-15],
+               [25,361,675,-7], [31,365,675,0], [48,365,675,0],
+               [54,357,666,14], [62,351,675,0], [83,351,675,0]];
+var pelvis = [[0,262,585,2], [8,275,581,6], [15,280,585,-4], [20,298,590,12],
+              [25,330,596,23], [29,339,615,15], [34,335,619,-8],
+              [40,322,607,-24], [49,319,602,-21], [56,326,601,-15],
+              [64,324,596,-15], [83,319,598,-17]];
+// Wrist targets relative to each shoulder. The far arm flares first
+// and the near arm continues across the body to catch the fall.
+var farWrist = [[0,18,49], [13,7,51], [17,25,36], [23,54,8], [27,58,-10],
+                [34,43,17], [43,37,38], [54,26,40], [83,24,42]];
+var nearWrist = [[0,-24,43], [15,-12,48], [19,-2,56], [25,-28,36],
+                 [31,-55,12], [36,-61,1], [42,-53,20], [52,-43,31],
+                 [64,-38,35], [83,-35,40]];
+
+
+var shot = {
+  bounds: [155, 360, 320, 350],
+  pelvis: pelvis,
+  feet: [farFoot, nearFoot],
+  wrists: [farWrist, nearWrist],
+  expressions: [[0,0], [14,1], [19,2], [49,1]]
+};

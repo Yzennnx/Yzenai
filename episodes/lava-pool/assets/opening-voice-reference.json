@@ -1,0 +1,110 @@
+[
+  {
+    "start": 0.24,
+    "end": 1.26,
+    "text": "WHAT HAPPENS TO YOUR BODY",
+    "emphasis": [
+      "BODY",
+      "JUMP",
+      "LAVA"
+    ]
+  },
+  {
+    "start": 1.26,
+    "end": 2.58,
+    "text": "IF YOU JUMP INTO LAVA?",
+    "emphasis": [
+      "BODY",
+      "JUMP",
+      "LAVA"
+    ]
+  },
+  {
+    "start": 4.55,
+    "end": 5.36,
+    "text": "YOUR FEET HIT",
+    "emphasis": [
+      "MOLTEN",
+      "ROCK"
+    ]
+  },
+  {
+    "start": 5.36,
+    "end": 6.35,
+    "text": "MOLTEN ROCK.",
+    "emphasis": [
+      "MOLTEN",
+      "ROCK"
+    ]
+  },
+  {
+    "start": 7.3,
+    "end": 8.76,
+    "text": "FRESH LAVA AT KĪLAUEA",
+    "emphasis": [
+      "KĪLAUEA",
+      "ELEVEN",
+      "HUNDRED"
+    ]
+  },
+  {
+    "start": 8.76,
+    "end": 9.56,
+    "text": "CAN BE HOTTER THAN",
+    "emphasis": [
+      "KĪLAUEA",
+      "ELEVEN",
+      "HUNDRED"
+    ]
+  },
+  {
+    "start": 9.56,
+    "end": 9.94,
+    "text": "ELEVEN HUNDRED",
+    "emphasis": [
+      "KĪLAUEA",
+      "ELEVEN",
+      "HUNDRED"
+    ]
+  },
+  {
+    "start": 9.94,
+    "end": 11.28,
+    "text": "DEGREES CELSIUS.",
+    "emphasis": [
+      "KĪLAUEA",
+      "ELEVEN",
+      "HUNDRED"
+    ]
+  },
+  {
+    "start": 11.92,
+    "end": 12.71,
+    "text": "ON CONTACT,",
+    "emphasis": [
+      "CONTACT",
+      "SKIN",
+      "DAMAGE"
+    ]
+  },
+  {
+    "start": 12.86,
+    "end": 13.64,
+    "text": "YOUR SKIN STARTS",
+    "emphasis": [
+      "CONTACT",
+      "SKIN",
+      "DAMAGE"
+    ]
+  },
+  {
+    "start": 13.64,
+    "end": 14.55,
+    "text": "TAKING DAMAGE.",
+    "emphasis": [
+      "CONTACT",
+      "SKIN",
+      "DAMAGE"
+    ]
+  }
+]

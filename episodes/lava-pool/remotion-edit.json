@@ -1,0 +1,22 @@
+{
+  "duration": 55,
+  "captionsFile": "episode-voice.json",
+  "shots": [
+    { "start": 0, "name": "Heel on the board" },
+    { "start": 0.96, "name": "Look down" },
+    { "start": 2.52, "name": "Launch and impact" },
+    { "start": 4.96, "name": "Recoil in the pool" },
+    { "start": 7.3, "name": "Contact close-up" },
+    { "start": 11.92, "name": "Visible burn" },
+    { "start": 16.24, "name": "Skin cutaway" },
+    { "start": 19.06, "name": "Return to the diver" },
+    { "start": 29.23, "name": "Airway cutaway" },
+    { "start": 31.31, "name": "Breathing after the cutaway" },
+    { "start": 33.67, "name": "Hypothetical rescue" },
+    { "start": 36.74, "name": "Blood vessel cutaway" },
+    { "start": 39.29, "name": "Return to the ledge" },
+    { "start": 42.86, "name": "Circulation cutaway" },
+    { "start": 45.49, "name": "Slump" },
+    { "start": 47.65, "name": "Empty board" }
+  ]
+}

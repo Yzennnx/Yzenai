@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Lava pool opening</title>
+<canvas id="scene" width="1080" height="1920" aria-label="Animated diver above a lava pool"></canvas>
+<script>
+const canvas = document.getElementById('scene');
+const ctx = canvas.getContext('2d');
+const clamp = (v) => Math.min(1, Math.max(0, v));
+const ease = (v) => { v = clamp(v); return v * v * (3 - 2 * v); };
+const lerp = (a, b, t) => a + (b - a) * t;
+const noise = (n) => { const f = Math.sin(n * 93.297 + 13.15) * 43758.5453; return f - Math.floor(f); };
+
+function polygon(points, fill, stroke, width = 2) {
+  ctx.beginPath();
+  points.forEach(([x, y], index) => index ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+  ctx.closePath();
+  if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = width; ctx.stroke(); }
+}
+
+function line(points, color, width) {
+  ctx.beginPath();
+  points.forEach(([x, y], index) => index ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.stroke();
+}
+
+function ellipse(x, y, rx, ry, color, stroke, width = 2) {
+  ctx.beginPath();
+  ctx.ellipse(x, y, rx, ry, 0, 0, 2 * Math.PI);
+  if (color) { ctx.fillStyle = color; ctx.fill(); }
+  if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = width; ctx.stroke(); }
+}
+
+function glow(x, y, radius, inner, outer) {
+  const paint = ctx.createRadialGradient(x, y, 0, x, y, radius);
+  paint.addColorStop(0, inner);
+  paint.addColorStop(1, outer);
+  ctx.fillStyle = paint;
+  ctx.fillRect(x - radius, y - radius, radius * 2, radius * 2);
+}
+
+const grain = document.createElement('canvas');
+grain.width = 384;
+grain.height = 684;
+const ink = grain.getContext('2d');
+const texture = ink.createImageData(grain.width, grain.height);
+for (let i = 0; i < texture.data.length; i += 4) {
+  const shade = noise(i) > .53 ? 255 : 0;
+  texture.data.set([shade, shade, shade, Math.round(noise(i + 1) * 37)], i);
+}
+ink.putImageData(texture, 0, 0);
+
+function chamber(time) {
+  const wall = ctx.createLinearGradient(100, 0, 820, 675);
+  wall.addColorStop(0, '#172526');
+  wall.addColorStop(.62, '#2e302a');
+  wall.addColorStop(1, '#602c1d');
+  ctx.fillStyle = wall;
+  ctx.fillRect(-150, -150, 850, 1250);
+  polygon([[38, -80], [493, -80], [493, 545], [435, 593], [38, 553]], '#292d29', '#111c1c', 4);
+  for (let row = -1; row < 11; row++) {
+    const y = row * 58 + 16;
+    line([[43, y], [492, y + 8]], '#171e1d', 2);
+    for (let x = 62 + (row % 2) * 55; x < 491; x += 112) {
+      line([[x, y], [x, y + 58]], '#1b2320', 1.5);
+    }
+  }
+  polygon([[452,-90],[516,-90],[527,557],[472,582]], '#1a2421');
+  line([[455, -60], [464, 570]], '#69766a', 2);
+  polygon([[12,-80],[47,-80],[47,569],[12,553]], '#131c1c');
+  polygon([[76,127],[221,135],[221,358],[75,355]], '#151d1a', '#465349', 4);
+  polygon([[85,137],[210,144],[210,344],[85,343]], '#27312a');
+  for (let i = 0; i < 11; i++) {
+    line([[98, 158 + i * 16], [195, 162 + i * 16]], '#111b18', 4);
+    line([[98, 160 + i * 16], [195, 164 + i * 16]], '#4b5547', 1);
+  }
+  polygon([[284,126],[410,132],[414,144],[282,138]], '#a59e70', '#161a16', 5);
+  glow(348, 139, 120, 'rgba(210,208,156,.13)', 'rgba(210,208,156,0)');
+  polygon([[-90,580],[380,530],[600,537],[645,699],[-50,717]], '#403029', '#1d211e', 3);
+  line([[-90,598],[382,548],[600,555]], '#86513a', 3);
+  glow(364, 667, 315, `rgba(255,106,40,${.21 + .02 * Math.sin(time * 3)})`, 'rgba(255,106,40,0)');
+}
+
+function lava(time) {
+  const water = ctx.createLinearGradient(0, 570, 0, 960);
+  water.addColorStop(0, '#88321c');
+  water.addColorStop(.34, '#b8411b');
+  water.addColorStop(.78, '#ed661c');
+  water.addColorStop(1, '#7d2717');
+  polygon([[-130,690],[365,557],[655,567],[715,1090],[-130,1090]], water);
+  ctx.save();
+  ctx.beginPath();
+  ctx.moveTo(-130,690); ctx.lineTo(365,557); ctx.lineTo(655,567); ctx.lineTo(715,1090); ctx.lineTo(-130,1090);
+  ctx.clip();
+  for (let i = 0; i < 64; i++) {
+    const x = -90 + 735 * noise(i * 8 + 1);
+    const y = 548 + 492 * noise(i * 8 + 2);
+    const d = (y - 500) / 485;
+    const width = (19 + noise(i * 8 + 3) * 104) * d;
+    const offset = Math.sin(time * 1.1 + i) * (5 + d * 8);
+    const height = (8 + 17 * noise(i * 8 + 4)) * d;
+    const points = [[x + offset - width, y], [x + offset - width * .45, y - height], [x + offset + width * .25, y - height * .9], [x + offset + width, y + height * .1], [x + offset + width * .48, y + height], [x + offset - width * .32, y + height * .48]];
+    polygon(points, ['#381e19','#64251a','#812e1c','#46241b'][i % 4], i % 3 === 0 ? '#ff9d31' : '#df5b1d', 1 + d);
+    if (i % 3 === 0) line(points.slice(0, 3), '#ffd063', 1.15);
+  }
+  for (let i = 0; i < 21; i++) {
+    const x = 30 + noise(i * 7) * 500;
+    const y = 560 + noise(i * 7 + 1) * 380;
+    const w = 5 + noise(i * 7 + 2) * 38;
+    ctx.globalAlpha = .5 + .4 * Math.sin(i + time * 1.9);
+    line([[x, y], [x + .45 * w, y - 1.5], [x + w, y - 1]], '#ffcb55', 1.6);
+  }
+  ctx.restore();
+}
+
+function diver(x, y, time, jump, crouch, hit, recoil, heel, condition) {
+  const { burn = 0, clutch = 0, cough = 0, slump = 0, swing = 0, follow = 0, tuck = 0, compression = 0 } = condition ?? {};
+  ctx.save();
+  ctx.translate(x, y);
+  ctx.rotate(-.13 * crouch + .20 * jump - .23 * recoil + .34 * slump + .15 * cough + .08 * swing);
+  ctx.scale(1.06, 1.06 - .075 * cough - .065 * slump - .10 * compression);
+  const edge = '#171d1b';
+  const bend = 14 * crouch;
+  ctx.save();
+  ctx.translate(-19*tuck,-15*tuck);
+  polygon([[-18,-49],[2,-51],[-4,-24-bend],[-11,-heel],[-34,0],[-34,-7],[-24,-15-heel]], '#283a38', edge, 4);
+  ctx.restore();
+  ctx.save();
+  ctx.translate(7*tuck,-7*tuck);
+  polygon([[5,-55],[25,-49],[25,-24-bend],[26,-9-heel],[40,-4],[42,4],[14,6-heel],[8,-6-heel],[6,-22]], '#3f5550', edge, 4);
+  line([[13,-44],[20,-27-bend],[18,-11]], '#62766b', 2);
+  ctx.restore();
+  if (burn) {
+    ctx.globalAlpha = burn;
+    polygon([[-23,-44],[-9,-49],[-8,-31],[-16,-14],[-14,-1],[-34,-1],[-32,-10],[-23,-18]], '#251a18');
+    polygon([[11,-33],[22,-48],[24,-26],[28,-10],[40,-4],[40,1],[16,2],[9,-12]], '#39231e');
+    line([[14,-30],[20,-22],[17,-14],[24,-9]], '#fb8053', 2);
+    ctx.globalAlpha = 1;
+  }
+  const arm = -37 - 38 * jump - 21 * hit;
+  const handX = 57 - 47 * recoil - 9 * crouch + 19 * swing;
+  const handY = arm - 52 + 21 * recoil - 24 * swing;
+  const elbowX = 44 - 4 * recoil;
+  const elbowY = -91 + 15 * recoil;
+  polygon([[15,-126],[32,-124],[elbowX+6,elbowY],[handX+3,handY-5],[handX-3,handY+6],[elbowX-6,elbowY+5],[20,-87]], '#af6c27', edge, 3);
+  polygon([[handX-3,handY-4],[handX+5,handY-9],[handX+11,handY-4],[handX+8,handY+3],[handX,handY+6]], '#d69753', edge, 3);
+  polygon([[-25,-127],[-6,-138],[22,-132],[31,-110],[28,-62],[17,-48],[-20,-48],[-32,-70]], '#dda644', edge, 5);
+  polygon([[-23,-126],[-7,-129],[-3,-97],[-17,-68],[-20,-51],[-29,-67]], '#8f5626');
+  polygon([[0,-130],[7,-124],[7,-48],[2,-49]], '#583b25');
+  polygon([[9,-104],[24,-106],[25,-91],[11,-90]], '#e6b356', '#93632a', 1.5);
+  line([[10,-64],[26,-65]], '#ffe19a', 2);
+  if (burn) {
+    const upperEdge = -58 - 37 * burn;
+    ctx.globalAlpha = Math.min(1, burn * 1.5);
+    polygon([[-29,-66],[-23,upperEdge+6],[-14,upperEdge+16],[-7,upperEdge-4],[4,upperEdge+9],[17,upperEdge+4],[27,-62],[17,-50],[-21,-49]], '#42241e');
+    line([[-27,-65],[-20,upperEdge+12],[-14,upperEdge+16],[-7,upperEdge-4],[3,upperEdge+9]], '#ef6e36', 1.7);
+    polygon([[12,upperEdge-10],[23,upperEdge-14],[25,upperEdge-5],[19,upperEdge+1]], '#744230');
+    ctx.globalAlpha = 1;
+  }
+  const reach = 24 * jump + 10 * hit - 23 * recoil + 27 * follow;
+  const wristX = lerp(-44 - reach, 6, clutch);
+  const wristY = lerp(-81 - reach, -133, clutch);
+  const leftElbowY = lerp(-93 - reach, -90, clutch);
+  polygon([[-26,-123],[-13,-116],[-20,leftElbowY],[wristX+5,wristY+5],[wristX-4,wristY-6],[-36,leftElbowY+3],[-35,-103]], '#b37830', edge, 4);
+  polygon([[wristX-5,wristY-6],[wristX+2,wristY-11],[wristX+10,wristY-7],[wristX+8,wristY+1],[wristX+2,wristY+5]], '#dca266', edge, 3);
+  polygon([[-7,-151],[10,-147],[12,-130],[5,-123],[-7,-132]], '#a86f44', edge, 3);
+  ctx.save();
+  ctx.translate(1, -158);
+  ctx.rotate(.22 * crouch + .18 * hit - .15 * recoil + .22 * slump + .26 * cough);
+  polygon([[-27,-25],[-17,-41],[9,-44],[29,-31],[33,-8],[27,15],[13,25],[-5,22],[-19,9]], '#d2a460', edge, 5);
+  polygon([[-20,-16],[-13,-26],[-9,-15],[-11,3],[5,21],[-4,20],[-18,7]], '#a5754b');
+  if (burn > .45) {
+    polygon([[-18,4],[-7,6],[0,15],[13,21],[0,19],[-13,13]], '#8e5940');
+    line([[-12,12],[-8,11],[-4,14]], '#6f493b', 2);
+  }
+  polygon([[-29,-10],[-32,-31],[-24,-45],[-7,-51],[15,-50],[31,-36],[35,-24],[8,-26],[-10,-21]], '#283832', edge, 4);
+  polygon([[-27,-31],[-17,-44],[3,-49],[20,-45],[27,-35],[-9,-29]], '#46554a');
+  line([[-31,-24],[-8,-28],[33,-28],[43,-22],[16,-18],[-10,-20]], '#131e1a', 4);
+  ellipse(-15, -4, 6, 8, '#c58e54', edge, 2);
+  const squint = Math.min(.92, cough * .86 + slump * .65);
+  ellipse(7, -5, 8, 8 * (1 - squint), '#f5deb1', edge, 3);
+  ellipse(24, -7, 6, 7 * (1 - squint), '#f5deb1', edge, 2);
+  const glance = ease((time - 1.05) / .4);
+  const blink = Math.abs(time - 1.38) < .055;
+  const brow = 3 * recoil;
+  line([[1,-15 + brow],[6,-17 - brow],[13,-15 - brow]], '#483226', 2.2);
+  line([[19,-16 - brow],[24,-18 - brow],[29,-16 + brow]], '#483226', 2);
+  ellipse(9 + 2 * glance,-5 + 3 * glance * (1 - squint), blink ? 3 : 2.8, blink ? 1 : 3.4 * (1 - squint), '#15201d');
+  ellipse(25 + glance,-7 + 3 * glance * (1 - squint), 2.4, blink ? 1 : 3.1 * (1 - squint), '#15201d');
+  line([[18,1],[24,7],[19,10]], '#643d28', 2);
+  ellipse(9, 14, 5 + recoil * 5 + cough * 3, 2 + recoil * 6 + cough * 5, '#492922', edge, 2);
+  if (hit) {
+    line([[27,5],[24,14],[14,22]], '#ffaf52', 2 + recoil);
+  }
+  ctx.restore();
+  if (hit) line([[29,-112],[28,-84],[20,-56]], '#ffb449', 2.5);
+  ctx.restore();
+}
+
+function effect(time, impact, x, y) {
+  const age = time - impact;
+  if (age < 0) return;
+  for (let i = 0; i < 3; i++) {
+    const phase = age - i * .18;
+    if (phase < 0 || phase > 1.55) continue;
+    ctx.globalAlpha = .9 * (1 - phase / 1.55);
+    ellipse(x, y + 5, 16 + phase * (81 - i * 8), 5 + phase * 24, null, '#ffd063', 3 - phase);
+  }
+  ctx.globalAlpha = 1;
+  for (let i = 0; i < 29; i++) {
+    const speed = 40 + noise(i * 9 + 2) * 185;
+    const flight = .51 + noise(i * 9 + 1) * .64;
+    if (age < flight) {
+      const px = x + (i % 2 ? 1 : -1) * age * speed;
+      const py = y - age * (120 + noise(i * 9) * 310) * (1 - age / flight);
+      const r = 2 + noise(i * 9 + 3) * 8;
+      polygon([[px - r, py],[px, py - r * 1.5],[px + r, py + r],[px - 2,py + r * 1.4]], i % 3 ? '#ff8c27' : '#ffdc68', '#831f12', 1);
+    }
+  }
+}
+
+function captions(pages, time) {
+  const page = pages.find((entry) => time >= entry.start && time < entry.end);
+  if (!page) return;
+  const center = 260;
+  const words = page.text.split(' ');
+  ctx.font = '900 35px Arial, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.lineJoin = 'round';
+  const width = ctx.measureText(words.join(' ')).width;
+  ctx.save();
+  ctx.translate(center, 771);
+  ctx.scale(Math.min(1, 424 / width), 1);
+  let x = -width / 2;
+  for (const word of words) {
+    const label = word.replace(/[?.]/g, '');
+    ctx.lineWidth = 7;
+    ctx.strokeStyle = '#111412';
+    ctx.strokeText(word, x, 0);
+    ctx.fillStyle = page.emphasis.includes(label) ? '#ffd44d' : '#fff5dc';
+    ctx.fillText(word, x, 0);
+    x += ctx.measureText(word + ' ').width;
+  }
+  ctx.restore();
+}
+
+function temperature(time, start) {
+  const appear = ease((time - start) / .28);
+  if (!appear) return;
+  ctx.save();
+  ctx.globalAlpha = appear;
+  ctx.translate(58, 170 + 10 * (1 - appear));
+  ctx.textAlign = 'left';
+  ctx.font = '700 17px Arial, sans-serif';
+  ctx.fillStyle = '#ffc66e';
+  ctx.fillText('FRESH KĪLAUEA LAVA', 0, 0);
+  ctx.font = '900 56px Arial, sans-serif';
+  ctx.fillStyle = '#fff0cd';
+  ctx.fillText('>1,100°C', -3, 59);
+  line([[0,76],[230 * appear,76]], '#ff9454', 3);
+  ctx.restore();
+}
+
+function skinCutaway(time, start, damageAt, deeperAt, tissueAt) {
+  const age = time - start;
+  ctx.fillStyle = '#162629';
+  ctx.fillRect(0, 0, 540, 960);
+  glow(270, 460, 490, '#385051', 'rgba(20,31,35,0)');
+  for (let i = 40; i < 540; i += 33) line([[i,170],[i,696]], '#4f717026', 1);
+  for (let i = 185; i < 700; i += 33) line([[31,i],[508,i]], '#4f717026', 1);
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#ffeada';
+  ctx.font = '900 39px Arial, sans-serif';
+  ctx.fillText('SKIN AT CONTACT', 53, 236);
+  const detail = ease(age / .46);
+  const damage = ease((time - damageAt) / .72);
+  const deep = ease((time - deeperAt) / 1.1);
+  const tissue = ease((time - tissueAt) / 1.0);
+  const descent = 84 * deep + 48 * tissue;
+  ctx.save();
+  ctx.translate(267, 457);
+  const zoom = .87 + .13 * detail + .08 * deep;
+  ctx.scale(zoom, zoom);
+  ctx.translate(-267, -457);
+  polygon([[80,391],[361,382],[468,431],[184,448]], '#f4af7f', '#141b20', 4);
+  polygon([[184,448],[468,431],[468,469],[184,486]], '#cb7667', '#1d2629', 4);
+  polygon([[80,391],[184,448],[184,486],[80,430]], '#a95553', '#1d2629', 4);
+  polygon([[184,486],[468,469],[468,545],[184,562]], '#aa6260', '#1d2629', 4);
+  polygon([[80,430],[184,486],[184,562],[80,505]], '#754650', '#1d2629', 4);
+  polygon([[184,562],[468,545],[468,595],[184,613]], '#b78759', '#1d2629', 4);
+  polygon([[80,505],[184,562],[184,613],[80,556]], '#82634c', '#1d2629', 4);
+  for (let i = 0; i < 18; i++) {
+    const x = 196 + i * 15;
+    ellipse(x, 577 - i * .85 + noise(i) * 9, 7, 8, i % 2 ? '#d7a263' : '#c6935b');
+  }
+  line([[190,532],[244,528],[265,512],[299,507],[334,525],[458,515]], '#723c51', 4);
+  line([[298,508],[314,488],[331,486]], '#723c51', 3);
+  if (detail) {
+    const left = 293 - 87 * detail;
+    const right = 293 + 87 * detail;
+    glow(293, 446, 108, `rgba(255,122,40,${.55 * detail})`, 'rgba(255,122,40,0)');
+    polygon([[left,447],[right,437],[right-12,449+28*damage+.62*descent],[298,447+descent],[left+16,457+13*damage+.55*descent]], '#8c3a37');
+    line([[left,447],[258,442],[298,443],[right,437]], '#fff0a3', 4);
+    if (damage > 0) {
+      const end = 449 + Math.max(29 * damage, descent);
+      line([[381,446],[417,399],[475,399]], '#ffc272', 2.5);
+      ellipse(381,446,4,4,'#ffc272');
+      ctx.fillStyle = '#ffc272';
+      ctx.font = '700 18px Arial, sans-serif';
+      ctx.fillText('SURFACE', 397, 384);
+      line([[279,447],[287,end]], '#f68f55', 3);
+      if (deep > 0) {
+        line([[130,448],[113,448],[113,448+108*deep],[130,448+108*deep]], '#ffe49c', 2);
+        ctx.font = '700 17px Arial, sans-serif';
+        ctx.fillText('SKIN', 54, 508);
+      }
+      if (tissue > 0) {
+        line([[307,548 + 30*tissue],[337,624],[444,624]], '#ffd19d', 2);
+        ellipse(307,548+30*tissue,4,4,'#ffd19d');
+        ctx.font = '700 17px Arial, sans-serif';
+        ctx.fillText('TISSUE BELOW', 337, 649);
+      }
+    }
+  }
+  ctx.restore();
+  ctx.fillStyle = '#ed9e70';
+  ctx.font = '700 18px Arial, sans-serif';
+  ctx.fillText('CROSS-SECTION', 54, 272);
+}
+
+function finishFrame(pages, time) {
+  const vignette = ctx.createRadialGradient(262, 475, 160, 262, 475, 570);
+  vignette.addColorStop(0, 'rgba(10,15,15,0)');
+  vignette.addColorStop(1, 'rgba(8,13,13,.79)');
+  ctx.fillStyle = vignette;
+  ctx.fillRect(0,0,540,960);
+  const low = ctx.createLinearGradient(0, 650, 0, 955);
+  low.addColorStop(0, 'rgba(11,15,14,0)');
+  low.addColorStop(1, 'rgba(11,15,14,.91)');
+  ctx.fillStyle = low;
+  ctx.fillRect(0,650,540,310);
+  ctx.drawImage(grain,0,0,540,960);
+  captions(pages,time);
+}
+
+function divingBoard(bend) {
+  polygon([[-60,455],[237,450 + bend],[272,466 + bend],[248,478 + bend],[-65,487]], '#596254', '#182421', 4);
+  polygon([[-65,473],[248,470 + bend],[272,466 + bend],[261,485 + bend],[-65,514]], '#27332c', '#17211d', 3);
+  line([[12,468],[240,461 + bend],[264,466 + bend]], '#96a48d', 2);
+  for (let i = 0; i < 7; i++) line([[14 + i * 29,461],[25 + i * 29,469]], '#363f34', 1.4);
+}
+
+window.renderFrame = (time, impact, pages, motionRevision = false) => {
+  ctx.setTransform(2, 0, 0, 2, 0, 0);
+  ctx.fillStyle = '#172323';
+  ctx.fillRect(0, 0, 540, 960);
+  const flight = motionRevision ? .92 : 1.12;
+  const approach = impact - flight;
+  const jump = clamp((time - approach) / flight);
+  const crouch = ease((time - approach + .74) / .74) * (1 - (motionRevision ? ease(jump / .28) : jump));
+  const hit = ease((time - impact) / .25);
+  const age = time - impact;
+  const recoil = hit * (.47 + .53 * Math.exp(-Math.max(0, age - .18) * 2)) + .13 * hit * Math.sin(age * 9) * Math.exp(-Math.max(0, age) * .6);
+  const heel = time < .96 ? 11 * ease((time - .14) / .55) : 0;
+  const x = lerp(244, 351, jump);
+  const y = lerp(466, 641, jump * jump) - Math.sin(jump * Math.PI) * (motionRevision ? 65 : 54) + crouch * (motionRevision ? 10 : 14) + hit * 34 - recoil * 5;
+  const swing = motionRevision ? ease(jump / .28) - ease((jump - .36) / .60) : 0;
+  const follow = motionRevision ? ease((jump - .12) / .3) - ease((age - .16) / .29) : 0;
+  const tuck = motionRevision ? Math.sin(Math.PI * jump) : 0;
+  const compression = motionRevision ? ease(age / .13) - ease((age - .13) / .28) : 0;
+  const heatCue = pages.find((page) => page.text === 'ELEVEN HUNDRED')?.start ?? 9.5;
+  const contactDetail = pages.find((page) => page.text.startsWith('FRESH LAVA'))?.start ?? 7.3;
+  const cutaway = pages.find((page) => page.text === 'ON CONTACT,')?.start ?? 11.92;
+  const damageAt = pages.find((page) => page.text === 'TAKING DAMAGE.')?.start ?? 13.6;
+  const cue = (text) => pages.find((page) => page.text.startsWith(text))?.start ?? Infinity;
+  const fullEpisode = Number.isFinite(cue('A DEEP BURN'));
+  if (time >= cutaway) {
+    if (fullEpisode) episodeScene(time, cue, cutaway, damageAt);
+    else {
+      skinCutaway(time, cutaway, damageAt, cue('THE ENTIRE THICKNESS'), cue('AND REACH'));
+      const flash = 1 - clamp((time - cutaway) / .2);
+      glow(286, 450, 393, `rgba(255,171,78,${flash * .62})`, 'rgba(255,124,35,0)');
+    }
+    finishFrame(motionRevision ? [] : pages, time);
+    return;
+  }
+
+  ctx.save();
+  if (time < .96) {
+    const zoom = 3.05 + .24 * ease(time);
+    ctx.translate(249, 466);
+    ctx.scale(zoom, zoom);
+    ctx.translate(-217, -469);
+  } else if (time < 2.52) {
+    const zoom = 4.05 + .38 * ease(time - .96);
+    ctx.translate(240, 430);
+    ctx.scale(zoom, zoom);
+    ctx.translate(-249, -303);
+  } else if (time >= contactDetail) {
+    const drift = ease((time - contactDetail) / 4.6);
+    const zoom = 3.35 + .7 * drift;
+    ctx.translate(306, 534 - 17 * drift);
+    ctx.scale(zoom, zoom);
+    ctx.translate(-353, -640);
+  } else if (age > .76) {
+    const push = ease((age - .76) / 1.5);
+    const zoom = 1.72 + .52 * push;
+    ctx.translate(288, 481);
+    ctx.scale(zoom, zoom);
+    ctx.translate(-349, -553);
+  } else {
+    const shake = age > 0 ? Math.sin(age * 57) * Math.exp(-age * 16) : 0;
+    const pan = ease((time - 2.52) / 2);
+    ctx.translate(-36 - pan * 32 + 10 * shake, -108 + 13 * shake);
+    ctx.scale(1.24, 1.24);
+  }
+  chamber(time);
+  lava(time);
+  if (time < 2.52) glow(278, 442, 246, 'rgba(255,104,20,.38)', 'rgba(255,104,20,0)');
+  const bend = heel * .54 + crouch * 10 + (time >= approach ? 4 * Math.sin((time - approach) * 22) * Math.exp(-3 * (time - approach)) : 0);
+  divingBoard(bend);
+  if (hit) ellipse(x + 6, 642, 45 + hit * 11, 10, '#8a321b');
+  ctx.save();
+  if (time >= impact) {
+    ctx.beginPath();
+    ctx.rect(-120,-180,930,824 + 1.8 * Math.sin(time * 6));
+    ctx.clip();
+  }
+  const burn = fullEpisode ? .56 * ease((time - impact) / 7.5) : 0;
+  diver(x,y + heel * .54,time,Math.sin(Math.PI * jump),crouch,hit,recoil,heel,{ burn, swing, follow, tuck, compression });
+  ctx.restore();
+  if (time >= impact) {
+    glow(x + 3, 641, 100 + 60 * recoil, `rgba(255,119,30,${.33 + .19 * recoil})`, 'rgba(255,119,30,0)');
+    ellipse(x + 5, 644, 31 + 11 * recoil, 6 + recoil * 4, null, '#ffba53', 2.3);
+    line([[x - 32,644],[x - 15,641],[x + 9,644],[x + 32,641],[x + 52,646]], '#ffc25b', 2.6);
+    for (let i = 0; i < 6; i++) {
+      const direction = i % 2 ? 1 : -1;
+      const spread = 22 + 10 * i + ease(age / .37) * (11 + 3 * i);
+      const cx = x + spread * direction;
+      const cy = 647 + i * 3 + 3 * Math.sin(age * 4 + i);
+      polygon([[cx-8,cy],[cx+2,cy-3],[cx+12,cy],[cx+2,cy+4]], '#613025', '#ffb143', 1.1);
+    }
+    if (time >= contactDetail) {
+      for (let i = 0; i < 5; i++) {
+        const phase = ((time - contactDetail) * (.64 + i * .052) + i * .26) % 1;
+        const cx = x - 54 + 23 * i + Math.sin(phase * 6 + i) * 6;
+        const cy = 642 - phase * 59;
+        glow(cx, cy, 22 + phase * 33, `rgba(255,185,91,${.15 * Math.sin(phase * Math.PI)})`, 'rgba(255,118,42,0)');
+      }
+    }
+    if (burn > .12) contactFlames(x, 640, time, burn * .84);
+    if (age < .24) glow(x, 636, 240, `rgba(255,178,67,${.52 * (1 - age / .24)})`, 'rgba(255,116,38,0)');
+  }
+  effect(time, impact, x + 7, 646);
+  for (let i = 0; i < 22; i++) {
+    const life = (time * (.13 + noise(i * 3) * .1) + noise(i + 99)) % 1;
+    const mx = 42 + noise(i + 5) * 489 + Math.sin(life * 4 + i) * 11;
+    const my = 785 - life * (150 + noise(i + 21) * 280);
+    ctx.globalAlpha = .68 * Math.sin(Math.PI * life);
+    ellipse(mx,my,1 + noise(i + 28) * 2.6,1 + noise(i + 30) * 1.5,'#ffaf4e');
+  }
+  ctx.globalAlpha = 1;
+  ctx.restore();
+  finishFrame(motionRevision ? [] : pages, time);
+  temperature(time, heatCue);
+};
+window.renderFrame(0, 4, [{start: 0, end: 1, text: 'WHAT HAPPENS', emphasis: []}]);
+</script>
+<script src="episode-scenes.js"></script>
+</html>

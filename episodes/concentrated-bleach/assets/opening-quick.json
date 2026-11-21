@@ -1,0 +1,91 @@
+[
+  {
+    "start": 0.18,
+    "end": 1.0503645833333333,
+    "text": "WHAT IF THAT WATER",
+    "emphasis": [
+      "WATER",
+      "BLEACH"
+    ]
+  },
+  {
+    "start": 1.0503645833333333,
+    "end": 2.268875,
+    "text": "WAS CONCENTRATED BLEACH?",
+    "emphasis": [
+      "WATER",
+      "BLEACH"
+    ]
+  },
+  {
+    "start": 3.5999999999999996,
+    "end": 4.672208333333333,
+    "text": "YOU TAKE ONE SIP.",
+    "emphasis": [
+      "SIP"
+    ]
+  },
+  {
+    "start": 5.35,
+    "end": 6.266304487179487,
+    "text": "THEN YOUR THROAT",
+    "emphasis": [
+      "THROAT",
+      "BURN"
+    ]
+  },
+  {
+    "start": 6.266304487179487,
+    "end": 7.051708333333333,
+    "text": "STARTS TO BURN.",
+    "emphasis": [
+      "THROAT",
+      "BURN"
+    ]
+  },
+  {
+    "start": 7.7,
+    "end": 8.949635683760684,
+    "text": "THE ACTIVE INGREDIENT",
+    "emphasis": [
+      "SODIUM",
+      "HYPOCHLORITE"
+    ]
+  },
+  {
+    "start": 8.949635683760684,
+    "end": 10.265041666666667,
+    "text": "IS SODIUM HYPOCHLORITE.",
+    "emphasis": [
+      "SODIUM",
+      "HYPOCHLORITE"
+    ]
+  },
+  {
+    "start": 10.71,
+    "end": 12.292604567307693,
+    "text": "IN A CONCENTRATED SOLUTION,",
+    "emphasis": [
+      "TISSUE",
+      "TOUCHES"
+    ]
+  },
+  {
+    "start": 12.292604567307693,
+    "end": 13.049502403846155,
+    "text": "IT CAN INJURE",
+    "emphasis": [
+      "TISSUE",
+      "TOUCHES"
+    ]
+  },
+  {
+    "start": 13.049502403846155,
+    "end": 14.2880625,
+    "text": "THE TISSUE IT TOUCHES.",
+    "emphasis": [
+      "TISSUE",
+      "TOUCHES"
+    ]
+  }
+]

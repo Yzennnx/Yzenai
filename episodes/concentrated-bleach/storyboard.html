@@ -1,0 +1,32 @@
+﻿<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concentrated bleach · Storyboard</title>
+<style>
+  * { box-sizing: border-box }
+  body { margin:0; background:#111919; color:#f6f0e4; font:16px/1.4 Arial,sans-serif }
+  main { max-width:1080px; margin:auto; padding:26px 42px 32px }
+  header { border-bottom:1px solid #405253; padding-bottom:15px; margin-bottom:20px }
+  header p, .time { color:#eac16f; font-size:12px; font-weight:bold; letter-spacing:.12em }
+  h1 { font-size:clamp(26px,4vw,42px); line-height:1.05; margin:4px 0 9px }
+  p { margin:0 }
+  .grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px 24px }
+  figure { margin:0; min-width:0; background:#1b2727; border:1px solid #394a49 }
+  canvas { width:100%; height:auto; display:block; background:#1c2827 }
+  figcaption { padding:10px 12px 12px }
+  h2 { font-size:17px; margin:3px 0 }
+  figcaption p:last-child { color:#c5ceca; font-size:13px }
+  @media(max-width:650px) { main { padding:20px } .grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px } }
+  @media(max-width:385px) { .grid { grid-template-columns:1fr } }
+</style>
+<main>
+  <header>
+    <p>STORYBOARD FOR APPROVAL · 46 SEC TARGET</p>
+    <h1>What if you accidentally drank concentrated bleach?</h1>
+  </header>
+  <div class="grid" id="frames"></div>
+</main>
+<script src="scene.js"></script>
+</html>
+

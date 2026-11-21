@@ -1,0 +1,4 @@
+# Keep motion previews and third-party study media on the production computer.
+/assets/series-lead/anatomy-prototype/*.mp4
+/references/long-form-camera-voice/excerpts/
+/references/long-form-camera-voice/overviews/

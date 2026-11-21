@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1098" viewBox="0 0 1240 1098">
+  <rect width="1240" height="1098" fill="#efe7d6"/>
+  <text x="36" y="41" fill="#954b3b" font-family="Arial, sans-serif" font-size="15" font-weight="700">WHAT HAPPENS NEXT?</text>
+  <text x="36" y="77" fill="#253a3b" font-family="Arial, sans-serif" font-size="34" font-weight="700">Series lead hand references</text>
+  <text x="36" y="103" fill="#526662" font-family="Arial, sans-serif" font-size="17" font-weight="400">Right hand with cream shirt cuff</text>
+  <g id="back" transform="translate(36 125)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <g transform="translate(24.00 0) scale(0.8 1)">
+        <path d="M98 169 C99 153 95 144 88 133 L68 108 C61 99 66 91 73 94 Q80 95 87 106 L97 114 L96 57 C96 48 106 47 109 55 L114 91 L115 40 C115 30 128 29 130 40 L133 90 L137 48 C138 39 150 40 151 50 L151 96 L158 66 C160 57 171 60 171 69 L166 116 Q165 136 151 151 Q145 157 145 168Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M169 77 L164 116 Q164 137 151 149 Q143 159 143 167 L134 167 Q136 156 145 144 Q155 130 156 117Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M108 104 Q119 93 135 102 L142 118 Q127 133 112 133Z" fill="#f3c39d" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M99 118 Q104 125 106 132 M113 108 Q118 105 123 106 M130 107 Q135 105 139 108 M145 111 L151 109 M103 80 L108 79 M120 69 L127 69 M140 76 L148 76 M158 91 L165 92" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M99 55 Q102 52 105 55 L105 61 Q102 63 99 61Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M119 38 Q122 35 125 38 L125 44 Q122 46 119 44Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M141 47 Q144 44 147 47 L147 53 Q144 55 141 53Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M162 66 Q165 63 168 66 L168 72 Q165 74 162 72Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M67 99 Q70 96 73 99 L73 105 Q70 107 67 105Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(120 165) scale(1 1)">
+          <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Back of hand</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Tapered palm and staggered fingertips.</text>
+  </g>
+  <g id="palm" transform="translate(332 125)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <g transform="translate(24.00 0) scale(0.8 1)">
+        <g transform="translate(240 0) scale(-1 1)">
+          <path d="M98 169 C99 153 95 144 88 133 L68 108 C61 99 66 91 73 94 Q80 95 87 106 L97 114 L96 57 C96 48 106 47 109 55 L114 91 L115 40 C115 30 128 29 130 40 L133 90 L137 48 C138 39 150 40 151 50 L151 96 L158 66 C160 57 171 60 171 69 L166 116 Q165 136 151 151 Q145 157 145 168Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M98 117 Q116 113 124 133 Q122 151 106 153 Q102 137 98 117Z" fill="#f3c39d" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M160 115 Q155 142 143 151 L142 166 L132 166 Q140 149 143 134Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M101 116 Q119 123 117 146 M106 108 Q127 103 151 107 M119 118 Q137 112 149 115 M116 157 Q127 159 138 156 M102 77 L108 77 M121 65 L127 65 M142 73 L148 73 M160 86 L166 87" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <g transform="translate(120 165) scale(1 1)">
+            <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Palm</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Thumb pad tightens toward the wrist.</text>
+  </g>
+  <g id="edge" transform="translate(628 125)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <path d="M112 156 Q120 140 118 122 L115 101 L119 68 Q121 60 127 61 Q133 62 132 70 L131 84 L134 74 Q136 69 141 72 Q145 74 144 81 L141 108 L138 132 Q134 151 130 167Z" fill="#ce9479" stroke="#253a3b" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M104 169 Q103 151 95 142 C90 137 86 130 84 125 L72 108 Q68 101 73 97 Q78 93 84 99 L97 111 Q100 114 102 110 L100 92 Q97 85 94 76 L87 58 Q84 50 90 47 Q97 43 101 51 L111 68 L105 51 Q102 43 109 40 Q115 38 119 46 L127 69 Q132 86 133 102 Q139 123 134 140 Q131 150 130 169Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M127 68 Q131 85 132 102 Q139 123 133 140 Q130 151 129 167 H121 Q122 149 128 134 Q131 117 126 102 Q126 87 120 73Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M98 113 Q107 109 113 123 Q118 135 110 145 Q101 141 96 133 L88 117Z" fill="#f3c39d" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M111 68 Q115 77 116 84 M94 68 L99 67 M110 59 L116 57 M116 77 L121 75 M99 114 Q105 118 108 126 M95 134 Q101 136 104 142 M113 155 Q119 157 125 155" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M90 50 Q94 47 96 51 L99 57 Q95 60 92 57Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+      <g transform="translate(117 166) rotate(-5) scale(.57 .9)">
+        <g transform="translate(0 0) scale(1 1)">
+          <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Side profile</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Relaxed thumb and overlapping fingers.</text>
+  </g>
+  <g id="ticket-pinch" transform="translate(924 125)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <g transform="translate(12 -5)">
+        <path d="M91 147 Q101 147 111 140 C117 146 113 158 105 162 Q97 166 88 161Z" fill="#c78c73" stroke="#253a3b" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M108 126 Q116 117 125 121 Q127 131 126 140 L121 153 Q117 160 111 157 Q106 155 107 148 L110 136Z" fill="#ce9479" stroke="#253a3b" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M120 108 Q133 102 142 110 Q147 116 145 125 L143 145 Q142 153 137 154 Q131 153 130 148 L129 131 Q126 126 119 126Z" fill="#dba382" stroke="#253a3b" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M40 165 Q61 148 72 132 L84 116 C90 106 96 101 106 100 L126 96 Q135 94 140 97 Q146 101 143 107 L130 118 Q123 124 113 129 Q110 144 102 155 C95 169 79 176 58 184Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M41 165 Q61 148 72 132 Q82 119 87 113 Q93 107 101 105 Q90 117 85 132 Q76 149 64 157 L50 173Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M100 106 Q98 110 100 114 M119 99 Q116 102 118 106 M134 134 L140 134 M111 146 L117 148" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="rotate(-8 138 110)">
+          <path d="M134 69 H213 V112 H134Z" fill="#f3d799" stroke="#253a3b" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M139 75 H208 M139 106 H208" fill="none" stroke="#9b7951" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M195 72 V109" fill="none" stroke="#b89968" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"/>
+          <text x="144" y="94" fill="#6b5540" font-family="Arial, sans-serif" font-size="9" font-weight="700">STATION</text>
+        </g>
+        <path d="M87 144 Q97 138 108 127 L123 112 Q129 105 134 103 Q142 99 146 105 Q150 110 145 116 L133 128 L118 144 Q111 154 100 159" fill="#e7ae87" stroke="#253a3b" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M99 155 Q108 148 116 138 L138 115 Q144 110 146 108 Q148 113 143 117 L130 130 L117 144 Q108 155 101 157Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M134 106 Q139 103 143 106 Q145 109 142 112 L137 116 Q133 115 131 111Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M119 120 Q120 124 124 126 M114 124 Q116 128 119 130 M93 145 Q96 147 97 151" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(50 174) rotate(42) scale(.64 1)">
+          <g transform="translate(0 0) scale(1 1)">
+            <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Ticket pinch</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Thumb and index hold the same corner.</text>
+  </g>
+  <g id="chalk-grip" transform="translate(36 445)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <g transform="translate(0 -5)">
+        <path d="M139 65 Q146 62 153 65 L153 120 Q146 123 139 120Z" fill="#f1e9d7" stroke="#253a3b" stroke-width="1.75" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M149 65 L152 66 L152 120 L148 120Z" fill="#c9bb9e" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M140 67 Q146 70 152 67" fill="none" stroke="#fff6e4" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M64 157 Q76 146 83 129 C91 111 102 105 121 99 L135 92 Q141 89 146 94 L154 102 Q161 105 163 113 Q164 118 161 123 Q166 129 160 137 Q161 143 156 148 C147 160 127 169 108 177 Q96 183 88 192Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M162 114 Q165 119 160 123 Q165 131 159 137 Q161 145 154 150 Q137 167 109 177 L94 185 L87 178 Q100 168 120 159 Q145 147 154 131Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M79 151 Q90 133 98 123 Q110 110 128 105 Q114 122 120 136 Q106 149 87 158Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M161 122 Q156 124 151 125 M159 137 Q154 140 149 141 M154 147 L149 150" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M107 140 Q118 128 124 118 Q129 110 133 105 L140 92 Q144 86 150 87 Q157 89 156 96 Q156 104 148 112 L137 123 Q132 130 131 135" fill="#e7ae87" stroke="#253a3b" stroke-width="1.95" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M145 91 Q149 88 152 92 Q154 95 151 99 L146 102 Q142 100 143 96Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M133 108 Q135 112 139 114 M129 114 L133 118 M100 149 Q104 155 109 156" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(76 172) rotate(34) scale(.78 1)">
+          <g transform="translate(0 0) scale(1 1)">
+            <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Chalk grip</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Thumb and index pinch the chalk nub.</text>
+  </g>
+  <g id="bell-reach" transform="translate(332 445)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <g transform="translate(12 0)">
+        <path d="M184 45 L218 48 Q222 49 222 53 V137 Q222 142 218 143 L184 146 Q180 146 180 142 V49 Q180 45 184 45Z" fill="#526d66" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M185 50 L216 53 V137" fill="none" stroke="#83988b" stroke-width="1.35" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M196 82 C204 82 210 87 210 95 C210 102 204 108 196 108 C190 108 184 103 184 95 C184 88 190 82 196 82Z" fill="#917046" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M196 85 C202 85 207 89 207 95 C207 101 202 105 196 105 C190 105 187 101 187 95 C187 89 190 85 196 85Z" fill="#d3ab67" stroke="#253a3b" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(-12 0)">
+          <path d="M47 136 Q66 126 81 116 Q95 106 108 105 Q122 105 134 105 Q144 101 154 96 L170 88 Q175 86 178 90 Q182 94 177 98 L162 109 L148 118 Q151 122 148 129 Q146 136 139 136 Q137 144 129 144 Q123 151 115 148 Q107 154 98 149 Q81 154 66 160Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M148 121 Q151 128 141 135 L137 136 Q136 145 129 143 Q123 150 115 147 Q107 153 99 148 Q84 153 68 159 L61 152 Q76 148 92 141 Q111 146 123 137 Q138 134 143 126Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M67 130 L89 115 Q100 109 111 109 Q119 109 125 111 Q113 116 106 126 Q91 135 73 137Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M99 119 Q116 117 126 121 Q132 124 137 123 M139 136 Q135 134 130 134 M129 144 Q124 141 120 142 M114 148 L109 144 M105 130 Q102 135 104 139" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M147 105 L151 110" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <g transform="translate(55 148) rotate(58) scale(.64 .72)">
+            <g transform="translate(0 0) scale(1 1)">
+              <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Doorbell reach</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Index lines up. Other fingers curl in.</text>
+  </g>
+  <g id="bell-press" transform="translate(628 445)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <g transform="translate(12 0)">
+        <path d="M184 45 L218 48 Q222 49 222 53 V137 Q222 142 218 143 L184 146 Q180 146 180 142 V49 Q180 45 184 45Z" fill="#526d66" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M185 50 L216 53 V137" fill="none" stroke="#83988b" stroke-width="1.35" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M196 82 C204 82 210 87 210 95 C210 102 204 108 196 108 C190 108 184 103 184 95 C184 88 190 82 196 82Z" fill="#917046" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M196 85 C202 85 207 89 207 95 C207 101 202 105 196 105 C190 105 187 101 187 95 C187 89 190 85 196 85Z" fill="#e8b968" stroke="#253a3b" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(0 0)">
+          <path d="M47 136 Q66 126 81 116 Q95 106 108 105 Q122 105 134 105 Q144 102 157 98 L177 93 Q182 91 190 90 Q196 90 197 95 Q196 99 190 100 L166 108 Q158 110 148 118 Q151 122 148 129 Q146 136 139 136 Q137 144 129 144 Q123 151 115 148 Q107 154 98 149 Q81 154 66 160Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M148 121 Q151 128 141 135 L137 136 Q136 145 129 143 Q123 150 115 147 Q107 153 99 148 Q84 153 68 159 L61 152 Q76 148 92 141 Q111 146 123 137 Q138 134 143 126Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M67 130 L89 115 Q100 109 111 109 Q119 109 125 111 Q113 116 106 126 Q91 135 73 137Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M99 119 Q116 117 126 121 Q132 124 137 123 M139 136 Q135 134 130 134 M129 144 Q124 141 120 142 M114 148 L109 144 M105 130 Q102 135 104 139" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M148 105 L151 110" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <g transform="translate(55 148) rotate(58) scale(.64 .72)">
+            <g transform="translate(0 0) scale(1 1)">
+              <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Doorbell press</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Index pad makes contact with the button.</text>
+  </g>
+  <g id="bell-release" transform="translate(924 445)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <g transform="translate(12 0)">
+        <path d="M184 45 L218 48 Q222 49 222 53 V137 Q222 142 218 143 L184 146 Q180 146 180 142 V49 Q180 45 184 45Z" fill="#526d66" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M185 50 L216 53 V137" fill="none" stroke="#83988b" stroke-width="1.35" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M196 82 C204 82 210 87 210 95 C210 102 204 108 196 108 C190 108 184 103 184 95 C184 88 190 82 196 82Z" fill="#917046" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M196 85 C202 85 207 89 207 95 C207 101 202 105 196 105 C190 105 187 101 187 95 C187 89 190 85 196 85Z" fill="#d3ab67" stroke="#253a3b" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(-15 13)">
+          <path d="M47 136 Q66 126 81 116 Q95 106 108 105 Q122 105 134 105 Q142 105 153 100 L165 94 Q170 91 174 95 Q178 99 172 104 L161 113 L148 119 Q151 122 148 129 Q146 136 139 136 Q137 144 129 144 Q123 151 115 148 Q107 154 98 149 Q81 154 66 160Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M148 121 Q151 128 141 135 L137 136 Q136 145 129 143 Q123 150 115 147 Q107 153 99 148 Q84 153 68 159 L61 152 Q76 148 92 141 Q111 146 123 137 Q138 134 143 126Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M67 130 L89 115 Q100 109 111 109 Q119 109 125 111 Q113 116 106 126 Q91 135 73 137Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M99 119 Q116 117 126 121 Q132 124 137 123 M139 136 Q135 134 130 134 M129 144 Q124 141 120 142 M114 148 L109 144 M105 130 Q102 135 104 139" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M147 105 L151 110" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <g transform="translate(55 148) rotate(58) scale(.64 .72)">
+            <g transform="translate(0 0) scale(1 1)">
+              <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+              <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+              <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Doorbell release</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Index bends as the wrist draws back.</text>
+  </g>
+  <g id="bar-reach" transform="translate(36 765)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <path d="M9 79 H231 V95 H9Z" fill="#9e7947" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M9 79 H231 V90 H9Z" fill="#d2ad69" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M12 83 H228" fill="none" stroke="#ebc686" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <g transform="translate(122 212) scale(1.24) translate(-116 -161)">
+        <path d="M98 161 Q101 147 95 137 Q90 129 86 121 L79 113 Q71 105 74 99 Q77 94 82 96 Q88 97 93 103 L99 108 L96 88 Q94 79 100 77 Q108 75 111 82 L116 101 L114 78 Q113 70 119 68 Q126 67 129 74 L134 98 L132 79 Q132 72 138 71 Q145 70 148 78 L151 101 L153 87 Q155 80 161 81 Q167 82 166 90 L162 110 Q162 109 157 120 Q153 132 143 141 Q136 148 135 161Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M161 103 Q161 110 157 120 Q151 133 143 142 Q137 149 134 160 L125 160 Q129 145 136 134 Q147 121 149 110Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M103 111 Q115 101 134 103 Q142 104 143 112 Q135 127 113 132 Q109 120 103 111Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M96 110 Q102 117 104 127" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M98 86 Q103 82 108 85 M117 78 Q122 74 127 77 M135 81 Q140 77 145 80 M154 91 Q158 88 163 90 M100 96 L107 94 M118 92 L126 91 M136 92 L144 90" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(116 158) scale(.76 .33)">
+          <g transform="translate(0 0) scale(1 1)">
+            <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Push bar reach</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Curled fingers approach below the rail.</text>
+  </g>
+  <g id="bar-press" transform="translate(332 765)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <path d="M9 89 H231 V109 H9Z" fill="#9e7947" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M9 89 H231 V104 H9Z" fill="#d2ad69" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M12 93 H228" fill="none" stroke="#ebc686" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M90 101 Q117 91 160 96 L166 105 Q124 110 92 106Z" fill="#9a7443" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <g transform="translate(-25.2 -30) scale(1.21)">
+        <g transform="translate(24.00 0) scale(0.8 1)">
+          <path d="M98 169 C99 153 95 144 88 133 L68 108 C61 99 66 91 73 94 Q80 95 87 106 L97 114 L96 57 C96 48 106 47 109 55 L114 91 L115 40 C115 30 128 29 130 40 L133 90 L137 48 C138 39 150 40 151 50 L151 96 L158 66 C160 57 171 60 171 69 L166 116 Q165 136 151 151 Q145 157 145 168Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M169 77 L164 116 Q164 137 151 149 Q143 159 143 167 L134 167 Q136 156 145 144 Q155 130 156 117Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M108 104 Q119 93 135 102 L142 118 Q127 133 112 133Z" fill="#f3c39d" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M99 118 Q104 125 106 132 M113 108 Q118 105 123 106 M130 107 Q135 105 139 108 M145 111 L151 109 M103 80 L108 79 M120 69 L127 69 M140 76 L148 76 M158 91 L165 92" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M99 55 Q102 52 105 55 L105 61 Q102 63 99 61Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M119 38 Q122 35 125 38 L125 44 Q122 46 119 44Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M141 47 Q144 44 147 47 L147 53 Q144 55 141 53Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M162 66 Q165 63 168 66 L168 72 Q165 74 162 72Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M67 99 Q70 96 73 99 L73 105 Q70 107 67 105Z" fill="#f1c2a8" stroke="#b98573" stroke-width="0.85" stroke-linejoin="round" stroke-linecap="round"/>
+          <g transform="translate(120 165) scale(1 1)">
+            <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Push bar press</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Palm bears on the rail. Fingers stay close.</text>
+  </g>
+  <g id="bar-release" transform="translate(628 765)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <path d="M9 79 H231 V95 H9Z" fill="#9e7947" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M9 79 H231 V90 H9Z" fill="#d2ad69" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M12 83 H228" fill="none" stroke="#ebc686" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <g transform="translate(128 212) rotate(9) scale(1.24) translate(-116 -161)">
+        <path d="M98 161 Q101 147 95 137 Q90 129 86 121 L79 113 Q71 105 74 99 Q77 94 82 96 Q88 97 93 103 L99 108 L97 101 Q93 92 97 85 Q102 80 108 84 Q113 87 117 104 L115 91 Q111 79 117 75 Q124 71 129 79 L135 102 L133 89 Q131 80 136 77 Q143 73 148 81 L152 105 L155 94 Q157 85 163 87 Q170 91 166 99 L161 112 Q162 109 157 120 Q153 132 143 141 Q136 148 135 161Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M161 103 Q161 110 157 120 Q151 133 143 142 Q137 149 134 160 L125 160 Q129 145 136 134 Q147 121 149 110Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M103 111 Q115 101 134 103 Q142 104 143 112 Q135 127 113 132 Q109 120 103 111Z" fill="#efb993" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M96 110 Q102 117 104 127" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M97 94 Q103 89 109 94 M117 86 Q122 81 127 85 M137 88 Q142 83 147 87 M155 97 Q159 93 164 96 M101 100 L109 98 M120 95 L128 93 M138 97 L146 94" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+        <g transform="translate(116 158) scale(.76 .33)">
+          <g transform="translate(0 0) scale(1 1)">
+            <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+            <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+            <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Push bar release</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Palm clears the rail. Fingers curl in.</text>
+  </g>
+  <g id="bar-hold" transform="translate(924 765)">
+    <rect width="280" height="304" fill="#f8f2e5" stroke="#c7b89a"/>
+    <g transform="translate(20 12)">
+      <path d="M100 105 Q90 108 85 119 Q82 128 85 139 Q86 146 92 152 Q98 157 108 154 Q114 152 114 147 Q114 142 108 141 L101 141 Q98 135 101 130 L111 119Z" fill="#c88e72" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M10 111 H230 V138 H10Z" fill="#d2ad69" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M10 111 H230 V119 H10Z" fill="#ebc686" stroke="#253a3b" stroke-width="1.65" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M10 138 H230 V146 H10Z" fill="#9e7947" stroke="#253a3b" stroke-width="1.65" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M90 123 Q108 108 145 113 L170 120 V136 H88Z" fill="#a8824c" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M99 61 Q102 72 96 83 Q90 95 91 109 Q91 118 95 123 Q97 130 98 140 Q100 148 107 147 Q113 146 113 139 L114 124 Q116 131 117 143 Q118 152 125 151 Q132 151 132 143 L132 124 Q135 131 136 141 Q137 148 143 147 Q149 145 150 138 L149 122 Q153 128 155 134 Q158 140 164 137 Q169 135 168 128 L164 112 Q161 100 154 94 Q143 81 139 61Z" fill="#e7ae87" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M139 63 Q143 80 154 94 Q161 100 164 112 L168 128 Q169 134 164 137 Q158 139 155 134 L150 123 Q156 117 154 110 Q148 99 140 93 Q130 82 130 63Z" fill="#c88e72" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M98 106 Q98 88 106 79 Q117 77 133 87 Q143 94 146 104 Q133 102 124 105 Q110 106 98 106Z" fill="#f3c39d" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M98 114 Q104 109 110 113 M117 116 Q123 110 129 114 M136 115 Q142 109 146 112 M153 117 L160 115 M101 133 Q106 130 110 132 M120 136 Q125 132 129 135 M138 134 L146 132" fill="none" stroke="#9e6755" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+      <g transform="translate(118 66) rotate(180) scale(.83 .82)">
+        <g transform="translate(0 0) scale(1 1)">
+          <path d="M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z" fill="#e8e1cc" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z" fill="#bab49f" stroke="none" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z" fill="#ede5d0" stroke="#253a3b" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M-25 9 Q2 14 25 8" fill="none" stroke="#a49c86" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round"/>
+          <circle cx="19" cy="7" r="2.5" fill="#c6bda8" stroke="#8a8575" stroke-width="0.8"/>
+        </g>
+      </g>
+    </g>
+    <text x="16" y="269" fill="#253a3b" font-family="Arial, sans-serif" font-size="22" font-weight="700">Bar hold</text>
+    <text x="16" y="291" fill="#526662" font-family="Arial, sans-serif" font-size="14" font-weight="400">Fingers wrap over. Thumb hooks under.</text>
+  </g>
+</svg>

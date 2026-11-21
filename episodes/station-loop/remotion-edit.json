@@ -1,0 +1,13 @@
+{
+  "duration": 12,
+  "captionsFile": "opening-captions.json",
+  "voiceTake": "opening-quick",
+  "topCaptionsFrom": 0,
+  "shots": [
+    { "name": "Walk to exit A", "start": 0 },
+    { "name": "Push bar POV", "start": 3.25 },
+    { "name": "Exit B return", "start": 5.25 },
+    { "name": "Same ticket", "start": 8.5 },
+    { "name": "The lead stops", "start": 10 }
+  ]
+}

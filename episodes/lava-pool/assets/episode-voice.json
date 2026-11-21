@@ -1,0 +1,322 @@
+[
+  {
+    "start": 0.24,
+    "end": 1.26,
+    "text": "WHAT HAPPENS TO YOUR BODY",
+    "emphasis": [
+      "BODY",
+      "JUMP",
+      "LAVA"
+    ]
+  },
+  {
+    "start": 1.26,
+    "end": 2.58,
+    "text": "IF YOU JUMP INTO LAVA?",
+    "emphasis": [
+      "BODY",
+      "JUMP",
+      "LAVA"
+    ]
+  },
+  {
+    "start": 4.55,
+    "end": 5.36,
+    "text": "YOUR FEET HIT",
+    "emphasis": [
+      "MOLTEN",
+      "ROCK"
+    ]
+  },
+  {
+    "start": 5.36,
+    "end": 6.35,
+    "text": "MOLTEN ROCK.",
+    "emphasis": [
+      "MOLTEN",
+      "ROCK"
+    ]
+  },
+  {
+    "start": 7.3,
+    "end": 8.76,
+    "text": "FRESH LAVA AT KĪLAUEA",
+    "emphasis": [
+      "KĪLAUEA",
+      "ELEVEN",
+      "HUNDRED"
+    ]
+  },
+  {
+    "start": 8.76,
+    "end": 9.56,
+    "text": "CAN BE HOTTER THAN",
+    "emphasis": [
+      "KĪLAUEA",
+      "ELEVEN",
+      "HUNDRED"
+    ]
+  },
+  {
+    "start": 9.56,
+    "end": 9.94,
+    "text": "ELEVEN HUNDRED",
+    "emphasis": [
+      "KĪLAUEA",
+      "ELEVEN",
+      "HUNDRED"
+    ]
+  },
+  {
+    "start": 9.94,
+    "end": 11.28,
+    "text": "DEGREES CELSIUS.",
+    "emphasis": [
+      "KĪLAUEA",
+      "ELEVEN",
+      "HUNDRED"
+    ]
+  },
+  {
+    "start": 11.92,
+    "end": 12.71,
+    "text": "ON CONTACT,",
+    "emphasis": [
+      "CONTACT",
+      "SKIN",
+      "DAMAGE"
+    ]
+  },
+  {
+    "start": 12.86,
+    "end": 13.64,
+    "text": "YOUR SKIN STARTS",
+    "emphasis": [
+      "CONTACT",
+      "SKIN",
+      "DAMAGE"
+    ]
+  },
+  {
+    "start": 13.64,
+    "end": 14.55,
+    "text": "TAKING DAMAGE.",
+    "emphasis": [
+      "CONTACT",
+      "SKIN",
+      "DAMAGE"
+    ]
+  },
+  {
+    "start": 15.12,
+    "end": 16.24,
+    "text": "A DEEP BURN CAN DESTROY",
+    "emphasis": [
+      "DEEP",
+      "ENTIRE",
+      "UNDERNEATH"
+    ]
+  },
+  {
+    "start": 16.24,
+    "end": 17.22,
+    "text": "THE ENTIRE THICKNESS",
+    "emphasis": [
+      "DEEP",
+      "ENTIRE",
+      "UNDERNEATH"
+    ]
+  },
+  {
+    "start": 17.22,
+    "end": 17.88,
+    "text": "OF YOUR SKIN",
+    "emphasis": [
+      "DEEP",
+      "ENTIRE",
+      "UNDERNEATH"
+    ]
+  },
+  {
+    "start": 17.88,
+    "end": 19.75,
+    "text": "AND REACH THE TISSUE UNDERNEATH.",
+    "emphasis": [
+      "DEEP",
+      "ENTIRE",
+      "UNDERNEATH"
+    ]
+  },
+  {
+    "start": 22.2,
+    "end": 22.95,
+    "text": "IF YOU BREATHE IN",
+    "emphasis": [
+      "HOT",
+      "SMOKE",
+      "THROAT"
+    ]
+  },
+  {
+    "start": 22.95,
+    "end": 23.77,
+    "text": "VERY HOT AIR",
+    "emphasis": [
+      "HOT",
+      "SMOKE",
+      "THROAT"
+    ]
+  },
+  {
+    "start": 23.77,
+    "end": 25.63,
+    "text": "OR SMOKE FROM BURNING MATERIAL,",
+    "emphasis": [
+      "HOT",
+      "SMOKE",
+      "THROAT"
+    ]
+  },
+  {
+    "start": 25.63,
+    "end": 27.36,
+    "text": "YOUR THROAT CAN BE INJURED TOO.",
+    "emphasis": [
+      "HOT",
+      "SMOKE",
+      "THROAT"
+    ]
+  },
+  {
+    "start": 29.23,
+    "end": 30.23,
+    "text": "AS IT SWELLS,",
+    "emphasis": [
+      "SWELLS",
+      "HARDER",
+      "BREATHE"
+    ]
+  },
+  {
+    "start": 30.23,
+    "end": 31.63,
+    "text": "IT GETS HARDER TO BREATHE.",
+    "emphasis": [
+      "SWELLS",
+      "HARDER",
+      "BREATHE"
+    ]
+  },
+  {
+    "start": 33.67,
+    "end": 35.2,
+    "text": "EVEN IF YOU WERE PULLED OUT,",
+    "emphasis": [
+      "PULLED",
+      "FLUID",
+      "LEAK"
+    ]
+  },
+  {
+    "start": 35.2,
+    "end": 36.74,
+    "text": "EXTENSIVE BURNS COULD MAKE FLUID",
+    "emphasis": [
+      "PULLED",
+      "FLUID",
+      "LEAK"
+    ]
+  },
+  {
+    "start": 36.74,
+    "end": 38.28,
+    "text": "LEAK FROM YOUR BLOOD VESSELS.",
+    "emphasis": [
+      "PULLED",
+      "FLUID",
+      "LEAK"
+    ]
+  },
+  {
+    "start": 40.32,
+    "end": 41.63,
+    "text": "YOUR BLOOD PRESSURE CAN FALL,",
+    "emphasis": [
+      "PRESSURE",
+      "FALL",
+      "OXYGEN"
+    ]
+  },
+  {
+    "start": 41.78,
+    "end": 42.86,
+    "text": "LEAVING YOUR ORGANS WITH",
+    "emphasis": [
+      "PRESSURE",
+      "FALL",
+      "OXYGEN"
+    ]
+  },
+  {
+    "start": 42.86,
+    "end": 44.09,
+    "text": "TOO LITTLE OXYGEN.",
+    "emphasis": [
+      "PRESSURE",
+      "FALL",
+      "OXYGEN"
+    ]
+  },
+  {
+    "start": 45.49,
+    "end": 46.42,
+    "text": "THAT'S BURN SHOCK.",
+    "emphasis": [
+      "BURN",
+      "SHOCK"
+    ]
+  },
+  {
+    "start": 47.65,
+    "end": 48.94,
+    "text": "THE LAVA WOULD DO ITS DAMAGE",
+    "emphasis": [
+      "CONTACT"
+    ]
+  },
+  {
+    "start": 48.94,
+    "end": 49.78,
+    "text": "ON CONTACT.",
+    "emphasis": [
+      "CONTACT"
+    ]
+  },
+  {
+    "start": 51.03,
+    "end": 52.38,
+    "text": "WHAT MAKES THE JUMP SO DEADLY",
+    "emphasis": [
+      "DEADLY",
+      "SPREAD"
+    ]
+  },
+  {
+    "start": 52.38,
+    "end": 53.68,
+    "text": "IS HOW FAR THAT DAMAGE",
+    "emphasis": [
+      "DEADLY",
+      "SPREAD"
+    ]
+  },
+  {
+    "start": 53.68,
+    "end": 54.42,
+    "text": "CAN SPREAD.",
+    "emphasis": [
+      "DEADLY",
+      "SPREAD"
+    ]
+  }
+]

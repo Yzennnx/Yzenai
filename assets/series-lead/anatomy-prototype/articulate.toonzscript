@@ -1,0 +1,15 @@
+var layers = {};
+for (var i = 0; i < parts.length; i++) {
+  layers[parts[i]] = new Image(workDir + '/' + parts[i] + '.png');
+}
+
+for (var index = 0; index < frameCount; index++) {
+  var picture = new ImageBuilder(1080, 1920);
+  var pose = poses[startFrame + index];
+  for (var j = 0; j < pose.length; j++) {
+    var part = pose[j];
+    var transform = new Transform().rotate(-part[3]).translate(2 * (part[1] - 270), 2 * (480 - part[2]));
+    picture.add(layers[part[0]], transform);
+  }
+  picture.image.save(workDir + '/cutout-' + ('0000' + (index + 1)).slice(-5) + '.png');
+}

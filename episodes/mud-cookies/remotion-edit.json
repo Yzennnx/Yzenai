@@ -1,0 +1,31 @@
+{
+  "duration": 66,
+  "captionsFile": "episode-voice.json",
+  "shots": [
+    { "start": 0, "name": "Day 1 cookie plate" },
+    { "start": 0.83, "name": "Lift the cookie" },
+    { "start": 1.7, "name": "Bite and grit" },
+    { "start": 3.38, "name": "Force a swallow" },
+    { "start": 6.88, "name": "Inside the stomach" },
+    { "start": 10.17, "name": "Gag and reach for water" },
+    { "start": 11.33, "name": "Tip the glass and swallow" },
+    { "start": 12.88, "name": "Return the glass to the table" },
+    { "start": 13, "name": "Day 3 cramp" },
+    { "start": 16.8, "name": "Bathroom strain" },
+    { "start": 18.8, "name": "Inside the colon" },
+    { "start": 22.95, "name": "Strain on the toilet" },
+    { "start": 24.48, "name": "Face flushes red" },
+    { "start": 26.92, "name": "Last push" },
+    { "start": 27.7, "name": "Pellet hits the water" },
+    { "start": 28.75, "name": "Bathroom aftermath" },
+    { "start": 30, "name": "Day 5 another cookie" },
+    { "start": 34.72, "name": "Inside the small intestine" },
+    { "start": 38.6, "name": "Steady the shaking glass and drink" },
+    { "start": 41.15, "name": "Set the glass down" },
+    { "start": 43, "name": "Day 7 brace to rise" },
+    { "start": 46.25, "name": "Inside fat tissue" },
+    { "start": 50.42, "name": "Failed stand" },
+    { "start": 58.75, "name": "Grip and pull the phone" },
+    { "start": 62.2, "name": "Return to the plate" }
+  ]
+}
