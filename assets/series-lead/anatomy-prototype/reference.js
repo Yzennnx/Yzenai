@@ -173,5 +173,97 @@ window.drawAnatomyReference = async (panels, frames, parts, backgrounds, walking
   }));
   const reactionsSide = png();
 
-  return { overview, walking, reactions, reactionsSide };
+  // Cinematic Anatomy & Camera Angles sheet (1600x640, 4 cards: OTS, Overhead, Low-Angle, High-Angle)
+  canvas.height = 640;
+  ctx.fillStyle = backgroundColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  text('Cinematic anatomy angles', 48, 72, 46, 700);
+  text('Horror & survival camera perspectives (zero three-quarter turnarounds)', 50, 108, 22, 400, secondary);
+  const cinematicCards = [
+    ['ots', 'Over-the-Shoulder (OTS)', 'Foreground head/shoulder framing depth corridor'],
+    ['overhead', 'Overhead / Top-Down', 'Geography resets, bed traps, and floor pickups'],
+    ['low-angle', 'Low-Angle Dramatic', 'Looming tension, confrontation, or upward jump'],
+    ['high-angle', 'High-Angle Vulnerable', 'Cornered horror beats looking down at the lead'],
+  ];
+  for (const [i, [angle, label, note]] of cinematicCards.entries()) {
+    const x = 48 + i * 380;
+    card(x, 136, 364, 412);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x + 1, 137, 362, 410);
+    ctx.clip();
+    drawCinematicAngle(ctx, x + 182, 342, 1.18, angle);
+    ctx.restore();
+    text(label, x + 10, 582, 23, 700);
+    text(note, x + 10, 608, 16, 400, secondary);
+  }
+  const anglesSheet = png();
+
+  // Cinematic Face Tilts, Gazes & Crash-Zoom ECU sheet (1600x920, 3x2 grid)
+  canvas.height = 920;
+  ctx.fillStyle = backgroundColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  text('Face angles, gazes & crash-zoom framing', 48, 72, 46, 700);
+  text('Micro-acting cues for audio turns, zooms, and looking-around POV', 50, 108, 22, 400, secondary);
+  const faceCards = [
+    ['eye-dart', 'Eye-Dart Sideways', 'Hearing a cue off-screen before whipping around'],
+    ['head-tilt', 'Eerie Head Tilt (12°)', 'Uncanny questions, realization, or dread beat'],
+    ['look-up', 'Looking Up (High Threat)', 'Foreshortened chin gazing toward looming danger'],
+    ['look-down', 'Looking Down (Floor Clue)', 'Setup for downward POV prop or ground insert'],
+    ['glance-back', 'Quick Glance Over Shoulder', 'Startled side profile turn on footsteps behind'],
+    ['ecu-dread', 'Off-Center ECU Crash-Zoom', 'Tight detail punch-in with dread shadow & sweat'],
+  ];
+  for (const [i, [mode, label, note]] of faceCards.entries()) {
+    const col = i % 3, row = Math.floor(i / 3);
+    const x = 48 + col * 510;
+    const y = 136 + row * 382;
+    card(x, y, 488, 310);
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x + 1, y + 1, 486, 308);
+    ctx.clip();
+    drawFaceAngle(ctx, x + 244, y + 156, mode === 'ecu-dread' ? 1.44 : 1.32, mode);
+    ctx.restore();
+    text(label, x + 12, y + 340, 23, 700);
+    text(note, x + 12, y + 364, 17, 400, secondary);
+  }
+  const faceAngles = png();
+
+  // First-Person POV Survival Hands sheet (1600x600) + individual 512x512 transparent PNGs!
+  const povHandCards = [
+    ['pov-pipe-grip', 'POV Pipe / Weapon Grip', 'Bottom-right survival weapon hold into frame'],
+    ['pov-flashlight', 'POV Flashlight Sweep', 'Tactical light aimed ahead, thumb on switch'],
+    ['pov-door-lock', 'POV Deadbolt Lock Turn', 'Rhythmic lock-the-door beat in tight POV'],
+    ['pov-shield-face', 'POV Defensive Shield', 'Splayed palm recoil against scare or glare'],
+  ];
+  const povHands = {};
+  const handCanvas = document.createElement('canvas');
+  handCanvas.width = 512;
+  handCanvas.height = 512;
+  const hctx = handCanvas.getContext('2d');
+  for (const [id] of povHandCards) {
+    hctx.clearRect(0, 0, 512, 512);
+    hctx.save();
+    hctx.scale(512 / 360, 512 / 360);
+    drawPovSurvivalHand(hctx, id);
+    hctx.restore();
+    povHands[id] = handCanvas.toDataURL('image/png').split(',')[1];
+  }
+
+  canvas.height = 600;
+  ctx.fillStyle = backgroundColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  text('First-person POV survival hands', 48, 72, 46, 700);
+  text('Right hand with cream shirt cuff for POV weapon, light, lock, and recoil inserts', 50, 108, 22, 400, secondary);
+  await Promise.all(povHandCards.map(async ([id, label, note], i) => {
+    const x = 48 + i * 380;
+    card(x, 136, 364, 376);
+    const img = await load(povHands[id]);
+    ctx.drawImage(img, x + 12, 146, 340, 340);
+    text(label, x + 10, 544, 23, 700);
+    text(note, x + 10, 570, 16, 400, secondary);
+  }));
+  const povHandsSheet = png();
+
+  return { overview, walking, reactions, reactionsSide, anglesSheet, faceAngles, povHandsSheet, povHands };
 };

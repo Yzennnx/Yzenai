@@ -299,7 +299,7 @@
     const [bodyX, bodyY] = pose?.body ?? [0, 0];
 
     const drawArm = (side) => {
-      const [, , , , wristX, wristY] = pose?.limbs[side] ?? [0, 0, 0, 0, 0, 0];
+      const [, , , , wristX, wristY] = pose?.limbs?.[side] ?? [0, 0, 0, 0, 0, 0];
       const far = quarter && side === 1; // Facing right (45° & 135°): right side (+1) is far, left side (-1) is near!
       const tones = far ? palette.far : palette.near;
       const top = side === 1 ? rightShoulder - 4 : leftShoulder + 4;
@@ -320,7 +320,7 @@
     };
 
     for (const side of pose?.hideLimbs ? [] : [1, -1]) {
-      const [ankleX, ankleY, kneeY, toeDepth] = pose?.limbs[side] ?? [0, 0, 0, 0, 0, 0];
+      const [ankleX, ankleY, kneeY, toeDepth] = pose?.limbs?.[side] ?? [0, 0, 0, 0, 0, 0];
       const far = quarter && side === 1;
       const tones = far ? palette.far : palette.near;
       const leg = bodyX + shift / 2 + side * hip * .58;
@@ -387,11 +387,26 @@
       ctx.restore();
     }
 
+    // Optional head tilt (pivoted at real skull-neck joint y=-404 so neck never steps!) and pitch (looking up/down)
+    const headTilt = pose?.headTilt ?? 0;
+    const headPitch = pose?.headPitch ?? 0; // -1 = looking up, +1 = looking down
+    const [eyeDx, eyeDy] = pose?.eyeOffset ?? [0, 0];
+    const extraSweat = pose?.sweat ?? 0; // 0..1 animated sweat bead slide
+    const extraDread = pose?.dreadWash ?? 0; // 0..1 extra upper-face dread shadow
+    ctx.save();
+    if (headTilt) {
+      ctx.translate(neckX, -404);
+      ctx.rotate(headTilt * Math.PI / 180);
+      ctx.translate(-neckX, 404);
+    }
+    const featY = headPitch * 9.5; // Features shift UP when looking up (-), DOWN when looking down (+)
+    const earY = -431 - headPitch * 7; // Ears shift opposite pitch for real 3D head foreshortening!
+
     const left = -34;
     const right = quarter ? 35 : 34;
     // Consistent ears: Front & Back show both; Front-3/4 (45° R) & Rear-3/4 (135° R-away) both show the near-left ear!
-    oval(ctx, left - 1, -431, 6, 9, '#dda07d', ink);
-    if (!quarter) oval(ctx, right + 1, -431, 6, 9, '#dda07d', ink);
+    oval(ctx, left - 1, earY, 6, 9, '#dda07d', ink);
+    if (!quarter) oval(ctx, right + 1, earY, 6, 9, '#dda07d', ink);
     if (rear && quarter) {
       // Rear-3/4 turning right-away (135°): clean nape + subtle right cheek/jaw edge turning away on the right!
       path(ctx, [M(left, -449), Q(left, -476, 0, crown), Q(right + 1, -475, right + 2, -448),
@@ -406,9 +421,16 @@
         L(41,-426), Q(42,-423,37,-421), Q(35,-414,28,-407), Q(22,-401,15,-399),
         Q(9,-397,2,-401), L(-16,-409), Q(-31,-417,-33,-432)], palette.near.skin);
     } else {
+      const chinY = -397 + headPitch * 4;
       path(ctx, [M(left,-450), Q(left,-476,0,crown), Q(right,-476,right,-450),
-        L(29,-425), Q(27,-417,15,-407), L(5,-400), Q(0,-397,-5,-400),
-        L(-16,-407), Q(-28,-416,left+2,-429)], palette.near.skin);
+        L(29,-425 + headPitch * 3), Q(27,-417 + headPitch * 3,15,-407 + headPitch * 4),
+        L(5,chinY - 3), Q(0,chinY,-5,chinY - 3),
+        L(-16,-407 + headPitch * 4), Q(-28,-416 + headPitch * 3,left+2,-429 + headPitch * 2)], palette.near.skin);
+      // Subtle under-chin shadow plane when tilted looking UP!
+      if (headPitch < -0.2) {
+        path(ctx, [M(-18,-408 + headPitch * 4), Q(0,chinY + 2,18,-408 + headPitch * 4),
+          Q(0,chinY - 6,-18,-408 + headPitch * 4)], `rgba(116,62,44,${(-headPitch * 0.34).toFixed(2)})`, null);
+      }
     }
 
     if (rear) {
@@ -420,7 +442,7 @@
     } else {
       const expression = pose?.expression ?? 'head';
       const expr = expression.startsWith('head-') ? expression.slice(5) : 'neutral';
-      const pale = expr === 'dread' || expr === 'exhausted';
+      const pale = expr === 'dread' || expr === 'exhausted' || extraDread > 0.35;
       if (pale) {
         // Subtle pale dread/fatigue skin tint over base face
         path(ctx, [M(left,-450), Q(left,-476,0,crown), Q(right,-476,right,-450),
@@ -429,24 +451,27 @@
       }
       // Portrait plane shading: soft cheekbone/jaw side shadow + under-nose shadow + hair cast shadow on forehead!
       path(ctx, [M(-31,-438), Q(-25,-415,-5,-400), L(0,-399), Q(-15,-409,-24,-424), Q(-29,-433,-31,-438)], 'rgba(136,78,56,0.20)', null);
-      path(ctx, [M(-29,-448), Q(0,-456,29,-448), L(28,-455), Q(0,-463,-28,-455)], 'rgba(84,48,36,0.18)', null);
-      if (expr === 'dread') {
-        const dg = ctx.createLinearGradient(0, -462, 0, -424);
-        dg.addColorStop(0, 'rgba(20,28,44,0.34)');
-        dg.addColorStop(1, 'rgba(20,28,44,0)');
-        path(ctx, [M(-33,-460), Q(0,-468,33,-460), L(31,-424), Q(0,-422,-31,-424)], dg, null);
+      path(ctx, [M(-29,-448 + featY * 0.4), Q(0,-456 + featY * 0.4,29,-448 + featY * 0.4), L(28,-455 + featY * 0.4), Q(0,-463 + featY * 0.4,-28,-455 + featY * 0.4)], 'rgba(84,48,36,0.18)', null);
+      const dreadStrength = Math.max(expr === 'dread' ? 1 : 0, extraDread);
+      if (dreadStrength > 0.01) {
+        const dg = ctx.createLinearGradient(0, -464, 0, -422 + featY);
+        dg.addColorStop(0, `rgba(18,26,42,${(0.38 * dreadStrength).toFixed(2)})`);
+        dg.addColorStop(1, 'rgba(18,26,42,0)');
+        path(ctx, [M(-33,-460), Q(0,-468,33,-460), L(31,-422 + featY), Q(0,-420 + featY,-31,-422 + featY)], dg, null);
       }
       // Detailed inner ear cartilage folds
-      path(ctx, [M(left-3,-435), Q(left-1,-431,left-2,-426)], null, '#a46b51', 1.2);
-      if (!quarter) path(ctx, [M(right+3,-435), Q(right+1,-431,right+2,-426)], null, '#a46b51', 1.2);
+      path(ctx, [M(left-3,earY-4), Q(left-1,earY,left-2,earY+5)], null, '#a46b51', 1.2);
+      if (!quarter) path(ctx, [M(right+3,earY-4), Q(right+1,earY,right+2,earY+5)], null, '#a46b51', 1.2);
 
-      // Swept chestnut hair & warm highlight
-      path(ctx, [M(left+4,-427), L(left-3,-439), L(left-5,-451), Q(left-4,-476,-17,-480),
-        Q(10,-492,29,-472), Q(right+4,-465,right+4,-445), L(right-3,-451), L(right-6,-445),
-        L(right-11,-458), L(shift+9,-448), L(shift+9,-458), L(shift-5,-447), L(shift-3,-456),
-        L(shift-17,-440), L(shift-14,-455), Q(left+9,-450,left+4,-427)], hair);
-      path(ctx, [M(left+4,-453), Q(-15,-477,6,-477), Q(22,-475,30,-464),
-        Q(9,-474,-1,-461), L(-16,-448), L(-10,-460)], hairLight,null);
+      // Swept chestnut hair & warm highlight (fringe drops slightly when looking down, lifts slightly when looking up!)
+      const fy = headPitch * 6.5;
+      path(ctx, [M(left+4,-427 + fy * 0.4), L(left-3,-439 + fy * 0.3), L(left-5,-451), Q(left-4,-476,-17,-480),
+        Q(10,-492 - Math.max(0, headPitch) * 3,29,-472), Q(right+4,-465,right+4,-445 + fy * 0.3),
+        L(right-3,-451 + fy), L(right-6,-445 + fy), L(right-11,-458 + fy),
+        L(shift+9,-448 + fy), L(shift+9,-458 + fy), L(shift-5,-447 + fy), L(shift-3,-456 + fy),
+        L(shift-17,-440 + fy), L(shift-14,-455 + fy), Q(left+9,-450 + fy * 0.6,left+4,-427 + fy * 0.4)], hair);
+      path(ctx, [M(left+4,-453 + fy * 0.3), Q(-15,-477,6,-477), Q(22,-475,30,-464),
+        Q(9,-474,-1,-461 + fy * 0.4), L(-16,-448 + fy * 0.5), L(-10,-460 + fy * 0.3)], hairLight,null);
 
       // Front-view sweat bead helper
       const drawFrontSweat = (sx, sy, s = 1) => {
@@ -456,14 +481,16 @@
 
       // Realistic front eye helper (eyelid crease, thick tapered upper lash, iris + dark pupil + specular catchlight!)
       const drawFrontEye = (ex, ey, ew, eh, pdx, pdy, pr, lidDroop = 0, underBag = false) => {
+        const fx = pdx + eyeDx;
+        const fyEye = pdy + eyeDy + headPitch * 1.4;
         if (underBag) {
           path(ctx, [M(ex-ew*0.85, ey+eh+2.2), Q(ex, ey+eh+4.8, ex+ew*0.85, ey+eh+2.2)], null, 'rgba(92,58,64,0.34)', 1.5);
         }
         path(ctx, [M(ex-ew, ey), Q(ex, ey-eh, ex+ew, ey), Q(ex, ey+eh*0.88, ex-ew, ey)], '#fff5e8', ink, 1.1);
         const ir = Math.min(eh * 0.72, pr * 1.48);
-        oval(ctx, ex + pdx, ey + pdy, ir, ir, '#5d3e33');
-        oval(ctx, ex + pdx, ey + pdy, pr, pr, '#161b1e');
-        oval(ctx, ex + pdx - 1.1, ey + pdy - 1.3, 1.15, 1.15, '#ffffff');
+        oval(ctx, ex + fx, ey + fyEye, ir, ir, '#5d3e33');
+        oval(ctx, ex + fx, ey + fyEye, pr, pr, '#161b1e');
+        oval(ctx, ex + fx - 1.1, ey + fyEye - 1.3, 1.15, 1.15, '#ffffff');
         if (lidDroop > 0) {
           path(ctx, [M(ex-ew-1, ey-eh-1), L(ex+ew+1, ey-eh-1), L(ex+ew, ey-eh+lidDroop),
             Q(ex, ey-eh+lidDroop+1.4, ex-ew, ey-eh+lidDroop)], pale ? '#dfae90' : '#e7ae87', null);
@@ -473,6 +500,9 @@
         path(ctx, [M(ex-ew*0.75, topY-2.6), Q(ex, topY-4.4, ex+ew*0.75, topY-2.6)], null, '#9c644c', 1.0);
       };
 
+      // Shift eyes, brows, nose, mouth smoothly by featY when pitching head up/down!
+      ctx.save();
+      ctx.translate(0, featY);
       for (const side of [-1, 1]) {
         const eye = shift + side * (quarter ? (side === 1 ? 14 : 13) : 15);
         const w = quarter && side === 1 ? 6 : 8.5;
@@ -497,19 +527,15 @@
           path(ctx, [M(outerX,-447), Q(eye,-453,innerX,-449)], null, ink, 2.1);
           drawFrontEye(eye, -435, w, 7.6, 0, 0, 1.75, 0, false);
         } else if (expr === 'dread') {
-          // Anxious worried brows: inner corners lifted HIGH, outer corners lowered!
           path(ctx, [M(outerX,-444), Q(eye,-448,innerX,-450)], null, ink, 2.1);
           drawFrontEye(eye, -435, w, 7.2, 0, 0.3, 1.25, 0, true);
         } else if (expr === 'panic') {
-          // High strained terrified brows: inner corners pinched sharply up!
           path(ctx, [M(outerX,-445), Q(eye,-451,innerX,-453)], null, ink, 2.3);
           drawFrontEye(eye, -435, w, 7.6, 0, 0, 1.45, 0, true);
         } else if (expr === 'determined') {
-          // Symmetrical focused V-brows: outer corners HIGH, inner corners angled DOWN toward nose!
           path(ctx, [M(outerX,-447), L(innerX,-441.5)], null, ink, 2.6);
           drawFrontEye(eye, -435, w, 4.8, 0, 0.5, 2.1, 1.5, false);
         } else if (expr === 'angry') {
-          // Fierce steep symmetrical V-brows: outer corners HIGH, inner corners driven sharply DOWN!
           oval(ctx, eye + side * 4, -424, 6.5, 3.6, 'rgba(208,112,92,0.40)');
           path(ctx, [M(outerX,-450), L(innerX,-439.5)], null, ink, 2.9);
           drawFrontEye(eye, -435, w, 5.8, 0, 0.4, 1.75, 1.7, false);
@@ -523,7 +549,6 @@
           path(ctx, [M(outerX,-444-(side===-1?2.5:0)), Q(eye,-448,innerX,-444)], null, ink, 2.0);
           drawFrontEye(eye, -435, w, 5.8, 2.6, 0, 2.1, 0.4, false);
         } else {
-          // Upgraded realistic Neutral
           path(ctx, [M(outerX,-444), Q(eye,-446.5,innerX,-443.5)], null, ink, 1.9);
           drawFrontEye(eye, -435, w, 5.2, 0, 0, 2.1, 0.9, false);
         }
@@ -532,18 +557,26 @@
       // Forehead tension creases & sweat beads for high-stress horror reactions
       if (expr === 'dread' || expr === 'panic') {
         path(ctx, [M(-9,-453), Q(0,-455,9,-453)], null, '#9c644c', 1.1);
-        drawFrontSweat(24, -440, 1.0);
-        if (expr === 'panic') drawFrontSweat(-24, -434, 0.72);
+        drawFrontSweat(24, -440 + extraSweat * 9, 1.0);
+        if (expr === 'panic') drawFrontSweat(-24, -434 + extraSweat * 7, 0.72);
       } else if (expr === 'exhausted' || expr === 'strain') {
-        drawFrontSweat(24, -439, 0.85);
+        drawFrontSweat(24, -439 + extraSweat * 6, 0.85);
+      } else if (extraSweat > 0.05) {
+        drawFrontSweat(24, -443 + extraSweat * 11, 0.85 + 0.2 * extraSweat);
       } else if (expr === 'angry') {
         path(ctx, [M(-3,-444), L(-2,-438), M(3,-444), L(2,-438)], null, '#9c644c', 1.2);
       }
 
-      // Sculpted nose with bridge shadow & under-nose cast shadow
+      // Sculpted nose (shows slight upturned nostril plane when looking UP, crisp downward point when looking DOWN!)
       const noseX = quarter ? 17 : 0;
-      path(ctx, [M(noseX-1,-432), L(noseX+4.5,-421), L(noseX-2,-419)], null, ink, 1.7);
-      path(ctx, [M(noseX-2.5,-419), Q(noseX+1,-417,noseX+4,-419.5)], null, 'rgba(130,74,52,0.34)', 1.6);
+      if (headPitch < -0.35) {
+        path(ctx, [M(noseX-1,-431), L(noseX+4,-423), L(noseX-2.5,-422)], null, ink, 1.7);
+        oval(ctx, noseX - 1.6, -422.5, 1.1, 0.8, '#7a4b38');
+        oval(ctx, noseX + 2.2, -422.5, 1.1, 0.8, '#7a4b38');
+      } else {
+        path(ctx, [M(noseX-1,-432), L(noseX+4.5,-421 + headPitch * 2), L(noseX-2,-419 + headPitch * 2)], null, ink, 1.7);
+        path(ctx, [M(noseX-2.5,-419 + headPitch * 2), Q(noseX+1,-417 + headPitch * 2,noseX+4,-419.5 + headPitch * 2)], null, 'rgba(130,74,52,0.34)', 1.6);
+      }
 
       // Expressive front mouth + subtle under-lip chin shadow!
       const mouthX = quarter ? 16 : 0;
@@ -579,7 +612,9 @@
       } else {
         path(ctx, [M(mouthX-7,-411.5), Q(mouthX,-412.5,mouthX+7,-411.5)], null, ink, 1.8);
       }
+      ctx.restore();
     }
+    ctx.restore();
     ctx.restore();
   };
 
@@ -752,6 +787,362 @@
       ctx.fillText(label,46,120);
     }
   }
+
+  // Cinematic camera angles for horror/survival framing (OTS, Overhead, Low-Angle, High-Angle)
+  // All front/rear perspectives reuse the official drawAnatomyTurnaround geometry so character identity stays 100% on-model!
+  window.drawCinematicAngle = (ctx, x, y, scale, angle) => {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    const skin = palette.near.skin;
+
+    if (angle === 'ots') {
+      // Full-bleed dark corridor behind official rear-view Series Lead anchored in lower-right foreground!
+      path(ctx, [M(-162, -180), L(162, -180), L(162, 180), L(-162, 180)], '#25313a', null);
+      path(ctx, [M(-78, -180), L(-18, -36), L(-18, 56), L(-145, 180), L(-162, 180), L(-162, -180)], '#1c252c', null);
+      path(ctx, [M(102, -180), L(35, -36), L(35, 56), L(162, 180), L(162, -180)], '#1c252c', null);
+      path(ctx, [M(-18, 56), L(35, 56), L(162, 180), L(-145, 180)], '#33404a', null);
+      const lamp = ctx.createRadialGradient(4, -12, 4, 4, -12, 86);
+      lamp.addColorStop(0, 'rgba(248, 212, 134, 0.40)');
+      lamp.addColorStop(1, 'rgba(248, 212, 134, 0)');
+      ctx.fillStyle = lamp;
+      ctx.fillRect(-90, -110, 190, 200);
+      // Official rear Series Lead head & right shoulder framed in lower-right foreground
+      drawAnatomyTurnaround(ctx, 76, 804, 1.82, 'rear', { hideLimbs: false });
+    } else if (angle === 'overhead') {
+      // Overhead / Top-Down God-View (standing on ground looking straight down!)
+      oval(ctx, 0, 16, 68, 36, 'rgba(37,58,59,0.16)', null);
+      path(ctx, [M(-32, 34), Q(-22, 64, -10, 62), Q(-2, 58, -6, 32)], shoe, ink, 2.2);
+      path(ctx, [M(10, 32), Q(6, 58, 16, 62), Q(28, 64, 34, 34)], shoe, ink, 2.2);
+      path(ctx, [M(-42, 14), Q(0, 44, 42, 14), L(32, -8), L(-32, -8)], palette.near.pants, ink, 2.0);
+      path(ctx, [M(-64, 4), Q(-76, 26, -60, 44), Q(-48, 48, -44, 30), L(-46, 6)], shirt, ink, 2.2);
+      oval(ctx, -54, 44, 9, 11, skin, ink);
+      path(ctx, [M(64, 4), Q(76, 26, 60, 44), Q(48, 48, 44, 30), L(46, 6)], shirt, ink, 2.2);
+      oval(ctx, 54, 44, 9, 11, skin, ink);
+      path(ctx, [M(-70, -4), Q(-68, -42, 0, -44), Q(68, -42, 70, -4), Q(66, 30, 0, 34), Q(-66, 30, -70, -4)], shirt, ink, 2.4);
+      path(ctx, [M(-60, -2), Q(-28, -26, 0, -24), Q(28, -26, 60, -2)], null, '#bab49f', 2.2);
+      path(ctx, [M(-7, 26), L(0, 46), L(7, 26)], tie, ink, 1.5);
+      path(ctx, [M(-6, 30), Q(0, 38, 6, 30)], skin, ink, 1.8);
+      oval(ctx, -40, -4, 6, 11, '#dda07d', ink);
+      oval(ctx, 40, -4, 6, 11, '#dda07d', ink);
+      path(ctx, [M(-38, -8), Q(-42, -52, 0, -56), Q(42, -52, 38, -8), Q(38, 28, 12, 33),
+        L(6, 22), L(-4, 34), L(-14, 24), Q(-38, 24, -38, -8)], hair, ink, 2.5);
+      path(ctx, [M(-22, -32), Q(0, -44, 22, -26), Q(6, -24, -18, -18)], hairLight, null);
+      path(ctx, [M(-4, -22), Q(4, -12, 16, -8), M(-6, -18), Q(-16, -6, -22, 6)], null, ink, 1.6);
+    } else if (angle === 'low-angle') {
+      // Dramatic Low-Angle: official Series Lead looming upward from chest/waist height!
+      ctx.save();
+      ctx.translate(0, 26);
+      ctx.scale(1.12, 1.04);
+      drawAnatomyTurnaround(ctx, 0, 646, 1.68, 'front', {
+        expression: 'head-determined',
+        headPitch: -0.95,
+        eyeOffset: [0, -1.2],
+      });
+      ctx.restore();
+    } else {
+      // Vulnerable High-Angle: official Series Lead viewed from above looking up in alarm!
+      ctx.save();
+      ctx.translate(0, -16);
+      drawAnatomyTurnaround(ctx, 0, 476, 1.15, 'front', {
+        expression: 'head-alarm',
+        headPitch: 0.92,
+        eyeOffset: [0, -2.8],
+        sweat: 0.7,
+      });
+      ctx.restore();
+    }
+    ctx.restore();
+  };
+
+  // Cinematic Face Angles, Tilts, Gazes & Off-Center Crash-Zoom ECU
+  // Uses the EXACT official Series Lead head geometry from drawAnatomyTurnaround & drawPart!
+  window.drawFaceAngle = (ctx, x, y, scale, mode, opts = {}) => {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.scale(scale, scale);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    if (mode === 'eye-dart') {
+      drawAnatomyTurnaround(ctx, 0, 882, 2.04, 'front', {
+        hideLimbs: true,
+        expression: opts.expression ?? 'head',
+        eyeOffset: [opts.dart ?? 3.6, opts.eyeDy ?? 0],
+        sweat: opts.sweat ?? 0.85,
+      });
+    } else if (mode === 'head-tilt') {
+      drawAnatomyTurnaround(ctx, 0, 882, 2.04, 'front', {
+        hideLimbs: true,
+        expression: opts.expression ?? 'head-notice',
+        headTilt: opts.tilt ?? 12,
+        eyeOffset: [opts.dart ?? -1.8, 0],
+        dreadWash: opts.dread ?? 0.35,
+      });
+    } else if (mode === 'look-up') {
+      drawAnatomyTurnaround(ctx, 0, 882, 2.04, 'front', {
+        hideLimbs: true,
+        expression: opts.expression ?? 'head-alarm',
+        headPitch: opts.pitch ?? -0.95,
+        eyeOffset: [0, opts.eyeDy ?? -1.8],
+      });
+    } else if (mode === 'look-down') {
+      drawAnatomyTurnaround(ctx, 0, 882, 2.04, 'front', {
+        hideLimbs: true,
+        expression: opts.expression ?? 'head',
+        headPitch: opts.pitch ?? 0.95,
+        eyeOffset: [0, opts.eyeDy ?? 1.6],
+      });
+    } else if (mode === 'glance-back') {
+      // Official side-profile Series Lead turning sharply back over shoulder — full crown & collar cleanly framed!
+      const dir = opts.flip === false ? 1 : -1;
+      ctx.save();
+      ctx.translate(0, 214);
+      ctx.scale(dir * 1.32, 1.32);
+      drawPart(ctx, 'chest');
+      ctx.save();
+      ctx.translate(3, -127);
+      drawPart(ctx, 'neck');
+      ctx.translate(0, -21);
+      ctx.rotate((opts.headAngle ?? -4) * Math.PI / 180);
+      drawPart(ctx, opts.expression ?? 'head-alarm');
+      ctx.restore();
+      ctx.restore();
+    } else {
+      // Off-Center ECU Crash-Zoom Dread: LITERAL tight zoom of our official Series Lead front face!
+      const zoom = opts.zoom ?? 5.95;
+      const panX = opts.panX ?? -72;
+      const panY = opts.panY ?? 34;
+      drawAnatomyTurnaround(ctx, panX, 434 * zoom + panY, zoom, 'front', {
+        hideLimbs: true,
+        expression: opts.expression ?? 'head-dread',
+        eyeOffset: [opts.dart ?? 0, opts.eyeDy ?? 0],
+        sweat: opts.sweat ?? 0.45,
+        dreadWash: opts.dread ?? 1.0,
+      });
+    }
+    ctx.restore();
+  };
+
+  // First-person POV survival & action hand poses built directly from the studio SVG anatomy of hands/reference-sheet.svg!
+  window.drawPovSurvivalHand = (ctx, mode) => {
+    ctx.save();
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    const svgPath = (d, fill, stroke = ink, width = 2.4) => {
+      const p = new Path2D(d);
+      if (fill) {
+        ctx.fillStyle = fill;
+        ctx.fill(p);
+      }
+      if (stroke) {
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = width;
+        ctx.stroke(p);
+      }
+    };
+
+    const drawSvgCuff = (tx, ty, rotDeg, sx = 1, sy = 1) => {
+      ctx.save();
+      ctx.translate(tx, ty);
+      ctx.rotate(rotDeg * Math.PI / 180);
+      ctx.scale(sx, sy);
+      svgPath('M-23 -2 Q0 2 25 -3 C26 17 32 33 39 56 L-41 56 C-35 38 -27 15 -23 -2Z', '#e8e1cc', ink, 2.4);
+      svgPath('M-22 2 L-12 6 L-21 56 L-39 56 Q-27 25 -22 2Z', '#bab49f', null);
+      svgPath('M-24 -3 Q1 0 25 -4 L28 13 Q2 19 -28 13Z', '#ede5d0', ink, 2.4);
+      svgPath('M-25 9 Q2 14 25 8', null, '#a49c86', 1.2);
+      oval(ctx, 19, 7, 2.5, 2.5, '#c6bda8', '#8a8575');
+      ctx.restore();
+    };
+
+    // Exact #bar-hold cylindrical wrap hand from hands/reference-sheet.svg, oriented cleanly for bottom-right POV!
+    const drawCylinderGripHand = (drawPropFn, rotDeg, cx = 176, cy = 216, sc = 1.10) => {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(rotDeg * Math.PI / 180);
+      ctx.scale(sc, sc);
+      ctx.translate(-126, -124);
+      // Opposing thumb hooking cleanly behind the shaft
+      svgPath('M100 105 Q90 108 85 119 Q79 130 82 143 Q82 151 88 155 Q93 159 100 155 Q104 153 104 148 Q104 144 98 143 L95 143 Q92 137 97 132 L111 119Z', '#c88e72', ink, 2.4);
+      // Cylindrical prop passing right through the gripped hand!
+      drawPropFn();
+      // Main dorsal palm + 4 anatomically tapered fingers wrapping cleanly around the shaft
+      svgPath('M99 61 Q102 72 96 83 Q90 95 91 109 Q91 118 95 123 Q97 130 98 147 Q98 158 101 162 Q106 168 112 162 Q115 159 115 151 L114 128 Q117 137 118 153 Q119 166 124 168 Q131 171 135 165 Q137 161 135 153 L132 128 Q136 136 139 153 Q141 163 146 163 Q154 163 155 156 Q156 151 152 142 L149 125 Q154 132 157 144 Q160 153 166 153 Q173 152 172 145 Q170 132 164 112 Q161 100 154 94 Q143 81 139 61Z', '#e7ae87', ink, 2.4);
+      // Core ulnar shadow & warm radial highlight
+      svgPath('M139 63 Q143 80 154 94 Q161 100 164 112 L172 145 Q173 152 166 152 Q160 153 157 144 L150 123 Q156 117 154 110 Q148 99 140 93 Q130 82 130 63Z', '#c88e72', null);
+      svgPath('M98 106 Q98 88 106 79 Q117 77 133 87 Q143 94 146 104 Q133 102 124 105 Q110 106 98 106Z', '#f3c39d', null);
+      // Knuckle & joint creases
+      svgPath('M98 114 Q104 109 110 113 M117 116 Q123 110 129 114 M136 115 Q142 109 146 112 M153 117 L160 115 M101 136 Q106 133 111 135 M121 140 Q126 136 131 139 M140 138 L148 136 M158 136 L166 133 M101 154 Q107 151 112 154 M122 158 Q127 154 133 157 M143 153 Q147 150 153 151', null, '#9e6755', 1.6);
+      drawSvgCuff(118, 66, 180, 0.83, 0.82);
+      ctx.restore();
+    };
+
+    if (mode === 'pov-pipe-grip') {
+      // Bottom-right POV survival steel pipe grip using exact #bar-hold finger anatomy!
+      drawCylinderGripHand(() => {
+        // Steel pipe running along y=111..138 extending cleanly far out to the right (which rotates to upper-left!)
+        svgPath('M-64 111 H208 V138 H-64Z', '#6d7b85', ink, 2.4);
+        svgPath('M-64 111 H208 V119 H-64Z', '#9eb0bc', ink, 1.5);
+        svgPath('M-64 132 H208 V138 H-64Z', '#4d5963', null);
+        // Threaded pipe coupling collar near striking end
+        svgPath('M-44 106 H-22 V143 H-44Z', '#56636d', ink, 2.2);
+        // Dark cloth grip tape under fingers
+        svgPath('M82 110 H176 V139 H82Z', '#3b3936', ink, 1.8);
+      }, 148);
+    } else if (mode === 'pov-flashlight') {
+      // Bottom-right POV tactical flashlight hold using exact #bar-hold finger anatomy!
+      drawCylinderGripHand(() => {
+        // Warm flashlight light cone fanning ahead from lens (x < -12)
+        const beam = ctx.createLinearGradient(-12, 124, -120, 124);
+        beam.addColorStop(0, 'rgba(255, 240, 178, 0.62)');
+        beam.addColorStop(1, 'rgba(255, 240, 178, 0)');
+        ctx.fillStyle = beam;
+        path(ctx, [M(-16, 102), L(-118, 52), L(-118, 196), L(-16, 146)], beam, null);
+        // Tactical flashlight barrel + flared bezel + glowing lens
+        svgPath('M12 110 H196 Q204 110 204 124 Q204 138 196 138 H12Z', '#46535d', ink, 2.4);
+        svgPath('M14 111 H192 V118 H14Z', '#72828e', null);
+        svgPath('M-16 101 L14 108 V140 L-16 147Z', '#323c44', ink, 2.4);
+        svgPath('M-22 103 Q-14 124 -22 145 L-14 146 V102Z', '#fbe9aa', ink, 1.8);
+        // Recessed tactical side button
+        oval(ctx, 56, 124, 9, 6, '#232a30', ink);
+      }, 146);
+    } else if (mode === 'pov-door-lock') {
+      // Exact #ticket-pinch right hand from hands/reference-sheet.svg pinching and turning a metallic deadbolt latch!
+      ctx.save();
+      ctx.translate(170, 178);
+      ctx.scale(1.32, 1.32);
+      ctx.translate(-122, -124);
+      // Deadbolt escutcheon plate behind latch
+      oval(ctx, 168, 98, 44, 44, '#7d868c', ink);
+      oval(ctx, 168, 98, 34, 34, '#9aa3a8', ink);
+      // Far fingers curled cleanly below
+      svgPath('M91 147 Q101 147 111 140 C117 146 113 158 105 162 Q97 166 88 161Z', '#c78c73', ink, 1.7);
+      svgPath('M108 126 Q116 117 125 121 Q127 131 126 140 L121 153 Q117 160 111 157 Q106 155 107 148 L110 136Z', '#ce9479', ink, 1.7);
+      svgPath('M120 108 Q133 102 142 110 Q147 116 145 125 L143 145 Q142 153 137 154 Q131 153 130 148 L129 131 Q126 126 119 126Z', '#dba382', ink, 1.8);
+      // Dorsal hand & arched index finger gripping upper side of deadbolt latch
+      svgPath('M40 165 Q61 148 72 132 L84 116 C90 106 96 101 106 100 L126 96 Q135 94 140 97 Q146 101 143 107 L130 118 Q123 124 113 129 Q110 144 102 155 C95 169 79 176 58 184Z', '#e7ae87', ink, 2.4);
+      svgPath('M41 165 Q61 148 72 132 Q82 119 87 113 Q93 107 101 105 Q90 117 85 132 Q76 149 64 157 L50 173Z', '#c88e72', null);
+      svgPath('M100 106 Q98 110 100 114 M119 99 Q116 102 118 106 M134 134 L140 134 M111 146 L117 148', null, '#9e6755', 1.6);
+      // Metallic deadbolt thumb-turn lever sandwiched cleanly between index & thumb!
+      ctx.save();
+      ctx.translate(168, 98);
+      ctx.rotate(-16 * Math.PI / 180);
+      path(ctx, [M(-32, -9), L(32, -9), Q(40, 0, 32, 9), L(-32, 9), Q(-40, 0, -32, -9)], '#d2d9dd', ink, 2.1);
+      path(ctx, [M(-26, -4), L(26, -4)], null, '#eef3f5', 2.0);
+      ctx.restore();
+      // Opposing thumb pinching near side of deadbolt latch + nail & creases
+      svgPath('M87 144 Q97 138 108 127 L123 112 Q129 105 134 103 Q142 99 146 105 Q150 110 145 116 L133 128 L118 144 Q111 154 100 159', '#e7ae87', ink, 2.0);
+      svgPath('M99 155 Q108 148 116 138 L138 115 Q144 110 146 108 Q148 113 143 117 L130 130 L117 144 Q108 155 101 157Z', '#c88e72', null);
+      svgPath('M134 106 Q139 103 143 106 Q145 109 142 112 L137 116 Q133 115 131 111Z', '#f1c2a8', '#b98573', 0.85);
+      svgPath('M119 120 Q120 124 124 126 M114 124 Q116 128 119 130 M93 145 Q96 147 97 151', null, '#9e6755', 1.6);
+      drawSvgCuff(50, 174, 42, 0.64, 1.0);
+      ctx.restore();
+    } else {
+      // Exact #palm right hand from hands/reference-sheet.svg raised defensively at an urgent angle!
+      ctx.save();
+      ctx.translate(182, 184);
+      ctx.rotate(-14 * Math.PI / 180);
+      ctx.scale(1.26, 1.26);
+      ctx.translate(-120, -124);
+      // Mirror horizontally like #palm so thumb sits on inner-right side for right-hand open palm facing forward
+      ctx.save();
+      ctx.translate(24, 0);
+      ctx.scale(0.84, 1);
+      ctx.translate(240, 0);
+      ctx.scale(-1, 1);
+      svgPath('M98 169 C99 153 95 144 88 133 L68 108 C61 99 66 91 73 94 Q80 95 87 106 L97 114 L96 57 C96 48 106 47 109 55 L114 91 L115 40 C115 30 128 29 130 40 L133 90 L137 48 C138 39 150 40 151 50 L151 96 L158 66 C160 57 171 60 171 69 L166 116 Q165 136 151 151 Q145 157 145 168Z', '#e7ae87', ink, 2.4);
+      svgPath('M98 117 Q116 113 124 133 Q122 151 106 153 Q102 137 98 117Z', '#f3c39d', null);
+      svgPath('M160 115 Q155 142 143 151 L142 166 L132 166 Q140 149 143 134Z', '#c88e72', null);
+      svgPath('M101 116 Q119 123 117 146 M106 108 Q127 103 151 107 M119 118 Q137 112 149 115 M116 157 Q127 159 138 156 M102 77 L108 77 M121 65 L127 65 M142 73 L148 73 M160 86 L166 87', null, '#9e6755', 1.6);
+      drawSvgCuff(120, 165, 0, 1, 1);
+      ctx.restore();
+      // Crisp defensive snap-raise motion arcs flanking the fingertips
+      path(ctx, [M(62, 46), Q(52, 68, 56, 92), M(184, 52), Q(194, 74, 188, 98)], null, 'rgba(37,58,59,0.34)', 2.0);
+      ctx.restore();
+    }
+    ctx.restore();
+  };
+
+  // Animated Cinematic Face, Gaze & Crash-Zoom Video Reference Frame Generator (1080x1920 @ 24fps)
+  window.drawCinematicFaceReelFrame = (ctx, w, h, sceneId, t, dur) => {
+    const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+    const smooth = v => { const c = clamp(v); return c * c * (3 - 2 * c); };
+    ctx.save();
+    // Warm parchment studio gradient backdrop matching dynamic-movements-reel.mp4
+    const bg = ctx.createLinearGradient(0, 0, 0, h);
+    bg.addColorStop(0, '#f9efd9');
+    bg.addColorStop(1, '#e8d7b6');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+
+    if (sceneId === 'eye-dart') {
+      // 0..0.65s calm neutral -> 0.65..0.85s SNAPPY eye-dart sideways -> 1.0..2.2s sweat bead pops & slides!
+      const dart = smooth((t - 0.62) / 0.16) * 4.2;
+      const sweat = t > 0.92 ? smooth((t - 0.92) / 1.15) : 0;
+      const zoom = 1 + 0.05 * smooth((t - 0.62) / 1.4);
+      const expr = t > 0.72 ? 'head-notice' : 'head';
+      drawFaceAngle(ctx, w / 2, h * 0.52, 3.05 * zoom, 'eye-dart', { expression: expr, dart, sweat });
+    } else if (sceneId === 'head-tilt') {
+      // Slow creeping horror push-in (1.0 -> 1.18x) while head tilts eerily 0 -> 12 deg and dread wash deepens!
+      const p = smooth((t - 0.45) / 1.85);
+      const zoom = 1 + 0.18 * smooth(t / dur);
+      drawFaceAngle(ctx, w / 2, h * 0.52, 3.0 * zoom, 'head-tilt', {
+        expression: p > 0.6 ? 'head-dread' : 'head-notice',
+        tilt: 12 * p,
+        dart: -1.6 * p,
+        dread: 0.75 * p,
+      });
+    } else if (sceneId === 'look-up') {
+      // Level gaze -> sharp tilt upward looking at looming ceiling threat + shock gasp!
+      const p = smooth((t - 0.45) / 0.55);
+      const zoom = 1 + 0.08 * p;
+      drawFaceAngle(ctx, w / 2, h * 0.52 + 24 * p, 3.05 * zoom, 'look-up', {
+        expression: t > 0.72 ? 'head-alarm' : 'head-notice',
+        pitch: -0.95 * p,
+        eyeDy: -1.8 * p,
+      });
+    } else if (sceneId === 'look-down') {
+      // Level gaze -> bows head down toward floor clue / prop in hand + gentle push-in!
+      const p = smooth((t - 0.45) / 0.65);
+      const zoom = 1 + 0.10 * smooth(t / dur);
+      drawFaceAngle(ctx, w / 2, h * 0.52 - 16 * p, 3.05 * zoom, 'look-down', {
+        expression: t > 1.15 ? 'head-notice' : 'head',
+        pitch: 0.95 * p,
+        eyeDy: 1.6 * p,
+      });
+    } else if (sceneId === 'glance-back') {
+      // Side profile looking right -> snappy startled turn glancing back left over shoulder (bust framing to bottom edge!)
+      const snap = t > 0.80;
+      const jolt = snap && t < 0.96 ? Math.sin((t - 0.80) * 90) * 10 * (1 - (t - 0.80) / 0.16) : 0;
+      const zoom = snap ? 1.12 + 0.05 * smooth((t - 0.80) / 1.4) : 1.0;
+      drawFaceAngle(ctx, w / 2 + jolt, h * 0.61, 4.35 * zoom, 'glance-back', {
+        flip: snap,
+        expression: snap ? 'head-alarm' : 'head-notice',
+        headAngle: snap ? -6 : 2,
+      });
+    } else {
+      // Off-Center ECU Crash-Zoom Dread: tight portrait (0..0.72s) -> SNAPPY 5-frame crash-zoom off-center onto left eye -> creeping dread!
+      const crash = smooth((t - 0.72) / 0.22);
+      const creep = smooth((t - 0.94) / 2.0);
+      const zoom = 2.45 + 5.8 * crash + 0.65 * creep;
+      const panX = -124 * crash - 14 * creep;
+      const panY = 26 * crash;
+      const shake = t > 0.72 && t < 1.05 ? Math.sin(t * 140) * 6 * (1 - (t - 0.72) / 0.33) : Math.sin(t * 24) * 1.2 * crash;
+      const sweat = 0.2 + 0.8 * smooth((t - 0.85) / 1.8);
+      drawFaceAngle(ctx, w / 2 + shake, h * 0.50, 2.5, 'ecu-dread', {
+        expression: 'head-dread',
+        zoom,
+        panX,
+        panY,
+        sweat,
+        dread: 0.65 + 0.35 * crash,
+      });
+    }
+    ctx.restore();
+  };
 
   window.makeAnatomyAssets = (names, layout = { ids: [] }) => {
     const canvas = document.createElement('canvas');

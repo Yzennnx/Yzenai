@@ -27,6 +27,25 @@ Start with a simple overhead map showing the lead, the important objects, the di
 
 A practical sequence is **place → notice → proof → reaction → new action**. Use only the views that the moment needs. As an example, a wide shows our lead beside a door, their POV finds a mark on the handle, a close-up shows their eyes move toward the next door, and a side view shows them try it. The same environment produces four meaningful images by changing the job of the camera.
 
+## Zooming, looking-around POV, and intensifying motion
+
+Apply these camera and motion-intensification techniques from the [Nightmare Roulette study](source-study.md#zooming-looking-around-pov-and-intensifying-motion) to original scenes using our lead's [cinematic anatomy angles](../../assets/series-lead/angles-sheet.png), [face tilts and gazes](../../assets/series-lead/face-angles.png), [animated face & camera reference reel](../../assets/series-lead/anatomy-prototype/cinematic-face-camera-reel.mp4), and [POV survival hands](../../assets/series-lead/hands/pov-survival-sheet.png):
+
+- **Zoom grammar (give every zoom a story job):**
+  - *Stepped push-in cuts:* Step from wide → medium → tight ECU across 2–4 cuts as the narrator names escalating details, closing physical distance on each noun.
+  - *Slow creeping push-in (`5–15%`):* Keep tension holds alive by creeping slowly toward the lead's eyes or the threat instead of locking on a dead still frame.
+  - *Off-center ECU punch-in:* Punch tightly onto one eye, sweat drop, scar, or prop detail off-center so it reads unmistakably on a phone screen.
+  - *Relief pull-back → dread pan:* Loosen framing for a brief false-safety exhale, then pan smoothly off-center into empty darkness to reveal the real danger just outside the safe zone.
+- **Looking-around POV & subjective camera:**
+  - *Audio cue → eye-dart → whip-pan:* Show a quick sideways eye-dart and sweat drop on a sound cue, cut to a fast horizontal POV pan with subtle handheld tilt, and hold 1.5–2.5 seconds on the empty space so the viewer searches the frame with the lead.
+  - *Downward prop POV:* Anchor the lead's cream-cuffed right hand in the lower-right foreground (`pov-pipe-grip`, `pov-flashlight`, `pov-door-lock`, `pov-shield-face`) so the audience immediately reads first-person ownership before returning to a third-person reaction.
+  - *Over-the-shoulder (OTS) corridor depth:* Hold the lead's back of head and shoulder in lower-right foreground while the threat closes distance down a lighted axis.
+- **Motions that intensify cutout actions:**
+  - *Micro-acting inside holds:* Layer sequential cues — eye-dart, sweat drop pop-in, `12°` head tilt, breath rise, metallic glint sweep — so held beats feel cinematic without over-animating.
+  - *Foreground parallax wipes:* Pass dark poles, doorframes, or pillars *in front of* the lead faster than the background during walks and sprints to amplify speed.
+  - *Rhythmic POV beat cuts:* Compress urgent travel or lockdown sequences into crisp ~1-second tactile POV inserts (`door lock → light switch → brace/shield`) locked to hard foley snaps.
+  - *Full-extension arcs on forceful strikes:* Straighten the striking arm cleanly through the impact arc (e.g., 1-handed melee `slash`) before snapping back into guard, paired with a brief impact shake or punch-in.
+
 ## Pace the story
 
 For a **45–90-second short**, keep the same camera logic in a compact sequence. Let the first image establish the premise, show the event early, and use the clearest consequences to reach the payoff. In a roughly one-minute cut, spend the first few seconds on the hook and visible event, the middle on cause and effect, and the last few seconds on the callback or answer. Give a discovery one first-person view and its impact a third-person reaction when both help the story. Use a close insert when it advances the same action. Leave a brief hold for the strongest image or cue.

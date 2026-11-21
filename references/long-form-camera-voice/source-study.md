@@ -56,6 +56,23 @@ Times are approximate edit landmarks in the supplied file. Several rows contain 
 
 The offline transcript counted about **376 tokens across 2:55.72 of timed narration**, which is roughly **128 words per elapsed minute** including pauses. Treat that as a reference pace for this specific story. The mix measured **−9.3 LUFS integrated**, about **2.3 LU** of loudness range, and true peaks near **0 dBFS**. It is a dense, loud reference mix. For our production, use comfortable speech level, headroom for peaks, and deliberate space for important cues. The average level cannot tell us whether an individual effect or a second performer produced a sound.
 
+## Zooming, looking-around POV, and intensifying motion
+
+Detailed pass on camera movement, subjective look-arounds, and micro-motion in the supplied file:
+
+| Technique | Source timestamps | What happens visually |
+| --- | --- | --- |
+| **Stepped push-in escalation** | `0:46–0:58` | Wide streetlight → full figure → waist-up → tight mask ECU. Each cut steps closer on one spoken noun (`"across the road" → "long coat" → "long black hair" → "white surgical mask"`). |
+| **Creeping horror zoom-in** | `0:55–0:57`, `1:22–1:27`, `2:04–2:09`, `2:55–2:58` | Static horror holds never freeze dead — a slow continuous `5–15%` push-in builds suffocating pressure toward the eyes or mask. |
+| **Off-center detail punch-in** | `2:04–2:09` | As the mask pulls down slightly, the camera punches tight onto just one cheek, eye, and stitched scar off-center so phone viewers immediately catch the single horrifying detail. |
+| **Relief zoom-out → dread pan** | `2:43–2:56` | Overhead bed shot pushes in as the mask lowers, pulls back out on `"You made it"`, then pans sideways off the mattress into pitch-black shadow beside the bed where hair and a wrapper-crinkling hand appear before snap-cutting to the full-frame face reveal. |
+| **Audio-motivated POV whip-pan** | `0:31–0:37` | Front reaction shows sideways eye-dart + sweat bead on the sound of heels → rapid subjective whip-pan (`"you spin round"`) with slight handheld tilt → 2+ second hold on the empty sidewalk so the viewer scans the same dark frame. |
+| **Downward prop POV → action** | `0:19–0:22`, `1:20–1:22`, `2:18–2:24` | Sleeved hand enters from bottom-right holding the sweet bag against dark pavement; later the second hand enters the same POV framing to rip and throw the bag forward into perspective. |
+| **Over-the-shoulder depth axis** | `1:27–1:42`, `2:15–2:17` | Lead's back of head and shoulder anchor the lower-right foreground while the approaching figure grows down the streetlight axis (`10 m → 5 m → 2 m → 0.9 m`). |
+| **Micro-acting inside holds** | `0:31`, `1:22`, `1:45`, `2:10–2:16` | Sequential micro-motions replace busy full-body animation: sideways eye-dart → sweat pop → eyes dropping to the bag → eerie `12°` head tilt on `"Am I pretty?"` → metallic star glint sliding down scissor blades. |
+| **Foreground parallax wipe** | `1:03–1:07`, `2:36–2:40` | During side-view walking and sprinting, dark streetlight poles pass *in front of* the lead at faster parallax speed than the background, creating immediate urgency and depth. |
+| **Rhythmic POV beat montage** | `2:39–2:44` | Fast escape compresses into three ~1-second tactile inserts synced to crisp foley snaps: deadbolt lock twist → light switch flick to black → overhead bed drop. |
+
 ## Frame index
 
 Each sheet shows candidate edit points and selected moments within holds, left to right. The printed timestamps are from the source video.

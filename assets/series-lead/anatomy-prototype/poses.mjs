@@ -375,24 +375,34 @@ export const dynamicScenes = [
     seconds: 2.5,
     scene: {
       elbowBends: [1, 1],
-      // Coiled anticipation -> explosive forward lunge + fast 5-frame slash arc -> low combat guard settle!
-      pelvis: [[0,234,538,2],[.52,212,550,-4],[.74,274,556,11],[1.05,282,558,10],[1.55,256,546,5],[2.5,256,546,5]],
-      chest: [[0,6],[.52,-10],[.74,30],[1.05,26],[1.55,14],[2.5,14]],
-      neck: [[0,3],[.52,-4],[.74,16],[1.55,8],[2.5,8]],
-      head: [[0,0],[.52,4],[.74,-12],[1.55,-6],[2.5,-6]],
-      shoulder: [[0,0,0],[.52,-10,-4],[.74,16,6],[1.55,6,2],[2.5,6,2]],
+      // Coiled anticipation -> explosive lunge + full straight-arm 1-handed slash arc -> low combat guard settle!
+      pelvis: [[0,234,538,2],[.50,210,550,-5],[.64,248,554,5],[.76,276,556,12],[.96,282,558,10],[1.55,256,546,5],[2.5,256,546,5]],
+      chest: [[0,6],[.50,-12],[.64,14],[.76,30],[.96,26],[1.55,14],[2.5,14]],
+      neck: [[0,3],[.50,-5],[.64,8],[.76,16],[1.55,8],[2.5,8]],
+      head: [[0,0],[.50,4],[.64,-4],[.76,-12],[1.55,-6],[2.5,-6]],
+      shoulder: [[0,0,0],[.50,-10,-4],[.64,6,2],[.76,16,6],[1.55,6,2],[2.5,6,2]],
       feet: t => {
-        const front = t < .50 ? sole(264)
-          : t < .76 ? sample([[.50,...sole(264)],[.64,306,718,-14],[.76,...sole(336)]], t)
+        const front = t < .48 ? sole(264)
+          : t < .76 ? sample([[.48,...sole(264)],[.62,306,718,-14],[.76,...sole(336)]], t)
           : sole(336);
-        const backRoll = t < .52 ? 0 : t < .76 ? 22 * ease((t - .52) / .24) : 14;
+        const backRoll = t < .50 ? 0 : t < .76 ? 22 * ease((t - .50) / .26) : 14;
         return [sole(204, backRoll, 30), front];
       },
-      // Far arm balances out cleanly; near arm grips survival pipe -> winds back -> snaps down-forward -> combat guard!
-      far: [[0,262,530],[.52,296,474],[.74,230,520],[1.55,274,518],[2.5,274,518]],
-      near: [[0,282,534,12],[.50,186,436,-55],[.64,344,412,18],[.76,396,522,92],[1.05,368,540,104],[1.55,332,498,18],[2.5,332,498,18]],
+      // Far arm counter-balances back as near arm whips overhead and STRAIGHTENS (~148-152px reach) through the slash!
+      far: [[0,262,530],[.50,296,476],[.76,218,518],[1.05,232,522],[1.55,274,518],[2.5,274,518]],
+      near: [
+        [0,282,534,12],
+        [.50,116,308,-68],     // High coiled windup behind head
+        [.58,256,282,-18],     // Full straight-arm overhead whip arc
+        [.66,408,334,26],      // Accelerating straight-arm downward slash
+        [.76,494,492,86],      // Peak strike apex — arm extended straight forward!
+        [.90,468,554,116],     // Straight-arm follow-through low & across
+        [1.18,412,554,84],     // Decelerate and start pulling back
+        [1.55,336,498,18],     // Snap back into ready combat guard
+        [2.5,336,498,18],
+      ],
       nearHand: [[0,'hand-pipe']],
-      expression: [[0,'head-determined'],[.54,'head-angry'],[1.35,'head-determined']],
+      expression: [[0,'head-determined'],[.50,'head-angry'],[1.35,'head-determined']],
     },
   },
   {

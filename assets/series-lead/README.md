@@ -23,7 +23,7 @@ Use the 12-emotion [front reaction sheet](reactions-front.png) and [side reactio
 
 ## Close-up hand references
 
-Use the [hand reference sheet](hands/reference-sheet.png) for hand close-ups and first-person inserts. The original cutout drawings use the lead's warm skin tone, dark outline, and cream cuff. The sheet shows the right hand. Match the thumb side and sleeve to the hand established in the preceding shot. The [editable artwork](hands/reference-sheet.svg) and individual transparent PNGs are in `hands/`.
+Use the [hand reference sheet](hands/reference-sheet.png) and the [first-person POV survival hand sheet](hands/pov-survival-sheet.png) for hand close-ups and first-person inserts. The original cutout drawings use the lead's warm skin tone, dark outline, and cream cuff. Both sheets show the right hand. Match the thumb side and sleeve to the hand established in the preceding shot. The [editable artwork](hands/reference-sheet.svg) and individual transparent PNGs are in `hands/`, and `drawPovSurvivalHand` in [art.js](anatomy-prototype/art.js) renders the four survival POV hands directly in code.
 
 | Shot | Image to supply as a reference |
 | --- | --- |
@@ -32,6 +32,7 @@ Use the [hand reference sheet](hands/reference-sheet.png) for hand close-ups and
 | Horizontal push bar from the lead's viewpoint | [Reach](hands/bar-reach.png) · [Palm press](hands/bar-press.png) · [Release](hands/bar-release.png) |
 | Grasp a horizontal bar | [Overhand hold](hands/bar-hold.png) |
 | Small prop contact | [Ticket pinch](hands/ticket-pinch.png) · [Chalk grip](hands/chalk-grip.png) |
+| First-person survival & action POV | [Pipe grip](hands/pov-pipe-grip.png) · [Flashlight sweep](hands/pov-flashlight.png) · [Deadbolt lock turn](hands/pov-door-lock.png) · [Defensive shield](hands/pov-shield-face.png) |
 
 For AI-assisted artwork, supply the single image that matches the shot angle and action. Keep the tapered palm, slim fingers, thumb position, and wrist-to-cuff alignment consistent. At a doorbell, the index fingertip meets the button and the other fingers curl into the palm. At a horizontal push bar, the camera sees the back of the hand as the palm meets the bar. Let the wrists lead the approach and withdrawal. For the ticket, the thumb and index pads press opposite faces at the same corner. From the chosen three-quarter angle, the index is partly hidden and the free fingers curl below the paper. For a short chalk nub, the thumb and index pinch near the working tip and the middle finger curls behind for support.
 
@@ -44,13 +45,22 @@ These sources informed the other original drawings. The photos and footage serve
 - **Doorbell.** Study the index approach and pad contact at roughly 0.5–1 s in the first clip. Use roughly 2.5–3.5 s in the second clip for the wrist and finger moving away after contact. [Index-finger approach and press](https://www.pexels.com/video/person-ringing-the-doorbell-7702049/) · [Button release close-up](https://www.pexels.com/video/close-up-shot-of-a-person-pushing-a-button-4196235/)
 - **Push bar.** Frame close enough to read the wrist, knuckles, and palm contact. During the reach and release, the fingers curl toward the palm and their nails turn out of view. The press reuses the back-of-hand drawing at a closer scale, with the open hand and nails facing the camera. For an overhand hold, the fingers curl over the top edge and the opposing thumb hooks below the rail. Use the still for the hand angle and study the lift off the bar around 14–15 s in the tabletop demo. [Push bar hand photo](https://www.ivim.sk/e-shop/stavebne_kovanie/panikove_kovanie) · [Canton Hyland demonstration](https://cantonlock.com/products/panic-exit-devices/314-alarm-panic-bar-exit-device/#video)
 
+## Cinematic camera and face angles
+
+In addition to the Front, Side, and Back turnaround, use these cinematography sheets (rendered via `drawCinematicAngle` and `drawFaceAngle` in [art.js](anatomy-prototype/art.js)) for zooming, looking-around POV, and horror tension staging:
+
+- **Body & camera perspectives:** [Cinematic anatomy angles](angles-sheet.png) — `ots` (Over-the-Shoulder corridor foreground), `overhead` (Top-Down god-view), `low-angle` (dramatic low upward framing), and `high-angle` (vulnerable high downward framing).
+- **Face tilts, gazes & crash-zooms:** [Face angles and crash-zoom sheet](face-angles.png) and [animated face & camera reference reel](anatomy-prototype/cinematic-face-camera-reel.mp4) (`16.0 s`, `24 fps`) — `eye-dart` (audio cue before whip-pan), `head-tilt` (`12°` eerie tilt + slow push-in), `look-up` (ceiling/towering threat), `look-down` (setup for downward prop POV), `glance-back` (quick over-shoulder profile turn), and `ecu-dread` (off-center tight detail crash-zoom with sweat & dread wash).
+
 ## Find a reference by action
 
-Use the [three-view turnaround](reference-sheet.png) for the face, outfit, or proportions. For motion, choose the action and camera angle below. Use the clips to review what the viewer sees and the [pose tracks](anatomy-prototype/poses.mjs) for precise joint positions, timing, and reuse. The frame guides point to the contacts, holds, and releases.
+Use the [three-view turnaround](reference-sheet.png) for standard Front, Side, and Back proportions, and the [cinematic angles](#cinematic-camera-and-face-angles) for OTS, overhead, low/high angles, gazes, and crash-zooms. For motion, choose the action and camera angle below. Use the clips to review what the viewer sees and the [pose tracks](anatomy-prototype/poses.mjs) for precise joint positions, timing, and reuse. The frame guides point to the contacts, holds, and releases.
 
 | Action | Side | Front | Back | Key frames |
 | --- | --- | --- | --- | --- |
 | Face reactions (12 emotions) | [Side reactions](reactions-side.png) | [Front reactions](reactions-front.png) |  | [Face expressions](#face-expressions) |
+| Face tilts, gazes & ECU crash-zoom | [Glance back](anatomy-prototype/face-glance-back.mp4) | [Face angles sheet](face-angles.png) · [Video reel](anatomy-prototype/cinematic-face-camera-reel.mp4) |  | [Cinematic face & camera motions](anatomy-prototype/README.md#cinematic-face-and-camera-motions) |
+| Cinematic camera perspectives |  | [Low / High / Overhead](angles-sheet.png) | [Over-the-Shoulder (OTS)](angles-sheet.png) | [Cinematic camera and face angles](#cinematic-camera-and-face-angles) |
 | Dynamic survival reel (6 actions) | [Showcase reel](anatomy-prototype/dynamic-movements-reel.mp4) |  |  | [Dynamic survival movements](anatomy-prototype/README.md#dynamic-survival-movements) · [Stealth](anatomy-prototype/sneak.mp4) · [Flinch](anatomy-prototype/flinch.mp4) · [Sprint](anatomy-prototype/sprint.mp4) · [Shove](anatomy-prototype/shove.mp4) · [Slash](anatomy-prototype/slash.mp4) · [Vault](anatomy-prototype/vault.mp4) |
 | Run | [Clip](anatomy-prototype/run-side.mp4) | [Clip](anatomy-prototype/run-front.mp4) | [Clip](anatomy-prototype/run-rear.mp4) | [Running](anatomy-prototype/README.md#running) |
 | Walk or step | [Walk cycle](anatomy-prototype/walk-side.mp4) · [Single step](anatomy-prototype/step.mp4) | [Clip](anatomy-prototype/walk-front.mp4) · [Pose sheet](walking-front.png) | [Clip](anatomy-prototype/walk-rear.mp4) | [Walking](anatomy-prototype/README.md#walking-and-stepping) |
@@ -70,6 +80,7 @@ Regenerate the turnaround, 12-reaction sheets, and dynamic movement reel with th
 ```powershell
 node assets/series-lead/anatomy-prototype/render.mjs --reference
 node assets/series-lead/anatomy-prototype/render.mjs --dynamic
+node assets/series-lead/anatomy-prototype/render.mjs --cinematic
 ```
 
 ## Original cutout layers for existing episodes

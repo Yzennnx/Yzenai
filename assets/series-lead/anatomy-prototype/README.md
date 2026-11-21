@@ -2,6 +2,19 @@
 
 The [motion index](../README.md#find-a-reference-by-action) groups the clips by angle. The times below are local to each clip at 24 fps and frames start at zero.
 
+## Cinematic face and camera motions
+
+Open the combined [cinematic face & camera reference reel](cinematic-face-camera-reel.mp4) (`16.0 s`, `384` frames at `24 fps`) or inspect the individual motion clips below. All six scenes reuse `drawFaceAngle` and `drawCinematicFaceReelFrame` in [art.js](art.js) on top of the official Series Lead turnaround geometry.
+
+| Beat | Clip | Technique & timing to study |
+| --- | --- | --- |
+| Audio cue eye-dart + sweat | [face-eye-dart.mp4](face-eye-dart.mp4) (`2.5 s`) | Calm neutral hold → snappy sideways eye-dart (`0.62–0.78 s`) → `head-notice` + sliding temple sweat drop (`0.92–2.07 s`). |
+| Eerie head tilt + slow push-in | [face-head-tilt.mp4](face-head-tilt.mp4) (`3.0 s`) | Level shoulders while head tilts smoothly `0° → 12°` as camera creeps in `1.0× → 1.18×` and upper-face dread shadow deepens. |
+| Looking up (high threat) | [face-look-up.mp4](face-look-up.mp4) (`2.5 s`) | Gaze & head pitch tilt upward (`0.45–1.00 s`) into `head-alarm` shock gasp facing a towering/ceiling threat. |
+| Looking down (floor clue) | [face-look-down.mp4](face-look-down.mp4) (`2.5 s`) | Gaze & head pitch bow downward (`0.45–1.10 s`) with subtle push-in, motivating a downward POV prop cut. |
+| Quick glance over shoulder | [face-glance-back.mp4](face-glance-back.mp4) (`2.5 s`) | Side-profile lead snaps head back over shoulder (`0.80 s`) with `head-alarm` and a damped camera jolt. |
+| Off-center ECU crash-zoom | [face-ecu-dread.mp4](face-ecu-dread.mp4) (`3.0 s`) | Tight dread portrait → 5-frame crash-zoom (`0.72–0.94 s`) off-center onto eye & nose bridge → creeping dread tremble + sweat slide. |
+
 ## Dynamic survival movements
 
 Open the combined [dynamic movement showcase reel](dynamic-movements-reel.mp4) (`17.0 s`, `408` OpenToonz frames at `24 fps`) or inspect the individual side-view clips below. All six actions are exported from [poses.mjs](poses.mjs) (`sneakAt`, `sprintAt`, and `dynamicScenes`) and IK-validated on import.
@@ -12,7 +25,7 @@ Open the combined [dynamic movement showcase reel](dynamic-movements-reel.mp4) (
 | Scare flinch & stumble back | [flinch.mp4](flinch.mp4) (`2.5 s`) | `dynamicScenes[1]` | Alert idle (`0.00–0.45 s`), recoil lean + defensive guard (`0.52–1.05 s`, `head-alarm` → `head-dread`), stumble step back into `head-panic` (`1.45–2.50 s`). |
 | Desperate full-out sprint | [sprint.mp4](sprint.mp4) (`3.0 s`) | `sprintAt(frame)` | 17-frame sprint cycle with `24°` forward lean, wide counter-pumping arms, high knee drive, and airborne flight phase (`head-determined`). |
 | Heavy barricade shove | [shove.mp4](shove.mp4) (`3.0 s`) | `dynamicScenes[3]` | Back-foot coil (`0.00–0.48 s`), flush two-hand barricade drive (`0.82–1.85 s`, `hand-brace` + `head-strain`), exhausted step-back recovery (`2.15–3.00 s`). |
-| Weapon windup & snappy slash | [slash.mp4](slash.mp4) (`2.5 s`) | `dynamicScenes[4]` | Coiled windup (`0.00–0.52 s`), lunge + wrist-locked steel pipe slash (`0.54–0.76 s`, `hand-pipe` + `head-angry`), combat guard recovery (`1.35–2.50 s`). |
+| Weapon windup & snappy slash | [slash.mp4](slash.mp4) (`2.5 s`) | `dynamicScenes[4]` | Coiled overhead windup (`0.00–0.50 s`), lunge + full straight-arm overhead-to-forward survival pipe slash (`0.58–0.90 s`, `hand-pipe` + `head-angry`), combat guard recovery (`1.35–2.50 s`). |
 | One-handed obstacle vault | [vault.mp4](vault.mp4) (`3.0 s`) | `dynamicScenes[5]` | Crouch launch (`0.00–0.42 s`), planted palm contact on barrier top (`0.74–1.22 s`, `hand-brace` + `head-strain`), tucked mid-air pass (`1.18 s`), far-side landing (`1.76–2.42 s`). |
 
 ## Running
@@ -49,6 +62,7 @@ Render from the project root with the installed local Edge, OpenToonz, and FFmpe
 ```powershell
 node assets/series-lead/anatomy-prototype/render.mjs --reference
 node assets/series-lead/anatomy-prototype/render.mjs --dynamic
+node assets/series-lead/anatomy-prototype/render.mjs --cinematic
 node assets/series-lead/anatomy-prototype/render.mjs
 node assets/series-lead/anatomy-prototype/render.mjs --motion
 ```

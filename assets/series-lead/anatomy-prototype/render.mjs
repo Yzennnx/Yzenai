@@ -17,6 +17,7 @@ const work = await mkdtemp(join(tools, 'anatomy-test-'));
 const reference = process.argv[2] === '--reference';
 const motion = process.argv[2] === '--motion';
 const dynamic = process.argv[2] === '--dynamic';
+const cinematic = process.argv[2] === '--cinematic';
 const panels = [
   { id: 'ready', scene: 0, frame: 0, crop: [126,256,295,536], label: 'Ready stance', contact: 'Hips, chest, and head on separate pivots' },
   { id: 'sit', scene: 0, frame: 62, crop: [111,260,335,531], label: 'Seat contact', contact: 'Hips on the seat, feet planted' },
@@ -54,7 +55,7 @@ async function drawInEdge(profileName, scripts, functionName, args) {
     assert(endpoint, 'Edge did not open the reference renderer');
     socket = new WebSocket(endpoint);
     await once(socket, 'open', { signal: AbortSignal.timeout(10000) });
-    const received = once(socket, 'message', { signal: AbortSignal.timeout(15000) });
+    const received = once(socket, 'message', { signal: AbortSignal.timeout(60000) });
     socket.send(JSON.stringify({ id: 1, method: 'Runtime.evaluate', params: {
       expression: `(async () => {
         ${scripts.join('\n')}
@@ -109,6 +110,8 @@ try {
     await renderMotion();
   } else if (dynamic) {
     await renderDynamic();
+  } else if (cinematic) {
+    await renderCinematicFaceReel();
   } else {
     await renderAnatomy();
   }
@@ -117,6 +120,55 @@ try {
   assert(dirname(cache) === await realpath(tools) && basename(cache).startsWith('anatomy-test-'));
   await rm(cache, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 })
     .catch(error => console.warn(`Could not clean prototype cache: ${error.message}`));
+}
+
+async function renderCinematicFaceReel() {
+  const art = await readFile(new URL('./art.js', import.meta.url), 'utf8');
+  const clips = [
+    { id: 'eye-dart', label: 'Audio Cue: Eye-Dart + Sweat Pop', seconds: 2.5 },
+    { id: 'head-tilt', label: 'Eerie Head Tilt (12 deg) + Slow Push-In', seconds: 3.0 },
+    { id: 'look-up', label: 'Looking Up (High Threat + Shock Gasp)', seconds: 2.5 },
+    { id: 'look-down', label: 'Looking Down (Floor Clue POV Setup)', seconds: 2.5 },
+    { id: 'glance-back', label: 'Quick Glance Over Shoulder (Startled Turn)', seconds: 2.5 },
+    { id: 'ecu-dread', label: 'Off-Center ECU Crash-Zoom Dread', seconds: 3.0 },
+  ];
+  const helper = `
+    window.renderCinematicFrames = (sceneId, count, fps) => {
+      const c = document.createElement('canvas');
+      c.width = 1080;
+      c.height = 1920;
+      const ctx = c.getContext('2d');
+      const dur = count / fps;
+      const out = [];
+      for (let i = 0; i < count; i++) {
+        window.drawCinematicFaceReelFrame(ctx, 1080, 1920, sceneId, i / fps, dur);
+        out.push(c.toDataURL('image/png').split(',')[1]);
+      }
+      return out;
+    };
+  `;
+  const encode = args => execFileSync(ffmpeg, ['-hide_banner', '-v', 'error', '-y', ...args],
+    { stdio: 'inherit', windowsHide: true });
+  let totalFrames = 0;
+  for (const clip of clips) {
+    const count = Math.round(clip.seconds * fps);
+    totalFrames += count;
+    const pngs = await drawInEdge(`edge-cin-${clip.id}`, [art, helper], 'renderCinematicFrames', [clip.id, count, fps]);
+    assert.equal(pngs.length, count);
+    await Promise.all(pngs.map((png, i) =>
+      writeFile(join(work, `cin-${clip.id}-${String(i).padStart(3, '0')}.png`), Buffer.from(png, 'base64'))));
+    const safeLabel = clip.label.replace(/[':]/g, '');
+    encode(['-framerate', String(fps), '-i', join(work, `cin-${clip.id}-%03d.png`),
+      '-vf', `drawbox=x=0:y=0:w=iw:h=72:color=#152028cc:t=fill,drawtext=text='${safeLabel}':fontcolor=#fff7e5:fontsize=28:x=28:y=22`,
+      '-an', '-c:v', 'libx264', '-preset', 'fast', '-crf', '17', '-pix_fmt', 'yuv420p',
+      join(work, `cin-${clip.id}.mp4`)]);
+    await copyFile(join(work, `cin-${clip.id}.mp4`), join(import.meta.dirname, `face-${clip.id}.mp4`));
+  }
+  const list = join(work, 'cin-sequence.txt');
+  await writeFile(list, clips.map(({ id }) => `file 'cin-${id}.mp4'`).join('\n') + '\n');
+  const output = join(import.meta.dirname, 'cinematic-face-camera-reel.mp4');
+  encode(['-f', 'concat', '-safe', '1', '-i', list, '-c', 'copy', '-movflags', '+faststart', output]);
+  console.log(`Rendered ${totalFrames} cinematic face & camera frames.\n${output}`);
 }
 
 async function renderDynamic() {
@@ -215,16 +267,26 @@ async function renderAnatomy() {
     const pngFrames = await Promise.all(frames.map(async file => (await readFile(file)).toString('base64')));
     const view = panels.map(({ crop, ...panel }) => ({ ...panel, crop: crop.map(value => value * 2) }));
     const walkingPoses = [0, 3, 8, 16].map(frame => [frame, gaitAt('walk', frame)]);
-    const { overview, walking, reactions, reactionsSide } = await drawInEdge('sheet-edge', [art, referenceArt], 'drawAnatomyReference',
-      [view, pngFrames, parts, backgrounds, walkingPoses, floor]);
+    const { overview, walking, reactions, reactionsSide, anglesSheet, faceAngles, povHandsSheet, povHands } =
+      await drawInEdge('sheet-edge', [art, referenceArt], 'drawAnatomyReference',
+        [view, pngFrames, parts, backgrounds, walkingPoses, floor]);
     for (const [image, height, name] of [
       [overview, 1524, 'reference-sheet.png'], [walking, 590, 'walking-front.png'],
       [reactions, 1160, 'reactions-front.png'], [reactionsSide, 1160, 'reactions-side.png'],
+      [anglesSheet, 640, 'angles-sheet.png'], [faceAngles, 920, 'face-angles.png'],
+      [povHandsSheet, 600, 'hands/pov-survival-sheet.png'],
     ]) {
       const png = Buffer.from(image, 'base64');
       assert(png.subarray(0, 8).equals(Buffer.from('89504e470d0a1a0a', 'hex')));
       assert(png.readUInt32BE(16) === 1600 && png.readUInt32BE(20) === height);
       const output = join(import.meta.dirname, '..', name);
+      await writeFile(output, png);
+      console.log(output);
+    }
+    for (const [id, image] of Object.entries(povHands)) {
+      const png = Buffer.from(image, 'base64');
+      assert(png.subarray(0, 8).equals(Buffer.from('89504e470d0a1a0a', 'hex')));
+      const output = join(import.meta.dirname, '..', 'hands', `${id}.png`);
       await writeFile(output, png);
       console.log(output);
     }
