@@ -13,10 +13,18 @@ from chatterbox.tts_turbo import ChatterboxTurboTTS
 
 RATE = 48000
 DURATION = 15
-TOOLS = Path(os.environ["LOCALAPPDATA"]) / "AIShortVideos"
+TOOLS = (
+    Path(os.environ["LOCALAPPDATA"]) / "AIShortVideos"
+    if os.name == "nt" and "LOCALAPPDATA" in os.environ
+    else Path.home() / ".local" / "share" / "AIShortVideos"
+)
 VOICE_TOOLS = TOOLS / "chatterbox"
 ASSETS = Path(__file__).resolve().parent / "assets"
-FFMPEG = next(TOOLS.glob("ffmpeg-*_build/bin/ffmpeg.exe"))
+FFMPEG = (
+    next(TOOLS.glob("ffmpeg-*_build/bin/ffmpeg.exe"))
+    if os.name == "nt"
+    else Path("/usr/bin/ffmpeg")
+)
 
 # Keep each full sentence in one model call so the voice carries its intonation across caption breaks.
 OPENING = [

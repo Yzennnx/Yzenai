@@ -5,16 +5,15 @@ import { mkdir, mkdtemp, readFile, readdir, realpath, rm, writeFile } from 'node
 import { basename, dirname, join } from 'node:path';
 import { setTimeout as delay } from 'node:timers/promises';
 import { renderCutout } from '../../../../tools/opentoonz/render-cutout.mjs';
+import { resolveBrowser, resolveFfmpeg, resolveToolsDir } from '../../../../tools/render-env.mjs';
 import { fps } from '../../../../assets/series-lead/anatomy-prototype/poses.mjs';
 import { ch1aPose, duration } from './poses.mjs';
 
 const chapter = import.meta.dirname;
 const anatomy = new URL('../../../../assets/series-lead/anatomy-prototype/', import.meta.url);
-const tools = join(process.env.LOCALAPPDATA, 'AIShortVideos');
-const release = (await readdir(tools)).find(name => /^ffmpeg-.*_build$/.test(name));
-assert(release, 'Portable FFmpeg is missing');
-const ffmpeg = join(tools, release, 'bin', 'ffmpeg.exe');
-const edge = join(process.env['ProgramFiles(x86)'], 'Microsoft', 'Edge', 'Application', 'msedge.exe');
+const tools = resolveToolsDir();
+const ffmpeg = resolveFfmpeg();
+const edge = resolveBrowser();
 
 const [mode, ...args] = process.argv.slice(2);
 assert(!mode || ['--preview', '--opening'].includes(mode) || (mode === '--stills' && args.length > 0),
@@ -36,7 +35,7 @@ await mkdir(exportsDir, { recursive: true });
 const work = await mkdtemp(join(tools, 'l4d-ch1a-'));
 const profile = join(work, 'edge');
 const browser = spawn(edge, [
-  '--headless=new', '--disable-gpu', '--no-first-run',
+  '--headless=new', '--disable-gpu', '--no-first-run', '--no-sandbox',
   '--disable-background-networking', '--disable-extensions',
   '--remote-debugging-port=0', `--user-data-dir=${profile}`, 'about:blank',
 ], { stdio: 'ignore', windowsHide: true });
@@ -73,14 +72,15 @@ async function evaluate(expression) {
 try {
   socket = await connect();
   await once(socket, 'open', { signal: AbortSignal.timeout(10000) });
-  const [art, scene] = await Promise.all([
+  const [art, weaponHands, scene] = await Promise.all([
     readFile(new URL('art.js', anatomy), 'utf8'),
+    readFile(new URL('../hands/weapon-hands.js', anatomy), 'utf8'),
     readFile(join(chapter, 'scene.js'), 'utf8'),
   ]);
   const poses = requested.map(ch1aPose);
   const characterPoses = poses.filter(p => p.length);
   const parts = [...new Set(characterPoses.flatMap(p => p.map(([part]) => part)))];
-  const layers = await evaluate(`(async () => { ${art}\n${scene}\nreturn makeAnatomyAssets(${JSON.stringify(parts)}).parts; })()`);
+  const layers = await evaluate(`(async () => { ${art}\n${weaponHands}\n${scene}\nreturn makeAnatomyAssets(${JSON.stringify(parts)}).parts; })()`);
   const shotFile = join(work, 'poses.toonzscript');
   await writeFile(shotFile, `var poses = ${JSON.stringify(characterPoses)};`);
   const cutouts = characterPoses.length ? await renderCutout({

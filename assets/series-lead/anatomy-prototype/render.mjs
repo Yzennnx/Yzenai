@@ -6,13 +6,12 @@ import { basename, dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { setTimeout as delay } from 'node:timers/promises';
 import { renderCutout } from '../../../tools/opentoonz/render-cutout.mjs';
+import { resolveBrowser, resolveFfmpeg, resolveToolsDir } from '../../../tools/render-env.mjs';
 import { dynamicScenes, floor, fps, gaitAt, rigAt, scenes, seat, table } from './poses.mjs';
 
-const tools = join(process.env.LOCALAPPDATA, 'AIShortVideos');
-const release = (await readdir(tools)).find(name => /^ffmpeg-.*_build$/.test(name));
-assert(release, 'Portable FFmpeg is missing');
-const ffmpeg = join(tools, release, 'bin', 'ffmpeg.exe');
-const edge = join(process.env['ProgramFiles(x86)'], 'Microsoft', 'Edge', 'Application', 'msedge.exe');
+const tools = resolveToolsDir();
+const ffmpeg = resolveFfmpeg();
+const edge = resolveBrowser();
 const work = await mkdtemp(join(tools, 'anatomy-test-'));
 const reference = process.argv[2] === '--reference';
 const motion = process.argv[2] === '--motion';

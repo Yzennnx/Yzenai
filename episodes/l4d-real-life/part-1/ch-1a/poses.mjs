@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { floor, fps, gaitAt, rigAt } from '../../../../assets/series-lead/anatomy-prototype/poses.mjs';
+import { validatePoseTrack } from '../../../../tools/pose-grounding/validate-pose.mjs';
 
 export const duration = 75;
 export const totalFrames = duration * fps; // 1800
@@ -91,8 +92,8 @@ function shot7BarricadeShove(frame) {
       const roll = f < 16 ? 0 : f < 28 ? 20 * ((f - 16) / 12) : f < 82 ? 20 : f < 98 ? 20 * (1 - (f - 82) / 16) : 0;
       return [sole(182, roll, 30), sole(256)];
     },
-    far: [key(0, 248, 526), key(14, 218, 504), key(26, 364, 484), key(78, 366, 484), key(96, 246, 544), key(111, 236, 552)],
-    near: [key(0, 278, 520, 10), key(14, 242, 494, -16), key(26, 374, 492, -86), key(78, 375, 492, -86), key(96, 268, 538, 54), key(111, 256, 548, 82)],
+    far: [key(0, 248, 526), key(14, 218, 504), key(26, 396, 476), key(78, 400, 476), key(96, 246, 544), key(111, 236, 552)],
+    near: [key(0, 278, 520, 10), key(14, 242, 494, -16), key(26, 404, 484, -86), key(78, 406, 484, -86), key(96, 268, 538, 54), key(111, 256, 548, 82)],
     nearHand: [key(0, 'hand-near'), key(22, 'hand-brace'), key(86, 'hand-near')],
     expression: [key(0, 'head-determined'), key(22, 'head-strain'), key(88, 'head-exhausted')],
   };
@@ -124,15 +125,15 @@ function shot11CounterRush(frame) {
   // f1471..1517 (61.3..63.2s, local 0..46): frantic rush & lunge to yank kitchen drawer open!
   const local = frame - 1471;
   const scene = {
-    pelvis: [key(0, 226, 540, 3), key(20, 250, 546, 7), key(47, 238, 542, 3)],
-    chest: [key(0, 12), key(20, 26), key(47, 16)],
+    pelvis: [key(0, 226, 542, 3), key(20, 252, 550, 8), key(47, 238, 544, 3)],
+    chest: [key(0, 12), key(20, 28), key(47, 16)],
     neck: [key(0, 6), key(20, 14), key(47, 8)],
     head: [key(0, 10), key(20, 18), key(47, 12)],
     shoulder: [key(0, 6, 0), key(20, 14, 2), key(47, 6, 0)],
     elbowBends: [1, 1],
     feet: () => [sole(198), sole(258)],
-    far: [key(0, 246, 546), key(20, 310, 524), key(47, 286, 534)],
-    near: [key(0, 306, 524, 0), key(20, 360, 520, -10), key(47, 308, 524, -24)],
+    far: [key(0, 246, 548), key(20, 318, 558), key(47, 290, 554)],
+    near: [key(0, 306, 546, 8), key(20, 368, 560, 12), key(47, 314, 556, -10)],
     nearHand: [key(0, 'hand-grip')],
     expression: [key(0, 'head-panic'), key(26, 'head-strain')],
   };
@@ -152,7 +153,7 @@ export function ch1aPose(frame) {
   return []; // Shots 11B/C rhythmic POV drawers, 11D POV knife star-glint, 12 Low-angle hero hold!
 }
 
-for (let f = 0; f < totalFrames; f++) ch1aPose(f);
+validatePoseTrack(ch1aPose, totalFrames);
 assert.equal(ch1aPose(100).length, 0);
 assert.equal(ch1aPose(420).length, 0);
 assert.equal(ch1aPose(1350).length, 0);

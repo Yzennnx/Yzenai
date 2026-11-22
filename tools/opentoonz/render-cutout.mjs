@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { once } from 'node:events';
 import { mkdtemp, readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
@@ -7,6 +7,22 @@ import { join } from 'node:path';
 const parts = ['body0', 'body1', 'body2', 'shoeFar', 'shoeNear',
   'legUpperFar', 'legLowerFar', 'legUpperNear', 'legLowerNear',
   'armUpperFar', 'armLowerFar', 'armUpperNear', 'armLowerNear'];
+
+function resolveOpenToonzCommand(scriptPath) {
+  if (process.env.OPENTOONZ_BIN) {
+    return [process.env.OPENTOONZ_BIN, [scriptPath]];
+  }
+  if (process.platform === 'win32') {
+    return [join(process.env.ProgramFiles, 'OpenToonz', 'OpenToonz.exe'), [scriptPath]];
+  }
+  if (spawnSync('which', ['opentoonz'], { stdio: 'ignore' }).status === 0) {
+    return ['opentoonz', [scriptPath]];
+  }
+  if (spawnSync('flatpak', ['info', 'io.github.OpenToonz'], { stdio: 'ignore' }).status === 0) {
+    return ['flatpak', ['run', 'io.github.OpenToonz', scriptPath]];
+  }
+  throw new Error('OpenToonz not found. Install io.github.OpenToonz via Flatpak or set OPENTOONZ_BIN.');
+}
 
 // The episode owns the work directory and removes it after compositing.
 export async function renderCutout({ work, shotFile, startFrame = 0, frameCount,
@@ -35,15 +51,15 @@ export async function renderCutout({ work, shotFile, startFrame = 0, frameCount,
     shot,
     rig,
   ].join('\n'));
-  const executable = join(process.env.ProgramFiles, 'OpenToonz', 'OpenToonz.exe');
-  const render = spawn(executable, [script], { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
+  const [executable, args] = resolveOpenToonzCommand(script);
+  const render = spawn(executable, args, { windowsHide: true, stdio: ['ignore', 'pipe', 'pipe'] });
   let diagnostics = '';
   for (const stream of [render.stdout, render.stderr]) {
     stream.setEncoding('utf8').on('data', (chunk) => { diagnostics += chunk; });
   }
   // OpenToonz's script entry point can return 1 after a successful run.
   await once(render, 'close').catch((error) => {
-    throw new Error(`Could not launch OpenToonz at ${executable}`, { cause: error });
+    throw new Error(`Could not launch OpenToonz (${executable})`, { cause: error });
   });
   const files = new Set(await readdir(workDir));
   return Array.from({ length: frameCount }, (_, index) => {

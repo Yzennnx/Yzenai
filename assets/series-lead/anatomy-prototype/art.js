@@ -43,12 +43,13 @@
   const C = (a,b,c,d,x,y) => ['bezierCurveTo',a,b,c,d,x,y];
 
   function segment(ctx, length, top, bottom, fill, shade) {
-    path(ctx, [M(-top+4,-9), Q(0,-top-3,top-4,-8),
-      C(top+3,length*.15,bottom+2,length*.72,bottom,length-4),
-      Q(bottom+1,length+8,0,length+bottom*.58), Q(-bottom-2,length+9,-bottom-1,length-4),
-      C(-bottom-3,length*.65,-top-3,length*.24,-top+4,-9)], fill);
-    path(ctx, [M(-top+2,5), Q(-top+3,length*.47,-bottom+3,length-5)],
-      null, shade, 3);
+    // Smooth tapered organic limb capsule with rounded joint caps (eliminates boxy elbow/knee overlap seams)
+    path(ctx, [M(-top+2,-4), Q(-top,-top*0.85,0,-top*0.92), Q(top,-top*0.85,top-2,-4),
+      C(top+2,length*.18,bottom+2,length*.74,bottom,length-2),
+      Q(bottom,length+bottom*0.72,0,length+bottom*0.76), Q(-bottom,length+bottom*0.72,-bottom,length-2),
+      C(-bottom-2,length*.68,-top-2,length*.24,-top+2,-4)], fill);
+    path(ctx, [M(-top+3,6), Q(-top+4,length*.47,-bottom+3,length-6)],
+      null, shade, 2.8);
   }
 
   function drawPart(ctx, name) {
@@ -73,34 +74,34 @@
       path(ctx,[M(9,-4),L(22,-1),M(11,0),L(25,3)],null,'#f2c98e',1.6);
     }
     if (part === 'hand' && side === 'brace') {
-      path(ctx,[M(-7,-6),Q(3,-10,13,-6),L(19,-3),L(36,0),Q(41,2,37,5),
-        L(33,7),L(11,7),Q(3,7,-7,5)],tones.skin);
-      path(ctx,[M(19,2),L(33,3),M(10,-2),L(19,1)],null,'#946450',1.2);
+      // Sculpted flat palm brace with distinct thumb & staggered fingers
+      path(ctx,[M(-8,-6),Q(2,-10,12,-7),L(20,-4),L(36,-1),Q(42,1,39,5),
+        L(34,7),L(16,8),Q(6,9,-8,6)],tones.skin);
+      path(ctx,[M(17,-1),L(34,1),M(18,3),L(33,4),M(7,-3),Q(13,-2,18,1)],null,'#946450',1.2);
     } else if (part === 'hand' && variant === 'run') {
-      path(ctx,[M(-5,-5),L(4,-6),Q(8,-10,14,-7),L(19,-4),Q(23,0,19,6),
-        Q(14,10,8,7),L(-5,5)],tones.skin);
-      path(ctx,[M(9,-2),Q(13,0,17,-3)],null,'#946450',1.3);
+      // Segmented curled sprint fist with thumb tucked over knuckles
+      path(ctx,[M(-6,-5),L(5,-7),Q(11,-11,17,-7),L(22,-3),Q(25,2,20,7),
+        Q(14,11,7,8),L(-6,5)],tones.skin);
+      path(ctx,[M(8,-4),Q(14,-1,19,-4),M(11,1),L(20,0),M(11,5),L(18,4)],null,'#946450',1.3);
     } else if (part === 'hand' && side === 'grip') {
-      path(ctx,[M(-7,-7),L(6,-10),Q(13,-16,19,-11),L(25,-5),Q(29,2,25,8),
-        Q(20,14,12,10),L(6,6),L(-7,6)],tones.skin);
-      path(ctx,[M(10,-3),Q(16,0,20,-5),M(16,5),L(23,5)],null,'#946450',1.4);
+      // Anatomically segmented gripping fist (distinct thumb saddle + 3 knuckle segments — zero mitten blob!)
+      path(ctx,[M(-8,-7),L(5,-10),Q(12,-15,19,-11),L(25,-6),Q(29,-1,27,5),
+        Q(25,11,18,12),Q(11,12,5,8),L(-8,6)],tones.skin);
+      path(ctx,[M(7,-6),Q(15,-3,21,-7),M(13,-1),L(25,-1),M(13,4),L(25,4),M(12,8),L(22,8)],null,'#946450',1.4);
     } else if (part === 'hand' && side === 'pipe') {
       // Gripping hand holding a rugged survival steel pipe / crowbar locked directly to wrist track!
-      // Pipe shaft extending cleanly upward-outward from the fist (-128..+24 in local Y)
       path(ctx,[M(11,-124),L(21,-124),L(20,24),L(12,24)],'#6d7b85',ink,2);
-      // Metallic highlight streak & flared pipe coupling near tip
       path(ctx,[M(14,-118),L(14,-16)],null,'#b5c4ce',2.2);
       path(ctx,[M(9,-112),L(23,-112),L(23,-102),L(9,-102)],'#56636d',ink,1.8);
-      // Cloth grip wrap at handle
       path(ctx,[M(11,-12),L(21,-12),L(21,18),L(11,18)],'#3c3936',ink,1.6);
-      // Hand palm + wrapped fingers overlapping the pipe handle
-      path(ctx,[M(-7,-7),L(6,-10),Q(13,-15,19,-11),L(25,-5),Q(29,2,25,8),
-        Q(20,14,12,10),L(6,6),L(-7,6)],tones.skin);
-      path(ctx,[M(10,-4),L(23,-4),M(11,1),L(24,1),M(12,6),L(23,6)],null,'#946450',1.4);
+      path(ctx,[M(-8,-7),L(5,-10),Q(12,-15,19,-11),L(25,-6),Q(29,-1,27,5),
+        Q(25,11,18,12),Q(11,12,5,8),L(-8,6)],tones.skin);
+      path(ctx,[M(9,-5),L(24,-5),M(10,0),L(25,0),M(11,5),L(24,5),M(11,9),L(22,9)],null,'#946450',1.4);
     } else if (part === 'hand') {
-      path(ctx,[M(-7,-7),Q(1,-9,9,-6),L(15,-3),Q(24,0,23,6),
-        Q(22,12,16,12),L(6,8),Q(-1,6,-7,6)],tones.skin);
-      path(ctx,[M(11,0),Q(14,7,20,7)],null,'#946450',1.4);
+      // Sculpted relaxed side hand with tapered thumb & staggered fingertips
+      path(ctx,[M(-8,-7),Q(2,-9,11,-6),L(19,-2),Q(26,2,25,7),
+        Q(23,12,17,13),Q(11,13,6,9),L(-8,6)],tones.skin);
+      path(ctx,[M(9,-2),Q(14,2,22,4),M(10,4),Q(15,8,20,9)],null,'#946450',1.3);
     }
     if (part === 'pelvis') {
       path(ctx,[M(-28,-26),Q(0,-34,27,-24),L(31,9),Q(25,23,6,24),
@@ -119,10 +120,11 @@
       path(ctx,[M(23,-52),Q(20,-23,21,5)],null,'#a49c86',1.6);
     }
     if (part === 'neck') {
-      path(ctx,[M(-13,8),Q(-9,-4,-11,-26),L(14,-27),Q(14,-9,19,5),
+      // Tapered top (x=-10..+10, y=-28) stays cleanly inside skull/jaw even under steep forward torso leans (Palm brace / sprint)!
+      path(ctx,[M(-13,8),Q(-10,-5,-10,-28),L(10,-28),Q(13,-7,18,5),
         Q(7,15,-13,8)],'#cf956f');
       // Subtle under-jaw cast shadow & sternocleidomastoid line
-      path(ctx,[M(-11,-25),Q(2,-14,14,-19),L(14,-27),L(-11,-26)],'rgba(115,64,46,0.28)',null);
+      path(ctx,[M(-10,-26),Q(1,-14,11,-18),L(10,-28),L(-10,-28)],'rgba(115,64,46,0.28)',null);
       path(ctx,[M(-2,-14),Q(2,-3,8,4)],null,'rgba(128,74,54,0.38)',1.3);
     }
     if (part === 'head') {
@@ -132,17 +134,17 @@
       const shadeTone = pale ? '#c69377' : '#d69975';
       const deepShadow = 'rgba(72,38,34,0.22)';
 
-      // Sculpted profile head silhouette (cranium, brow ridge, distinct nasal bridge, lips, defined chin & jaw!)
+      // Sculpted human side-profile head silhouette (crisp chin -> upward-sloping mandible -> jaw corner -> ear!)
       path(ctx,[
-        M(-25,-15), Q(-39,-30,-35,-53), Q(-29,-76,-5,-82),
-        Q(15,-84,28,-68), Q(35,-58,34,-48), // brow ridge
-        L(33,-43), L(42,-32), Q(44,-28,37,-26), // crisp sculpted nose
-        L(36,-22), L(38,-18), L(35,-14), // upper/lower lip profile hint
-        Q(35,-6,25,-3), L(14,1), Q(8,3,2,0), L(-12,-6)
+        M(-16,-23), Q(-37,-32,-35,-55), Q(-28,-79,-4,-84),
+        Q(16,-85,28,-69), Q(34,-59,33,-49), // clean forehead & brow ridge
+        L(32,-44), L(42,-33), Q(43,-29,36,-27), // sculpted nose
+        L(35,-23), L(37,-19), L(34,-15), // upper/lower lip
+        Q(36,-7,29,-5), Q(16,-5,2,-11), Q(-9,-15,-16,-23) // natural diagonal jaw -> gonial corner -> ear!
       ], skinTone);
 
       // Subtle cheekbone/jaw plane shading & under-nose cast shadow (gives 3D portrait volume!)
-      path(ctx,[M(-14,-6),Q(4,-3,24,-5),Q(31,-9,33,-16),Q(20,-10,2,-11),Q(-10,-12,-14,-6)], shadeTone, null);
+      path(ctx,[M(-13,-21),Q(2,-13,26,-8),Q(32,-10,33,-16),Q(16,-14,1,-16),Q(-9,-18,-13,-21)], shadeTone, null);
       path(ctx,[M(32,-26),L(40,-27),L(36,-23),L(32,-24)], 'rgba(130,74,52,0.32)', null);
       // Hair fringe cast shadow on upper forehead
       path(ctx,[M(4,-56),Q(20,-54,34,-49),L(34,-54),Q(18,-60,2,-60)], 'rgba(92,54,40,0.20)', null);
@@ -354,14 +356,20 @@
     ctx.translate(bodyX, bodyY);
     path(ctx, [M(-waist, -255), L(waist, -255), L(hip, hipY), Q(19,-211,4,-209),
       L(-4,-209), Q(-19,-211,-hip,hipY)], palette.near.pants);
-    // Proportional natural neck seated smoothly into trapezius/collar
-    path(ctx, [M(neckX - 12, -408), L(neckX + 12, -408), Q(neckX + 12, -386, neckX + 15, -374),
-      Q(neckX, -367, neckX - 15, -374), Q(neckX - 12, -386, neckX - 12, -408)], '#cf956f');
-    // Smoothly sloped trapezius & rounded shoulder seams blending cleanly into sleeves
-    path(ctx, [M(neckX - 14, -380), C(leftShoulder + 22, -376, leftShoulder + 6, -370, leftShoulder + 1, -356),
-      Q(leftShoulder + 5, -326, -waist, -298), L(-waist, -255), Q(0, -247, waist, -255), L(waist, -299),
-      Q(rightShoulder - 6, -330, rightShoulder - 1, -356),
-      C(rightShoulder - 6, -370, neckX + 28, -376, neckX + 14, -380), Q(neckX, -369, neckX - 14, -380)], shirt);
+    // Proportional natural 1:7.5 neck tucked cleanly BEHIND jaw/chin up to y=-418 (zero horizontal top cut line!)
+    const neckTiltShift = (pose?.headTilt ?? 0) * 0.22;
+    path(ctx, [M(neckX - 12 + neckTiltShift, -418), L(neckX + 12 + neckTiltShift, -418), Q(neckX + 13, -388, neckX + 16, -374),
+      Q(neckX, -366, neckX - 16, -374), Q(neckX - 13, -388, neckX - 12 + neckTiltShift, -418)], '#cf956f', null);
+    // Draw only the two organic side neck contours (no harsh flat top stroke cutting across chin!)
+    path(ctx, [M(neckX - 12 + neckTiltShift, -416), Q(neckX - 13, -388, neckX - 16, -374)], null, ink, 2);
+    path(ctx, [M(neckX + 12 + neckTiltShift, -416), Q(neckX + 13, -388, neckX + 16, -374)], null, ink, 2);
+    // Soft under-jaw cast shadow following tilt
+    path(ctx, [M(neckX - 12 + neckTiltShift, -408), L(neckX + 12 + neckTiltShift, -408), Q(neckX + neckTiltShift * 0.5, -393, neckX - 12 + neckTiltShift, -408)], 'rgba(110,60,44,0.28)', null);
+    // Smoothly sloped trapezius & rounded deltoid shoulders (eliminates boxy armpit cut)
+    path(ctx, [M(neckX - 16, -379), C(leftShoulder + 22, -377, leftShoulder + 4, -370, leftShoulder - 2, -354),
+      Q(leftShoulder + 4, -324, -waist, -298), L(-waist, -255), Q(0, -247, waist, -255), L(waist, -299),
+      Q(rightShoulder - 4, -324, rightShoulder + 2, -354),
+      C(rightShoulder - 4, -370, neckX + 24, -377, neckX + 16, -379), Q(neckX, -368, neckX - 16, -379)], shirt);
     path(ctx, [M(leftShoulder + 2, -356), Q(leftShoulder + 16, -330, -waist + 6, -287), L(-waist + 6, -256), L(-waist, -255),
       L(-waist, -294), Q(leftShoulder + 5, -330, leftShoulder + 2, -356)], '#c8c1ac', null);
     if (rear) {
@@ -394,19 +402,25 @@
     const extraSweat = pose?.sweat ?? 0; // 0..1 animated sweat bead slide
     const extraDread = pose?.dreadWash ?? 0; // 0..1 extra upper-face dread shadow
     ctx.save();
+    // Seat Front/Back head 7px lower onto collar for true 1:7.5 neck proportion (zero giraffe neck!)
+    ctx.translate(0, 7);
     if (headTilt) {
       ctx.translate(neckX, -404);
       ctx.rotate(headTilt * Math.PI / 180);
       ctx.translate(-neckX, 404);
     }
     const featY = headPitch * 9.5; // Features shift UP when looking up (-), DOWN when looking down (+)
-    const earY = -431 - headPitch * 7; // Ears shift opposite pitch for real 3D head foreshortening!
+    const earY = -431 - Math.max(-4.5, Math.min(6.5, headPitch * 5.2)); // Clamped so ears stay tucked on Low-Angle!
 
     const left = -34;
     const right = quarter ? 35 : 34;
-    // Consistent ears: Front & Back show both; Front-3/4 (45° R) & Rear-3/4 (135° R-away) both show the near-left ear!
-    oval(ctx, left - 1, earY, 6, 9, '#dda07d', ink);
-    if (!quarter) oval(ctx, right + 1, earY, 6, 9, '#dda07d', ink);
+    // Tucked natural ears integrated cleanly against jawline/hairline (zero detached ovals!)
+    oval(ctx, left + 1.5, earY, 5.0, 8.2, '#dda07d', ink);
+    path(ctx, [M(left + 0.5, earY - 4), Q(left + 3, earY, left + 1, earY + 4)], null, '#a46b51', 1.1);
+    if (!quarter) {
+      oval(ctx, right - 1.5, earY, 5.0, 8.2, '#dda07d', ink);
+      path(ctx, [M(right - 0.5, earY - 4), Q(right - 3, earY, right - 1, earY + 4)], null, '#a46b51', 1.1);
+    }
     if (rear && quarter) {
       // Rear-3/4 turning right-away (135°): clean nape + subtle right cheek/jaw edge turning away on the right!
       path(ctx, [M(left, -449), Q(left, -476, 0, crown), Q(right + 1, -475, right + 2, -448),
@@ -788,9 +802,81 @@
     }
   }
 
+  // Connected 2-Bone IK Arm Chain (shoulder -> solved elbow -> wrist) for Front, Low-Angle, High-Angle & weapon shots!
+  // Eliminates floating hands and disconnected forearm wedges permanently.
+  window.drawArmChain = (ctx, shoulder, wrist, opts = {}) => {
+    const [sx, sy] = shoulder;
+    const [wx, wy] = wrist;
+    const uLen = opts.upperLen ?? 92;
+    const lLen = opts.lowerLen ?? 82;
+    const bendDir = opts.bendDir ?? 1; // +1 bends elbow outward/down-right, -1 bends outward/down-left
+    const wUpper = opts.upperWidth ?? 22;
+    const wElbow = opts.elbowWidth ?? 18;
+    const wWrist = opts.wristWidth ?? 15;
+    const dx = wx - sx, dy = wy - sy;
+    const d = Math.max(12, Math.min(uLen + lLen - 2, Math.hypot(dx, dy)));
+    const a = (uLen * uLen - lLen * lLen + d * d) / (2 * d);
+    const h = Math.sqrt(Math.max(0, uLen * uLen - a * a));
+    const mx = sx + (a * dx) / d;
+    const my = sy + (a * dy) / d;
+    const ex = mx + bendDir * (h * (-dy / d));
+    const ey = my + bendDir * (h * (dx / d));
+
+    const drawTapered = (pA, pB, rA, rB, fill, shade = null) => {
+      const vx = pB[0] - pA[0], vy = pB[1] - pA[1];
+      const len = Math.hypot(vx, vy) || 1;
+      const nx = -vy / len, ny = vx / len;
+      path(ctx, [
+        M(pA[0] + nx * rA, pA[1] + ny * rA),
+        L(pB[0] + nx * rB, pB[1] + ny * rB),
+        Q(pB[0] + vx / len * rB * 0.65, pB[1] + vy / len * rB * 0.65, pB[0] - nx * rB, pB[1] - ny * rB),
+        L(pA[0] - nx * rA, pA[1] - ny * rA),
+        Q(pA[0] - vx / len * rA * 0.65, pA[1] - vy / len * rA * 0.65, pA[0] + nx * rA, pA[1] + ny * rA),
+      ], fill, ink, opts.strokeWidth ?? 2.3);
+      if (shade) {
+        path(ctx, [M(pA[0] - nx * rA * 0.55, pA[1] - ny * rA * 0.55), L(pB[0] - nx * rB * 0.55, pB[1] - ny * rB * 0.55)], null, shade, 2.2);
+      }
+    };
+
+    ctx.save();
+    // 1. Cream shirt upper arm from shoulder to solved elbow
+    drawTapered([sx, sy], [ex, ey], wUpper, wElbow, shirt, '#bab49f');
+    // 2. Forearm: either plain cream sleeve OR corrugated cardboard & duct-tape armor (+ leather cuff strap)
+    const foreColor = opts.cardboard ? '#a37b51' : shirt;
+    const foreShade = opts.cardboard ? '#7a5937' : '#bab49f';
+    drawTapered([ex, ey], [wx, wy], wElbow * 0.96, wWrist, foreColor, foreShade);
+    if (opts.cardboard) {
+      // Gray duct-tape bands perpendicular to forearm vector
+      const vx = wx - ex, vy = wy - ey, len = Math.hypot(vx, vy) || 1;
+      const ux = vx / len, uy = vy / len, nx = -uy, ny = ux;
+      for (const frac of [0.32, 0.70]) {
+        const bx = ex + vx * frac, by = ey + vy * frac;
+        const r = wElbow * (1 - frac) + wWrist * frac + 1.5;
+        path(ctx, [
+          M(bx - ux * 6 + nx * r, by - uy * 6 + ny * r),
+          L(bx + ux * 6 + nx * r, by + uy * 6 + ny * r),
+          L(bx + ux * 6 - nx * r, by + uy * 6 - ny * r),
+          L(bx - ux * 6 - nx * r, by - uy * 6 - ny * r),
+        ], '#8c969e', ink, 1.6);
+      }
+      if (opts.leatherStrap) {
+        const bx = ex + vx * 0.88, by = ey + vy * 0.88;
+        const r = wWrist + 2.5;
+        path(ctx, [
+          M(bx - ux * 7 + nx * r, by - uy * 7 + ny * r),
+          L(bx + ux * 7 + nx * r, by + uy * 7 + ny * r),
+          L(bx + ux * 7 - nx * r, by + uy * 7 - ny * r),
+          L(bx - ux * 7 - nx * r, by - uy * 7 - ny * r),
+        ], '#4d311f', ink, 1.8);
+      }
+    }
+    ctx.restore();
+    return { elbow: [ex, ey], angleDeg: Math.atan2(wy - ey, wx - ex) * 180 / Math.PI };
+  };
+
   // Cinematic camera angles for horror/survival framing (OTS, Overhead, Low-Angle, High-Angle)
   // All front/rear perspectives reuse the official drawAnatomyTurnaround geometry so character identity stays 100% on-model!
-  window.drawCinematicAngle = (ctx, x, y, scale, angle) => {
+  window.drawCinematicAngle = (ctx, x, y, scale, angle, opts = {}) => {
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(scale, scale);
@@ -799,18 +885,20 @@
     const skin = palette.near.skin;
 
     if (angle === 'ots') {
-      // Full-bleed dark corridor behind official rear-view Series Lead anchored in lower-right foreground!
-      path(ctx, [M(-162, -180), L(162, -180), L(162, 180), L(-162, 180)], '#25313a', null);
-      path(ctx, [M(-78, -180), L(-18, -36), L(-18, 56), L(-145, 180), L(-162, 180), L(-162, -180)], '#1c252c', null);
-      path(ctx, [M(102, -180), L(35, -36), L(35, 56), L(162, 180), L(162, -180)], '#1c252c', null);
-      path(ctx, [M(-18, 56), L(35, 56), L(162, 180), L(-145, 180)], '#33404a', null);
-      const lamp = ctx.createRadialGradient(4, -12, 4, 4, -12, 86);
-      lamp.addColorStop(0, 'rgba(248, 212, 134, 0.40)');
-      lamp.addColorStop(1, 'rgba(248, 212, 134, 0)');
-      ctx.fillStyle = lamp;
-      ctx.fillRect(-90, -110, 190, 200);
+      // Optional corridor box ONLY when requested (reference sheet / corridor); transparent by default for outdoor scenes!
+      if (opts.corridorBg) {
+        path(ctx, [M(-162, -180), L(162, -180), L(162, 180), L(-162, 180)], '#25313a', null);
+        path(ctx, [M(-78, -180), L(-18, -36), L(-18, 56), L(-145, 180), L(-162, 180), L(-162, -180)], '#1c252c', null);
+        path(ctx, [M(102, -180), L(35, -36), L(35, 56), L(162, 180), L(162, -180)], '#1c252c', null);
+        path(ctx, [M(-18, 56), L(35, 56), L(162, 180), L(-145, 180)], '#33404a', null);
+        const lamp = ctx.createRadialGradient(4, -12, 4, 4, -12, 86);
+        lamp.addColorStop(0, 'rgba(248, 212, 134, 0.40)');
+        lamp.addColorStop(1, 'rgba(248, 212, 134, 0)');
+        ctx.fillStyle = lamp;
+        ctx.fillRect(-90, -110, 190, 200);
+      }
       // Official rear Series Lead head & right shoulder framed in lower-right foreground
-      drawAnatomyTurnaround(ctx, 76, 804, 1.82, 'rear', { hideLimbs: false });
+      drawAnatomyTurnaround(ctx, opts.corridorBg ? 76 : 0, 804, 1.82, 'rear', { hideLimbs: false });
     } else if (angle === 'overhead') {
       // Overhead / Top-Down God-View (standing on ground looking straight down!)
       oval(ctx, 0, 16, 68, 36, 'rgba(37,58,59,0.16)', null);
@@ -836,10 +924,15 @@
       ctx.save();
       ctx.translate(0, 26);
       ctx.scale(1.12, 1.04);
+      if (opts.backpack) {
+        // Backpack drawn strictly BEHIND torso!
+        path(ctx, [M(-96, 40), Q(-112, 110, -104, 220), L(104, 220), Q(112, 110, 96, 40)], '#253330', ink, 2.4);
+      }
       drawAnatomyTurnaround(ctx, 0, 646, 1.68, 'front', {
-        expression: 'head-determined',
-        headPitch: -0.95,
-        eyeOffset: [0, -1.2],
+        hideLimbs: opts.hideLimbs ?? false,
+        expression: opts.expression ?? 'head-determined',
+        headPitch: opts.headPitch ?? -0.78,
+        eyeOffset: opts.eyeOffset ?? [0, -1.0],
       });
       ctx.restore();
     } else {
@@ -847,10 +940,11 @@
       ctx.save();
       ctx.translate(0, -16);
       drawAnatomyTurnaround(ctx, 0, 476, 1.15, 'front', {
-        expression: 'head-alarm',
-        headPitch: 0.92,
-        eyeOffset: [0, -2.8],
-        sweat: 0.7,
+        hideLimbs: opts.hideLimbs ?? false,
+        expression: opts.expression ?? 'head-alarm',
+        headPitch: opts.headPitch ?? 0.85,
+        eyeOffset: opts.eyeOffset ?? [0, -2.4],
+        sweat: opts.sweat ?? 0.7,
       });
       ctx.restore();
     }
@@ -896,16 +990,16 @@
         eyeOffset: [0, opts.eyeDy ?? 1.6],
       });
     } else if (mode === 'glance-back') {
-      // Official side-profile Series Lead turning sharply back over shoulder — full crown & collar cleanly framed!
+      // Official side-profile Series Lead turning sharply back over shoulder — neck & skull aligned cleanly!
       const dir = opts.flip === false ? 1 : -1;
       ctx.save();
       ctx.translate(0, 214);
       ctx.scale(dir * 1.32, 1.32);
       drawPart(ctx, 'chest');
       ctx.save();
-      ctx.translate(3, -127);
+      ctx.translate(2, -123);
       drawPart(ctx, 'neck');
-      ctx.translate(0, -21);
+      ctx.translate(-4, -12);
       ctx.rotate((opts.headAngle ?? -4) * Math.PI / 180);
       drawPart(ctx, opts.expression ?? 'head-alarm');
       ctx.restore();

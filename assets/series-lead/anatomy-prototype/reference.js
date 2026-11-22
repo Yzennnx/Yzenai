@@ -51,7 +51,8 @@ window.drawAnatomyReference = async (panels, frames, parts, backgrounds, walking
     ctx.fillStyle = '#d9cdb5';
     ctx.fillRect(x + 40, floor, 408, 1);
     if (view === 'profile') {
-      ctx.drawImage(profile, 320, 512, 440, 1000, x + 168, floor - 345, 151.8, 345);
+      // Align Side view crown (floor - 331) and soles (floor) identically with Front & Back turnarounds!
+      ctx.drawImage(profile, 300, 488, 440, 1024, x + 170, floor - 349, 150, 349);
     } else {
       drawAnatomyTurnaround(ctx, x + 244, floor, .69, view);
     }

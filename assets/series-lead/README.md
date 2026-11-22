@@ -23,16 +23,16 @@ Use the 12-emotion [front reaction sheet](reactions-front.png) and [side reactio
 
 ## Close-up hand references
 
-Use the [hand reference sheet](hands/reference-sheet.png) and the [first-person POV survival hand sheet](hands/pov-survival-sheet.png) for hand close-ups and first-person inserts. The original cutout drawings use the lead's warm skin tone, dark outline, and cream cuff. Both sheets show the right hand. Match the thumb side and sleeve to the hand established in the preceding shot. The [editable artwork](hands/reference-sheet.svg) and individual transparent PNGs are in `hands/`, and `drawPovSurvivalHand` in [art.js](anatomy-prototype/art.js) renders the four survival POV hands directly in code.
+Use the **[weapon & survival 2-layer hand sheet](hands/weapon-hands-sheet.png)** ([weapon-hands.js](hands/weapon-hands.js)), the **[first-person POV survival hand sheet](hands/pov-survival-sheet.png)** (`drawPovSurvivalHand` in [art.js](anatomy-prototype/art.js)), and the legacy [hand reference sheet](hands/reference-sheet.png) for close-ups and first-person inserts. **Never render hands as plain ovals or circles** — always sandwich props between `drawWeaponHandBack` → prop → `drawWeaponHandFront` and connect arms from shoulders using `drawArmChain`.
 
-| Shot | Image to supply as a reference |
+| Shot | Asset / Helper |
 | --- | --- |
-| Hand anatomy and camera angle | [Back of hand](hands/back.png) · [Palm](hands/palm.png) · [Side profile](hands/edge.png) |
-| Doorbell or small button | [Reach](hands/bell-reach.png) · [Index-finger press](hands/bell-press.png) · [Release](hands/bell-release.png) |
-| Horizontal push bar from the lead's viewpoint | [Reach](hands/bar-reach.png) · [Palm press](hands/bar-press.png) · [Release](hands/bar-release.png) |
-| Grasp a horizontal bar | [Overhand hold](hands/bar-hold.png) |
-| Small prop contact | [Ticket pinch](hands/ticket-pinch.png) · [Chalk grip](hands/chalk-grip.png) |
+| Shotgun grip (off-trigger / on-trigger) & pump forend | [Weapon hands sheet](hands/weapon-hands-sheet.png) (`shotgun-grip`, `shotgun-forend` in [weapon-hands.js](hands/weapon-hands.js)) |
+| Two-handed 9mm pistol grip | [Weapon hands sheet](hands/weapon-hands-sheet.png) (`pistol-twohand` in [weapon-hands.js](hands/weapon-hands.js)) |
+| Smartphone cradle & side button | [Weapon hands sheet](hands/weapon-hands-sheet.png) (`phone-cradle` in [weapon-hands.js](hands/weapon-hands.js)) |
+| Front / `low-angle` two-handed weapon fists | [Weapon hands sheet](hands/weapon-hands-sheet.png) (`front-shotgun-grip-L/R` in [weapon-hands.js](hands/weapon-hands.js)) |
 | First-person survival & action POV | [Pipe grip](hands/pov-pipe-grip.png) · [Flashlight sweep](hands/pov-flashlight.png) · [Deadbolt lock turn](hands/pov-door-lock.png) · [Defensive shield](hands/pov-shield-face.png) |
+| Legacy push-bar, grip & pinch inserts | [Palm press](hands/bar-press.png) · [Overhand hold](hands/bar-hold.png) · [Ticket pinch](hands/ticket-pinch.png) · [Chalk grip](hands/chalk-grip.png) · [Palm](hands/palm.png) |
 
 For AI-assisted artwork, supply the single image that matches the shot angle and action. Keep the tapered palm, slim fingers, thumb position, and wrist-to-cuff alignment consistent. At a doorbell, the index fingertip meets the button and the other fingers curl into the palm. At a horizontal push bar, the camera sees the back of the hand as the palm meets the bar. Let the wrists lead the approach and withdrawal. For the ticket, the thumb and index pads press opposite faces at the same corner. From the chosen three-quarter angle, the index is partly hidden and the free fingers curl below the paper. For a short chalk nub, the thumb and index pinch near the working tip and the middle finger curls behind for support.
 

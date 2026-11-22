@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540">
+<rect width="960" height="540" fill="#e9e4d9"/>
+<line x1="0" y1="480" x2="960" y2="480" stroke="#999184" stroke-width="2" stroke-dasharray="6 4"/>
+<line x1="422.22" y1="277.86" x2="326.04" y2="276.96" stroke="#101b21" stroke-width="7.4" stroke-linecap="round"/>
+<line x1="407.12" y1="158.46" x2="422.22" y2="277.86" stroke="#101b21" stroke-width="8.5" stroke-linecap="round"/>
+<line x1="638.63" y1="488.9" x2="632.68" y2="537.06" stroke="#19262e" stroke-width="7.4" stroke-linecap="round"/>
+<line x1="497.16" y1="440.3" x2="638.63" y2="488.9" stroke="#19262e" stroke-width="9.1" stroke-linecap="round"/>
+<line x1="483.53" y1="284.43" x2="497.16" y2="440.3" stroke="#19262e" stroke-width="10.7" stroke-linecap="round"/>
+<line x1="480.0" y1="271.96" x2="396.19" y2="142.93" stroke="#23323b" stroke-width="28.6" stroke-linecap="round"/>
+<line x1="396.19" y1="142.93" x2="383.62" y2="110.22" stroke="#23323b" stroke-width="9.3" stroke-linecap="round"/>
+<line x1="445.47" y1="572.04" x2="401.82" y2="598.26" stroke="#334752" stroke-width="6.9" stroke-linecap="round"/>
+<line x1="394.27" y1="424.15" x2="445.47" y2="572.04" stroke="#334752" stroke-width="8.5" stroke-linecap="round"/>
+<line x1="483.7" y1="286.5" x2="394.27" y2="424.15" stroke="#334752" stroke-width="10.2" stroke-linecap="round"/>
+<line x1="400.21" y1="150.53" x2="390.6" y2="282.04" stroke="#3c5461" stroke-width="8.0" stroke-linecap="round"/>
+<line x1="390.6" y1="282.04" x2="278.09" y2="278.13" stroke="#3c5461" stroke-width="6.9" stroke-linecap="round"/>
+<circle cx="377.5" cy="72.37" r="23.6" fill="#19262e"/>
+<circle cx="480.0" cy="271.96" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="396.19" cy="142.93" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="383.62" cy="110.22" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="377.5" cy="72.37" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="483.7" cy="286.5" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="394.27" cy="424.15" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="445.47" cy="572.04" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="401.82" cy="598.26" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="483.53" cy="284.43" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="497.16" cy="440.3" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="638.63" cy="488.9" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="632.68" cy="537.06" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="400.21" cy="150.53" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="390.6" cy="282.04" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="278.09" cy="278.13" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="407.12" cy="158.46" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="422.22" cy="277.86" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<circle cx="326.04" cy="276.96" r="4" fill="#ffb830" stroke="#101b21" stroke-width="1.2"/>
+<text x="20" y="30" font-family="monospace" font-size="16" fill="#101b21">lead-glass-freeze | rig=lead | cam=side (Blender 3D->2D)</text>
+</svg>
