@@ -158,35 +158,68 @@ function ensureRemoteConfigured(rclone, remote) {
   }
 }
 
+function findExportDirs(episodeDir) {
+  if (!existsSync(episodeDir)) return [];
+  const dirs = [];
+  function walk(dir) {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      const full = join(dir, entry.name);
+      if (entry.name === 'exports') {
+        dirs.push(full);
+      } else if (entry.name !== 'node_modules' && entry.name !== '.git' && entry.name !== 'assets') {
+        walk(full);
+      }
+    }
+  }
+  walk(episodeDir);
+  return dirs.sort();
+}
+
 function uploadEpisode(rclone, slug, opts) {
-  const exportsDir = join(EPISODES_DIR, slug, 'exports');
-  const videos = collectVideos(exportsDir, opts.includeIntermediates);
-  if (videos.length === 0) {
-    console.log(`[skip] ${slug}: no export videos found in ${relative(REPO_ROOT, exportsDir)}`);
-    return 0;
+  const episodeDir = join(EPISODES_DIR, slug);
+  const exportDirs = findExportDirs(episodeDir);
+  let totalUploaded = 0;
+
+  for (const exportsDir of exportDirs) {
+    const videos = collectVideos(exportsDir, opts.includeIntermediates);
+    if (videos.length === 0) continue;
+
+    // Strip the "exports" segment for a clean Drive path:
+    //   episodes/<slug>/exports/a.mp4 -> <folder>/<slug>/a.mp4
+    //   episodes/<slug>/part-1/ch-1a/exports/a.mp4 -> <folder>/<slug>/part-1/ch-1a/a.mp4
+    const relExports = relative(episodeDir, exportsDir);
+    const parentSub = relExports === 'exports' ? '' : relExports.replace(/(^|[\\/])exports$/, '');
+    const dest = parentSub
+      ? `${opts.remote}:${opts.folder}/${slug}/${parentSub.replaceAll('\\', '/')}`
+      : `${opts.remote}:${opts.folder}/${slug}`;
+
+    console.log(`[upload] ${slug}${parentSub ? `/${parentSub}` : ''}: ${videos.length} video(s) -> ${dest}`);
+    for (const v of videos) {
+      console.log(`  - ${relative(REPO_ROOT, v)}`);
+    }
+
+    const args = [
+      'copy',
+      exportsDir,
+      dest,
+      ...rcloneFilterArgs(opts.includeIntermediates),
+      ...(process.stdout.isTTY ? ['--progress', '--stats-one-line'] : ['--stats=0', '-v']),
+    ];
+    if (opts.minAge) args.push('--min-age', opts.minAge);
+    if (opts.dryRun) args.push('--dry-run');
+
+    const res = runRclone(rclone, args);
+    if (res.status !== 0) {
+      throw new Error(`rclone copy failed for "${relative(REPO_ROOT, exportsDir)}" (exit ${res.status})`);
+    }
+    totalUploaded += videos.length;
   }
 
-  const dest = `${opts.remote}:${opts.folder}/${slug}`;
-  console.log(`[upload] ${slug}: ${videos.length} video(s) -> ${dest}`);
-  for (const v of videos) {
-    console.log(`  - ${relative(REPO_ROOT, v)}`);
+  if (totalUploaded === 0) {
+    console.log(`[skip] ${slug}: no export videos found under ${relative(REPO_ROOT, episodeDir)}`);
   }
-
-  const args = [
-    'copy',
-    exportsDir,
-    dest,
-    ...rcloneFilterArgs(opts.includeIntermediates),
-    ...(process.stdout.isTTY ? ['--progress', '--stats-one-line'] : ['--stats=0', '-v']),
-  ];
-  if (opts.minAge) args.push('--min-age', opts.minAge);
-  if (opts.dryRun) args.push('--dry-run');
-
-  const res = runRclone(rclone, args);
-  if (res.status !== 0) {
-    throw new Error(`rclone copy failed for episode "${slug}" (exit ${res.status})`);
-  }
-  return videos.length;
+  return totalUploaded;
 }
 
 function uploadSingleFile(rclone, targetPath, opts) {
