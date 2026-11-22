@@ -110,6 +110,6 @@ These two worked examples describe the verified cut. Frame numbers are episode f
 
 **Description** — One gritty bite turns into a week of mud cookies. Follow the lead as their digestion changes and their body runs short of usable energy in this fictional scenario.
 
-**Tags** — What Happens Next, mud cookies, digestion, nutrition, what if animation
+**Tags** — What Happens Next, mud cookies, digestion, nutrition, what if animation, shorts, newshorts
 
-**Hashtags** — #WhatHappensNext #Digestion #Nutrition #AnimatedShort
+**Hashtags** — #WhatHappensNext #Digestion #Nutrition #AnimatedShort #newshorts #shorts

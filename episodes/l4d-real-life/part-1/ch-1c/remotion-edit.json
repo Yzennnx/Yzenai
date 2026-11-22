@@ -1,0 +1,26 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "duration": 102,
+  "captionsFile": "chapter-voice.json",
+  "shots": [
+    { "name": "Midnight street upright walk with pole parallax", "start": 0 },
+    { "name": "Rooftop cough eye-dart and look-up freeze", "start": 6.833333 },
+    { "name": "Upward rooftop whip-pan Smoker tongue launch", "start": 12.208333 },
+    { "name": "True-physics barbed tongue drag fighting heels", "start": 14.625 },
+    { "name": "Tight throat cuff wedge and ECU dread crash-zoom", "start": 20.416667 },
+    { "name": "Smooth 24fps straight-arm 1-handed knife slash", "start": 25.625 },
+    { "name": "Tight POV bent and chipped kitchen knife insert", "start": 30.416667 },
+    { "name": "Full-speed OpenToonz sprint with pole parallax", "start": 35.0 },
+    { "name": "24H Market OTS window peek and stepped horde reveal", "start": 42.416667 },
+    { "name": "Failed pebble test and sedan eye-dart", "start": 48.625 },
+    { "name": "POV rock windshield smash and car alarm strobe", "start": 54.833333 },
+    { "name": "Athletic 24fps 1-handed hurdle vault into cover", "start": 59.833333 },
+    { "name": "Low-angle dumpster cover horde stampede", "start": 64.833333 },
+    { "name": "Rhythmic POV supermarket raid and bulging pack zip", "start": 72.208333 },
+    { "name": "00:38 AM back-alley sneak out as car alarm dies", "start": 79.208333 },
+    { "name": "02:15-03:40 AM hours wandering dead blocks for shelter", "start": 84.208333 },
+    { "name": "04:55 AM exhausted pre-dawn shelter search", "start": 89.833333 },
+    { "name": "05:08 AM Part 1 cliffhanger pale gray eastern dawn", "start": 95.208333 }
+  ]
+}

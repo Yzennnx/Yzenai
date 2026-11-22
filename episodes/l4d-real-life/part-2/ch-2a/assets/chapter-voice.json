@@ -1,0 +1,446 @@
+[
+  {
+    "start": 0.15,
+    "end": 2.1459080882352946,
+    "text": "THE SKY IS TURNING GRAY.",
+    "emphasis": [
+      "SKY",
+      "GRAY",
+      "SUNRISE",
+      "KILLS"
+    ]
+  },
+  {
+    "start": 2.1459080882352946,
+    "end": 3.721625,
+    "text": "SUNRISE KILLS YOU.",
+    "emphasis": [
+      "SKY",
+      "GRAY",
+      "SUNRISE",
+      "KILLS"
+    ]
+  },
+  {
+    "start": 3.95,
+    "end": 5.247493055555555,
+    "text": "THEN YOU SPOT IT.",
+    "emphasis": [
+      "SHUTTERED",
+      "LOFT",
+      "IRON",
+      "LADDER"
+    ]
+  },
+  {
+    "start": 5.247493055555555,
+    "end": 6.644793269230768,
+    "text": "A SHUTTERED LOFT.",
+    "emphasis": [
+      "SHUTTERED",
+      "LOFT",
+      "IRON",
+      "LADDER"
+    ]
+  },
+  {
+    "start": 6.644793269230768,
+    "end": 7.842479166666666,
+    "text": "AN IRON LADDER.",
+    "emphasis": [
+      "SHUTTERED",
+      "LOFT",
+      "IRON",
+      "LADDER"
+    ]
+  },
+  {
+    "start": 8.85,
+    "end": 10.986735416666665,
+    "text": "BEHIND YOU, SUNLIGHT HITS.",
+    "emphasis": [
+      "SUNLIGHT",
+      "TWO",
+      "WAKE",
+      "UP"
+    ]
+  },
+  {
+    "start": 10.986735416666665,
+    "end": 11.902479166666666,
+    "text": "TWO WAKE UP.",
+    "emphasis": [
+      "SUNLIGHT",
+      "TWO",
+      "WAKE",
+      "UP"
+    ]
+  },
+  {
+    "start": 12.1,
+    "end": 13.342694444444444,
+    "text": "NO HESITATION.",
+    "emphasis": [
+      "JUMP",
+      "CATCH",
+      "RUNG",
+      "CLIMB"
+    ]
+  },
+  {
+    "start": 13.342694444444444,
+    "end": 15.828083333333334,
+    "text": "YOU JUMP, CATCH THE RUNG, CLIMB.",
+    "emphasis": [
+      "JUMP",
+      "CATCH",
+      "RUNG",
+      "CLIMB"
+    ]
+  },
+  {
+    "start": 16.05,
+    "end": 17.055703125,
+    "text": "ARMS BURNING.",
+    "emphasis": [
+      "ARMS",
+      "BURNING",
+      "RUNNERS",
+      "SLAM",
+      "BRICK"
+    ]
+  },
+  {
+    "start": 17.055703125,
+    "end": 20.0728125,
+    "text": "BELOW YOUR SHOES, RUNNERS SLAM THE BRICK.",
+    "emphasis": [
+      "ARMS",
+      "BURNING",
+      "RUNNERS",
+      "SLAM",
+      "BRICK"
+    ]
+  },
+  {
+    "start": 20.85,
+    "end": 22.48813081395349,
+    "text": "YOU HAUL THE LADDER UP.",
+    "emphasis": [
+      "HAUL",
+      "LADDER",
+      "LOCK",
+      "BOLT",
+      "WINDOW"
+    ]
+  },
+  {
+    "start": 22.48813081395349,
+    "end": 23.580218023255814,
+    "text": "LOCK THE CATCH.",
+    "emphasis": [
+      "HAUL",
+      "LADDER",
+      "LOCK",
+      "BOLT",
+      "WINDOW"
+    ]
+  },
+  {
+    "start": 23.580218023255814,
+    "end": 24.7633125,
+    "text": "BOLT THE WINDOW.",
+    "emphasis": [
+      "HAUL",
+      "LADDER",
+      "LOCK",
+      "BOLT",
+      "WINDOW"
+    ]
+  },
+  {
+    "start": 27.25,
+    "end": 30.224440159574467,
+    "text": "FIRST TIME ALL NIGHT, YOU BREATHE.",
+    "emphasis": [
+      "BREATHE",
+      "FOOD",
+      "WATER",
+      "LOCKED",
+      "ROOM"
+    ]
+  },
+  {
+    "start": 30.224440159574467,
+    "end": 31.215920212765955,
+    "text": "FOOD. WATER.",
+    "emphasis": [
+      "BREATHE",
+      "FOOD",
+      "WATER",
+      "LOCKED",
+      "ROOM"
+    ]
+  },
+  {
+    "start": 31.215920212765955,
+    "end": 32.427729166666666,
+    "text": "A LOCKED ROOM.",
+    "emphasis": [
+      "BREATHE",
+      "FOOD",
+      "WATER",
+      "LOCKED",
+      "ROOM"
+    ]
+  },
+  {
+    "start": 34.05,
+    "end": 35.42211328125,
+    "text": "YOUR NECK STILL BURNS",
+    "emphasis": [
+      "NECK",
+      "BURNS",
+      "SMOKER"
+    ]
+  },
+  {
+    "start": 35.42211328125,
+    "end": 36.4893125,
+    "text": "FROM THAT SMOKER.",
+    "emphasis": [
+      "NECK",
+      "BURNS",
+      "SMOKER"
+    ]
+  },
+  {
+    "start": 37.5,
+    "end": 39.2873125,
+    "text": "YOUR KNIFE IS BENT.",
+    "emphasis": [
+      "KNIFE",
+      "BENT",
+      "SNAPS"
+    ]
+  },
+  {
+    "start": 39.2873125,
+    "end": 41.074625,
+    "text": "ONE FIGHT, IT SNAPS.",
+    "emphasis": [
+      "KNIFE",
+      "BENT",
+      "SNAPS"
+    ]
+  },
+  {
+    "start": 41.45,
+    "end": 43.39365860215054,
+    "text": "DAYLIGHT TURNS THE STREET",
+    "emphasis": [
+      "DAYLIGHT",
+      "STREET",
+      "HUNT"
+    ]
+  },
+  {
+    "start": 43.39365860215054,
+    "end": 44.18879166666667,
+    "text": "INTO A HUNT.",
+    "emphasis": [
+      "DAYLIGHT",
+      "STREET",
+      "HUNT"
+    ]
+  },
+  {
+    "start": 44.85,
+    "end": 46.00747916666667,
+    "text": "RULE NUMBER ONE.",
+    "emphasis": [
+      "RULE",
+      "NUMBER",
+      "ONE",
+      "STAY",
+      "INVISIBLE",
+      "NIGHT"
+    ]
+  },
+  {
+    "start": 46.00747916666667,
+    "end": 48.41147435897436,
+    "text": "WHEN THE SUN IS UP, STAY INVISIBLE.",
+    "emphasis": [
+      "RULE",
+      "NUMBER",
+      "ONE",
+      "STAY",
+      "INVISIBLE",
+      "NIGHT"
+    ]
+  },
+  {
+    "start": 48.41147435897436,
+    "end": 49.47991666666667,
+    "text": "WAIT FOR NIGHT.",
+    "emphasis": [
+      "RULE",
+      "NUMBER",
+      "ONE",
+      "STAY",
+      "INVISIBLE",
+      "NIGHT"
+    ]
+  },
+  {
+    "start": 52.2,
+    "end": 53.71341517857143,
+    "text": "YOUR PHONE BUZZES.",
+    "emphasis": [
+      "BUZZES",
+      "SEVEN",
+      "PERCENT",
+      "SNATCH"
+    ]
+  },
+  {
+    "start": 53.71341517857143,
+    "end": 54.92414732142857,
+    "text": "SEVEN PERCENT.",
+    "emphasis": [
+      "BUZZES",
+      "SEVEN",
+      "PERCENT",
+      "SNATCH"
+    ]
+  },
+  {
+    "start": 54.92414732142857,
+    "end": 56.4375625,
+    "text": "YOU SNATCH IT FAST.",
+    "emphasis": [
+      "BUZZES",
+      "SEVEN",
+      "PERCENT",
+      "SNATCH"
+    ]
+  },
+  {
+    "start": 56.95,
+    "end": 58.55775375,
+    "text": "MILITARY BROADCAST.",
+    "emphasis": [
+      "MILITARY",
+      "BROADCAST",
+      "APEX",
+      "TOWER",
+      "DAWN"
+    ]
+  },
+  {
+    "start": 58.55775375,
+    "end": 60.260081250000006,
+    "text": "FINAL RESCUE CHOPPER.",
+    "emphasis": [
+      "MILITARY",
+      "BROADCAST",
+      "APEX",
+      "TOWER",
+      "DAWN"
+    ]
+  },
+  {
+    "start": 60.260081250000006,
+    "end": 61.6786875,
+    "text": "APEX TOWER AT DAWN.",
+    "emphasis": [
+      "MILITARY",
+      "BROADCAST",
+      "APEX",
+      "TOWER",
+      "DAWN"
+    ]
+  },
+  {
+    "start": 62.05,
+    "end": 63.4492619047619,
+    "text": "YOU PEEL THE SHUTTER",
+    "emphasis": [
+      "SHUTTER",
+      "EAST"
+    ]
+  },
+  {
+    "start": 63.4492619047619,
+    "end": 64.35466666666666,
+    "text": "AND LOOK EAST.",
+    "emphasis": [
+      "SHUTTER",
+      "EAST"
+    ]
+  },
+  {
+    "start": 65.5,
+    "end": 67.27822420634921,
+    "text": "THE TALLEST SKYSCRAPER.",
+    "emphasis": [
+      "TALLEST",
+      "SKYSCRAPER",
+      "BLINKING",
+      "RED",
+      "FOG"
+    ]
+  },
+  {
+    "start": 67.27822420634921,
+    "end": 69.23427083333333,
+    "text": "BLINKING RED ABOVE THE FOG.",
+    "emphasis": [
+      "TALLEST",
+      "SKYSCRAPER",
+      "BLINKING",
+      "RED",
+      "FOG"
+    ]
+  },
+  {
+    "start": 69.85,
+    "end": 72.49654891304347,
+    "text": "ONE NIGHT TO CROSS INFECTED STREETS.",
+    "emphasis": [
+      "ONE",
+      "NIGHT",
+      "BENT",
+      "KNIFE",
+      "REAL",
+      "WEAPON"
+    ]
+  },
+  {
+    "start": 72.49654891304347,
+    "end": 74.3491331521739,
+    "text": "A BENT KNIFE WON'T SURVIVE.",
+    "emphasis": [
+      "ONE",
+      "NIGHT",
+      "BENT",
+      "KNIFE",
+      "REAL",
+      "WEAPON"
+    ]
+  },
+  {
+    "start": 74.3491331521739,
+    "end": 75.9370625,
+    "text": "YOU NEED A REAL WEAPON.",
+    "emphasis": [
+      "ONE",
+      "NIGHT",
+      "BENT",
+      "KNIFE",
+      "REAL",
+      "WEAPON"
+    ]
+  }
+]

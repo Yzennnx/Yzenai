@@ -1,0 +1,30 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "duration": 85,
+  "captionsFile": "chapter-voice.json",
+  "shots": [
+    { "name": "POV chalk-grip 5-day wall tally", "start": 0 },
+    { "name": "OTS 7F window day-to-midnight lapse", "start": 4.208333 },
+    { "name": "High-angle aerial sluggish midnight street", "start": 7.0 },
+    { "name": "Overhead backpack food and first-aid pack", "start": 10.0 },
+    { "name": "Overhead kitchen knife sheath and zip", "start": 12.791667 },
+    { "name": "Tight forearm cardboard and duct-tape wrap", "start": 15.5 },
+    { "name": "Tight shin cardboard and duct-tape wrap", "start": 18.5 },
+    { "name": "Low-angle armored gear-up hold", "start": 20.625 },
+    { "name": "Side quiet bookshelf pull-back", "start": 22.791667 },
+    { "name": "Taped-cuff POV deadbolt unlock", "start": 26.0 },
+    { "name": "Door-crack hallway POV and Apt 708 push-in", "start": 28.5 },
+    { "name": "Dynamic sneakAt crouch-creep with parallax wipes", "start": 35.0 },
+    { "name": "Tile phone clatter and Apt 708 zombie turn", "start": 42.5 },
+    { "name": "Glance-back freeze and ECU crash-zoom dread", "start": 46.208333 },
+    { "name": "Pitch blackout and crimson EXIT silhouette escape", "start": 51.0 },
+    { "name": "POV dead elevator bell-press", "start": 57.5 },
+    { "name": "OpenToonz walking descent down red-lit stairs", "start": 60.5 },
+    { "name": "1F lobby pillar lean-out OTS spot 3 infected", "start": 66.5 },
+    { "name": "Brief panic then think and eye-dart down", "start": 70.0 },
+    { "name": "Floor insert broken glass vase shard pickup", "start": 73.208333 },
+    { "name": "Emphasized bouncing and sliding glass vase lure", "start": 75.833333 },
+    { "name": "Quiet armored exit onto foggy midnight street", "start": 81.208333 }
+  ]
+}

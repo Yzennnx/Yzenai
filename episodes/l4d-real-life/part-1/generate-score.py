@@ -214,131 +214,282 @@ def build_ch1a():
     return np.clip(buf, -0.92, 0.92)
 
 
+def glass_shard_hit(freq_scale=1.0, dur=0.28, seed=91):
+    """Crisp crystalline broken glass/ceramic vase impact on polished tile floor."""
+    rng = np.random.default_rng(seed)
+    n = int(dur * RATE)
+    t = np.arange(n, dtype=np.float32) / RATE
+    # High-Q inharmonic glass & ceramic modal partials
+    modes = [
+        (1620, 14.0, 0.36),
+        (2390, 19.0, 0.34),
+        (3480, 24.0, 0.28),
+        (4820, 31.0, 0.22),
+        (6340, 38.0, 0.16),
+    ]
+    sig = np.zeros(n, dtype=np.float32)
+    for f, dec, amp in modes:
+        sig += amp * np.sin(2 * np.pi * (f * freq_scale) * t) * np.exp(-dec * t)
+    # Sharp ceramic crack transient (first 14ms)
+    crack = rng.normal(0, 1, n).astype(np.float32)
+    crack = crack - lowpass_smooth(crack, 6)
+    sig += crack * np.exp(-140.0 * t) * 0.55
+    return sig.astype(np.float32)
+
+
+def glass_floor_slide(dur=1.70, seed=92):
+    """Emphasized spinning/skittering glass shard sliding across hard lobby tiles."""
+    rng = np.random.default_rng(seed)
+    n = int(dur * RATE)
+    t = np.arange(n, dtype=np.float32) / RATE
+    # High-frequency crystalline glass-on-tile friction grit decelerating cleanly
+    noise = rng.normal(0, 1, n).astype(np.float32)
+    grit = lowpass_smooth(noise, 1) - lowpass_smooth(noise, 10)
+    # Wobbling spinning contact envelope (fast rattle slowing to rest)
+    wobble = 0.55 + 0.45 * np.sin(2 * np.pi * (16.0 - 7.5 * (t / dur)) * t)
+    fade = np.minimum(t / 0.04, 1.0) * np.exp(-1.55 * t)
+    sig = grit * wobble * fade * 0.32
+    # Rapid-fire crystalline micro-tinks as jagged edges skip along the tile!
+    tinks = [0.06, 0.16, 0.28, 0.42, 0.58, 0.77, 0.99, 1.24, 1.48]
+    for idx, dt in enumerate(tinks):
+        start = int(dt * RATE)
+        chunk = glass_shard_hit(1.15 + (idx % 3) * 0.14, 0.11, seed + 10 + idx)
+        end = min(n, start + len(chunk))
+        sig[start:end] += chunk[: end - start] * (0.48 * (0.86 ** idx))
+    return sig.astype(np.float32)
+
+
 def build_ch1b():
-    dur = 70
+    dur = 85
     t = np.arange(dur * RATE, dtype=np.float32) / RATE
     buf = np.zeros((len(t), 2), dtype=np.float32)
 
-    # Sub-bass dark pulse during prep (0..27s), bare stealth dread (27..46s), TOTAL CUTOUT on phone drop (46.0..50.5s!), blackout & descent (50.5..70s)
+    # 1. Sub-bass dark drone: prep (0..22.8s) -> bare stealth dread (22.8..43.15s) -> TOTAL SILENCE DROPOUT (43.15..45.2s!)
+    # -> crash-zoom dread (45.2..51.8s) -> stairwell, lobby glass lure & midnight exit (51.8..85s)
     d = drone(t, 49.0, 0.5)
     d_env = (
-        env_range(t, 0.0, 27.0, 0.4, 0.6) * 0.16
-        + env_range(t, 27.0, 45.95, 0.6, 0.05) * 0.12
-        + env_range(t, 50.5, 70.0, 0.3, 0.8) * 0.18
+        env_range(t, 0.0, 22.8, 0.4, 0.5) * 0.16
+        + env_range(t, 22.8, 43.15, 0.5, 0.04) * 0.11
+        + env_range(t, 45.2, 51.75, 0.15, 0.05) * 0.17
+        + env_range(t, 51.8, 76.7, 0.25, 0.12) * 0.16
+        + env_range(t, 79.8, 85.0, 0.35, 0.9) * 0.17
     )
     buf[:, 0] += d * d_env
     buf[:, 1] += d * d_env
 
-    # Prep rhythmic pulse (0..26s)
-    prep_p = np.sin(2 * np.pi * 62 * t) * (0.5 + 0.5 * np.sin(2 * np.pi * 1.55 * t)) ** 4
-    pe = env_range(t, 1.0, 26.5, 1.0, 1.2) * 0.12
+    # 2. Prep industrial pulse (0.8..22.0s)
+    prep_p = np.sin(2 * np.pi * 62 * t) * (0.5 + 0.5 * np.sin(2 * np.pi * (86 / 60) * t)) ** 4
+    pe = env_range(t, 0.8, 22.0, 1.0, 1.0) * 0.13
     buf[:, 0] += prep_p * pe
     buf[:, 1] += prep_p * pe
 
-    # Tension strings during hallway stealth & lobby exit
+    # 3. Fluorescent hallway buzz (28.5..43.15s & 45.2..51.7s, dies abruptly on blackout!)
+    hum = (0.65 * np.sin(2 * np.pi * 120 * t) + 0.35 * np.sin(2 * np.pi * 240 * t)).astype(np.float32)
+    hum_env = env_range(t, 28.5, 43.15, 0.2, 0.03) * 0.018 + env_range(t, 45.2, 51.70, 0.05, 0.03) * 0.022
+    buf[:, 0] += hum * hum_env
+    buf[:, 1] += hum * hum_env
+
+    # 4. Eerie horror strings during stealth, crash-zoom scare, stairwell, and lobby escape (ducked cleanly during glass throw!)
     st = horror_strings(t, 138.6)
-    se = env_range(t, 33.0, 45.95, 2.0, 0.05) * 0.10 + env_range(t, 58.0, 69.5, 1.5, 1.2) * 0.11
+    se = (
+        env_range(t, 33.5, 43.15, 2.0, 0.04) * 0.10
+        + env_range(t, 47.8, 51.75, 0.25, 0.05) * 0.16
+        + env_range(t, 60.5, 76.5, 1.2, 0.25) * 0.10
+        + env_range(t, 80.4, 84.6, 0.8, 1.0) * 0.12
+    )
     buf[:, 0] += st * se
     buf[:, 1] += horror_strings(t, 139.5) * se
 
-    # SFX: chalk tally, zipper, duct tape tears
-    add_stereo(buf, 1.2, scrape(0.35, 620, 61), 0.1, 0.16)
-    add_stereo(buf, 13.5, scrape(0.5, 920, 62), 0.0, 0.16)
-    add_stereo(buf, 17.0, scrape(0.45, 780, 63), -0.1, 0.24)
-    add_stereo(buf, 21.0, scrape(0.45, 810, 64), 0.1, 0.24)
+    # 5. Prep Foley: chalk scratch (1.6s), can clinks (11.0s), knife slide (13.4s), zipper (14.4s), duct tape rips (17.0s, 19.2s), pack cinch (21.2s)
+    add_stereo(buf, 1.6, scrape(0.38, 620, 61), 0.1, 0.18)
+    add_stereo(buf, 11.0, metallic_click(960, 0.10), -0.1, 0.15)
+    add_stereo(buf, 12.0, metallic_click(880, 0.10), 0.1, 0.14)
+    add_stereo(buf, 13.4, metallic_click(1420, 0.24), 0.05, 0.20)
+    add_stereo(buf, 14.4, scrape(0.48, 940, 62), 0.0, 0.18)
+    add_stereo(buf, 17.0, scrape(0.45, 780, 63), -0.1, 0.25)
+    add_stereo(buf, 19.2, scrape(0.45, 810, 64), 0.1, 0.25)
+    add_stereo(buf, 21.2, impact_thud(0.22, 95, 0.45, 65), 0.0, 0.18)
 
-    # Barricade slide + hinge creak + Apt 708 door banging!
-    add_stereo(buf, 28.0, scrape(2.4, 140, 65), -0.2, 0.18)
-    add_stereo(buf, 32.0, scrape(0.65, 520, 66), -0.1, 0.14)
-    for bt in [34.5, 36.1, 37.7, 39.3, 40.9, 42.5, 44.1]:
-        add_stereo(buf, bt, impact_thud(0.28, 72, 0.45, 67), 0.42, 0.28)
+    # 6. Midnight barricade ease (23.2s), soft deadbolt click (27.0s), hinge creak (27.8s)
+    add_stereo(buf, 23.2, scrape(2.4, 135, 66), -0.2, 0.16)
+    add_stereo(buf, 27.0, metallic_click(740, 0.12), -0.2, 0.22)
+    add_stereo(buf, 27.8, scrape(0.60, 520, 67), -0.1, 0.15)
 
-    # 46.0s (1:51 episode time): PHONE CLATTER IN SILENCE -> ZOMBIE HISS -> 50.5s BLACKOUT BOOM!
-    add_stereo(buf, 46.0, metallic_click(520, 0.18), 0.0, 0.30)
-    add_stereo(buf, 46.16, metallic_click(410, 0.12), 0.05, 0.18)
-    add_stereo(buf, 48.0, zombie_snarl(0.85, 180, 69), 0.35, 0.24)
-    add_stereo(buf, 50.5, boom(2.1, 120, 28), 0.0, 0.40)
+    # 7. Apt 708 neighbor-door echoing THUD-THUD-THUD (30.8..42.0s) — STOPS DEAD when phone drops!
+    for bt in [30.8, 32.4, 34.0, 35.6, 37.2, 38.8, 40.4, 42.0]:
+        add_stereo(buf, bt, impact_thud(0.28, 72, 0.45, 68), 0.45, 0.30)
 
-    # Dead elevator click, hollow stair footsteps, lobby stone bounce, glass exit door
-    add_stereo(buf, 56.5, metallic_click(890, 0.09), 0.2, 0.22)
-    for ft in [58.4, 58.9, 59.4, 59.9, 60.4, 60.9]:
-        add_stereo(buf, ft, impact_thud(0.11, 130, 0.35, 71), -0.1, 0.14)
-    add_stereo(buf, 65.3, metallic_click(960, 0.12), -0.65, 0.26)
-    add_stereo(buf, 65.52, metallic_click(840, 0.10), -0.7, 0.16)
-    add_stereo(buf, 66.2, zombie_snarl(0.8, 150, 73), -0.45, 0.18)
-    add_stereo(buf, 68.8, scrape(0.45, 340, 74), 0.3, 0.14)
+    # 8. PHONE CLATTER ON TILE (43.2s) -> TOTAL SILENCE -> ZOMBIE HISS (45.2s) -> CRASH-ZOOM THUMP (48.2s) -> POWER BLACKOUT BOOM (51.8s)!
+    add_stereo(buf, 43.20, metallic_click(540, 0.18), 0.0, 0.32)
+    add_stereo(buf, 43.36, metallic_click(420, 0.12), 0.06, 0.20)
+    add_stereo(buf, 45.20, zombie_snarl(0.95, 185, 69), 0.35, 0.26)
+    add_stereo(buf, 48.20, boom(1.2, 110, 34), 0.0, 0.34)
+    for bt in [48.4, 48.88, 49.36, 49.84, 50.32, 50.80, 51.28]:
+        add_stereo(buf, bt, heartbeat_hit(), 0.0, 0.24)
+    # Fluorescent stutter + MASSIVE POWER-GRID TRANSFORMER SHUTDOWN BOOM (51.8s)!
+    add_stereo(buf, 51.25, metallic_click(1200, 0.08), 0.0, 0.18)
+    add_stereo(buf, 51.55, metallic_click(1200, 0.08), 0.0, 0.20)
+    add_stereo(buf, 51.80, boom(2.2, 125, 26), 0.0, 0.42)
+    add_stereo(buf, 53.10, zombie_snarl(0.85, 155, 70), -0.4, 0.20)
+
+    # 9. Dead elevator clicks (58.4s, 59.3s) + echoing concrete walking steps descending stairs (60.8..66.0s)
+    add_stereo(buf, 58.40, metallic_click(890, 0.09), 0.2, 0.22)
+    add_stereo(buf, 59.30, metallic_click(890, 0.09), 0.2, 0.22)
+    for i, ft in enumerate([60.85, 61.40, 61.95, 62.50, 63.05, 63.65, 64.20, 64.75, 65.30, 65.85]):
+        add_stereo(buf, ft, impact_thud(0.11, 138, 0.35, 71 + i), -0.15 if i < 5 else 0.15, 0.17)
+
+    # 10. 1F lobby reveal: zombie groans right (67.4s), brief panic heartbeat (70.1..71.1s), broken glass vase shard pickup clink (74.45s)!
+    add_stereo(buf, 67.40, zombie_snarl(0.95, 142, 82), 0.55, 0.18)
+    for bt in [70.15, 70.60, 71.05]:
+        add_stereo(buf, bt, heartbeat_hit(), 0.0, 0.23)
+    add_stereo(buf, 74.45, glass_shard_hit(1.18, 0.16, 83), 0.15, 0.22)
+
+    # 11. EMPHASIZED GLASS VASE SHARD THROW: HARD IMPACT & BOUNCE #1 (76.96s) -> BOUNCE #2 (77.83s) -> LONG SPINNING FLOOR SLIDE (77.88..79.60s)!
+    add_stereo(buf, 76.96, glass_shard_hit(0.96, 0.36, 91), -0.26, 0.44)
+    add_stereo(buf, 77.05, glass_shard_hit(1.42, 0.18, 92), -0.34, 0.24)
+    add_stereo(buf, 77.83, glass_shard_hit(1.10, 0.26, 93), -0.54, 0.36)
+    slide = glass_floor_slide(1.72, 94)
+    # Stereo pan the spinning glass slide progressively leftward (-0.54 -> -0.86)!
+    s0 = int(77.88 * RATE)
+    s1 = min(len(buf), s0 + len(slide))
+    k = s1 - s0
+    pan_curve = np.linspace(-0.54, -0.86, k, dtype=np.float32)
+    buf[s0:s1, 0] += slide[:k] * (0.5 * (1.0 - pan_curve)) * 0.92
+    buf[s0:s1, 1] += slide[:k] * (0.5 * (1.0 + pan_curve)) * 0.92
+    # Startled infected snapping & shuffling left toward the loud skidding glass!
+    add_stereo(buf, 78.20, zombie_snarl(0.90, 165, 95), 0.25, 0.22)
+    add_stereo(buf, 79.35, zombie_snarl(0.85, 138, 96), -0.42, 0.18)
+
+    # 12. Quiet glass exit door hush (81.8s) + foggy midnight street cliffhanger boom (83.5s)
+    add_stereo(buf, 81.80, scrape(0.55, 320, 97), 0.3, 0.15)
+    add_stereo(buf, 83.50, boom(1.4, 72, 28), 0.0, 0.24)
 
     return np.clip(buf, -0.92, 0.92)
 
 
 def build_ch1c():
-    dur = 65
+    dur = 102
     t = np.arange(dur * RATE, dtype=np.float32) / RATE
     buf = np.zeros((len(t), 2), dtype=np.float32)
 
-    # Silent eerie road (0..7.4s) -> MASSIVE SMOKER STINGER (7.4s) -> 142 BPM industrial chase (7.5..24.5s)
-    # -> grocery stalking bass (24.5..38.8s) -> car alarm chaos surge (38.8..52s) -> cold dawn chord (52..65s)
-    d = drone(t, 50.0, 0.7)
-    d_env = env_range(t, 0.0, 7.2, 0.4, 0.1) * 0.11 + env_range(t, 24.5, 65.0, 0.8, 1.0) * 0.16
+    # 1. Sub-bass dark drone: steady street walk (0..9.6s) -> cough silence dropout (9.6..14.0s)
+    # -> Smoker drag & sprint (14.2..42.2s) -> grocery stalking (42.4..57.0s) -> alarm (57.2..81.4s)
+    # -> hours-long exhausted midnight wandering & cold dawn finale (81.4..102.0s)
+    d = drone(t, 48.0, 0.65)
+    d_env = (
+        env_range(t, 0.0, 9.6, 0.4, 0.12) * 0.11
+        + env_range(t, 14.2, 42.2, 0.15, 0.6) * 0.15
+        + env_range(t, 42.4, 57.0, 0.6, 0.10) * 0.14
+        + env_range(t, 57.2, 81.2, 0.15, 0.9) * 0.16
+        + env_range(t, 81.4, 102.0, 0.6, 1.0) * 0.14
+    )
     buf[:, 0] += d * d_env
     buf[:, 1] += d * d_env
 
-    # 142 BPM industrial chase drums (7.6..24.2s) & car alarm horde surge (39.0..52.0s)
+    # 2. Corner 24H MARKET neon buzz (0..9.4s & 42.4..56.8s)
+    buzz = (0.6 * np.sin(2 * np.pi * 120 * t) + 0.4 * np.sin(2 * np.pi * 240 * t)).astype(np.float32)
+    be = env_range(t, 0.0, 9.4, 0.5, 0.2) * 0.014 + env_range(t, 42.4, 56.8, 0.4, 0.2) * 0.016
+    buf[:, 0] += buzz * be
+    buf[:, 1] += buzz * be
+
+    # 3. 142 BPM Industrial Chase Drums: Smoker drag, slash & sprint (14.6..42.0s) + Car alarm horde chaos (57.4..72.2s)!
     beat_len = 60.0 / 142.0
-    for seg_start, seg_end, g in [(7.6, 24.2, 0.28), (39.0, 52.0, 0.24)]:
+    for seg_start, seg_end, g in [(14.6, 42.0, 0.27), (57.4, 72.2, 0.22)]:
         bt = seg_start
         step = 0
         while bt < seg_end:
-            add_stereo(buf, bt, impact_thud(0.18, 62 if step % 2 == 0 else 115, 0.45, 80 + (step % 5)), 0.0, g)
+            add_stereo(buf, bt, impact_thud(0.18, 60 if step % 2 == 0 else 112, 0.45, 80 + (step % 5)), 0.0, g)
             if step % 2 == 1:
-                add_stereo(buf, bt, metallic_click(420, 0.08), 0.25 if step % 4 == 1 else -0.25, g * 0.55)
+                add_stereo(buf, bt, metallic_click(430, 0.08), 0.25 if step % 4 == 1 else -0.25, g * 0.52)
             bt += beat_len
             step += 1
 
-    # Dissonant chase strings + eerie dawn chord
+    # 4. Dissonant chase horror strings during Smoker ambush & horde stampede
     st = horror_strings(t, 155.5)
-    se = env_range(t, 7.5, 24.5, 0.2, 1.0) * 0.14 + env_range(t, 38.8, 52.5, 0.3, 1.5) * 0.13
+    se = (
+        env_range(t, 14.2, 42.0, 0.2, 0.9) * 0.13
+        + env_range(t, 57.4, 72.2, 0.3, 1.2) * 0.12
+    )
     buf[:, 0] += st * se
     buf[:, 1] += horror_strings(t, 156.8) * se
 
-    # Haunting cold dawn minor chord (53..65s)
+    # 5. Cold haunting pale-gray dawn minor9 chord swelling gradually across late-night search -> dawn cliffhanger (86..102s)
     dawn_c = (
-        0.4 * np.sin(2 * np.pi * 110.0 * t)
-        + 0.35 * np.sin(2 * np.pi * 130.81 * t)
-        + 0.3 * np.sin(2 * np.pi * 164.81 * t)
-        + 0.2 * np.sin(2 * np.pi * 246.94 * t)
+        0.40 * np.sin(2 * np.pi * 110.0 * t)
+        + 0.34 * np.sin(2 * np.pi * 130.81 * t)
+        + 0.28 * np.sin(2 * np.pi * 164.81 * t)
+        + 0.20 * np.sin(2 * np.pi * 246.94 * t)
     ).astype(np.float32)
-    de = env_range(t, 52.5, 65.0, 2.2, 1.2) * 0.11
+    de = env_range(t, 85.0, 94.5, 2.5, 1.0) * 0.06 + env_range(t, 94.0, 102.0, 1.8, 0.9) * 0.12
     buf[:, 0] += dawn_c * de
     buf[:, 1] += dawn_c * de
 
-    # SFX: quiet road footsteps -> Smoker whip & stinger -> blade slash -> sprint
-    for ft in [0.8, 1.5, 2.2, 2.9, 3.6, 4.3, 5.0, 5.7, 6.4]:
-        add_stereo(buf, ft, impact_thud(0.09, 120, 0.35, 81), 0.0, 0.12)
-    add_stereo(buf, 7.4, boom(1.4, 150, 32), 0.0, 0.42)
-    add_stereo(buf, 7.45, scrape(0.32, 680, 82), 0.3, 0.28)
-    add_stereo(buf, 14.5, scrape(0.28, 1180, 83), 0.0, 0.30)
-    add_stereo(buf, 14.8, zombie_snarl(1.1, 240, 84), -0.35, 0.26)
-    for ft in np.arange(16.5, 24.0, 0.34):
-        add_stereo(buf, float(ft), impact_thud(0.09, 130, 0.45, 85), 0.0, 0.16)
+    # 6. Steady upright street walk footsteps (0.6..6.5s) -> Wet Smoker rooftop cough (9.1s) -> Whip-crack tongue lash (14.2s)!
+    for ft in [0.65, 1.25, 1.85, 2.45, 3.05, 3.65, 4.25, 4.85, 5.45, 6.05]:
+        add_stereo(buf, ft, impact_thud(0.09, 128, 0.35, 81), 0.0, 0.14)
+    add_stereo(buf, 9.10, zombie_snarl(0.65, 195, 82), 0.25, 0.24)
+    add_stereo(buf, 9.75, zombie_snarl(0.45, 210, 83), 0.25, 0.18)
+    # Explosive Smoker whip-crack + massive horror stinger (14.2s) + relentless asphalt heel-skid drag (15.2..19.5s)!
+    add_stereo(buf, 14.20, boom(1.4, 150, 30), 0.0, 0.42)
+    add_stereo(buf, 14.22, scrape(0.32, 760, 84), 0.25, 0.30)
+    add_stereo(buf, 15.20, scrape(1.4, 410, 85), -0.1, 0.22)
+    add_stereo(buf, 17.20, scrape(1.2, 430, 85), 0.1, 0.20)
+    # Crash-zoom sub-thump on knife grip (23.2s)
+    add_stereo(buf, 23.20, boom(0.95, 112, 34), 0.0, 0.32)
 
-    # Grocery glass groans, pebble tink, brick-on-car smash, piercing CAR ALARM!
-    add_stereo(buf, 27.0, zombie_snarl(1.2, 125, 86), 0.4, 0.15)
-    add_stereo(buf, 31.5, metallic_click(1120, 0.10), 0.3, 0.20)
-    add_stereo(buf, 38.8, impact_thud(0.35, 95, 0.9, 87), -0.1, 0.38)
-    add_stereo(buf, 38.85, metallic_click(1320, 0.25), -0.1, 0.28)
-    # Rhythmic car alarm horn (39.1..58s, fading far left during loot & dawn exit!)
-    t_horn = np.arange(int(0.26 * RATE), dtype=np.float32) / RATE
-    horn = (0.55 * np.sin(2 * np.pi * 440 * t_horn) + 0.45 * np.sin(2 * np.pi * 554.37 * t_horn) + 0.25 * np.sin(2 * np.pi * 880 * t_horn)).astype(np.float32)
-    horn *= np.clip(t_horn / 0.015, 0, 1) * np.clip((0.26 - t_horn) / 0.02, 0, 1)
-    for ht in np.arange(39.1, 61.0, 0.62):
-        gain = 0.22 if ht < 51.0 else max(0.03, 0.18 * (1.0 - (ht - 51.0) / 11.0))
-        add_stereo(buf, float(ht), horn, -0.35 if ht < 51.0 else -0.7, gain)
-    # Horde rush + cans + backpack zip
-    add_stereo(buf, 45.2, impact_thud(0.32, 85, 0.75, 88), 0.4, 0.28)
-    add_stereo(buf, 46.0, zombie_snarl(1.3, 140, 89), 0.2, 0.20)
-    add_stereo(buf, 53.5, metallic_click(840, 0.14), 0.2, 0.18)
-    add_stereo(buf, 57.0, scrape(0.55, 920, 90), 0.0, 0.18)
+    # 7. HERO STRAIGHT-ARM SLASH (27.3..28.0s): blade whoosh + fibrous slice + METALLIC BLADE BEND PING + green spore hiss!
+    add_stereo(buf, 27.25, scrape(0.24, 1080, 86), 0.1, 0.26)
+    add_stereo(buf, 27.62, scrape(0.28, 1480, 87), 0.0, 0.34)
+    add_stereo(buf, 27.68, metallic_click(2180, 0.44), 0.05, 0.30)
+    add_stereo(buf, 27.85, zombie_snarl(1.15, 235, 88), -0.35, 0.26)
+
+    # 8. Desperate full-speed sprint footsteps (35.2..42.1s)
+    for ft in np.arange(35.3, 42.1, 0.31):
+        add_stereo(buf, float(ft), impact_thud(0.09, 134, 0.45, 89), 0.0, 0.16)
+
+    # 9. Grocery horde groans (44.5s), weak useless pebble tap (49.8s), glint chime on sedan eye-dart (52.4s)
+    add_stereo(buf, 44.50, zombie_snarl(1.3, 122, 90), 0.35, 0.17)
+    add_stereo(buf, 49.80, glass_shard_hit(1.35, 0.12, 91), 0.25, 0.18)
+    add_stereo(buf, 52.40, metallic_click(1960, 0.18), -0.25, 0.15)
+
+    # 10. HEAVY ROCK WINDSHIELD CRASH (57.2s) -> BLARING CAR ALARM (57.5..81.4s)!
+    add_stereo(buf, 57.20, impact_thud(0.36, 88, 0.90, 92), -0.15, 0.42)
+    add_stereo(buf, 57.24, glass_shard_hit(0.92, 0.42, 93), -0.15, 0.38)
+    add_stereo(buf, 57.34, glass_shard_hit(1.35, 0.24, 94), -0.20, 0.26)
+    t_horn = np.arange(int(0.25 * RATE), dtype=np.float32) / RATE
+    horn = (0.55 * np.sin(2 * np.pi * 440 * t_horn) + 0.45 * np.sin(2 * np.pi * 554.37 * t_horn) + 0.24 * np.sin(2 * np.pi * 880 * t_horn)).astype(np.float32)
+    horn *= np.clip(t_horn / 0.014, 0, 1) * np.clip((0.25 - t_horn) / 0.02, 0, 1)
+    for ht in np.arange(57.5, 81.4, 0.60):
+        if ht < 72.2:
+            gain, pan = 0.22, -0.35
+        elif ht < 79.2:
+            gain, pan = 0.09, -0.68
+        else:
+            gain, pan = max(0.03, 0.09 * (1.0 - (ht - 79.2) / 2.2)), -0.78
+        add_stereo(buf, float(ht), horn, pan, gain)
+
+    # 11. Athletic dumpster vault palm slap (60.65s) & landing drop (62.05s) + Horde stampede (65.2..71.8s)!
+    add_stereo(buf, 60.65, impact_thud(0.16, 155, 0.55, 95), 0.1, 0.26)
+    add_stereo(buf, 62.05, impact_thud(0.18, 96, 0.45, 96), 0.1, 0.22)
+    for idx, st_t in enumerate(np.arange(65.2, 71.8, 0.24)):
+        pan_r = 0.72 - 1.44 * ((st_t - 65.2) / 6.6)
+        add_stereo(buf, float(st_t), impact_thud(0.11, 118 + (idx % 3) * 14, 0.55, 97 + (idx % 4)), float(pan_r), 0.20)
+    add_stereo(buf, 66.00, zombie_snarl(1.3, 145, 101), 0.40, 0.20)
+    add_stereo(buf, 69.00, zombie_snarl(1.2, 165, 102), -0.35, 0.20)
+
+    # 12. Supermarket raid foley: cans (73.4s, 74.2s), tape grab (75.8s), heavy pack zip (78.0s)
+    add_stereo(buf, 73.40, metallic_click(920, 0.12), 0.15, 0.18)
+    add_stereo(buf, 74.20, metallic_click(840, 0.12), -0.10, 0.17)
+    add_stereo(buf, 75.80, scrape(0.32, 760, 103), 0.10, 0.18)
+    add_stereo(buf, 78.00, scrape(0.55, 940, 104), 0.0, 0.20)
+
+    # 13. Post-raid shelter-search montage foley (84.2..95.0s): locked door rattle (85.6s), distant stray moan (88.2s), slow tired footsteps -> final dawn boom (100.3s)!
+    for ft in [84.6, 85.3, 86.0, 87.4, 88.1, 88.8, 90.4, 91.2, 92.0, 92.8, 93.6, 94.4]:
+        add_stereo(buf, ft, impact_thud(0.09, 120, 0.35, 105), 0.0, 0.12)
+    add_stereo(buf, 85.55, metallic_click(520, 0.12), 0.25, 0.16)
+    add_stereo(buf, 85.72, metallic_click(490, 0.10), 0.25, 0.14)
+    add_stereo(buf, 88.15, zombie_snarl(1.1, 130, 106), 0.55, 0.13)
+    add_stereo(buf, 100.30, boom(1.6, 74, 28), 0.0, 0.28)
 
     return np.clip(buf, -0.92, 0.92)
 

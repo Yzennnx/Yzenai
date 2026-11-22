@@ -1,0 +1,407 @@
+[
+  {
+    "start": 0.15,
+    "end": 2.1174485544217685,
+    "text": "PITCH DARK, SMELLING GUN OIL.",
+    "emphasis": [
+      "PITCH",
+      "DARK",
+      "GUN",
+      "OIL",
+      "FOUR",
+      "PERCENT"
+    ]
+  },
+  {
+    "start": 2.1174485544217685,
+    "end": 4.341520833333333,
+    "text": "FOUR PERCENT LEFT ON YOUR PHONE.",
+    "emphasis": [
+      "PITCH",
+      "DARK",
+      "GUN",
+      "OIL",
+      "FOUR",
+      "PERCENT"
+    ]
+  },
+  {
+    "start": 6.15,
+    "end": 8.16126700680272,
+    "text": "YOUR BEAM SWEEPS THE CONCRETE,",
+    "emphasis": [
+      "BEAM",
+      "CONCRETE",
+      "BRASS",
+      "CASINGS"
+    ]
+  },
+  {
+    "start": 8.16126700680272,
+    "end": 10.092083333333333,
+    "text": "KICKING SPENT BRASS CASINGS.",
+    "emphasis": [
+      "BEAM",
+      "CONCRETE",
+      "BRASS",
+      "CASINGS"
+    ]
+  },
+  {
+    "start": 10.3,
+    "end": 13.028177801724139,
+    "text": "HEAVY LATHES, A SHUTTERED GUNSMITH SHOP.",
+    "emphasis": [
+      "GUNSMITH",
+      "SHOP",
+      "LUCK",
+      "TURNING"
+    ]
+  },
+  {
+    "start": 13.028177801724139,
+    "end": 15.094979166666667,
+    "text": "MAYBE LUCK IS FINALLY TURNING.",
+    "emphasis": [
+      "GUNSMITH",
+      "SHOP",
+      "LUCK",
+      "TURNING"
+    ]
+  },
+  {
+    "start": 15.45,
+    "end": 17.685634017412934,
+    "text": "THE MAIN RIFLE WALL IS STRIPPED CLEAN,",
+    "emphasis": [
+      "STRIPPED",
+      "CLEAN",
+      "GLINTS",
+      "COUNTER"
+    ]
+  },
+  {
+    "start": 17.685634017412934,
+    "end": 20.281854166666665,
+    "text": "UNTIL SOMETHING GLINTS BEHIND THE COUNTER.",
+    "emphasis": [
+      "STRIPPED",
+      "CLEAN",
+      "GLINTS",
+      "COUNTER"
+    ]
+  },
+  {
+    "start": 20.45,
+    "end": 23.122918032786885,
+    "text": "ONE LOCKED GLASS CASE EVERYONE MISSED,",
+    "emphasis": [
+      "LOCKED",
+      "GLASS",
+      "CASE",
+      "PUMP",
+      "SHOTGUN"
+    ]
+  },
+  {
+    "start": 23.122918032786885,
+    "end": 25.54525,
+    "text": "HOLDING A MATTE BLACK PUMP SHOTGUN.",
+    "emphasis": [
+      "LOCKED",
+      "GLASS",
+      "CASE",
+      "PUMP",
+      "SHOTGUN"
+    ]
+  },
+  {
+    "start": 25.85,
+    "end": 28.50625,
+    "text": "A PISTOL, SPARE MAG, AND RED SHELLS.",
+    "emphasis": [
+      "PISTOL",
+      "SPARE",
+      "MAG",
+      "RED",
+      "SHELLS"
+    ]
+  },
+  {
+    "start": 28.65,
+    "end": 30.115725852272725,
+    "text": "YOU GRAB A STEEL PRY BAR",
+    "emphasis": [
+      "PRY",
+      "BAR",
+      "BRASS",
+      "LOCK",
+      "OPEN"
+    ]
+  },
+  {
+    "start": 30.115725852272725,
+    "end": 32.0443125,
+    "text": "AND WRENCH THE BRASS LOCK OPEN.",
+    "emphasis": [
+      "PRY",
+      "BAR",
+      "BRASS",
+      "LOCK",
+      "OPEN"
+    ]
+  },
+  {
+    "start": 35.25,
+    "end": 37.5309375,
+    "text": "HOLD STILL, SOMETHING HEARD THAT SNAP.",
+    "emphasis": [
+      "HOLD",
+      "STILL",
+      "HEARD",
+      "SNAP"
+    ]
+  },
+  {
+    "start": 39.3,
+    "end": 40.53384615384615,
+    "text": "THE SHADOW MOVES ON,",
+    "emphasis": [
+      "SHADOW",
+      "MOVES",
+      "LIFT",
+      "SHOTGUN"
+    ]
+  },
+  {
+    "start": 40.53384615384615,
+    "end": 42.3075,
+    "text": "AND YOU LIFT THE SHOTGUN OUT.",
+    "emphasis": [
+      "SHADOW",
+      "MOVES",
+      "LIFT",
+      "SHOTGUN"
+    ]
+  },
+  {
+    "start": 42.45,
+    "end": 44.00213333333333,
+    "text": "SIX RED SHELLS LEFT",
+    "emphasis": [
+      "SIX",
+      "RED",
+      "SHELLS",
+      "ENTIRE",
+      "BOX"
+    ]
+  },
+  {
+    "start": 44.00213333333333,
+    "end": 45.36025,
+    "text": "IN THE ENTIRE BOX.",
+    "emphasis": [
+      "SIX",
+      "RED",
+      "SHELLS",
+      "ENTIRE",
+      "BOX"
+    ]
+  },
+  {
+    "start": 46.25,
+    "end": 47.643830882352944,
+    "text": "TWELVE PISTOL ROUNDS",
+    "emphasis": [
+      "TWELVE",
+      "PISTOL",
+      "ROUNDS",
+      "BELT"
+    ]
+  },
+  {
+    "start": 47.643830882352944,
+    "end": 48.88279166666667,
+    "text": "LOCKED AT YOUR BELT.",
+    "emphasis": [
+      "TWELVE",
+      "PISTOL",
+      "ROUNDS",
+      "BELT"
+    ]
+  },
+  {
+    "start": 49.05,
+    "end": 51.284539473684205,
+    "text": "YOUR RIGHT FOREARM WRAP IS SHREDDED.",
+    "emphasis": [
+      "SHREDDED",
+      "LEATHER",
+      "GLOVES",
+      "TORN",
+      "TAPE"
+    ]
+  },
+  {
+    "start": 51.284539473684205,
+    "end": 53.221140350877185,
+    "text": "YOU STRAP THICK LEATHER GLOVES",
+    "emphasis": [
+      "SHREDDED",
+      "LEATHER",
+      "GLOVES",
+      "TORN",
+      "TAPE"
+    ]
+  },
+  {
+    "start": 53.221140350877185,
+    "end": 54.71083333333333,
+    "text": "TIGHT OVER THE TORN TAPE.",
+    "emphasis": [
+      "SHREDDED",
+      "LEATHER",
+      "GLOVES",
+      "TORN",
+      "TAPE"
+    ]
+  },
+  {
+    "start": 55.05,
+    "end": 57.50010833333333,
+    "text": "ARMED AND READY, REMEMBER THE RULE.",
+    "emphasis": [
+      "RULE",
+      "SHOTGUN",
+      "BLAST",
+      "SIX",
+      "BLOCKS"
+    ]
+  },
+  {
+    "start": 57.50010833333333,
+    "end": 60.1252244047619,
+    "text": "ONE SHOTGUN BLAST DRAWS EVERYTHING",
+    "emphasis": [
+      "RULE",
+      "SHOTGUN",
+      "BLAST",
+      "SIX",
+      "BLOCKS"
+    ]
+  },
+  {
+    "start": 60.1252244047619,
+    "end": 61.175270833333336,
+    "text": "FOR SIX BLOCKS.",
+    "emphasis": [
+      "RULE",
+      "SHOTGUN",
+      "BLAST",
+      "SIX",
+      "BLOCKS"
+    ]
+  },
+  {
+    "start": 61.45,
+    "end": 63.51963043478261,
+    "text": "SAVE YOUR LAST THREE PERCENT.",
+    "emphasis": [
+      "THREE",
+      "PERCENT",
+      "REAR",
+      "DOOR",
+      "OPEN"
+    ]
+  },
+  {
+    "start": 63.51963043478261,
+    "end": 65.41679166666667,
+    "text": "YOU EASE THE REAR DOOR OPEN.",
+    "emphasis": [
+      "THREE",
+      "PERCENT",
+      "REAR",
+      "DOOR",
+      "OPEN"
+    ]
+  },
+  {
+    "start": 66.85,
+    "end": 69.32041025641026,
+    "text": "EMPTY ALLEY, FOUR DARK BLOCKS TO RESCUE.",
+    "emphasis": [
+      "FOUR",
+      "BLOCKS",
+      "RESCUE",
+      "EVERY",
+      "SHELL",
+      "COUNTS"
+    ]
+  },
+  {
+    "start": 69.32041025641026,
+    "end": 71.86802083333333,
+    "text": "YOU STEP OUT KNOWING EVERY SHELL COUNTS.",
+    "emphasis": [
+      "FOUR",
+      "BLOCKS",
+      "RESCUE",
+      "EVERY",
+      "SHELL",
+      "COUNTS"
+    ]
+  },
+  {
+    "start": 72.65,
+    "end": 74.49244791666666,
+    "text": "APEX TOWER BLINKS RED.",
+    "emphasis": [
+      "APEX",
+      "TOWER",
+      "RED",
+      "FIVE",
+      "HOURS",
+      "DAWN"
+    ]
+  },
+  {
+    "start": 74.49244791666666,
+    "end": 76.33489583333333,
+    "text": "FIVE HOURS UNTIL DAWN.",
+    "emphasis": [
+      "APEX",
+      "TOWER",
+      "RED",
+      "FIVE",
+      "HOURS",
+      "DAWN"
+    ]
+  },
+  {
+    "start": 77.65,
+    "end": 78.9979756097561,
+    "text": "ONE SHELL CHAMBERED.",
+    "emphasis": [
+      "ONE",
+      "SHELL",
+      "CHAMBERED",
+      "REAL",
+      "RUN",
+      "NOW"
+    ]
+  },
+  {
+    "start": 78.9979756097561,
+    "end": 80.901,
+    "text": "THE REAL RUN STARTS RIGHT NOW.",
+    "emphasis": [
+      "ONE",
+      "SHELL",
+      "CHAMBERED",
+      "REAL",
+      "RUN",
+      "NOW"
+    ]
+  }
+]

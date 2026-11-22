@@ -1,0 +1,371 @@
+[
+  {
+    "start": 0.25,
+    "end": 2.178724739583333,
+    "text": "YOU'RE FINALLY OUT ON THE EMPTY STREET,",
+    "emphasis": [
+      "WALKING",
+      "MARKET",
+      "FLICKERING"
+    ]
+  },
+  {
+    "start": 2.178724739583333,
+    "end": 5.227354166666666,
+    "text": "WALKING STEADILY TOWARD A FLICKERING CORNER MARKET AHEAD.",
+    "emphasis": [
+      "WALKING",
+      "MARKET",
+      "FLICKERING"
+    ]
+  },
+  {
+    "start": 6.85,
+    "end": 8.834501412429379,
+    "text": "EVERYTHING FEELS WAY TOO QUIET,",
+    "emphasis": [
+      "QUIET",
+      "WET",
+      "COUGH",
+      "OVERHEAD"
+    ]
+  },
+  {
+    "start": 8.834501412429379,
+    "end": 11.353291666666667,
+    "text": "UNTIL A WET COUGH ECHOES RIGHT OVERHEAD.",
+    "emphasis": [
+      "QUIET",
+      "WET",
+      "COUGH",
+      "OVERHEAD"
+    ]
+  },
+  {
+    "start": 14.7,
+    "end": 16.781265277777777,
+    "text": "BEFORE YOU CAN RUN, A BARBED TONGUE",
+    "emphasis": [
+      "BARBED",
+      "TONGUE",
+      "DRAGS",
+      "FORWARD"
+    ]
+  },
+  {
+    "start": 16.781265277777777,
+    "end": 19.159854166666666,
+    "text": "SNARES YOUR NECK AND DRAGS YOU FORWARD.",
+    "emphasis": [
+      "BARBED",
+      "TONGUE",
+      "DRAGS",
+      "FORWARD"
+    ]
+  },
+  {
+    "start": 20.45,
+    "end": 23.292444196428573,
+    "text": "GASPING FOR AIR, YOU HOOK YOUR TAPED CUFF",
+    "emphasis": [
+      "GASPING",
+      "CUFF",
+      "YANK",
+      "KNIFE"
+    ]
+  },
+  {
+    "start": 23.292444196428573,
+    "end": 25.273541666666667,
+    "text": "UNDER IT AND YANK YOUR KNIFE.",
+    "emphasis": [
+      "GASPING",
+      "CUFF",
+      "YANK",
+      "KNIFE"
+    ]
+  },
+  {
+    "start": 25.7,
+    "end": 27.20552314814815,
+    "text": "YOU SWING AS HARD AS YOU CAN",
+    "emphasis": [
+      "SWING",
+      "SLICE",
+      "STRAIGHT"
+    ]
+  },
+  {
+    "start": 27.20552314814815,
+    "end": 28.77947916666667,
+    "text": "AND SLICE STRAIGHT THROUGH.",
+    "emphasis": [
+      "SWING",
+      "SLICE",
+      "STRAIGHT"
+    ]
+  },
+  {
+    "start": 30.5,
+    "end": 31.73298828125,
+    "text": "YOU'RE FREE, BARELY,",
+    "emphasis": [
+      "BARELY",
+      "BLADE",
+      "BENT"
+    ]
+  },
+  {
+    "start": 31.73298828125,
+    "end": 34.4455625,
+    "text": "AND THE THIN STEEL BLADE IS ALREADY BENT.",
+    "emphasis": [
+      "BARELY",
+      "BLADE",
+      "BENT"
+    ]
+  },
+  {
+    "start": 35.2,
+    "end": 36.63797916666667,
+    "text": "NO TIME TO BREATHE NOW.",
+    "emphasis": [
+      "SPRINT",
+      "DARK",
+      "ROAD"
+    ]
+  },
+  {
+    "start": 36.63797916666667,
+    "end": 39.5139375,
+    "text": "YOU SPRINT FLAT OUT DOWN THE DARK EMPTY ROAD.",
+    "emphasis": [
+      "SPRINT",
+      "DARK",
+      "ROAD"
+    ]
+  },
+  {
+    "start": 42.55,
+    "end": 45.57971618852459,
+    "text": "YOU REACH THE MARKET AND SPOT SHELVES OF FOOD,",
+    "emphasis": [
+      "MARKET",
+      "FOOD",
+      "INFECTED",
+      "PACK"
+    ]
+  },
+  {
+    "start": 45.57971618852459,
+    "end": 47.5449375,
+    "text": "BUT INFECTED PACK THE AISLES.",
+    "emphasis": [
+      "MARKET",
+      "FOOD",
+      "INFECTED",
+      "PACK"
+    ]
+  },
+  {
+    "start": 48.75,
+    "end": 51.164449626865675,
+    "text": "A TINY PEBBLE BARELY GETS ONE TO TURN.",
+    "emphasis": [
+      "PEBBLE",
+      "CROWD",
+      "LOUDER"
+    ]
+  },
+  {
+    "start": 51.164449626865675,
+    "end": 54.142270833333335,
+    "text": "CLEARING THIS CROWD TAKES SOMETHING LOUDER.",
+    "emphasis": [
+      "PEBBLE",
+      "CROWD",
+      "LOUDER"
+    ]
+  },
+  {
+    "start": 54.9,
+    "end": 56.162948717948716,
+    "text": "SO YOU HEAVE A HEAVY ROCK",
+    "emphasis": [
+      "ROCK",
+      "PARKED",
+      "WINDSHIELD"
+    ]
+  },
+  {
+    "start": 56.162948717948716,
+    "end": 58.18366666666667,
+    "text": "STRAIGHT THROUGH A PARKED WINDSHIELD.",
+    "emphasis": [
+      "ROCK",
+      "PARKED",
+      "WINDSHIELD"
+    ]
+  },
+  {
+    "start": 59.9,
+    "end": 61.80717391304348,
+    "text": "THE ALARM ERUPTS, SO YOU VAULT",
+    "emphasis": [
+      "ALARM",
+      "VAULT",
+      "DUMPSTER",
+      "COVER"
+    ]
+  },
+  {
+    "start": 61.80717391304348,
+    "end": 63.555416666666666,
+    "text": "OVER A DUMPSTER INTO COVER.",
+    "emphasis": [
+      "ALARM",
+      "VAULT",
+      "DUMPSTER",
+      "COVER"
+    ]
+  },
+  {
+    "start": 64.95,
+    "end": 67.515185546875,
+    "text": "JUST AS YOU HOPED, EVERY INFECTED POURS OUT",
+    "emphasis": [
+      "INFECTED",
+      "POURS",
+      "SCREAMING",
+      "CAR"
+    ]
+  },
+  {
+    "start": 67.515185546875,
+    "end": 69.640625,
+    "text": "TOWARD THE SCREAMING FLASHING CAR.",
+    "emphasis": [
+      "INFECTED",
+      "POURS",
+      "SCREAMING",
+      "CAR"
+    ]
+  },
+  {
+    "start": 72.35,
+    "end": 74.23717136150235,
+    "text": "THAT BUYS SIXTY SECONDS.",
+    "emphasis": [
+      "SIXTY",
+      "SECONDS",
+      "CANS",
+      "BULGES"
+    ]
+  },
+  {
+    "start": 74.23717136150235,
+    "end": 77.2566455399061,
+    "text": "YOU SWEEP CANS, WATER, BANDAGES, AND TAPE",
+    "emphasis": [
+      "SIXTY",
+      "SECONDS",
+      "CANS",
+      "BULGES"
+    ]
+  },
+  {
+    "start": 77.2566455399061,
+    "end": 79.04945833333333,
+    "text": "UNTIL YOUR PACK BULGES.",
+    "emphasis": [
+      "SIXTY",
+      "SECONDS",
+      "CANS",
+      "BULGES"
+    ]
+  },
+  {
+    "start": 79.35,
+    "end": 81.50110648148149,
+    "text": "YOU SLIP OUT THE BACK ALLEY JUST AS",
+    "emphasis": [
+      "ALLEY",
+      "ALARM",
+      "DIES"
+    ]
+  },
+  {
+    "start": 81.50110648148149,
+    "end": 83.4985625,
+    "text": "THE CAR ALARM SPUTTERS AND DIES.",
+    "emphasis": [
+      "ALLEY",
+      "ALARM",
+      "DIES"
+    ]
+  },
+  {
+    "start": 84.3,
+    "end": 86.90950505050505,
+    "text": "FOR HOURS, YOU WANDER DEAD BACKSTREETS,",
+    "emphasis": [
+      "HOURS",
+      "WANDER",
+      "LOCKED",
+      "DOORS"
+    ]
+  },
+  {
+    "start": 86.90950505050505,
+    "end": 89.68210416666666,
+    "text": "TESTING LOCKED DOORS AND DODGING STRAYS.",
+    "emphasis": [
+      "HOURS",
+      "WANDER",
+      "LOCKED",
+      "DOORS"
+    ]
+  },
+  {
+    "start": 89.95,
+    "end": 92.18900810185185,
+    "text": "NOTHING SAFE IS OPEN, YOUR LEGS ACHE,",
+    "emphasis": [
+      "NOTHING",
+      "SAFE",
+      "RUNNING",
+      "NIGHT"
+    ]
+  },
+  {
+    "start": 92.18900810185185,
+    "end": 94.1191875,
+    "text": "AND YOU'RE RUNNING OUT OF NIGHT.",
+    "emphasis": [
+      "NOTHING",
+      "SAFE",
+      "RUNNING",
+      "NIGHT"
+    ]
+  },
+  {
+    "start": 95.35,
+    "end": 98.70452145522388,
+    "text": "EASTWARD, THE NIGHT SKY IS ALREADY TURNING GRAY.",
+    "emphasis": [
+      "GRAY",
+      "SHELTER",
+      "SUNRISE"
+    ]
+  },
+  {
+    "start": 98.70452145522388,
+    "end": 101.11289583333334,
+    "text": "FIND REAL SHELTER BEFORE SUNRISE.",
+    "emphasis": [
+      "GRAY",
+      "SHELTER",
+      "SUNRISE"
+    ]
+  }
+]

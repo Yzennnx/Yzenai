@@ -1,7 +1,7 @@
 [
   {
     "start": 0.2,
-    "end": 2.6686451612903226,
+    "end": 2.554225806451613,
     "text": "WHAT IF LEFT 4 DEAD SUDDENLY BECAME REAL,",
     "emphasis": [
       "LEFT",
@@ -11,8 +11,8 @@
     ]
   },
   {
-    "start": 2.6686451612903226,
-    "end": 4.288693548387096,
+    "start": 2.554225806451613,
+    "end": 4.099186491935484,
     "text": "THE EXACT SECOND YOU DIED",
     "emphasis": [
       "LEFT",
@@ -22,8 +22,8 @@
     ]
   },
   {
-    "start": 4.288693548387096,
-    "end": 4.983,
+    "start": 4.099186491935484,
+    "end": 4.7613125,
     "text": "IN THE GAME?",
     "emphasis": [
       "LEFT",
@@ -34,7 +34,7 @@
   },
   {
     "start": 5.4,
-    "end": 8.039710843373495,
+    "end": 8.04359638554217,
     "text": "YOU DROP THE CONTROLLER AND GRAB YOUR PHONE.",
     "emphasis": [
       "PHONE",
@@ -43,8 +43,8 @@
     ]
   },
   {
-    "start": 8.039710843373495,
-    "end": 10.239469879518074,
+    "start": 8.04359638554217,
+    "end": 10.246593373493976,
     "text": "A FEDERAL LAB BREACH JUST TRIGGERED",
     "emphasis": [
       "PHONE",
@@ -53,8 +53,8 @@
     ]
   },
   {
-    "start": 10.239469879518074,
-    "end": 11.486,
+    "start": 10.246593373493976,
+    "end": 11.494958333333333,
     "text": "A CITYWIDE LOCKDOWN.",
     "emphasis": [
       "PHONE",
@@ -64,7 +64,7 @@
   },
   {
     "start": 11.85,
-    "end": 14.047863095238094,
+    "end": 14.025298469387755,
     "text": "ZOMBIES AREN'T ON YOUR SCREEN ANYMORE.",
     "emphasis": [
       "ZOMBIES",
@@ -73,8 +73,8 @@
     ]
   },
   {
-    "start": 14.047863095238094,
-    "end": 15.324041666666666,
+    "start": 14.025298469387755,
+    "end": 15.288375,
     "text": "THEY'RE RIGHT OUTSIDE.",
     "emphasis": [
       "ZOMBIES",
@@ -84,7 +84,7 @@
   },
   {
     "start": 15.65,
-    "end": 17.5187825,
+    "end": 17.51449625,
     "text": "YOU'RE ALONE ON THE SEVENTH FLOOR.",
     "emphasis": [
       "SEVENTH",
@@ -93,8 +93,8 @@
     ]
   },
   {
-    "start": 17.5187825,
-    "end": 19.110708333333335,
+    "start": 17.51449625,
+    "end": 19.102770833333334,
     "text": "PURE PANIC LOCKS YOUR CHEST.",
     "emphasis": [
       "SEVENTH",
@@ -104,7 +104,7 @@
   },
   {
     "start": 19.35,
-    "end": 21.081551785714286,
+    "end": 21.19418035714286,
     "text": "THEN YOU FORCE YOUR HANDS STEADY",
     "emphasis": [
       "STEADY",
@@ -112,8 +112,8 @@
     ]
   },
   {
-    "start": 21.081551785714286,
-    "end": 21.594604166666667,
+    "start": 21.19418035714286,
+    "end": 21.740604166666667,
     "text": "AND THINK.",
     "emphasis": [
       "STEADY",
@@ -122,7 +122,7 @@
   },
   {
     "start": 22.25,
-    "end": 24.098159722222224,
+    "end": 23.797387152777777,
     "text": "THEY CAN'T REACH YOU UP HERE YET,",
     "emphasis": [
       "REACH",
@@ -131,8 +131,8 @@
     ]
   },
   {
-    "start": 24.098159722222224,
-    "end": 26.685583333333334,
+    "start": 23.797387152777777,
+    "end": 25.963729166666667,
     "text": "BUT STAY TRAPPED LONG ENOUGH AND THEY WILL.",
     "emphasis": [
       "REACH",
@@ -142,7 +142,7 @@
   },
   {
     "start": 27.2,
-    "end": 29.19883614864865,
+    "end": 29.208201013513513,
     "text": "FIRST, YOU SNAP THE DEADBOLT SHUT",
     "emphasis": [
       "LOCKED",
@@ -152,8 +152,8 @@
     ]
   },
   {
-    "start": 29.19883614864865,
-    "end": 31.12364132882883,
+    "start": 29.208201013513513,
+    "end": 31.14202421171171,
     "text": "AND SHOVE YOUR HEAVY BOOKSHELF",
     "emphasis": [
       "LOCKED",
@@ -163,8 +163,8 @@
     ]
   },
   {
-    "start": 31.12364132882883,
-    "end": 32.67829166666667,
+    "start": 31.14202421171171,
+    "end": 32.70395833333333,
     "text": "STRAIGHT ACROSS THE DOOR.",
     "emphasis": [
       "LOCKED",
@@ -175,7 +175,7 @@
   },
   {
     "start": 34.15,
-    "end": 35.98692708333333,
+    "end": 36.17335416666667,
     "text": "NEXT, YOU PULL THE FRIDGE OPEN",
     "emphasis": [
       "FRIDGE",
@@ -184,8 +184,8 @@
     ]
   },
   {
-    "start": 35.98692708333333,
-    "end": 37.82385416666666,
+    "start": 36.17335416666667,
+    "end": 38.19670833333333,
     "text": "TO COUNT HOW LONG YOU CAN LAST.",
     "emphasis": [
       "FRIDGE",
@@ -195,7 +195,7 @@
   },
   {
     "start": 39.05,
-    "end": 41.17972074468085,
+    "end": 41.49254255319149,
     "text": "YOU NEVER WENT GROCERY SHOPPING.",
     "emphasis": [
       "NEVER",
@@ -204,8 +204,8 @@
     ]
   },
   {
-    "start": 41.17972074468085,
-    "end": 42.75729166666667,
+    "start": 41.49254255319149,
+    "end": 43.301833333333335,
     "text": "FIVE DAYS OF FOOD. BARELY.",
     "emphasis": [
       "NEVER",
@@ -215,7 +215,7 @@
   },
   {
     "start": 43.8,
-    "end": 46.49896892655367,
+    "end": 46.45303672316384,
     "text": "THEN YOU LOOK DOWN FROM THE SEVENTH FLOOR WINDOW,",
     "emphasis": [
       "WINDOW",
@@ -224,8 +224,8 @@
     ]
   },
   {
-    "start": 46.49896892655367,
-    "end": 47.78097916666667,
+    "start": 46.45303672316384,
+    "end": 47.713229166666665,
     "text": "AND YOUR STOMACH DROPS.",
     "emphasis": [
       "WINDOW",
@@ -235,7 +235,7 @@
   },
   {
     "start": 48.3,
-    "end": 50.956703914141414,
+    "end": 50.927944760101006,
     "text": "THE STREET BELOW IS A SWARMING FRENZY.",
     "emphasis": [
       "FRENZY",
@@ -244,8 +244,8 @@
     ]
   },
   {
-    "start": 50.956703914141414,
-    "end": 53.956208333333336,
+    "start": 50.927944760101006,
+    "end": 53.894979166666666,
     "text": "NOT JUST RUNNERS, THE SPECIAL INFECTED TOO.",
     "emphasis": [
       "FRENZY",
@@ -255,7 +255,7 @@
   },
   {
     "start": 54.45,
-    "end": 57.39520557228916,
+    "end": 57.34926204819277,
     "text": "GREEN SMOKE CURLING AROUND A HUNCHED SMOKER,",
     "emphasis": [
       "SMOKER",
@@ -264,8 +264,8 @@
     ]
   },
   {
-    "start": 57.39520557228916,
-    "end": 58.509607680722894,
+    "start": 57.34926204819277,
+    "end": 58.44628012048192,
     "text": "A BLOATED BOOMER,",
     "emphasis": [
       "SMOKER",
@@ -274,8 +274,8 @@
     ]
   },
   {
-    "start": 58.509607680722894,
-    "end": 61.0568125,
+    "start": 58.44628012048192,
+    "end": 60.95375,
     "text": "AND A HOODED HUNTER VAULTING OVER CARS.",
     "emphasis": [
       "SMOKER",
@@ -285,7 +285,7 @@
   },
   {
     "start": 61.35,
-    "end": 65.50069491525424,
+    "end": 65.49915254237288,
     "text": "HEART POUNDING, YOU TEAR THROUGH EVERY DRAWER FOR A WEAPON.",
     "emphasis": [
       "DRAWER",
@@ -294,8 +294,8 @@
     ]
   },
   {
-    "start": 65.50069491525424,
-    "end": 66.45189583333334,
+    "start": 65.49915254237288,
+    "end": 66.45,
     "text": "NO BAT. NO PIPE.",
     "emphasis": [
       "DRAWER",
@@ -305,7 +305,7 @@
   },
   {
     "start": 66.7,
-    "end": 69.14694852941177,
+    "end": 69.03555147058825,
     "text": "ALL YOU FIND IN THE ENTIRE APARTMENT",
     "emphasis": [
       "ENTIRE",
@@ -314,8 +314,8 @@
     ]
   },
   {
-    "start": 69.14694852941177,
-    "end": 70.8598125,
+    "start": 69.03555147058825,
+    "end": 70.6704375,
     "text": "IS ONE THIN KITCHEN KNIFE.",
     "emphasis": [
       "ENTIRE",
@@ -325,7 +325,7 @@
   },
   {
     "start": 71.3,
-    "end": 73.04059523809524,
+    "end": 73.10330952380953,
     "text": "STAYING MEANS STARVING.",
     "emphasis": [
       "STARVING",
@@ -334,8 +334,8 @@
     ]
   },
   {
-    "start": 73.04059523809524,
-    "end": 74.34604166666666,
+    "start": 73.10330952380953,
+    "end": 74.45579166666667,
     "text": "YOU HAVE FIVE DAYS.",
     "emphasis": [
       "STARVING",
