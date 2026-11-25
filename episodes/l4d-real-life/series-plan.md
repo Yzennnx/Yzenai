@@ -12,34 +12,34 @@
 
 ## Modular Production Architecture
 
-Each chapter stays at ~60–70 seconds (~1,440–1,680 frames)—matching the proven memory and render footprint of our 64-second shorts on this Windows PC—so we never risk OpenToonz/Edge/Remotion overload and can revise any single chapter in minutes.
+Each chapter stays at ~60–102 seconds (~1,440–2,450 frames) using our **Hybrid 3D-to-2D Cel-Shaded Pipeline** ([tools/blender-rig/README.md](../../tools/blender-rig/README.md))—running heavy Blender 5.2 renders serially at `1920 × 1080` (`24 fps`), aligning 2D widescreen browser environments to `--export-guide` horizon/floor-grid PNGs, and compositing 3D body/hand layers with 2D illustrated extreme facial close-ups under shared paper/cutout grain—so we stay well within local CPU/RAM limits and can revise any single chapter in minutes.
 
 ```text
 episodes/l4d-real-life/
   series-plan.md                  # This master continuity & structure bible
   part-1/
-    plan.md                       # Detailed script, maps, and motion briefs (Ch 1A–1C)
-    ch-1a/  ch-1b/  ch-1c/        # Independent chapter folders (poses, scene, voice, render, edit)
+    plan.md                       # Detailed script, maps, motion briefs & Reference Approval Gate (Ch 1A–1C)
+    ch-1a/  ch-1b/  ch-1c/        # Independent chapter folders (renders, scene, voice, edit)
     exports/
-      part-1-rough-cut.mp4        # Full 3:20 rough cut verified before detailed animation
-      part-1-final.mp4            # Final stitched ~3:20 Part 1
+      part-1-rough-cut.mp4        # Full rough cut verified before detailed animation
+      part-1-master.mp4           # Final stitched Part 1
   part-2/
-    plan.md                       # Detailed script, maps, and motion briefs (Ch 2A–2C)
+    plan.md                       # Detailed script, maps, motion briefs & Reference Approval Gate (Ch 2A–2C)
     ch-2a/  ch-2b/  ch-2c/
-    exports/part-2-final.mp4      # Final stitched ~3:20 Part 2
+    exports/part-2-master.mp4     # Final stitched Part 2
   part-3/
-    plan.md                       # Detailed script, maps, and motion briefs (Ch 3A–3F)
+    plan.md                       # Detailed script, maps, motion briefs & Reference Approval Gate (Ch 3A–3F)
     ch-3a/  ch-3b/  ch-3c/  ch-3d/  ch-3e/  ch-3f/
-    exports/part-3-final.mp4      # Final stitched ~6:35 Part 3
+    exports/part-3-final.mp4      # Final stitched Part 3
   exports/
-    l4d-real-life-full-13min.mp4  # Complete stitched ~13-minute feature
+    l4d-real-life-full-15min.mp4  # Complete stitched feature compilation
 ```
 
 ### Build order per Part (following `AGENTS.md` long-form rules)
-1. Save `part-N/plan.md` with overhead maps, timed shot list, and motion briefs.
+1. Save `part-N/plan.md` with overhead maps, timed shot list, motion briefs, and the **Mandatory Plan-Stage Reference Approval Gate** auditing every shot against `tools/blender-rig/` (`cameras.json`, `actions.json`, `infected-actions.json`, `hand-poses.json`, `lighting.json`) and `assets/series-lead/`. Wait for user approval before building missing rigs or actions (such as `boomer` and `spitter` for Part 3 `Ch 3B`, or L4D armed/prop actions across [part-1/plan.md](part-1/plan.md), [part-2/plan.md](part-2/plan.md), and [part-3/plan.md](part-3/plan.md)).
 2. Audition two opening reads for the Part's opening chapter; lock the chosen voice take and generate chapter narration blocks.
 3. Build a **Part-length rough cut** (key poses + simple blocking + timed narration + sound placeholders) and review pacing, geography, and chapter handoffs end to end.
-4. Animate and motion-check each chapter (`--stills` + silent phone/widescreen motion previews) in order (`A → B → C ...`), render clean 1920 × 1080 masters, assemble captions/timings in Remotion, and stitch the verified Part MP4.
+4. Animate and motion-check each chapter (`--stills` + silent phone/widescreen motion previews) in order (`A → B → C ...`): render 3D body/infected shots serially via [render-shot.mjs](../../tools/blender-rig/render-shot.mjs) (`--width 1920 --height 1080 --export-guide`), render 3D 5-finger POV hands via [render-hand.py](../../tools/blender-rig/render-hand.py), cut to 2D illustrated extreme facial close-ups, composite under shared paper/cutout grain in `1920 × 1080`, assemble captions/timings in Remotion, and stitch the verified Part MP4.
 5. Only after Part 1 is verified, draft `part-2/plan.md` (carrying exact continuity from Part 1), then `part-3/plan.md`, and finally stitch Parts 1–3 into the full compilation.
 
 ---
@@ -65,20 +65,20 @@ episodes/l4d-real-life/
 
 ## Continuity Bible (Character, Props, and Original Infected Cast)
 
-### Series Lead Visual & Cinematography System (v2 — Zero Three-Quarter Turnarounds)
-Every chapter uses the upgraded [articulated series lead](../../assets/series-lead/README.md) (`art.js` + `poses.mjs`) and applies the *Nightmare Roulette* [zooming, looking-around POV, and motion-intensification playbook](../../references/long-form-camera-voice/README.md#zooming-looking-around-pov-and-intensifying-motion):
+### Series Lead Visual & Cinematography System (v3 — Hybrid 3D-to-2D Cel-Shaded Pipeline)
+Every chapter uses the [articulated series lead](../../assets/series-lead/README.md) via our **Hybrid 3D-to-2D Cel-Shaded Pipeline** ([tools/blender-rig/README.md](../../tools/blender-rig/README.md)) and applies the *Nightmare Roulette* [zooming, looking-around POV, and motion-intensification playbook](../../references/long-form-camera-voice/README.md#zooming-looking-around-pov-and-intensifying-motion):
 
-- **Body & camera perspectives:** Strictly **Front, Side, and Back** from [reference-sheet.png](../../assets/series-lead/reference-sheet.png) (never front/rear three-quarter turnarounds) plus [cinematic anatomy angles](../../assets/series-lead/angles-sheet.png) via `drawCinematicAngle` (`ots`, `overhead`, `low-angle`, `high-angle`).
-- **12 sculpted emotions & face micro-acting:** [front reactions](../../assets/series-lead/reactions-front.png) + [side reactions](../../assets/series-lead/reactions-side.png) (`head`, `head-notice`, `head-alarm`, `head-dread`, `head-panic`, `head-strain`, `head-determined`, `head-angry`, `head-exhausted`, `head-pain`, `head-sneak`, `head-relief`), plus [face angles & crash-zooms](../../assets/series-lead/face-angles.png) and [cinematic face & camera motion reel](../../assets/series-lead/anatomy-prototype/cinematic-face-camera-reel.mp4) (`eye-dart`, `head-tilt`, `look-up`, `look-down`, `glance-back`, `ecu-dread`).
-- **6 dynamic survival movement tracks:** [dynamic survival movement reel](../../assets/series-lead/anatomy-prototype/dynamic-movements-reel.mp4) and [frame guide](../../assets/series-lead/anatomy-prototype/README.md#dynamic-survival-movements) — `sneak` (`sneakAt` for `Ch 1B` hallway & `Ch 3A` Witch), `flinch` (`Ch 1C` Smoker & `Ch 2B` Hunter), `sprint` (`sprintAt` for `Ch 1C`, `Ch 3B–3E`), `shove` (`Ch 1A` bookshelf barricade), straight-arm `slash` (`Ch 1C` tongue cut & `Ch 2B` Hunter stab), and `vault` (`Ch 1C` dumpster & `Ch 3C` Charger dodge).
-- **First-person POV hands:** [POV survival hand sheet](../../assets/series-lead/hands/pov-survival-sheet.png) via `drawPovSurvivalHand` (`pov-door-lock` for `Ch 1A`/`1B`/`2B`, `pov-flashlight` for `Ch 2C`/`3A`, `pov-pipe-grip` for melee/knife weapon inserts, `pov-shield-face` for `Ch 2B`/`3C`/`3D` shock/recoil) alongside [close-up hand references](../../assets/series-lead/hands/reference-sheet.png) (`chalk-grip`, `bell-press`, `bar-press`, `bar-hold`, `ticket-pinch`).
+- **3D Body & Multi-Angle Cinematography (Blender 5.2 Cel-Shaded Rig):** Default for all wide/medium body action, 3/4 walks & sprints, OTS corridors, and dynamic angles using [lead-rig.blend](../../assets/series-lead/rig-3d/lead-rig.blend) (`--rig lead`) rendered via [render-shot.mjs](../../tools/blender-rig/render-shot.mjs) at `--width 1920 --height 1080` across all 10 camera presets in [cameras.json](../../tools/blender-rig/cameras.json) (`3q-front`, `3q-back-ots`, `low-24mm`, `high-cornered`, `overhead`, `pov-arms-grounded`, `pov-doorframe-peek`, `floor-level`, `cctv-wide`, `side`), 18 universal actions in [actions.json](../../tools/blender-rig/actions.json), and 6 toon lighting moods in [lighting.json](../../tools/blender-rig/lighting.json). Always pass `--export-guide` so 2D widescreen browser environments snap cleanly to the exact 3D horizon, vanishing points, and 1-meter floor grid. Check proportions, angles, and staging against [reference-sheet.png](../../assets/series-lead/reference-sheet.png), [angles-sheet.png](../../assets/series-lead/angles-sheet.png), [universal-actions-sheet.png](../../assets/series-lead/universal-actions-sheet.png), and [framing-cheatsheet.png](../../assets/series-lead/framing-cheatsheet.png).
+- **3D 5-Finger Close-Up & First-Person POV Hands:** Default for grounded close-up and POV hand inserts using [hand-closeup-rig.blend](../../assets/series-lead/rig-3d/hand-closeup-rig.blend) rendered via [render-hand.py](../../tools/blender-rig/render-hand.py) and [hand-poses.json](../../tools/blender-rig/hand-poses.json) in bare or leather-gloved mode with full connected sleeves (zero severed wrists), verified against [universal-hands-sheet.png](../../assets/series-lead/hands/universal-hands-sheet.png) (`pov-flashlight`, `cup-bottle-grip`, `pinch-pick`, `knob-handle-turn`, `button-switch-press`, `open-reach-tremble`). Retain [weapon-hands-sheet.png](../../assets/series-lead/hands/weapon-hands-sheet.png) / [weapon-hands.js](../../assets/series-lead/hands/weapon-hands.js) and [reference-sheet.png](../../assets/series-lead/hands/reference-sheet.png) for legacy 2D weapon/prop inserts until upgraded through the Reference Approval Gate.
+- **2D Illustrated Extreme Facial Close-Ups & Shared Cutout Grain:** Cut cleanly to 2D illustrated [face-angles.png](../../assets/series-lead/face-angles.png), [reactions-front.png](../../assets/series-lead/reactions-front.png), and [reactions-side.png](../../assets/series-lead/reactions-side.png) (`head`, `head-notice`, `head-alarm`, `head-dread`, `head-panic`, `head-strain`, `head-determined`, `head-angry`, `head-exhausted`, `head-pain`, `head-sneak`, `head-relief`), plus [cinematic-face-camera-reel.mp4](../../assets/series-lead/anatomy-prototype/cinematic-face-camera-reel.mp4) (`eye-dart`, `head-tilt`, `look-up`, `look-down`, `glance-back`, `ecu-dread`) for tight emotional beats and dread crash-zooms. Composite both 3D cel-shaded renders and 2D facial art under the same shared paper/cutout grain and vignette ([hybrid-seam-check.png](../../assets/series-lead/hybrid-seam-check.png)).
+- **6 dynamic survival movement tracks & Plan-Stage Reference Approval Gate:** Reference [dynamic-movements-reel.mp4](../../assets/series-lead/anatomy-prototype/dynamic-movements-reel.mp4) and [frame guide](../../assets/series-lead/anatomy-prototype/README.md#dynamic-survival-movements) (`sneak`, `flinch`, `sprint`, `shove`, `slash`, `vault`) for legacy Part 1–2 continuity and timing benchmarks. All L4D-specific armed/prop actions (knife slash, shotgun/pistol grips & recoil, barricade shove, ladder climb) and missing Special Infected rigs (`boomer` & `spitter` in Part 3 `Ch 3B`) are tracked via the **Mandatory Plan-Stage Reference Approval Gate** across [part-1/plan.md](part-1/plan.md), [part-2/plan.md](part-2/plan.md), and [part-3/plan.md](part-3/plan.md) before animation begins.
 - **Mandatory cinematography rules across all 12 chapters:**
   1. **Zero dead holds:** Every tension hold uses a slow `5–15%` creeping push-in plus sequential micro-acting (`eye-dart` → sweat drop slide → `head-tilt` → metallic blade glint).
   2. **Stepped push-in escalation:** Multi-detail reveals (window special infected in `1A`, gunsmith weapons in `2C`, Tank lobby reveal in `3D`) step closer on each spoken noun.
   3. **Audio-motivated POV turns:** Pair an off-screen sound cue with `eye-dart` or `glance-back` → fast horizontal POV whip-pan → 1.5–2 s search hold.
   4. **Foreground parallax wipes:** Pass dark doorframes, pillars, and streetlights *in front of* the lead faster than the background during walks and sprints (`Ch 1A`, `1B`, `1C`, `3B–3E`).
   5. **Rhythmic POV lockdown montages:** Compress urgent multi-prop actions into crisp ~1 s tactile inserts locked to hard foley snaps (`door lock → barricade shove` in `1A`, `drawer yank → knife glint` in `1A`, `shotgun rack → blast` in `3C–3E`).
-  6. **Zero long plain shots (Interactive Multi-Angle Rule — Part 2 & Part 3):** Never hold a single plain side-view run, walk, or climb for 5–7+ seconds. Target **`1.5–4.0 s` per camera setup** (`23–26` distinct shots per ~80 s chapter), breaking longer actions into interactive angle shifts (`side sprint` → `boot/hand close-up` → `front reaction / glance-back` → `POV rush` → `OTS threat check`).
+  6. **Zero long plain shots (Interactive Multi-Angle Rule — Part 2 & Part 3):** Never hold a single plain side-view run, walk, or climb for 5–7+ seconds. Target **`1.5–4.0 s` per camera setup** (`23–26` distinct shots per ~80 s chapter), breaking longer actions into interactive angle shifts (`3q-front` / `side` sprint → `floor-level` boot / 3D POV hand close-up → 2D front reaction / `glance-back` → `pov-arms-grounded` rush → `3q-back-ots` threat check).
 
 | Chapters | Outfit & Armor | Weapon & Pack | Condition / Wear |
 | --- | --- | --- | --- |
@@ -88,16 +88,16 @@ Every chapter uses the upgraded [articulated series lead](../../assets/series-le
 | `2C–3C` | Torn cardboard reinforced with **heavy leather work gloves/straps** | Backpack + **pump-action shotgun** (strapped/two-handed, first fired in `3C` to kill the Charger) + **9mm pistol** (drawn in `3B`) | Workshop dust on sleeves, disciplined `head-notice` |
 | `3D–3F` | Leather straps scuffed, cream shirt torn & concrete-dusted | Fires shotgun in `3D–3E` until **empty** (dropped on 38F); empties **pistol** on rooftop (`3F`, slide locks back) → unarmed | Bleeding scrape on cheek, gunpowder haze, heavy exhaustion (`head-strain` → slumped acceptance → `head-relief` on chopper) |
 
-### Original Cutout Infected Cast *(Left 4 Dead–inspired archetypes, 100% original project art)*
-All infected are built as original textured cutout rigs/silhouettes in the series' dark-outlined painterly style (zero third-party game models, textures, or audio):
+### Original Cel-Shaded Infected Cast *(Left 4 Dead–inspired archetypes, 100% original project rigs & art)*
+All infected are 100% original project assets in the series' flat 2-tone cel-shaded `#253a3b` ink-outline style (zero third-party game models, textures, or audio). Five Special Infected are ready as 3D cel-shaded Blender rigs rendered via [render-shot.mjs](../../tools/blender-rig/render-shot.mjs) (`--width 1920 --height 1080`, 9 actions in [infected-actions.json](../../tools/blender-rig/infected-actions.json), QA sheet in [infected-sheet.png](../../assets/series-lead/infected-sheet.png)):
 1. **Common Runners (`1A–3B`):** Lean, jagged-posture gray-slate silhouettes with pale eyes and tattered clothes; sluggish/hunched at night, frantic when alerted by light or sound.
-2. **Tongue-Snarer / Smoker-type (`1A` cameo, `1C` ambush):** Tall, hunched silhouette wreathed in pale toxic-green spore haze, whipping a long dark-crimson barbed tongue from rooftop shadows.
-3. **Pouncer / Hunter-type (`1A` cameo, `2B` ambush):** Hooded crouched runner with taut muscular limbs, low raspy growl, explosive leaping silhouette.
-4. **Weeping Stalker / Witch-type (`3A`):** Gaunt pale silhouette with long dark hair and razor-like elongated fingers, hunched sobbing under dim light; glows faint crimson only when startled.
-5. **Bile-Carrier / Boomer-type (`1A` cameo, `3B`):** Heavily bloated, blistered silhouette with glowing sickly-yellow pustules; bursts violently if slashed at close range.
-6. **Acid-Spitter / Spitter-type (`3B`):** Elongated, crooked-neck silhouette dripping neon-green luminescent bile that pools and sizzles on asphalt.
-7. **The Charger (`3C`):** Asymmetric, broad-chested brute with one **enormous, mutated right smashing arm** and a tiny shriveled left arm; lowers its shoulder and bull-charges in a straight line, shattering cars or walls when dodged.
-8. **The Tank (`3D–3F`):** Massive, towering broad-shouldered concrete-scarred colossus (nearly 2.5× the lead's shoulder width) built as a dedicated heavy-limb OpenToonz/canvas cutout rig that shakes camera framing on every footstep.
+2. **Tongue-Snarer / Smoker-type (`1A` cameo, `1C` ambush):** Cel-shaded 3D rig [smoker-rig.blend](../../assets/series-lead/rig-3d/infected/smoker-rig.blend) (`--rig smoker`) — tall, hunched silhouette wreathed in pale toxic-green spore haze, whipping a long dark-crimson barbed tongue from rooftop shadows.
+3. **Pouncer / Hunter-type (`1A` cameo, `2B` ambush):** Cel-shaded 3D rig [hunter-rig.blend](../../assets/series-lead/rig-3d/infected/hunter-rig.blend) (`--rig hunter`) — hooded crouched runner with taut muscular limbs, low raspy growl, explosive leaping silhouette.
+4. **Weeping Stalker / Witch-type (`3A`):** Cel-shaded 3D rig [witch-rig.blend](../../assets/series-lead/rig-3d/infected/witch-rig.blend) (`--rig witch`) — gaunt pale silhouette with long dark hair and razor-like elongated fingers, hunched sobbing under dim light; glows faint crimson only when startled.
+5. **Bile-Carrier / Boomer-type (`1A` cameo, `3B`):** Heavily bloated, blistered silhouette with glowing sickly-yellow pustules; bursts violently if slashed at close range *(3D rig tracked in the **Mandatory Plan-Stage Reference Approval Gate** in [part-3/plan.md](part-3/plan.md))*.
+6. **Acid-Spitter / Spitter-type (`3B`):** Elongated, crooked-neck silhouette dripping neon-green luminescent bile that pools and sizzles on asphalt *(3D rig tracked in the **Mandatory Plan-Stage Reference Approval Gate** in [part-3/plan.md](part-3/plan.md))*.
+7. **The Charger (`3C`):** Cel-shaded 3D rig [charger-rig.blend](../../assets/series-lead/rig-3d/infected/charger-rig.blend) (`--rig charger`) — asymmetric, broad-chested brute with one **enormous, mutated right smashing arm** and a tiny shriveled left arm; lowers its shoulder and bull-charges in a straight line, shattering cars or walls when dodged.
+8. **The Tank (`3D–3F`):** Cel-shaded 3D rig [tank-rig.blend](../../assets/series-lead/rig-3d/infected/tank-rig.blend) (`--rig tank`) — massive, towering broad-shouldered concrete-scarred colossus (nearly 2.5× the lead's shoulder width) that shakes camera framing on every footstep and heaves marble slabs.
 
 ### Recurring Props & Sound Callbacks
 - **Smartphone:** Buzzes with lockdown alert (`1A`) → clatters face-up on 7th-floor tile (`1B`) → 7% battery dawn-evac text (`2A`) → flashlight beam in gunsmith (`2C`) & killed before Witch (`3A`) → final `NO SIGNAL` cracked-screen beat (`3F`).
@@ -107,6 +107,7 @@ All infected are built as original textured cutout rigs/silhouettes in the serie
 
 ## Zero-Cost Local Toolchain & Widescreen Note
 
-- **Tools ($0 local):** OpenToonz 1.8.0 (Modified BSD) via [shared cutout renderer](../../tools/opentoonz/README.md), headless Microsoft Edge canvas compositor (`1920 × 1080` widescreen; logical coordinate space `960 × 540` scaled `2×`), portable FFmpeg 9.0.2 for audio mixing and chapter/Part stitching, Chatterbox Nano CPU narrator (MIT, local reference WAV +0.5 semitone), and local Remotion editor (eligible free license).
-- **Widescreen Remotion support:** Already added optional `width` / `height` props in `tools/remotion/timeline.jsx` and `tools/remotion/edit.mjs` (defaulting to `1080 × 1920` for shorts, while `1920 × 1080` widescreen chapters render clean bottom-third captions clear of action).
-- **Chapter stitching:** `ffmpeg -f concat` joins verified chapter exports (`ch-1a`, `ch-1b`, `ch-1c`) into `part-1/exports/part-1-final.mp4`, and later joins Parts 1–3 into the full 12-minute feature with lossless stream copy or single clean master encode.
+- **3D Cel-Shaded Character & Hand Pipeline ($0 local):** Headless **Blender 5.2.4 LTS** (GPL) via [tools/blender-rig/README.md](../../tools/blender-rig/README.md) — [render-shot.mjs](../../tools/blender-rig/render-shot.mjs) (`--width 1920 --height 1080 --export-guide`, run serially) for [lead-rig.blend](../../assets/series-lead/rig-3d/lead-rig.blend) (`--rig lead`) and the 5 Special Infected rigs (`assets/series-lead/rig-3d/infected/{hunter,smoker,witch,charger,tank}-rig.blend`), plus [render-hand.py](../../tools/blender-rig/render-hand.py) and [hand-poses.json](../../tools/blender-rig/hand-poses.json) for [hand-closeup-rig.blend](../../assets/series-lead/rig-3d/hand-closeup-rig.blend) (bare and gloved 5-finger POV hands).
+- **2D Compositing, Legacy Rig & Audio/Edit ($0 local):** Headless Chromium / Microsoft Edge browser canvas compositor (`1920 × 1080` widescreen; aligning 2D environments to `--export-guide` floor grids and compositing 3D body/hand renders with 2D illustrated extreme facial close-ups under shared paper/cutout grain per [hybrid-seam-check.png](../../assets/series-lead/hybrid-seam-check.png)), OpenToonz 1.8.0 (Modified BSD) via [shared cutout renderer](../../tools/opentoonz/README.md) kept intact for legacy Part 1–2 cuts, local FFmpeg/FFprobe for audio mixing and chapter/Part stitching, Chatterbox Nano CPU narrator (MIT, local reference WAV `+0.5` semitone), and local Remotion editor (eligible free license).
+- **Widescreen Remotion support:** Optional `width` / `height` props in [timeline.jsx](../../tools/remotion/timeline.jsx) and [edit.mjs](../../tools/remotion/edit.mjs) (defaulting to `1080 × 1920` for shorts, while `1920 × 1080` widescreen chapters render clean bottom-third captions clear of action).
+- **Chapter stitching:** `ffmpeg -f concat` joins verified chapter exports (`ch-1a`, `ch-1b`, `ch-1c`) into `part-1/exports/part-1-master.mp4`, and later joins Parts 1–3 into the full ~15-minute feature with lossless stream copy or single clean master encode.
