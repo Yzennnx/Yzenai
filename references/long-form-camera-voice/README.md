@@ -29,7 +29,10 @@ A practical sequence is **place → notice → proof → reaction → new action
 
 ## Zooming, looking-around POV, and intensifying motion
 
-Apply these camera and motion-intensification techniques from the [Nightmare Roulette study](source-study.md#zooming-looking-around-pov-and-intensifying-motion) to original scenes using our lead's [cinematic anatomy angles](../../assets/series-lead/angles-sheet.png), [face tilts and gazes](../../assets/series-lead/face-angles.png), [animated face & camera reference reel](../../assets/series-lead/anatomy-prototype/cinematic-face-camera-reel.mp4), and [POV survival hands](../../assets/series-lead/hands/pov-survival-sheet.png):
+Apply these camera and motion-intensification techniques from the [Nightmare Roulette study](source-study.md#zooming-looking-around-pov-and-intensifying-motion) to original scenes using our **Hybrid 3D-to-2D Camera Rig** ([tools/blender-rig/cameras.json](../../tools/blender-rig/cameras.json), [8-angle sheet](../../assets/series-lead/angles-sheet.png), [3-depth-plane framing cheat sheet](../../assets/series-lead/framing-cheatsheet.png), [5-finger POV hands](../../assets/series-lead/hands/universal-hands-sheet.png)) paired with our 2D [face tilts and gazes](../../assets/series-lead/face-angles.png):
+
+- **Rule of 3 Depth Planes:** Stage almost every non-close-up shot with **Foreground (dark/soft doorframe, pillar, locker slats, bed skirt)** + **Midground (Lead from `lead-rig.blend`)** + **Background (perspective-matched 2D room snapped to `--export-guide`)** to eliminate flat 2D staging.
+- **Expanded 10-Camera Preset Vocabulary (`cameras.json`):** Use `3q-front` (diagonal walk/approach) and `3q-back-ots` (cheek/jaw + shoulder corridor depth) as primary storytelling workhorses alongside `low-24mm`, `high-cornered`, `overhead`, `pov-arms`, `pov-peek`, `floor-level`, `cctv-wide`, and `side` — never falling back to repetitive side-only staging.
 
 - **Zoom grammar (give every zoom a story job):**
   - *Stepped push-in cuts:* Step from wide → medium → tight ECU across 2–4 cuts as the narrator names escalating details, closing physical distance on each noun.

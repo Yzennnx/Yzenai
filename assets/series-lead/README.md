@@ -1,6 +1,23 @@
 # Series lead
 
-The [reference sheet](reference-sheet.png) shows the lead from the **front, side, and back only** (front and rear three-quarter views are intentionally excluded). The revised design uses a slim chest, swept chestnut fringe, sharper sculpted eyes with irises and catchlights, cheek/jaw shading, a cream collared shirt, a burgundy tie, charcoal-blue trousers, and brown shoes. The sheet also shows the ready stance, seat contact, palm brace, and heel-first landing, plus profile expressions and hand poses.
+The [reference sheet](reference-sheet.png) is the master visual design, color palette, and proportion bible for our Series Lead (slim chest, swept chestnut fringe, sculpted eyes with irises and catchlights, cream collared shirt, burgundy tie, charcoal-blue trousers, and brown shoes).
+
+For **all new episodes**, use our **Hybrid 3D-to-2D Pipeline** ([tools/blender-rig/README.md](../../tools/blender-rig/README.md)):
+- **Multi-Angle Body & Camera Rig (`rig-3d/lead-rig.blend`):** Stylized 2-tone cel-shaded Blender 5.2 rig with GPv3 `#253a3b` ink outlines, 10 camera presets (`cameras.json`), 18 universal actions (`actions.json`), 6 toon lighting moods (`lighting.json`), 5 attachment sockets, `gloves`/`backpack`/`condition` toggles, and `--export-guide` horizon/floor-grid overlays.
+- **Dedicated 5-Finger Close-Up & POV Hand Rig (`rig-3d/hand-closeup-rig.blend`):** 19-bone subdivided 5-finger cel-shaded hand rig with full connected cream sleeve, bare/gloved toggle, and true 3D prop wrapping (`hand-poses.json` / `render-hand.py`).
+- **2D Illustrated Extreme Close-Ups:** Keep our crisp 2D [reactions-front.png](reactions-front.png), [reactions-side.png](reactions-side.png), and [face-angles.png](face-angles.png) for tight facial horror beats, composited under the same shared paper/cutout grain.
+
+## Universal Hybrid Reference Sheets
+
+| Sheet / Reel | Purpose |
+| --- | --- |
+| [8-Angle True-Perspective Sheet](angles-sheet.png) | Side parity vs. 2D, `3q-front`, `3q-back-ots`, `low-24mm`, `high-cornered`, `overhead`, `pov-arms` (5-finger rig), and `floor-level` |
+| [18 Universal Actions Sheet](universal-actions-sheet.png) | Reusable poses & cycles across locomotion, domestic/science, physical extremes, and horror (`tools/blender-rig/actions.json`) |
+| [Framing & 3-Depth-Plane Cheat Sheet](framing-cheatsheet.png) | Standard foreground + midground + background templates (Corridor OTS, Doorframe Peek POV, Locker Vents, Under-Bed Boots, CCTV) |
+| [Hybrid 3D-to-2D Seam Check](hybrid-seam-check.png) | Side-by-side continuity check cutting between Blender cel-shaded body shots and 2D `face-angles.png` close-ups |
+| [Universal 5-Finger Close-Up & POV Hands](hands/universal-hands-sheet.png) | Dedicated 3D cel-shaded bare & gloved hands (`pov-flashlight`, `cup-bottle-grip`, `pinch-pick`, `knob-handle-turn`, `button-switch-press`, `open-reach-tremble`) |
+| [Special Infected 3D Cast Sheet](infected-sheet.png) | Cel-shaded 3D rigs for `hunter`, `smoker`, `witch`, `charger`, and `tank` (`rig-3d/infected/*.blend`, `tools/blender-rig/infected-actions.json`) sharing exact camera/lighting parity with the Lead |
+| [Silent Multi-Angle Camera Proof Reel](rig-3d/camera-proof-reel.mp4) | 7.0 s `1080 × 1920` motion proof combining 3/4 walk, 2D eye-dart cut, POV flashlight peek, and 3/4 back OTS push-in |
 
 ## Face expressions
 
@@ -23,16 +40,7 @@ Use the 12-emotion [front reaction sheet](reactions-front.png) and [side reactio
 
 ## Close-up hand references
 
-Use the [hand reference sheet](hands/reference-sheet.png) and the [first-person POV survival hand sheet](hands/pov-survival-sheet.png) for hand close-ups and first-person inserts. The original cutout drawings use the lead's warm skin tone, dark outline, and cream cuff. Both sheets show the right hand. Match the thumb side and sleeve to the hand established in the preceding shot. The [editable artwork](hands/reference-sheet.svg) and individual transparent PNGs are in `hands/`, and `drawPovSurvivalHand` in [art.js](anatomy-prototype/art.js) renders the four survival POV hands directly in code.
-
-| Shot | Image to supply as a reference |
-| --- | --- |
-| Hand anatomy and camera angle | [Back of hand](hands/back.png) · [Palm](hands/palm.png) · [Side profile](hands/edge.png) |
-| Doorbell or small button | [Reach](hands/bell-reach.png) · [Index-finger press](hands/bell-press.png) · [Release](hands/bell-release.png) |
-| Horizontal push bar from the lead's viewpoint | [Reach](hands/bar-reach.png) · [Palm press](hands/bar-press.png) · [Release](hands/bar-release.png) |
-| Grasp a horizontal bar | [Overhand hold](hands/bar-hold.png) |
-| Small prop contact | [Ticket pinch](hands/ticket-pinch.png) · [Chalk grip](hands/chalk-grip.png) |
-| First-person survival & action POV | [Pipe grip](hands/pov-pipe-grip.png) · [Flashlight sweep](hands/pov-flashlight.png) · [Deadbolt lock turn](hands/pov-door-lock.png) · [Defensive shield](hands/pov-shield-face.png) |
+For all **new episodes**, use the **[Universal 5-Finger Close-Up & POV Hand Sheet](hands/universal-hands-sheet.png)** rendered from `rig-3d/hand-closeup-rig.blend` (`tools/blender-rig/render-hand.py`, `hand-poses.json`) — bare or gloved, with full connected sleeves (zero severed wrists) and true 3D prop wrapping. For legacy 2D *L4D* weapon inserts, keep **[weapon-hands-sheet.png](hands/weapon-hands-sheet.png)** ([weapon-hands.js](hands/weapon-hands.js)) and **[hands/reference-sheet.png](hands/reference-sheet.png)** (v3). **Never render hands as plain ovals or circles.**
 
 For AI-assisted artwork, supply the single image that matches the shot angle and action. Keep the tapered palm, slim fingers, thumb position, and wrist-to-cuff alignment consistent. At a doorbell, the index fingertip meets the button and the other fingers curl into the palm. At a horizontal push bar, the camera sees the back of the hand as the palm meets the bar. Let the wrists lead the approach and withdrawal. For the ticket, the thumb and index pads press opposite faces at the same corner. From the chosen three-quarter angle, the index is partly hidden and the free fingers curl below the paper. For a short chalk nub, the thumb and index pinch near the working tip and the middle finger curls behind for support.
 
@@ -63,7 +71,7 @@ Use the [three-view turnaround](reference-sheet.png) for standard Front, Side, a
 | Cinematic camera perspectives |  | [Low / High / Overhead](angles-sheet.png) | [Over-the-Shoulder (OTS)](angles-sheet.png) | [Cinematic camera and face angles](#cinematic-camera-and-face-angles) |
 | Dynamic survival reel (6 actions) | [Showcase reel](anatomy-prototype/dynamic-movements-reel.mp4) |  |  | [Dynamic survival movements](anatomy-prototype/README.md#dynamic-survival-movements) · [Stealth](anatomy-prototype/sneak.mp4) · [Flinch](anatomy-prototype/flinch.mp4) · [Sprint](anatomy-prototype/sprint.mp4) · [Shove](anatomy-prototype/shove.mp4) · [Slash](anatomy-prototype/slash.mp4) · [Vault](anatomy-prototype/vault.mp4) |
 | Run | [Clip](anatomy-prototype/run-side.mp4) | [Clip](anatomy-prototype/run-front.mp4) | [Clip](anatomy-prototype/run-rear.mp4) | [Running](anatomy-prototype/README.md#running) |
-| Walk or step | [Walk cycle](anatomy-prototype/walk-side.mp4) · [Single step](anatomy-prototype/step.mp4) | [Clip](anatomy-prototype/walk-front.mp4) · [Pose sheet](walking-front.png) | [Clip](anatomy-prototype/walk-rear.mp4) | [Walking](anatomy-prototype/README.md#walking-and-stepping) |
+| Walk or step | [Walk cycle](anatomy-prototype/walk-side.mp4) · [Single step](anatomy-prototype/step.mp4) | [Clip](anatomy-prototype/walk-front.mp4) | [Clip](anatomy-prototype/walk-rear.mp4) | [Walking](anatomy-prototype/README.md#walking-and-stepping) |
 | Sit down | [Clip](anatomy-prototype/sit.mp4) | [Clip](anatomy-prototype/sit-front.mp4) |  | [Seat contact](anatomy-prototype/README.md#sitting) |
 | Catch a lean or brace | [Clip](anatomy-prototype/brace.mp4) | [Clip](anatomy-prototype/brace-front.mp4) | [Clip](anatomy-prototype/brace-rear.mp4) | [Palm contact](anatomy-prototype/README.md#bracing) |
 

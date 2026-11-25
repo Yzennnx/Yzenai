@@ -1,0 +1,540 @@
+#!/usr/bin/env python3
+"""Headless Blender 5.2.4 LTS Shot & Reference Renderer for the Stylized Series Lead Rig.
+
+Usage (still):
+  blender --background assets/series-lead/rig-3d/lead-rig.blend --python tools/blender-rig/render-shot.py -- \
+    --camera 3q-front --action idle-alert --expression head-notice --lighting neutral-day \
+    --frame 1 --out /tmp/still.png [--export-guide /tmp/guide.png]
+
+Usage (animation sequence):
+  blender --background assets/series-lead/rig-3d/lead-rig.blend --python tools/blender-rig/render-shot.py -- \
+    --camera 3q-front --action walk-cycle --expression head --lighting horror-dark-rim \
+    --fps 12 --start 1 --end 24 --width 1080 --height 1920 --out /tmp/seq_dir
+"""
+
+import argparse
+import json
+import math
+import os
+import sys
+from pathlib import Path
+
+import bpy
+from mathutils import Euler, Matrix, Vector
+from bpy_extras.object_utils import world_to_camera_view
+from PIL import Image, ImageDraw
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = SCRIPT_DIR.parent.parent
+sys.path.insert(0, str(SCRIPT_DIR))
+
+
+def _import_apply_rig_state():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("build_lead_rig", SCRIPT_DIR / "build-lead-rig.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod.apply_rig_state, mod.hex_to_lin
+
+
+def load_json(name):
+    return json.loads((SCRIPT_DIR / name).read_text(encoding="utf-8"))
+
+
+def set_ik_influences(arm_obj, ik_cfg):
+    defaults = {"leg_L": 0.0, "leg_R": 0.0, "arm_L": 0.0, "arm_R": 0.0}
+    if ik_cfg:
+        defaults.update(ik_cfg)
+    arm_obj["ik_leg_L"] = float(defaults["leg_L"])
+    arm_obj["ik_leg_R"] = float(defaults["leg_R"])
+    arm_obj["ik_arm_L"] = float(defaults["arm_L"])
+    arm_obj["ik_arm_R"] = float(defaults["arm_R"])
+    for bname, prop in (("shin_L", "leg_L"), ("shin_R", "leg_R"), ("forearm_L", "arm_L"), ("forearm_R", "arm_R")):
+        pb = arm_obj.pose.bones.get(bname)
+        if pb:
+            for c in pb.constraints:
+                if c.type == "IK":
+                    c.influence = float(defaults[prop])
+
+
+def clear_pose(arm_obj):
+    for pb in arm_obj.pose.bones:
+        pb.location = (0.0, 0.0, 0.0)
+        pb.rotation_mode = "XYZ"
+        pb.rotation_euler = (0.0, 0.0, 0.0)
+        pb.scale = (1.0, 1.0, 1.0)
+
+
+def apply_keyframe_pose(arm_obj, kf):
+    clear_pose(arm_obj)
+    if "pelvis_loc" in kf:
+        pb = arm_obj.pose.bones.get("pelvis")
+        if pb:
+            pb.location = Vector(kf["pelvis_loc"])
+    for bname, rot_deg in kf.get("bones", {}).items():
+        pb = arm_obj.pose.bones.get(bname)
+        if pb:
+            pb.rotation_mode = "XYZ"
+            pb.rotation_euler = Euler([math.radians(a) for a in rot_deg], "XYZ")
+
+
+def lowest_mesh_z(depsgraph):
+    min_z = 999.0
+    col = bpy.data.collections.get("LeadMeshes") or bpy.data.collections.get("RigMeshes")
+    if col is None:
+        return 0.0
+    for obj in col.objects:
+        if obj.hide_render or obj.type != "MESH":
+            continue
+        eval_obj = obj.evaluated_get(depsgraph)
+        me = eval_obj.to_mesh()
+        if me and len(me.vertices) > 0:
+            mat = eval_obj.matrix_world
+            for v in me.vertices:
+                wz = (mat @ v.co).z
+                if wz < min_z:
+                    min_z = wz
+        eval_obj.to_mesh_clear()
+    return min_z if min_z < 900.0 else 0.0
+
+
+def setup_action(scene, arm_obj, action_cfg, start_frame, end_frame):
+    set_ik_influences(arm_obj, action_cfg.get("ik"))
+    if arm_obj.animation_data:
+        arm_obj.animation_data_clear()
+
+    kfs = action_cfg.get("keyframes", [])
+    cycle = bool(action_cfg.get("cycle", False))
+    length = int(action_cfg.get("length", 24))
+    auto_ground = bool(action_cfg.get("auto_ground", True))
+
+    if not kfs:
+        clear_pose(arm_obj)
+        return
+
+    # Keyframe all authored poses (repeating cycle cleanly if start..end > length)
+    repeats = 1
+    if cycle and length > 1 and end_frame > length:
+        repeats = math.ceil(end_frame / (length - 1)) + 1
+
+    keyed_frames = set()
+    for rep in range(repeats):
+        offset = rep * (length - 1)
+        for kf in kfs:
+            f = int(kf["frame"]) + offset
+            if f in keyed_frames:
+                continue
+            keyed_frames.add(f)
+            scene.frame_set(f)
+            apply_keyframe_pose(arm_obj, kf)
+            if auto_ground:
+                bpy.context.view_layer.update()
+                dg = bpy.context.evaluated_depsgraph_get()
+                min_z = lowest_mesh_z(dg)
+                if abs(min_z) > 0.002:
+                    root_pb = arm_obj.pose.bones.get("root")
+                    if root_pb:
+                        root_pb.location.z -= min_z
+            for pb in arm_obj.pose.bones:
+                if pb.name in ("root", "pelvis"):
+                    pb.keyframe_insert("location", frame=f)
+                pb.keyframe_insert("rotation_euler", frame=f)
+
+    # Smooth interpolation via Blender 5.x slotted Action channelbag
+    if arm_obj.animation_data and arm_obj.animation_data.action:
+        act = arm_obj.animation_data.action
+        slot = arm_obj.animation_data.action_slot
+        if act.layers and act.layers[0].strips:
+            bag = act.layers[0].strips[0].channelbag(slot, ensure=True)
+            for fc in bag.fcurves:
+                for kp in fc.keyframe_points:
+                    kp.interpolation = "BEZIER"
+
+
+RIG_CAMERA_FRAMING = {
+    "tank": (1.48, 0.30),
+    "smoker": (1.12, 0.10),
+}
+
+
+def setup_camera(scene, cam_cfg, width, height, frame=1, push_in=0.0, rig="lead"):
+    scene.render.resolution_x = width
+    scene.render.resolution_y = height
+    scene.render.resolution_percentage = 100
+
+    cam_obj = bpy.data.objects.get("LeadCam")
+    if cam_obj is None:
+        cam_data = bpy.data.cameras.new("LeadCam")
+        cam_obj = bpy.data.objects.new("LeadCam", cam_data)
+        scene.collection.objects.link(cam_obj)
+    scene.camera = cam_obj
+
+    cam_data = cam_obj.data
+    cam_data.lens = float(cam_cfg.get("lens", 45.0))
+    cam_data.sensor_width = float(cam_cfg.get("sensor_width", 36.0))
+    cam_data.sensor_fit = "AUTO"
+    cam_data.clip_start = 0.04
+    cam_data.clip_end = 100.0
+
+    orig_pos = Vector(cam_cfg["pos"])
+    orig_target = Vector(cam_cfg["target"])
+    dist_scale, target_dz = RIG_CAMERA_FRAMING.get(rig, (1.0, 0.0))
+    target = orig_target + Vector((0.0, 0.0, target_dz))
+    base_pos = target + (orig_pos - orig_target) * dist_scale
+    if push_in != 0.0:
+        base_pos = base_pos.lerp(target, push_in)
+
+    # Subtle organic handheld sway when rendering multi-frame animation
+    sway = cam_cfg.get("sway", {})
+    amp_p = float(sway.get("amp_pos", 0.0))
+    amp_r = float(sway.get("amp_rot_deg", 0.0))
+    freq = float(sway.get("freq", 0.0))
+    t = (frame - 1) / max(1.0, float(scene.render.fps))
+    if amp_p > 0.0 and freq > 0.0:
+        base_pos = base_pos + Vector((
+            math.sin(t * freq * 2.0 * math.pi) * amp_p,
+            math.cos(t * freq * 1.3 * math.pi) * amp_p * 0.5,
+            math.sin(t * freq * 2.7 * math.pi) * amp_p * 0.8,
+        ))
+
+    cam_obj.location = base_pos
+    direction = (target - base_pos).normalized()
+    quat = direction.to_track_quat("-Z", "Y")
+    roll_deg = float(cam_cfg.get("roll_deg", 0.0))
+    if amp_r > 0.0 and freq > 0.0:
+        roll_deg += math.sin(t * freq * 1.7 * math.pi) * amp_r
+    if abs(roll_deg) > 1e-4:
+        quat = quat @ Euler((0.0, 0.0, math.radians(roll_deg)), "XYZ").to_quaternion()
+    cam_obj.rotation_euler = quat.to_euler()
+
+    # Optional head/hair hide for grounded POV cameras
+    hide_head = bool(cam_cfg.get("hide_head", False))
+    for oname in ("LeadHead", "LeadHair", "LeadNeck"):
+        o = bpy.data.objects.get(oname)
+        if o:
+            o.hide_render = hide_head
+            o.hide_viewport = hide_head
+
+    # Scale GPv3 Line Art radius cleanly per camera preset (LeadOutline or RigOutline)
+    lineart_r = float(cam_cfg.get("lineart_radius", 0.0075))
+    for obj in bpy.data.objects:
+        if obj.type in ("GREASEPENCIL", "GPENCIL"):
+            for m in obj.modifiers:
+                if m.type == "LINEART":
+                    m.radius = lineart_r
+                    obj.update_tag()
+
+    return cam_obj
+
+
+def _aim_light(light_obj, pos, target):
+    light_obj.location = Vector(pos)
+    d = (Vector(target) - Vector(pos)).normalized()
+    light_obj.rotation_euler = d.to_track_quat("-Z", "Y").to_euler()
+
+
+def setup_lighting(scene, light_cfg):
+    # Remove existing scene lights and rebuild cleanly from preset
+    for obj in list(bpy.data.objects):
+        if obj.type == "LIGHT":
+            bpy.data.objects.remove(obj, do_unlink=True)
+
+    # World background
+    if scene.world and scene.world.use_nodes:
+        bg = scene.world.node_tree.nodes.get("Background")
+        if bg:
+            wc = light_cfg.get("world_color", [0.04, 0.04, 0.04])
+            bg.inputs[0].default_value = (wc[0], wc[1], wc[2], 1.0)
+            bg.inputs[1].default_value = float(light_cfg.get("world_strength", 1.0))
+
+    # Update Cel2Tone shader threshold and tint mix across all materials
+    thresh = float(light_cfg.get("cel_threshold", 0.35))
+    tint_mix = float(light_cfg.get("light_tint_mix", 0.05))
+    for mat in bpy.data.materials:
+        if not mat.use_nodes or not mat.node_tree:
+            continue
+        for node in mat.node_tree.nodes:
+            if node.type == "GROUP" and node.node_tree and node.node_tree.name == "Cel2Tone":
+                if "Threshold" in node.inputs:
+                    node.inputs["Threshold"].default_value = thresh
+                if "LightTintMix" in node.inputs:
+                    node.inputs["LightTintMix"].default_value = tint_mix
+
+    for role in ("key", "fill", "rim"):
+        spec = light_cfg.get(role)
+        if not spec:
+            continue
+        ltype = spec.get("type", "SUN")
+        ldata = bpy.data.lights.new(f"LeadLight_{role}", type=ltype)
+        ldata.energy = float(spec.get("energy", 1.0))
+        c = spec.get("color", [1.0, 1.0, 1.0])
+        ldata.color = (c[0], c[1], c[2])
+        ldata.use_shadow = bool(spec.get("use_shadow", role == "key"))
+        if ltype == "SUN":
+            ldata.angle = math.radians(float(spec.get("angle_deg", 1.5)))
+        elif ltype == "SPOT":
+            ldata.spot_size = math.radians(float(spec.get("spot_size_deg", 45.0)))
+            ldata.spot_blend = float(spec.get("spot_blend", 0.25))
+        lobj = bpy.data.objects.new(f"LeadLight_{role}", ldata)
+        scene.collection.objects.link(lobj)
+        if ltype == "SUN":
+            d = Vector(spec.get("dir", [-0.45, 0.72, -0.52])).normalized()
+            lobj.rotation_euler = d.to_track_quat("-Z", "Y").to_euler()
+        else:
+            _aim_light(lobj, spec.get("pos", [1.0, -2.0, 1.5]), spec.get("target", [0.0, 0.0, 1.0]))
+
+
+def attach_simple_prop(scene, prop_name, hex_to_lin):
+    """Attach a stylized cel-shaded prop to hand_R_socket for POV / action shots."""
+    if not prop_name or prop_name == "none":
+        return
+    sock = bpy.data.objects.get("hand_R_socket")
+    if sock is None:
+        return
+
+    col_meshes = bpy.data.collections.get("LeadMeshes") or scene.collection
+
+    def make_cel_mat(name, base_hex, shad_hex):
+        mat = bpy.data.materials.new(name)
+        mat.use_nodes = True
+        nt = mat.node_tree
+        nt.nodes.clear()
+        out = nt.nodes.new("ShaderNodeOutputMaterial")
+        cel = nt.nodes.new("ShaderNodeGroup")
+        cel.node_tree = bpy.data.node_groups["Cel2Tone"]
+        cel.inputs["BaseColor"].default_value = hex_to_lin(base_hex)
+        cel.inputs["ShadowColor"].default_value = hex_to_lin(shad_hex)
+        nt.links.new(cel.outputs[0], out.inputs[0])
+        return mat
+
+    if prop_name == "flashlight":
+        bpy.ops.mesh.primitive_cylinder_add(vertices=16, radius=0.019, depth=0.22, location=(0, 0, 0))
+        obj = bpy.context.active_object
+        obj.name = "LeadProp_Flashlight"
+        obj.data.materials.append(make_cel_mat("Mat_Prop_Flashlight", "#434f5a", "#252d34"))
+        obj.rotation_euler = Euler((math.radians(16), 0, 0), "XYZ")
+        obj.location = Vector((0.005, -0.015, -0.04))
+    elif prop_name == "pipe":
+        bpy.ops.mesh.primitive_cylinder_add(vertices=14, radius=0.017, depth=0.68, location=(0, 0, 0))
+        obj = bpy.context.active_object
+        obj.name = "LeadProp_Pipe"
+        obj.data.materials.append(make_cel_mat("Mat_Prop_Pipe", "#6e7b86", "#454f57"))
+        obj.rotation_euler = Euler((math.radians(78), 0, 0), "XYZ")
+        obj.location = Vector((0.0, -0.18, 0.0))
+    elif prop_name == "mug":
+        bpy.ops.mesh.primitive_cylinder_add(vertices=18, radius=0.042, depth=0.10, location=(0, 0, 0))
+        obj = bpy.context.active_object
+        obj.name = "LeadProp_Mug"
+        obj.data.materials.append(make_cel_mat("Mat_Prop_Mug", "#d9d2c5", "#a89f90"))
+        obj.location = Vector((0.0, -0.03, 0.02))
+    elif prop_name == "phone":
+        bpy.ops.mesh.primitive_cube_add(size=1.0, location=(0, 0, 0))
+        obj = bpy.context.active_object
+        obj.name = "LeadProp_Phone"
+        obj.scale = (0.072, 0.010, 0.148)
+        obj.data.materials.append(make_cel_mat("Mat_Prop_Phone", "#263645", "#141d26"))
+        obj.rotation_euler = Euler((math.radians(15), 0, 0), "XYZ")
+        obj.location = Vector((0.0, -0.02, 0.03))
+    else:
+        return
+
+    for c in list(obj.users_collection):
+        c.objects.unlink(obj)
+    col_meshes.objects.link(obj)
+    obj.parent = sock
+
+
+def export_horizon_guide(scene, cam_obj, guide_path, width, height):
+    """Export a transparent RGBA PNG with exact camera horizon, vanishing points, and 1m z=0 floor grid."""
+    img = Image.new("RGBA", (width, height), (0, 0, 0, 0))
+    draw = ImageDraw.Draw(img)
+
+    def proj(vec):
+        co = world_to_camera_view(scene, cam_obj, Vector(vec))
+        if co.z <= 0.02:
+            return None
+        return (co.x * width, (1.0 - co.y) * height)
+
+    # 1-meter floor grid on z = 0 (-6m..+6m)
+    grid_col = (56, 214, 198, 165)
+    axis_x_col = (240, 96, 86, 215)
+    axis_y_col = (84, 178, 255, 215)
+
+    for i in range(-6, 7):
+        col = axis_y_col if i == 0 else grid_col
+        lw = 3 if i == 0 else 2
+        pts = [proj((i, y * 0.5, 0.0)) for y in range(-12, 13)]
+        for a, b in zip(pts, pts[1:]):
+            if a and b:
+                draw.line([a, b], fill=col, width=lw)
+
+        col2 = axis_x_col if i == 0 else grid_col
+        pts2 = [proj((x * 0.5, i, 0.0)) for x in range(-12, 13)]
+        for a, b in zip(pts2, pts2[1:]):
+            if a and b:
+                draw.line([a, b], fill=col2, width=lw)
+
+    # Analytical horizon line (distant points on z = cam_obj.location.z)
+    cam_pos = cam_obj.location
+    cam_fwd = (cam_obj.matrix_world.to_3x3() @ Vector((0, 0, -1))).normalized()
+    horiz_fwd = Vector((cam_fwd.x, cam_fwd.y, 0.0))
+    if horiz_fwd.length > 0.05:
+        horiz_fwd.normalize()
+        horiz_right = Vector((-horiz_fwd.y, horiz_fwd.x, 0.0))
+        h_pts = []
+        for s in (-1.5, -0.8, 0.0, 0.8, 1.5):
+            p = proj(cam_pos + (horiz_fwd + horiz_right * s) * 80.0)
+            if p:
+                h_pts.append(p)
+        if len(h_pts) >= 2:
+            draw.line([h_pts[0], h_pts[-1]], fill=(255, 204, 51, 235), width=3)
+
+    # Vanishing point markers along ±X and ±Y
+    for label, dvec in (("VP-Y", (0, -90, 0)), ("VP+Y", (0, 90, 0)), ("VP+X", (90, 0, 0)), ("VP-X", (-90, 0, 0))):
+        p = proj(cam_pos + Vector(dvec))
+        if p and -50 <= p[0] <= width + 50 and -50 <= p[1] <= height + 50:
+            r = 8
+            draw.ellipse([p[0] - r, p[1] - r, p[0] + r, p[1] + r], outline=(255, 204, 51, 255), width=3)
+
+    # Origin (0,0,0) foot-ground crosshair
+    orig = proj((0.0, 0.0, 0.0))
+    if orig:
+        r = 10
+        draw.line([(orig[0] - r, orig[1]), (orig[0] + r, orig[1])], fill=(255, 255, 255, 235), width=3)
+        draw.line([(orig[0], orig[1] - r), (orig[0], orig[1] + r)], fill=(255, 255, 255, 235), width=3)
+
+    out = Path(guide_path)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    img.save(str(out), "PNG")
+
+
+VALID_RIGS = ("lead", "hunter", "smoker", "witch", "charger", "tank")
+
+
+def parse_args():
+    argv = sys.argv[sys.argv.index("--") + 1:] if "--" in sys.argv else []
+    ap = argparse.ArgumentParser(description="Headless Blender Multi-Rig Shot Renderer (Lead & Infected)")
+    ap.add_argument("--rig", default="lead", choices=list(VALID_RIGS), help="Rig to render (default: lead)")
+    ap.add_argument("--camera", default="3q-front")
+    ap.add_argument("--action", default=None, help="Action preset (defaults to idle-alert for lead, infected-idle for infected)")
+    ap.add_argument("--expression", default=None)
+    ap.add_argument("--lighting", default="neutral-day")
+    ap.add_argument("--gloves", default="off", choices=["on", "off", "0", "1", "true", "false"])
+    ap.add_argument("--backpack", default="off", choices=["on", "off", "0", "1", "true", "false"])
+    ap.add_argument("--condition", default="clean", choices=["clean", "sweat", "frost", "scorch", "dusty"])
+    ap.add_argument("--hand-pose", default="auto", choices=["auto", "relaxed", "grip", "open-flat"])
+    ap.add_argument("--prop", default="none", choices=["none", "flashlight", "pipe", "mug", "phone"])
+    ap.add_argument("--fps", type=int, default=24, choices=[12, 24])
+    ap.add_argument("--frame", type=int, default=None, help="Render single still frame")
+    ap.add_argument("--start", type=int, default=1)
+    ap.add_argument("--end", type=int, default=1)
+    ap.add_argument("--width", type=int, default=1080)
+    ap.add_argument("--height", type=int, default=1920)
+    ap.add_argument("--samples", type=int, default=8)
+    ap.add_argument("--push-in", type=float, default=0.0, help="Camera push-in fraction (0..0.35) over sequence")
+    ap.add_argument("--export-guide", default=None, help="Path for transparent horizon/floor-grid PNG")
+    ap.add_argument("--out", required=True, help="Output PNG path (still) or directory (sequence)")
+    return ap.parse_args(argv)
+
+
+def main():
+    args = parse_args()
+    is_lead = args.rig == "lead"
+    action_name = args.action or ("idle-alert" if is_lead else "infected-idle")
+    actions_file = "actions.json" if is_lead else "infected-actions.json"
+
+    cameras = load_json("cameras.json")
+    actions = load_json(actions_file)
+    lightings = load_json("lighting.json")
+
+    if args.camera not in cameras:
+        raise SystemExit(f"Unknown camera '{args.camera}'. Valid: {[k for k in cameras if not k.startswith('_')]}")
+    if action_name not in actions:
+        raise SystemExit(f"Unknown action '{action_name}' in {actions_file}. Valid: {[k for k in actions if not k.startswith('_')]}")
+    if args.lighting not in lightings:
+        raise SystemExit(f"Unknown lighting '{args.lighting}'. Valid: {[k for k in lightings if not k.startswith('_')]}")
+
+    scene = bpy.context.scene
+    scene.render.engine = "BLENDER_EEVEE"
+    scene.eevee.taa_render_samples = args.samples
+    scene.render.film_transparent = True
+    scene.render.fps = 24
+    scene.render.image_settings.file_format = "PNG"
+    scene.render.image_settings.color_mode = "RGBA"
+    scene.render.image_settings.color_depth = "8"
+
+    arm_obj = bpy.data.objects.get("LeadArmature") or bpy.data.objects.get("InfectedArmature")
+    if arm_obj is None:
+        raise SystemExit("No armature found (expected 'LeadArmature' or 'InfectedArmature')")
+
+    action_cfg = actions[action_name]
+
+    if is_lead:
+        apply_rig_state, hex_to_lin = _import_apply_rig_state()
+        expr = args.expression or action_cfg.get("expression", "head")
+
+        hp = args.hand_pose
+        if hp == "auto":
+            if args.prop != "none" or action_name in ("sprint-cycle", "inspect-object-hand", "sip-eat-prop"):
+                hp = "grip"
+            elif action_name in ("brace-push-wall", "crawl-scramble", "bed-wake-situp"):
+                hp = "open-flat"
+            else:
+                hp = "relaxed"
+
+        apply_rig_state(
+            arm_obj,
+            expression=expr,
+            gloves=args.gloves,
+            backpack=args.backpack,
+            condition=args.condition,
+            hand_pose=hp,
+        )
+        attach_simple_prop(scene, args.prop, hex_to_lin)
+
+    setup_lighting(scene, lightings[args.lighting])
+
+    is_still = args.frame is not None
+    start_f = args.frame if is_still else args.start
+    end_f = args.frame if is_still else args.end
+    step = 2 if (not is_still and args.fps == 12) else 1
+
+    setup_action(scene, arm_obj, action_cfg, start_f, end_f)
+
+    out_path = Path(args.out)
+    if is_still:
+        scene.frame_set(start_f)
+        cam_obj = setup_camera(scene, cameras[args.camera], args.width, args.height, frame=start_f, push_in=args.push_in, rig=args.rig)
+        bpy.context.view_layer.update()
+        target_file = out_path if out_path.suffix.lower() == ".png" else (out_path / f"frame-{start_f:05d}.png")
+        target_file.parent.mkdir(parents=True, exist_ok=True)
+        scene.render.filepath = str(target_file)
+        bpy.ops.render.render(write_still=True)
+        if args.export_guide:
+            export_horizon_guide(scene, cam_obj, args.export_guide, args.width, args.height)
+        print(f"Rendered still ({args.rig}) -> {target_file}")
+    else:
+        out_path.mkdir(parents=True, exist_ok=True)
+        frame_list = list(range(start_f, end_f + 1, step))
+        total = max(1, len(frame_list) - 1)
+        first_cam = None
+        for idx, f in enumerate(frame_list):
+            scene.frame_set(f)
+            frac = (idx / total) * args.push_in if args.push_in else 0.0
+            cam_obj = setup_camera(scene, cameras[args.camera], args.width, args.height, frame=f, push_in=frac, rig=args.rig)
+            if first_cam is None:
+                first_cam = cam_obj
+            bpy.context.view_layer.update()
+            out_file = out_path / f"frame-{idx + 1:05d}.png"
+            scene.render.filepath = str(out_file)
+            bpy.ops.render.render(write_still=True)
+        if args.export_guide and first_cam is not None:
+            scene.frame_set(start_f)
+            setup_camera(scene, cameras[args.camera], args.width, args.height, frame=start_f, push_in=0.0, rig=args.rig)
+            bpy.context.view_layer.update()
+            export_horizon_guide(scene, first_cam, args.export_guide, args.width, args.height)
+        print(f"Rendered {len(frame_list)} frames ({args.rig}, {args.fps}fps) -> {out_path}")
+
+
+if __name__ == "__main__":
+    main()

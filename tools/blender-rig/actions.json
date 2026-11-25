@@ -1,0 +1,3087 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "fps": 24,
+    "convention": "Bone rotations are local XYZ Euler degrees. Pelvis/spine/chest/neck/head: +X pitches forward, +Y yaws left (+X), +Z tilts. Arms: -X swings forward, forearm -X bends elbow forward. Legs: thigh -X raises leg forward, shin +X bends knee backward. All actions default to FK legs/arms (ik=0) with automatic z=0 grounding unless disabled."
+  },
+  "idle-alert": {
+    "category": "locomotion",
+    "description": "Alert ready stance with subtle breathing rise and asymmetric weight shift",
+    "cycle": true,
+    "length": 48,
+    "expression": "head-notice",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.02
+        ],
+        "bones": {
+          "pelvis": [
+            3,
+            -6,
+            0
+          ],
+          "spine": [
+            4,
+            4,
+            0
+          ],
+          "chest": [
+            2,
+            3,
+            0
+          ],
+          "neck": [
+            -3,
+            -2,
+            0
+          ],
+          "head": [
+            -3,
+            -3,
+            2
+          ],
+          "upper_arm_L": [
+            -10,
+            6,
+            -8
+          ],
+          "forearm_L": [
+            -24,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -14,
+            -6,
+            8
+          ],
+          "forearm_R": [
+            -28,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -10,
+            0,
+            -5
+          ],
+          "shin_L": [
+            14,
+            0,
+            0
+          ],
+          "foot_L": [
+            -4,
+            0,
+            0
+          ],
+          "thigh_R": [
+            6,
+            0,
+            5
+          ],
+          "shin_R": [
+            8,
+            0,
+            0
+          ],
+          "foot_R": [
+            -10,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 25,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.01
+        ],
+        "bones": {
+          "pelvis": [
+            2,
+            -6,
+            0
+          ],
+          "spine": [
+            3,
+            4,
+            0
+          ],
+          "chest": [
+            0,
+            3,
+            0
+          ],
+          "neck": [
+            -2,
+            -2,
+            0
+          ],
+          "head": [
+            -2,
+            -1,
+            1
+          ],
+          "upper_arm_L": [
+            -12,
+            6,
+            -9
+          ],
+          "forearm_L": [
+            -26,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -16,
+            -6,
+            9
+          ],
+          "forearm_R": [
+            -30,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -8,
+            0,
+            -5
+          ],
+          "shin_L": [
+            12,
+            0,
+            0
+          ],
+          "foot_L": [
+            -4,
+            0,
+            0
+          ],
+          "thigh_R": [
+            5,
+            0,
+            5
+          ],
+          "shin_R": [
+            7,
+            0,
+            0
+          ],
+          "foot_R": [
+            -9,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 48,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.02
+        ],
+        "bones": {
+          "pelvis": [
+            3,
+            -6,
+            0
+          ],
+          "spine": [
+            4,
+            4,
+            0
+          ],
+          "chest": [
+            2,
+            3,
+            0
+          ],
+          "neck": [
+            -3,
+            -2,
+            0
+          ],
+          "head": [
+            -3,
+            -3,
+            2
+          ],
+          "upper_arm_L": [
+            -10,
+            6,
+            -8
+          ],
+          "forearm_L": [
+            -24,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -14,
+            -6,
+            8
+          ],
+          "forearm_R": [
+            -28,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -10,
+            0,
+            -5
+          ],
+          "shin_L": [
+            14,
+            0,
+            0
+          ],
+          "foot_L": [
+            -4,
+            0,
+            0
+          ],
+          "thigh_R": [
+            6,
+            0,
+            5
+          ],
+          "shin_R": [
+            8,
+            0,
+            0
+          ],
+          "foot_R": [
+            -10,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "walk-cycle": {
+    "category": "locomotion",
+    "description": "28-frame natural upright walk cycle with alternating heel strike and arm counter-swing",
+    "cycle": true,
+    "length": 28,
+    "expression": "head",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.04
+        ],
+        "bones": {
+          "pelvis": [
+            4,
+            7,
+            0
+          ],
+          "spine": [
+            4,
+            -5,
+            0
+          ],
+          "chest": [
+            2,
+            -5,
+            0
+          ],
+          "neck": [
+            -2,
+            3,
+            0
+          ],
+          "head": [
+            -2,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            18,
+            0,
+            -6
+          ],
+          "forearm_L": [
+            -22,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -26,
+            0,
+            6
+          ],
+          "forearm_R": [
+            -32,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -28,
+            0,
+            -2
+          ],
+          "shin_L": [
+            10,
+            0,
+            0
+          ],
+          "foot_L": [
+            10,
+            0,
+            0
+          ],
+          "thigh_R": [
+            20,
+            0,
+            2
+          ],
+          "shin_R": [
+            22,
+            0,
+            0
+          ],
+          "foot_R": [
+            -24,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 8,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          0.01
+        ],
+        "bones": {
+          "pelvis": [
+            3,
+            0,
+            2
+          ],
+          "spine": [
+            3,
+            0,
+            -2
+          ],
+          "chest": [
+            2,
+            0,
+            0
+          ],
+          "neck": [
+            -2,
+            0,
+            0
+          ],
+          "head": [
+            -2,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -4,
+            0,
+            -6
+          ],
+          "forearm_L": [
+            -26,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            4,
+            0,
+            6
+          ],
+          "forearm_R": [
+            -20,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -4,
+            0,
+            -2
+          ],
+          "shin_L": [
+            8,
+            0,
+            0
+          ],
+          "foot_L": [
+            -4,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -16,
+            0,
+            2
+          ],
+          "shin_R": [
+            48,
+            0,
+            0
+          ],
+          "foot_R": [
+            -14,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 15,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.04
+        ],
+        "bones": {
+          "pelvis": [
+            4,
+            -7,
+            0
+          ],
+          "spine": [
+            4,
+            5,
+            0
+          ],
+          "chest": [
+            2,
+            5,
+            0
+          ],
+          "neck": [
+            -2,
+            -3,
+            0
+          ],
+          "head": [
+            -2,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -26,
+            0,
+            -6
+          ],
+          "forearm_L": [
+            -32,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            18,
+            0,
+            6
+          ],
+          "forearm_R": [
+            -22,
+            0,
+            0
+          ],
+          "thigh_L": [
+            20,
+            0,
+            -2
+          ],
+          "shin_L": [
+            22,
+            0,
+            0
+          ],
+          "foot_L": [
+            -24,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -28,
+            0,
+            2
+          ],
+          "shin_R": [
+            10,
+            0,
+            0
+          ],
+          "foot_R": [
+            10,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 22,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          0.01
+        ],
+        "bones": {
+          "pelvis": [
+            3,
+            0,
+            -2
+          ],
+          "spine": [
+            3,
+            0,
+            2
+          ],
+          "chest": [
+            2,
+            0,
+            0
+          ],
+          "neck": [
+            -2,
+            0,
+            0
+          ],
+          "head": [
+            -2,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            4,
+            0,
+            -6
+          ],
+          "forearm_L": [
+            -20,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -4,
+            0,
+            6
+          ],
+          "forearm_R": [
+            -26,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -16,
+            0,
+            -2
+          ],
+          "shin_L": [
+            48,
+            0,
+            0
+          ],
+          "foot_L": [
+            -14,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -4,
+            0,
+            2
+          ],
+          "shin_R": [
+            8,
+            0,
+            0
+          ],
+          "foot_R": [
+            -4,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 28,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.04
+        ],
+        "bones": {
+          "pelvis": [
+            4,
+            7,
+            0
+          ],
+          "spine": [
+            4,
+            -5,
+            0
+          ],
+          "chest": [
+            2,
+            -5,
+            0
+          ],
+          "neck": [
+            -2,
+            3,
+            0
+          ],
+          "head": [
+            -2,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            18,
+            0,
+            -6
+          ],
+          "forearm_L": [
+            -22,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -26,
+            0,
+            6
+          ],
+          "forearm_R": [
+            -32,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -28,
+            0,
+            -2
+          ],
+          "shin_L": [
+            10,
+            0,
+            0
+          ],
+          "foot_L": [
+            10,
+            0,
+            0
+          ],
+          "thigh_R": [
+            20,
+            0,
+            2
+          ],
+          "shin_R": [
+            22,
+            0,
+            0
+          ],
+          "foot_R": [
+            -24,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "sprint-cycle": {
+    "category": "locomotion",
+    "description": "18-frame forward-leaning full sprint with high knee drive and pumping arms",
+    "cycle": true,
+    "length": 18,
+    "expression": "head-determined",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.08
+        ],
+        "bones": {
+          "pelvis": [
+            18,
+            12,
+            0
+          ],
+          "spine": [
+            10,
+            -8,
+            0
+          ],
+          "chest": [
+            8,
+            -8,
+            0
+          ],
+          "neck": [
+            -14,
+            4,
+            0
+          ],
+          "head": [
+            -12,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            42,
+            0,
+            -10
+          ],
+          "forearm_L": [
+            -86,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -56,
+            0,
+            10
+          ],
+          "forearm_R": [
+            -96,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -62,
+            0,
+            -3
+          ],
+          "shin_L": [
+            48,
+            0,
+            0
+          ],
+          "foot_L": [
+            8,
+            0,
+            0
+          ],
+          "thigh_R": [
+            34,
+            0,
+            3
+          ],
+          "shin_R": [
+            66,
+            0,
+            0
+          ],
+          "foot_R": [
+            -26,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 10,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.08
+        ],
+        "bones": {
+          "pelvis": [
+            18,
+            -12,
+            0
+          ],
+          "spine": [
+            10,
+            8,
+            0
+          ],
+          "chest": [
+            8,
+            8,
+            0
+          ],
+          "neck": [
+            -14,
+            -4,
+            0
+          ],
+          "head": [
+            -12,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -56,
+            0,
+            -10
+          ],
+          "forearm_L": [
+            -96,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            42,
+            0,
+            10
+          ],
+          "forearm_R": [
+            -86,
+            0,
+            0
+          ],
+          "thigh_L": [
+            34,
+            0,
+            -3
+          ],
+          "shin_L": [
+            66,
+            0,
+            0
+          ],
+          "foot_L": [
+            -26,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -62,
+            0,
+            3
+          ],
+          "shin_R": [
+            48,
+            0,
+            0
+          ],
+          "foot_R": [
+            8,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 18,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.08
+        ],
+        "bones": {
+          "pelvis": [
+            18,
+            12,
+            0
+          ],
+          "spine": [
+            10,
+            -8,
+            0
+          ],
+          "chest": [
+            8,
+            -8,
+            0
+          ],
+          "neck": [
+            -14,
+            4,
+            0
+          ],
+          "head": [
+            -12,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            42,
+            0,
+            -10
+          ],
+          "forearm_L": [
+            -86,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -56,
+            0,
+            10
+          ],
+          "forearm_R": [
+            -96,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -62,
+            0,
+            -3
+          ],
+          "shin_L": [
+            48,
+            0,
+            0
+          ],
+          "foot_L": [
+            8,
+            0,
+            0
+          ],
+          "thigh_R": [
+            34,
+            0,
+            3
+          ],
+          "shin_R": [
+            66,
+            0,
+            0
+          ],
+          "foot_R": [
+            -26,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "stealth-crouch-walk": {
+    "category": "locomotion",
+    "description": "Low crouched stealth creep with level gaze and forward-balanced hands",
+    "cycle": true,
+    "length": 36,
+    "expression": "head-sneak",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.24
+        ],
+        "bones": {
+          "pelvis": [
+            18,
+            6,
+            0
+          ],
+          "spine": [
+            16,
+            -4,
+            0
+          ],
+          "chest": [
+            10,
+            -4,
+            0
+          ],
+          "neck": [
+            -18,
+            2,
+            0
+          ],
+          "head": [
+            -18,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -38,
+            12,
+            -12
+          ],
+          "forearm_L": [
+            -72,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -24,
+            -12,
+            12
+          ],
+          "forearm_R": [
+            -86,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -64,
+            0,
+            -4
+          ],
+          "shin_L": [
+            68,
+            0,
+            0
+          ],
+          "foot_L": [
+            -6,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -16,
+            0,
+            4
+          ],
+          "shin_R": [
+            74,
+            0,
+            0
+          ],
+          "foot_R": [
+            -28,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 19,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.24
+        ],
+        "bones": {
+          "pelvis": [
+            18,
+            -6,
+            0
+          ],
+          "spine": [
+            16,
+            4,
+            0
+          ],
+          "chest": [
+            10,
+            4,
+            0
+          ],
+          "neck": [
+            -18,
+            -2,
+            0
+          ],
+          "head": [
+            -18,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -24,
+            12,
+            -12
+          ],
+          "forearm_L": [
+            -86,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -38,
+            -12,
+            12
+          ],
+          "forearm_R": [
+            -72,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -16,
+            0,
+            -4
+          ],
+          "shin_L": [
+            74,
+            0,
+            0
+          ],
+          "foot_L": [
+            -28,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -64,
+            0,
+            4
+          ],
+          "shin_R": [
+            68,
+            0,
+            0
+          ],
+          "foot_R": [
+            -6,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 36,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.24
+        ],
+        "bones": {
+          "pelvis": [
+            18,
+            6,
+            0
+          ],
+          "spine": [
+            16,
+            -4,
+            0
+          ],
+          "chest": [
+            10,
+            -4,
+            0
+          ],
+          "neck": [
+            -18,
+            2,
+            0
+          ],
+          "head": [
+            -18,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -38,
+            12,
+            -12
+          ],
+          "forearm_L": [
+            -72,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -24,
+            -12,
+            12
+          ],
+          "forearm_R": [
+            -86,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -64,
+            0,
+            -4
+          ],
+          "shin_L": [
+            68,
+            0,
+            0
+          ],
+          "foot_L": [
+            -6,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -16,
+            0,
+            4
+          ],
+          "shin_R": [
+            74,
+            0,
+            0
+          ],
+          "foot_R": [
+            -28,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "sit-chair-table": {
+    "category": "domestic",
+    "description": "Seated at a chair or table with forearms resting forward",
+    "cycle": false,
+    "length": 24,
+    "expression": "head",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.44
+        ],
+        "bones": {
+          "pelvis": [
+            4,
+            0,
+            0
+          ],
+          "spine": [
+            6,
+            0,
+            0
+          ],
+          "chest": [
+            4,
+            0,
+            0
+          ],
+          "neck": [
+            -4,
+            0,
+            0
+          ],
+          "head": [
+            -4,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -32,
+            8,
+            -10
+          ],
+          "forearm_L": [
+            -72,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -36,
+            -8,
+            10
+          ],
+          "forearm_R": [
+            -78,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -92,
+            0,
+            -6
+          ],
+          "shin_L": [
+            92,
+            0,
+            0
+          ],
+          "foot_L": [
+            0,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -92,
+            0,
+            6
+          ],
+          "shin_R": [
+            92,
+            0,
+            0
+          ],
+          "foot_R": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "reach-pickup-prop": {
+    "category": "domestic",
+    "description": "Leaning forward with right arm extended to reach/pick up an object on a table or counter",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-notice",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.06
+        ],
+        "bones": {
+          "pelvis": [
+            14,
+            -8,
+            0
+          ],
+          "spine": [
+            16,
+            -6,
+            0
+          ],
+          "chest": [
+            10,
+            -6,
+            0
+          ],
+          "neck": [
+            -8,
+            6,
+            0
+          ],
+          "head": [
+            8,
+            6,
+            0
+          ],
+          "upper_arm_L": [
+            10,
+            0,
+            -12
+          ],
+          "forearm_L": [
+            -32,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -76,
+            -8,
+            6
+          ],
+          "forearm_R": [
+            -22,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -22,
+            0,
+            -4
+          ],
+          "shin_L": [
+            24,
+            0,
+            0
+          ],
+          "foot_L": [
+            -2,
+            0,
+            0
+          ],
+          "thigh_R": [
+            12,
+            0,
+            4
+          ],
+          "shin_R": [
+            16,
+            0,
+            0
+          ],
+          "foot_R": [
+            -18,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "inspect-object-hand": {
+    "category": "domestic",
+    "description": "Holding a small prop/phone/flashlight up in front of chest and inspecting it closely (also great for pov-arms)",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-notice",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.02
+        ],
+        "bones": {
+          "pelvis": [
+            2,
+            -4,
+            0
+          ],
+          "spine": [
+            4,
+            2,
+            0
+          ],
+          "chest": [
+            4,
+            2,
+            0
+          ],
+          "neck": [
+            10,
+            0,
+            0
+          ],
+          "head": [
+            16,
+            -4,
+            4
+          ],
+          "upper_arm_L": [
+            -38,
+            18,
+            -12
+          ],
+          "forearm_L": [
+            -92,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -56,
+            -16,
+            10
+          ],
+          "forearm_R": [
+            -96,
+            0,
+            0
+          ],
+          "hand_R": [
+            -12,
+            18,
+            0
+          ],
+          "thigh_L": [
+            -8,
+            0,
+            -4
+          ],
+          "shin_L": [
+            10,
+            0,
+            0
+          ],
+          "thigh_R": [
+            4,
+            0,
+            4
+          ],
+          "shin_R": [
+            6,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "sip-eat-prop": {
+    "category": "domestic",
+    "description": "Raising right hand with cup/food toward mouth with head tilted slightly back",
+    "cycle": false,
+    "length": 24,
+    "expression": "head",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.02
+        ],
+        "bones": {
+          "pelvis": [
+            0,
+            -4,
+            0
+          ],
+          "spine": [
+            -2,
+            2,
+            0
+          ],
+          "chest": [
+            -3,
+            2,
+            0
+          ],
+          "neck": [
+            -8,
+            0,
+            0
+          ],
+          "head": [
+            -10,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -12,
+            8,
+            -8
+          ],
+          "forearm_L": [
+            -34,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -48,
+            -18,
+            12
+          ],
+          "forearm_R": [
+            -118,
+            0,
+            0
+          ],
+          "hand_R": [
+            14,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -6,
+            0,
+            -4
+          ],
+          "shin_L": [
+            8,
+            0,
+            0
+          ],
+          "thigh_R": [
+            4,
+            0,
+            4
+          ],
+          "shin_R": [
+            6,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "hunch-nausea-pain": {
+    "category": "domestic",
+    "description": "Doubled over clutching stomach/chest in acute pain or nausea",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-pain",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.14
+        ],
+        "bones": {
+          "pelvis": [
+            18,
+            0,
+            0
+          ],
+          "spine": [
+            32,
+            0,
+            0
+          ],
+          "chest": [
+            26,
+            0,
+            0
+          ],
+          "neck": [
+            14,
+            0,
+            0
+          ],
+          "head": [
+            16,
+            -6,
+            6
+          ],
+          "upper_arm_L": [
+            -44,
+            24,
+            10
+          ],
+          "forearm_L": [
+            -108,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -48,
+            -24,
+            -10
+          ],
+          "forearm_R": [
+            -112,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -38,
+            0,
+            -6
+          ],
+          "shin_L": [
+            44,
+            0,
+            0
+          ],
+          "foot_L": [
+            -6,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -28,
+            0,
+            6
+          ],
+          "shin_R": [
+            38,
+            0,
+            0
+          ],
+          "foot_R": [
+            -10,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "shiver-huddle": {
+    "category": "extremes",
+    "description": "Arms wrapped tightly across torso, hunched shoulders shivering in extreme cold",
+    "cycle": true,
+    "length": 12,
+    "expression": "head-strain",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.08
+        ],
+        "bones": {
+          "pelvis": [
+            10,
+            0,
+            2
+          ],
+          "spine": [
+            18,
+            0,
+            -2
+          ],
+          "chest": [
+            16,
+            0,
+            2
+          ],
+          "neck": [
+            12,
+            0,
+            0
+          ],
+          "head": [
+            10,
+            -4,
+            4
+          ],
+          "shoulder_L": [
+            0,
+            0,
+            12
+          ],
+          "shoulder_R": [
+            0,
+            0,
+            12
+          ],
+          "upper_arm_L": [
+            -38,
+            34,
+            8
+          ],
+          "forearm_L": [
+            -118,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -42,
+            -34,
+            -8
+          ],
+          "forearm_R": [
+            -122,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -24,
+            0,
+            -2
+          ],
+          "shin_L": [
+            28,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -18,
+            0,
+            2
+          ],
+          "shin_R": [
+            24,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 7,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.08
+        ],
+        "bones": {
+          "pelvis": [
+            10,
+            0,
+            -2
+          ],
+          "spine": [
+            19,
+            0,
+            2
+          ],
+          "chest": [
+            17,
+            0,
+            -2
+          ],
+          "neck": [
+            13,
+            0,
+            0
+          ],
+          "head": [
+            11,
+            4,
+            -4
+          ],
+          "shoulder_L": [
+            0,
+            0,
+            14
+          ],
+          "shoulder_R": [
+            0,
+            0,
+            14
+          ],
+          "upper_arm_L": [
+            -38,
+            36,
+            8
+          ],
+          "forearm_L": [
+            -120,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -42,
+            -36,
+            -8
+          ],
+          "forearm_R": [
+            -124,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -24,
+            0,
+            -2
+          ],
+          "shin_L": [
+            28,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -18,
+            0,
+            2
+          ],
+          "shin_R": [
+            24,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 12,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.08
+        ],
+        "bones": {
+          "pelvis": [
+            10,
+            0,
+            2
+          ],
+          "spine": [
+            18,
+            0,
+            -2
+          ],
+          "chest": [
+            16,
+            0,
+            2
+          ],
+          "neck": [
+            12,
+            0,
+            0
+          ],
+          "head": [
+            10,
+            -4,
+            4
+          ],
+          "shoulder_L": [
+            0,
+            0,
+            12
+          ],
+          "shoulder_R": [
+            0,
+            0,
+            12
+          ],
+          "upper_arm_L": [
+            -38,
+            34,
+            8
+          ],
+          "forearm_L": [
+            -118,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -42,
+            -34,
+            -8
+          ],
+          "forearm_R": [
+            -122,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -24,
+            0,
+            -2
+          ],
+          "shin_L": [
+            28,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -18,
+            0,
+            2
+          ],
+          "shin_R": [
+            24,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "brace-push-wall": {
+    "category": "extremes",
+    "description": "Heavy two-hand forward barricade push / wall brace with braced back leg",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-strain",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.1
+        ],
+        "bones": {
+          "pelvis": [
+            22,
+            0,
+            0
+          ],
+          "spine": [
+            14,
+            0,
+            0
+          ],
+          "chest": [
+            10,
+            0,
+            0
+          ],
+          "neck": [
+            -16,
+            0,
+            0
+          ],
+          "head": [
+            -12,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -92,
+            6,
+            -8
+          ],
+          "forearm_L": [
+            -18,
+            0,
+            0
+          ],
+          "hand_L": [
+            -68,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -92,
+            -6,
+            8
+          ],
+          "forearm_R": [
+            -18,
+            0,
+            0
+          ],
+          "hand_R": [
+            -68,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -50,
+            0,
+            -4
+          ],
+          "shin_L": [
+            46,
+            0,
+            0
+          ],
+          "foot_L": [
+            -4,
+            0,
+            0
+          ],
+          "thigh_R": [
+            26,
+            0,
+            4
+          ],
+          "shin_R": [
+            18,
+            0,
+            0
+          ],
+          "foot_R": [
+            -32,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "slip-fall-back": {
+    "category": "extremes",
+    "description": "Losing footing and pitching backward mid-slip with flailing arms",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-panic",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.18
+        ],
+        "bones": {
+          "pelvis": [
+            -34,
+            8,
+            6
+          ],
+          "spine": [
+            -14,
+            -4,
+            0
+          ],
+          "chest": [
+            -10,
+            -4,
+            0
+          ],
+          "neck": [
+            20,
+            0,
+            0
+          ],
+          "head": [
+            18,
+            -6,
+            0
+          ],
+          "upper_arm_L": [
+            -118,
+            -16,
+            -26
+          ],
+          "forearm_L": [
+            -32,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -86,
+            18,
+            32
+          ],
+          "forearm_R": [
+            -46,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -66,
+            0,
+            -8
+          ],
+          "shin_L": [
+            32,
+            0,
+            0
+          ],
+          "foot_L": [
+            24,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -22,
+            0,
+            8
+          ],
+          "shin_R": [
+            56,
+            0,
+            0
+          ],
+          "foot_R": [
+            -14,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "climb-stairs": {
+    "category": "extremes",
+    "description": "Athletic stair/ladder ascent with high lead knee and forward drive",
+    "cycle": true,
+    "length": 24,
+    "expression": "head-determined",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.05
+        ],
+        "bones": {
+          "pelvis": [
+            16,
+            6,
+            0
+          ],
+          "spine": [
+            12,
+            -4,
+            0
+          ],
+          "chest": [
+            8,
+            -4,
+            0
+          ],
+          "neck": [
+            -14,
+            2,
+            0
+          ],
+          "head": [
+            -12,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            22,
+            0,
+            -8
+          ],
+          "forearm_L": [
+            -74,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -62,
+            0,
+            8
+          ],
+          "forearm_R": [
+            -68,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -78,
+            0,
+            -3
+          ],
+          "shin_L": [
+            76,
+            0,
+            0
+          ],
+          "foot_L": [
+            -4,
+            0,
+            0
+          ],
+          "thigh_R": [
+            20,
+            0,
+            3
+          ],
+          "shin_R": [
+            20,
+            0,
+            0
+          ],
+          "foot_R": [
+            -26,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 13,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.05
+        ],
+        "bones": {
+          "pelvis": [
+            16,
+            -6,
+            0
+          ],
+          "spine": [
+            12,
+            4,
+            0
+          ],
+          "chest": [
+            8,
+            4,
+            0
+          ],
+          "neck": [
+            -14,
+            -2,
+            0
+          ],
+          "head": [
+            -12,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -62,
+            0,
+            -8
+          ],
+          "forearm_L": [
+            -68,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            22,
+            0,
+            8
+          ],
+          "forearm_R": [
+            -74,
+            0,
+            0
+          ],
+          "thigh_L": [
+            20,
+            0,
+            -3
+          ],
+          "shin_L": [
+            20,
+            0,
+            0
+          ],
+          "foot_L": [
+            -26,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -78,
+            0,
+            3
+          ],
+          "shin_R": [
+            76,
+            0,
+            0
+          ],
+          "foot_R": [
+            -4,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 24,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.05
+        ],
+        "bones": {
+          "pelvis": [
+            16,
+            6,
+            0
+          ],
+          "spine": [
+            12,
+            -4,
+            0
+          ],
+          "chest": [
+            8,
+            -4,
+            0
+          ],
+          "neck": [
+            -14,
+            2,
+            0
+          ],
+          "head": [
+            -12,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            22,
+            0,
+            -8
+          ],
+          "forearm_L": [
+            -74,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -62,
+            0,
+            8
+          ],
+          "forearm_R": [
+            -68,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -78,
+            0,
+            -3
+          ],
+          "shin_L": [
+            76,
+            0,
+            0
+          ],
+          "foot_L": [
+            -4,
+            0,
+            0
+          ],
+          "thigh_R": [
+            20,
+            0,
+            3
+          ],
+          "shin_R": [
+            20,
+            0,
+            0
+          ],
+          "foot_R": [
+            -26,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "bed-wake-situp": {
+    "category": "horror",
+    "description": "Bolting upright in bed with hands bracing mattress and startled expression",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-alarm",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.8
+        ],
+        "bones": {
+          "pelvis": [
+            -22,
+            0,
+            0
+          ],
+          "spine": [
+            26,
+            0,
+            0
+          ],
+          "chest": [
+            16,
+            0,
+            0
+          ],
+          "neck": [
+            -10,
+            0,
+            0
+          ],
+          "head": [
+            -8,
+            -10,
+            0
+          ],
+          "upper_arm_L": [
+            28,
+            0,
+            -18
+          ],
+          "forearm_L": [
+            -24,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            24,
+            0,
+            18
+          ],
+          "forearm_R": [
+            -28,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -72,
+            0,
+            -6
+          ],
+          "shin_L": [
+            22,
+            0,
+            0
+          ],
+          "foot_L": [
+            14,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -68,
+            0,
+            6
+          ],
+          "shin_R": [
+            26,
+            0,
+            0
+          ],
+          "foot_R": [
+            14,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "peek-around-corner": {
+    "category": "horror",
+    "description": "Leaning sideways around a doorframe with left hand bracing the jamb and right hand ready",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-sneak",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.06
+        ],
+        "bones": {
+          "pelvis": [
+            8,
+            10,
+            -8
+          ],
+          "spine": [
+            8,
+            6,
+            -10
+          ],
+          "chest": [
+            6,
+            6,
+            -8
+          ],
+          "neck": [
+            -6,
+            -8,
+            10
+          ],
+          "head": [
+            -6,
+            -12,
+            8
+          ],
+          "upper_arm_L": [
+            -56,
+            16,
+            -22
+          ],
+          "forearm_L": [
+            -62,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -52,
+            -14,
+            14
+          ],
+          "forearm_R": [
+            -84,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -22,
+            0,
+            -8
+          ],
+          "shin_L": [
+            26,
+            0,
+            0
+          ],
+          "thigh_R": [
+            8,
+            0,
+            8
+          ],
+          "shin_R": [
+            16,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "glance-back-startle": {
+    "category": "horror",
+    "description": "Sharp torso twist and alarmed glance back over right shoulder",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-alarm",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.04
+        ],
+        "bones": {
+          "pelvis": [
+            4,
+            -6,
+            0
+          ],
+          "spine": [
+            2,
+            -10,
+            0
+          ],
+          "chest": [
+            0,
+            -14,
+            0
+          ],
+          "neck": [
+            -2,
+            -18,
+            0
+          ],
+          "head": [
+            -2,
+            -22,
+            4
+          ],
+          "upper_arm_L": [
+            -28,
+            12,
+            -14
+          ],
+          "forearm_L": [
+            -66,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -18,
+            -14,
+            16
+          ],
+          "forearm_R": [
+            -78,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -18,
+            0,
+            -4
+          ],
+          "shin_L": [
+            20,
+            0,
+            0
+          ],
+          "thigh_R": [
+            12,
+            0,
+            4
+          ],
+          "shin_R": [
+            14,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "knockdown-ground-back": {
+    "category": "horror",
+    "description": "Knocked flat on back with defensive raised arms and bent legs bracing",
+    "cycle": false,
+    "length": 24,
+    "expression": "head-panic",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.78
+        ],
+        "bones": {
+          "pelvis": [
+            -78,
+            0,
+            0
+          ],
+          "spine": [
+            18,
+            0,
+            0
+          ],
+          "chest": [
+            14,
+            0,
+            0
+          ],
+          "neck": [
+            20,
+            0,
+            0
+          ],
+          "head": [
+            16,
+            -6,
+            0
+          ],
+          "upper_arm_L": [
+            -72,
+            18,
+            -16
+          ],
+          "forearm_L": [
+            -66,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -106,
+            -14,
+            18
+          ],
+          "forearm_R": [
+            -74,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -48,
+            0,
+            -10
+          ],
+          "shin_L": [
+            64,
+            0,
+            0
+          ],
+          "foot_L": [
+            -10,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -22,
+            0,
+            10
+          ],
+          "shin_R": [
+            42,
+            0,
+            0
+          ],
+          "foot_R": [
+            -8,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "crawl-scramble": {
+    "category": "horror",
+    "description": "Low hands-and-knees frantic crawl/scramble across floor",
+    "cycle": true,
+    "length": 24,
+    "expression": "head-dread",
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.5
+        ],
+        "bones": {
+          "pelvis": [
+            68,
+            6,
+            0
+          ],
+          "spine": [
+            12,
+            -4,
+            0
+          ],
+          "chest": [
+            6,
+            -4,
+            0
+          ],
+          "neck": [
+            -32,
+            0,
+            0
+          ],
+          "head": [
+            -30,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -116,
+            0,
+            -10
+          ],
+          "forearm_L": [
+            -16,
+            0,
+            0
+          ],
+          "hand_L": [
+            -62,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -74,
+            0,
+            10
+          ],
+          "forearm_R": [
+            -38,
+            0,
+            0
+          ],
+          "hand_R": [
+            -48,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -84,
+            0,
+            -8
+          ],
+          "shin_L": [
+            108,
+            0,
+            0
+          ],
+          "foot_L": [
+            -32,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -112,
+            0,
+            8
+          ],
+          "shin_R": [
+            116,
+            0,
+            0
+          ],
+          "foot_R": [
+            -36,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 13,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.5
+        ],
+        "bones": {
+          "pelvis": [
+            68,
+            -6,
+            0
+          ],
+          "spine": [
+            12,
+            4,
+            0
+          ],
+          "chest": [
+            6,
+            4,
+            0
+          ],
+          "neck": [
+            -32,
+            0,
+            0
+          ],
+          "head": [
+            -30,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -74,
+            0,
+            -10
+          ],
+          "forearm_L": [
+            -38,
+            0,
+            0
+          ],
+          "hand_L": [
+            -48,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -116,
+            0,
+            10
+          ],
+          "forearm_R": [
+            -16,
+            0,
+            0
+          ],
+          "hand_R": [
+            -62,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -112,
+            0,
+            -8
+          ],
+          "shin_L": [
+            116,
+            0,
+            0
+          ],
+          "foot_L": [
+            -36,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -84,
+            0,
+            8
+          ],
+          "shin_R": [
+            108,
+            0,
+            0
+          ],
+          "foot_R": [
+            -32,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "frame": 24,
+        "pelvis_loc": [
+          0.0,
+          0.0,
+          -0.5
+        ],
+        "bones": {
+          "pelvis": [
+            68,
+            6,
+            0
+          ],
+          "spine": [
+            12,
+            -4,
+            0
+          ],
+          "chest": [
+            6,
+            -4,
+            0
+          ],
+          "neck": [
+            -32,
+            0,
+            0
+          ],
+          "head": [
+            -30,
+            0,
+            0
+          ],
+          "upper_arm_L": [
+            -116,
+            0,
+            -10
+          ],
+          "forearm_L": [
+            -16,
+            0,
+            0
+          ],
+          "hand_L": [
+            -62,
+            0,
+            0
+          ],
+          "upper_arm_R": [
+            -74,
+            0,
+            10
+          ],
+          "forearm_R": [
+            -38,
+            0,
+            0
+          ],
+          "hand_R": [
+            -48,
+            0,
+            0
+          ],
+          "thigh_L": [
+            -84,
+            0,
+            -8
+          ],
+          "shin_L": [
+            108,
+            0,
+            0
+          ],
+          "foot_L": [
+            -32,
+            0,
+            0
+          ],
+          "thigh_R": [
+            -112,
+            0,
+            8
+          ],
+          "shin_R": [
+            116,
+            0,
+            0
+          ],
+          "foot_R": [
+            -36,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  }
+}

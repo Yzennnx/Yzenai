@@ -448,8 +448,8 @@ export function rigAt(scene, frame) {
   const t = frame / fps;
   const pelvis = sample(scene.pelvis, t);
   const chest = [...at(pelvis, 0, -28), sample(scene.chest, t)[0]];
-  const neck = [...at(chest, 3, -127), sample(scene.neck, t)[0]];
-  const head = [...at(neck, 0, -21), sample(scene.head, t)[0]];
+  const neck = [...at(chest, 3, -125), sample(scene.neck, t)[0]];
+  const head = [...at(neck, -1, -15), sample(scene.head, t)[0]];
   const [reachX, reachY] = sample(scene.shoulder, t);
   const wrists = [sample(scene.far, t), sample(scene.near, t)];
   const ankles = scene.feet(t);

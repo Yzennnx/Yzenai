@@ -410,9 +410,8 @@
     g.addColorStop(1, 'rgba(255, 52, 46, 0)');
     rect(g, 0, 0, W, H);
 
-    for (let i = 0; i < 4; i++) {
-      oval(cx + 124, cy - 56 + i * 44, 24, 15, '#d99e7e', '#253a3b', 2.4);
-    }
+    // Sculpted 2-Layer Phone Cradle Hand (BACK -> PHONE -> FRONT, ZERO oval fingers!)
+    window.drawWeaponHandBack(ctx, 'phone-cradle', cx, cy + 88, 2.02, 0, { bare: true, showSleeve: true });
 
     shape(`M${cx - 122} ${cy - 210} Q${cx - 122} ${cy - 228} ${cx - 104} ${cy - 228} H${cx + 104} Q${cx + 122} ${cy - 228} ${cx + 122} ${cy - 210} V${cy + 210} Q${cx + 122} ${cy + 228} ${cx + 104} ${cy + 228} H${cx - 104} Q${cx - 122} ${cy + 228} ${cx - 122} ${cy + 210}Z`, '#151c22', ink, 3.5);
     rect('#1a1014', cx - 110, cy - 206, 220, 412);
@@ -435,17 +434,8 @@
     rect('#85181b', cx - 106, cy + 150, 212, 34);
     label('00:14 AM  ·  SHELTER IN PLACE', cx, cy + 172, 12, '#fff7e5');
 
-    // Left-bezel gripping thumb & angled cream cuff
-    ctx.save();
-    ctx.translate(cx - 120, cy + 64);
-    shape('M-76 196 L-44 64 Q-32 8 -6 -14 Q16 -28 30 -12 Q42 4 22 26 Q8 42 4 64 L10 124 Q8 164 -10 196Z', '#e7ae87', '#253a3b', 2.8);
-    shape('M-24 62 Q-6 58 2 68', null, '#b98573', 1.6);
-    oval(14, -4, 9, 12, '#f1c2a8', '#b98573', 1.1);
-    ctx.translate(-46, 186);
-    ctx.rotate(0.24);
-    ctx.scale(1.85, 1.6);
-    drawCuff();
-    ctx.restore();
+    // Front layer: 4 sculpted curled fingers on left bezel + opposing thumb on right bezel!
+    window.drawWeaponHandFront(ctx, 'phone-cradle', cx, cy + 88, 2.02, 0, { bare: true });
     ctx.restore();
   }
 
@@ -879,42 +869,110 @@
     oval(245, 225, 36 * flk, 28 * flk, 'rgba(255, 112, 40, 0.65)');
     oval(245, 225, 18 * flk, 14 * flk, 'rgba(255, 220, 110, 0.85)');
 
-    // 1. Common Runners
+    // 1. Articulated Common Runners (high-angle striding legs, hunched torsos, bent reaching arms)
     for (let i = 0; i < 16; i++) {
       const rx = ((i * 88 + frame * (2.6 + (i % 3) * 1.1)) % 1160);
       const ry = 130 + ((i * 53) % 270) + Math.sin(frame * 0.45 + i) * 7;
-      oval(rx, ry + 14, 14, 5, '#070b0f88');
-      shape(`M${rx + 6} ${ry - 4} L${rx + 20} ${ry - 10} M${rx + 6} ${ry + 2} L${rx + 21} ${ry + 1}`, null, '#4c5e66', 3.4);
-      shape(`M${rx - 9} ${ry - 6} L${rx + 8} ${ry - 8} ${rx + 12} ${ry + 12} ${rx - 10} ${ry + 12}Z`, '#36444a', ink, 1.6);
-      oval(rx + 2, ry - 12, 7.5, 7.5, '#64757a', ink, 1.4);
+      const stride = Math.sin(frame * 0.55 + i * 1.7);
+      const coat = i % 3 === 0 ? '#39474d' : i % 3 === 1 ? '#453b38' : '#313d42';
+      ctx.save();
+      ctx.translate(rx, ry);
+      oval(0, 17, 15, 5.5, '#070b0f88');
+      // Back & front striding legs with bent knees
+      shape(`M-4 6 L${-6 - stride * 7} 13 L${-10 - stride * 10} 18`, null, '#1d252b', 4.2);
+      shape(`M3 6 L${7 + stride * 7} 12 L${10 + stride * 10} 17`, null, '#242e35', 4.2);
+      // Far reaching arm (elbow + forearm)
+      shape(`M5 -7 L${14 + stride * 3} -12 L${22 + stride * 4} -8`, null, '#5a6b6e', 3.2);
+      // Hunched forward-leaning torso & shoulders
+      shape('M-11 6 Q-12 -5 -4 -10 Q6 -12 11 -5 L9 8 Q0 11 -11 6 Z', coat, ink, 1.7);
+      // Near reaching arm with bent elbow
+      shape(`M4 -2 L${13 - stride * 3} 3 L${23 - stride * 3} 0`, null, '#6b7d80', 3.4);
+      // Forward-pitched head & neck
+      shape('M2 -10 L6 -14', null, '#56686b', 4);
+      oval(7, -15, 6.8, 6.2, '#6c7e80', ink, 1.5);
+      oval(10, -15, 1.4, 1.4, '#d95b52');
+      ctx.restore();
     }
 
-    // 2. Smoker-type
+    // 2. Articulated Smoker-type (gaunt hunched ribcage, bony asymmetrical clawed arms, pulsing spore cloud, coiled crimson tongue)
     const sx = 470 + Math.sin(frame * 0.08) * 10, sy = 155;
-    const smg = ctx.createRadialGradient(sx + Math.sin(frame * 0.08) * 12, sy - 6, 10, sx, sy, 96);
-    smg.addColorStop(0, 'rgba(104, 238, 122, 0.60)');
-    smg.addColorStop(0.55, 'rgba(92, 210, 110, 0.25)');
+    const smSway = Math.sin(frame * 0.22) * 3;
+    const smg = ctx.createRadialGradient(sx + Math.sin(frame * 0.08) * 12, sy - 6, 10, sx, sy, 98);
+    smg.addColorStop(0, 'rgba(104, 238, 122, 0.56)');
+    smg.addColorStop(0.55, 'rgba(92, 210, 110, 0.22)');
     smg.addColorStop(1, 'rgba(92, 210, 110, 0)');
     rect(smg, sx - 104, sy - 104, 208, 208);
-    shape(`M${sx - 10} ${sy - 16} L${sx - 28} ${sy + 6} M${sx + 12} ${sy - 16} L${sx + 32} ${sy - 2}`, null, '#2e453a', 4.5);
-    shape(`M${sx - 13} ${sy + 26} L${sx - 9} ${sy - 26} ${sx + 14} ${sy - 24} ${sx + 18} ${sy + 26}Z`, '#263830', ink, 2.2);
-    oval(sx + 6, sy - 32, 10.5, 10.5, '#4f6e5c', ink, 1.8);
-    oval(sx + 12, sy - 28, 3.5, 3.5, '#9eff9c');
-    shape(`M${sx + 14} ${sy - 26} Q${sx + 50} ${sy - 16 + Math.sin(frame * 0.4) * 11} ${sx + 84} ${sy - 2}`, null, '#b83c48', 3.4);
+    ctx.save();
+    ctx.translate(sx, sy);
+    oval(0, 32, 22, 7.5, '#070b0f88');
+    // Gaunt bent legs
+    shape('M-7 10 L-14 22 L-11 33 M8 10 L15 21 L18 32', null, '#1e2c26', 5.2);
+    // Long gaunt asymmetrical left arm (hunched elbow + drooping claw)
+    shape(`M-11 -16 L-26 -4 L-32 ${13 + smSway}`, null, '#2e453a', 4.8);
+    shape(`M-32 ${13 + smSway} L-37 ${19 + smSway} M-32 ${13 + smSway} L-28 ${20 + smSway}`, null, '#587866', 2.0);
+    // Hunched bony spine & torn dark jacket torso
+    shape('M-13 14 Q-18 -6 -10 -22 Q4 -28 15 -18 Q19 -4 13 14 Q0 18 -13 14 Z', '#24362e', ink, 2.2);
+    shape('M-6 -14 Q2 -16 9 -10 M-7 -5 Q2 -7 9 -2', null, '#3b5749', 1.6);
+    // Outstretched right arm reaching with crooked elbow + claws
+    shape(`M12 -14 L27 -10 L36 ${-2 - smSway}`, null, '#385446', 4.6);
+    shape(`M36 ${-2 - smSway} L42 ${-5 - smSway} M36 ${-2 - smSway} L41 ${3 - smSway}`, null, '#587866', 2.0);
+    // Hunched neck + sunken jaw & glowing green cheek boils
+    shape('M1 -21 L7 -28', null, '#476654', 6.5);
+    shape('M0 -37 Q10 -41 16 -33 Q18 -24 10 -21 Q2 -21 -2 -29 Z', '#51705e', ink, 1.9);
+    oval(11, -28, 3.8, 3.4, '#9eff9c', '#3c6e44', 1.0);
+    oval(5, -34, 2.6, 2.2, '#b4ff9c');
+    // Thick muscular coiling crimson tongue with wet specular line
+    const tw = Math.sin(frame * 0.4) * 12;
+    shape(`M14 -27 Q36 ${-20 + tw} 56 ${-10 - tw * 0.5} T88 ${-2 + tw * 0.3}`, null, '#a82d3a', 4.4);
+    shape(`M16 -27 Q36 ${-21 + tw} 56 ${-11 - tw * 0.5} T86 ${-3 + tw * 0.3}`, null, '#e36470', 1.4);
+    ctx.restore();
 
-    // 3. Boomer-type
+    // 3. Articulated Boomer-type (bloated gut with bile pustules, hunched shoulders, stubby splayed arms & legs)
     const bx = 695 + Math.sin(frame * 0.06) * 12, by = 365;
-    oval(bx, by + 26, 28, 10, '#070b0f88');
-    oval(bx, by, 28, 25, '#465242', ink, 2.4);
-    oval(bx, by - 26, 11, 10, '#62705a', ink, 1.8);
-    for (const [px, py] of [[-12, -4], [10, 4], [2, -12], [-6, 12]]) {
-      oval(bx + px, by + py, 5, 4, '#d9f26b', '#526324', 1);
+    const bWaddle = Math.sin(frame * 0.28) * 3;
+    ctx.save();
+    ctx.translate(bx, by);
+    oval(0, 29, 32, 10, '#070b0f88');
+    // Wide planted stubby legs
+    shape(`M-14 14 L-19 26 L-23 30 M14 14 L19 26 L23 30`, null, '#343e31', 7.5);
+    // Stubby splayed arms with bent elbows & hands
+    shape(`M-22 -8 L-34 ${2 + bWaddle} L-38 ${12 + bWaddle}`, null, '#4d5c48', 6.2);
+    shape(`M22 -8 L34 ${2 - bWaddle} L38 ${12 - bWaddle}`, null, '#4d5c48', 6.2);
+    // Hunched bloated torso + sagging abdomen
+    shape('M-24 -12 Q-16 -24 0 -24 Q16 -24 24 -12 Q32 4 24 19 Q0 29 -24 19 Q-32 4 -24 -12 Z', '#485443', ink, 2.4);
+    shape('M-18 6 Q0 16 18 6', null, '#323b2e', 1.8); // Belly fold crease
+    // Glowing bile pustules & blisters
+    for (const [px, py, pr] of [[-12, -5, 4.8], [11, 4, 5.2], [2, -13, 4.0], [-5, 11, 4.4], [15, -7, 3.4]]) {
+      oval(px, py, pr, pr * 0.82, '#d9f26b', '#526324', 1.2);
+      oval(px - 1, py - 1, pr * 0.35, pr * 0.35, '#f6ffba');
     }
+    // Swollen hunched head & neck
+    shape('M-9 -24 Q0 -38 11 -26 Q13 -16 0 -15 Q-11 -16 -9 -24 Z', '#62705a', ink, 2.0);
+    oval(4, -24, 2.2, 1.8, '#d9f26b');
+    ctx.restore();
 
-    // 4. Hooded Hunter-type vaulting cleanly across taxi -> van roof!
-    shape(`M${hx - 16} ${hy + 10} Q${hx} ${hy - 18} ${hx + 18} ${hy - 6} L${hx + 22} ${hy + 14} ${hx - 14} ${hy + 16}Z`, '#2a333d', ink, 2.2);
-    oval(hx + 12, hy - 10, 9, 9, '#3d4a57', ink, 1.8);
-    oval(hx + 16, hy - 11, 2.2, 2.2, '#ffd44d');
+    // 4. Articulated Hooded Hunter-type (crouched coil on taxi -> stretched mid-air pounce -> tucked landing!)
+    ctx.save();
+    ctx.translate(hx, hy);
+    const airborne = Math.sin(Math.PI * leap);
+    ctx.rotate(mix(-0.18, 0.24, leap) - airborne * 0.25);
+    if (airborne < 0.15) oval(0, 18, 22, 6, '#070b0f88');
+    // Athletic crouched / extended hind legs (coiled on roof, kicking back mid-leap!)
+    const legExt = airborne * 18;
+    shape(`M-12 6 L${-20 - legExt * 0.5} ${14 - legExt * 0.2} L${-12 - legExt} ${20 - legExt * 0.1}`, null, '#1e252c', 5.2);
+    shape(`M-6 8 L${-10 - legExt * 0.6} ${17 - legExt * 0.3} L${-2 - legExt * 1.1} ${22 - legExt * 0.2}`, null, '#28313b', 5.2);
+    // Arched hooded torso (dark torn blue-grey hoodie)
+    shape('M-18 8 Q-12 -12 8 -12 Q20 -10 22 2 L14 12 Q-4 14 -18 8 Z', '#2a3440', ink, 2.2);
+    shape('M-10 4 Q2 -4 14 2', null, '#3e4c5c', 1.5);
+    // Outstretched predatory arms with taped wrists & claws
+    const armReach = 8 + airborne * 12;
+    shape(`M12 -4 L${22 + armReach * 0.5} ${4 - airborne * 6} L${28 + armReach} ${10 - airborne * 10}`, null, '#333f4d', 4.6);
+    shape(`M${25 + armReach * 0.75} ${7 - airborne * 8} L${28 + armReach} ${10 - airborne * 10}`, null, '#cfc6b0', 4.4); // Taped wrist
+    shape(`M8 2 L${18 + armReach * 0.4} ${12 - airborne * 4} L${24 + armReach * 0.85} ${16 - airborne * 8}`, null, '#26303b', 4.4);
+    // Pointed hood & shadowed face with amber eyes
+    shape('M6 -14 Q16 -22 24 -12 Q25 -2 14 0 Q6 -4 6 -14 Z', '#364352', ink, 2.0);
+    oval(19, -9, 2.1, 1.8, '#ffd44d');
+    ctx.restore();
 
     ctx.restore();
     drawSirenWash(frame, 1.25);
@@ -967,7 +1025,7 @@
     drawSirenWash(frame, 0.75);
   }
 
-  // SHOT 11D (f1598..1705, 1:06.6..1:11.1): Studio SVG POV Knife Draw + Nightmare Roulette Metallic Star Glint Sweep!
+  // SHOT 11D (f1598..1705, 1:06.6..1:11.1): Vertical-Arm POV Knife Draw + Back->Knife->Front Grip + Star Glint Sweep!
   function drawShot11dPovKnife(frame) {
     rect('#121c24', 0, 0, W, H);
     rect('#253138', 0, 326, W, 214);
@@ -981,46 +1039,30 @@
     ctx.scale(zoom, zoom);
     ctx.translate(-480, -270);
 
+    // Vertical forearm rising cleanly from bottom-center-left; knife held horizontally/slightly angled!
     ctx.save();
-    ctx.translate(495, mix(356, 254, lift));
-    ctx.rotate(mix(0.28, -0.05, lift));
+    ctx.translate(390, mix(390, 286, lift));
+    ctx.rotate(mix(0.16, -0.04, lift));
 
-    // Studio SVG #bar-hold gripping right hand (with long cream sleeve off bottom-left) gripping the chef's knife!
-    // Gleaming stainless steel chef's kitchen knife blade
-    shape('M-20 -18 L224 -18 Q258 -14 286 18 L-20 34Z', '#c5d6df', ink, 2.8);
-    shape('M-20 -16 L224 -16 276 16 -20 12Z', '#eaf5fa');
+    // 1) BACK LAYER: Vertical cream shirt sleeve, flush cuff & rear palm behind the knife handle
+    window.drawWeaponHandBack(ctx, 'knife-grip', 0, 0, 2.05, 0, { bare: true, showSleeve: true });
+
+    // 2) PROP LAYER: Dark riveted chef's knife handle (butt extending cleanly past pinky) + gleaming steel blade
+    shape('M-94 -15 H48 V19 H-94 Q-108 2 -94 -15 Z', '#20282e', ink, 2.8);
+    for (const rx of [-76, -54]) oval(rx, 2, 4.2, 4.2, '#a6b5bd');
+    // Steel bolster + wide chef's blade emerging cleanly forward from index-finger/thumb web
+    shape('M46 -18 L60 -18 L60 28 L46 22 Z', '#9cb0ba', ink, 2.2);
+    shape('M58 -18 L314 -18 Q352 -14 384 16 Q290 36 58 32 Z', '#c5d6df', ink, 2.8);
+    shape('M60 -15 L312 -15 372 13 60 10 Z', '#eaf5fa');
     const glintT = tween(frame, 1644, 1692);
-    const glintX = mix(-6, 245, glintT);
-    shape(`M${glintX} -16 L${glintX + 26} -16 ${glintX + 10} 26 ${glintX - 16} 26Z`, 'rgba(255, 255, 255, 0.62)');
+    const glintX = mix(68, 336, glintT);
+    shape(`M${glintX} -16 L${glintX + 26} -16 ${glintX + 10} 26 ${glintX - 16} 26 Z`, 'rgba(255, 255, 255, 0.64)');
     if (glintT > 0.05 && glintT < 0.95) {
       drawStarGlint(glintX + 14, -4, 30 * Math.sin(Math.PI * glintT), 0.95);
     }
-    // Dark riveted knife handle
-    shape('M-154 -14 H-18 V24 H-154 Q-166 5 -154 -14Z', '#222a30', ink, 2.8);
-    for (const rx of [-126, -84, -44]) oval(rx, 5, 4, 4, '#a6b5bd');
 
-    // Studio SVG #bar-hold hand wrapped cleanly around the knife handle!
-    ctx.save();
-    ctx.translate(-82, 8);
-    ctx.rotate(-Math.PI / 2);
-    ctx.scale(1.42, 1.42);
-    ctx.translate(-126, -124);
-    // Long cream sleeve extending off left screen edge
-    shape('M88 64 L152 64 L178 -280 L64 -280Z', '#e8e1cc', '#253a3b', 2.4);
-    // Opposing thumb behind handle
-    shape('M100 105 Q90 108 85 119 Q79 130 82 143 Q82 151 88 155 Q93 159 100 155 Q104 153 104 148 Q104 144 98 143 L95 143 Q92 137 97 132 L111 119Z', '#c88e72', '#253a3b', 2.4);
-    // Four anatomically tapered fingers wrapping over handle!
-    shape('M99 61 Q102 72 96 83 Q90 95 91 109 Q91 118 95 123 Q97 130 98 147 Q98 158 101 162 Q106 168 112 162 Q115 159 115 151 L114 128 Q117 137 118 153 Q119 166 124 168 Q131 171 135 165 Q137 161 135 153 L132 128 Q136 136 139 153 Q141 163 146 163 Q154 163 155 156 Q156 151 152 142 L149 125 Q154 132 157 144 Q160 153 166 153 Q173 152 172 145 Q170 132 164 112 Q161 100 154 94 Q143 81 139 61Z', '#e7ae87', '#253a3b', 2.4);
-    shape('M139 63 Q143 80 154 94 Q161 100 164 112 L172 145 Q173 152 166 152 Q160 153 157 144 L150 123 Q156 117 154 110 Q148 99 140 93 Q130 82 130 63Z', '#c88e72');
-    shape('M98 106 Q98 88 106 79 Q117 77 133 87 Q143 94 146 104 Q133 102 124 105 Q110 106 98 106Z', '#f3c39d');
-    shape('M98 114 Q104 109 110 113 M117 116 Q123 110 129 114 M136 115 Q142 109 146 112 M153 117 L160 115 M101 136 Q106 133 111 135 M121 140 Q126 136 131 139 M140 138 L148 136 M158 136 L166 133', null, '#9e6755', 1.6);
-    ctx.save();
-    ctx.translate(118, 66);
-    ctx.rotate(Math.PI);
-    ctx.scale(0.83, 0.82);
-    drawCuff();
-    ctx.restore();
-    ctx.restore();
+    // 3) FRONT LAYER: 4 sculpted curled fingers wrapping over the handle + opposing thumb locked on TOP!
+    window.drawWeaponHandFront(ctx, 'knife-grip', 0, 0, 2.05, 0, { bare: true });
 
     ctx.restore();
     ctx.restore();
@@ -1059,30 +1101,41 @@
     ctx.scale(zoom, zoom);
     ctx.translate(-480, -270);
 
-    // Official Dramatic Low-Angle Front Series Lead (ZERO three-quarter! Exact drawAnatomyTurnaround with headPitch: -0.75!)
+    // Official Dramatic Low-Angle Front Series Lead (hideLimbs: true so both arms connect cleanly via 2-bone IK!)
     ctx.save();
     ctx.scale(1.06, 1.0);
     window.drawAnatomyTurnaround(ctx, 453, 1296 + breath, 2.52, 'front', {
-      hideLimbs: false,
+      hideLimbs: true,
       expression: 'head-determined',
       headPitch: -0.72,
       eyeOffset: [0, -1.0],
     });
     ctx.restore();
 
-    // Connected right forearm raising the gleaming stainless kitchen knife across lower-right foreground!
-    shape(`M${560} ${546 + breath} L${554} ${472 + breath} L${606} ${452 + breath} L${616} ${546 + breath}Z`, '#e8e1cc', '#253a3b', 3.0);
+    // Connected Left Arm hanging naturally down-left from real left shoulder
+    window.drawArmChain(ctx, [368, 412 + breath], [344, 640 + breath], {
+      upperLen: 126, lowerLen: 120, bendDir: 1, width: 42, cardboard: false, gloved: false,
+    });
+
+    // Connected Right Arm: elbow drops DOWNWARD (bendDir: 1) so forearm rises VERTICALLY to grip the chef's knife!
+    const wristX = 654, wristY = 452 + breath;
+    window.drawArmChain(ctx, [592, 412 + breath], [wristX, wristY + 18], {
+      upperLen: 126, lowerLen: 120, bendDir: 1, width: 42, cardboard: false, gloved: false,
+    });
+
+    // Sculpted 2-Layer Knife Grip (BACK -> KNIFE -> FRONT) anchored directly on his right wrist!
     ctx.save();
-    ctx.translate(596, 466 + breath);
-    ctx.rotate(-0.34);
-    shape('M12 -14 L156 -16 Q182 -12 196 12 L12 24Z', '#c9dbe4', ink, 2.8);
-    shape('M12 -12 L156 -14 188 10 12 8Z', '#eef7fc');
-    const glint = mix(20, 158, tween(frame, 1730, 1782));
-    shape(`M${glint} -14 L${glint + 22} -14 ${glint + 8} 18 ${glint - 14} 18Z`, 'rgba(255, 255, 255, 0.58)');
-    shape('M-54 -10 H14 V18 H-54Z', '#20282e', ink, 2.6);
-    shape('M-46 -22 Q-20 -32 8 -24 Q20 0 10 24 Q-18 32 -46 22Z', '#e7ae87', '#253a3b', 2.8);
-    for (const fx of [-30, -16, -2]) shape(`M${fx} -20 V20`, null, '#946450', 1.8);
-    shape('M-78 -23 L-44 -20 L-44 24 L-78 28Z', '#ede5d0', '#253a3b', 2.8);
+    ctx.translate(wristX, wristY);
+    ctx.rotate(-0.18);
+    window.drawWeaponHandBack(ctx, 'knife-grip', 0, 0, 1.24, 0, { bare: true });
+    shape('M-56 -9 H28 V12 H-56 Q-64 1 -56 -9 Z', '#20282e', ink, 2.4);
+    for (const rx of [-44, -30]) oval(rx, 1.5, 2.6, 2.6, '#a6b5bd');
+    shape('M26 -12 L35 -12 L35 17 L26 14 Z', '#9cb0ba', ink, 2.0);
+    shape('M34 -12 L182 -12 Q204 -10 220 10 Q168 23 34 20 Z', '#c9dbe4', ink, 2.6);
+    shape('M36 -10 L180 -10 212 8 36 6 Z', '#eef7fc');
+    const glint = mix(42, 184, tween(frame, 1730, 1782));
+    shape(`M${glint} -11 L${glint + 20} -11 ${glint + 8} 17 ${glint - 12} 17 Z`, 'rgba(255, 255, 255, 0.58)');
+    window.drawWeaponHandFront(ctx, 'knife-grip', 0, 0, 1.24, 0, { bare: true });
     ctx.restore();
 
     ctx.restore();
@@ -1160,7 +1213,7 @@
       // Shot 7 (0:29.3..0:33.9): Dynamic OpenToonz Heavy Barricade Shove sliding bookshelf flush against door!
       const shift = tween(frame, 725, 782);
       drawApartment(frame, { shelfShift: shift, gameScreenRed: true, chairShift: -1.8 });
-      await drawLead(cutout, mix(348, 246, shift), 466, 0.66, true);
+      await drawLead(cutout, mix(356, 254, shift), 466, 0.66, true);
     } else if (frame < 881) {
       // Shot 8A (0:33.9..0:36.7): Side walk right to fridge (with foreground doorframe parallax wipe!) & handle pull!
       const walkP = tween(frame, 814, 846);

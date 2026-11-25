@@ -33,6 +33,14 @@ Use this section for 3–5-minute episodes. Group the shots into beats and ident
 
 **Full-length rough cut and review notes** — Save path, runtime, and changes to pace, viewpoint continuity, or payoff.
 
+## New references needed (Approval Gate)
+
+Audit every shot against `tools/blender-rig/` (`cameras.json`, `actions.json`, `hand-poses.json`, `lighting.json`) and `assets/series-lead/` before production. **Do not begin episode animation until the user approves this table and all listed references are generated, visually verified, and registered into the shared library.** Write `None — all shots covered by existing universal references.` if no new references are needed.
+
+| Missing movement / angle / hand grip / prop | Shots needing it | Pipeline (3D Body Rig / 3D Hand Rig / 2D Close-Up) | Permanent target path | Approved |
+| --- | --- | --- | --- | --- |
+| | | | | [ ] |
+
 ## Motion briefs
 
 Copy this brief for the opening event, each major consequence, and any prop or surface contact that sells a story beat. Group actions in the same setup if one preview can verify them all.
@@ -41,7 +49,7 @@ Copy this brief for the opening event, each major consequence, and any prop or s
 
 - **Viewer takeaway** — The one action or reaction that must read on mute.
 - **Timing** — Episode time range, frame rate, and key frames or timestamps. Say whether frame numbers refer to the shot or the episode.
-- **Staging and reference** — Camera angle and crop (Front, Side, Back, or [cinematic angles](../assets/series-lead/angles-sheet.png): OTS, overhead, low/high — no three-quarter turnaround views), zoom or POV camera motion ([zoom & POV guide](../references/long-form-camera-voice/README.md#zooming-looking-around-pov-and-intensifying-motion)), screen direction, starting pose and prop positions. Use the [character motion index](../assets/series-lead/README.md#find-a-reference-by-action), [face expressions](../assets/series-lead/README.md#face-expressions), [face angles](../assets/series-lead/face-angles.png), [cinematic face & camera reel](../assets/series-lead/anatomy-prototype/cinematic-face-camera-reel.mp4), and [POV survival hands](../assets/series-lead/hands/pov-survival-sheet.png) to find the action, expression key, and view. In a saved episode plan, prefix those paths with `../../`. Link the specific clip, reaction sheet, or pose sheet and record the frame range or pose to study.
+- **Staging and reference** — Camera preset from `tools/blender-rig/cameras.json` ([8-angle sheet](../assets/series-lead/angles-sheet.png): `side`, `3q-front`, `3q-back-ots`, `low-24mm`, `high-cornered`, `overhead`, `pov-arms`, `pov-peek`, `floor-level`, `cctv-wide`), action preset from `actions.json` ([18-action sheet](../assets/series-lead/universal-actions-sheet.png)), lighting mood from `lighting.json`, 3-depth-plane staging ([framing cheat sheet](../assets/series-lead/framing-cheatsheet.png)), and hand/face references ([universal 3D hands](../assets/series-lead/hands/universal-hands-sheet.png), [face angles](../assets/series-lead/face-angles.png)). In a saved episode plan, prefix those paths with `../../`.
 - **Pose reference search** — Record the source for each distinct action, the camera angle and action phase it shows, and the detail to check. If the shared references lack a match, inspect a real photo or clip, or record a local reference. Note how the shot adapts the reference to its prop, angle, and contact.
 - **Contact and continuity** — Which part supports the body, which parts meet, the pickup and release points, and where props settle. Record the pose, expression, and prop state on either side of a cutaway where applicable.
 
@@ -58,7 +66,7 @@ Copy this brief for the opening event, each major consequence, and any prop or s
 ## Assets and render
 
 - Free local tools and fallback if a tool or model is unavailable
-- Reuse the [articulated series lead](../assets/series-lead/README.md) ([3-view turnaround](../assets/series-lead/reference-sheet.png), [cinematic anatomy angles](../assets/series-lead/angles-sheet.png), [front reactions](../assets/series-lead/reactions-front.png), [side reactions](../assets/series-lead/reactions-side.png), [face angles](../assets/series-lead/face-angles.png), [cinematic face & camera reel](../assets/series-lead/anatomy-prototype/cinematic-face-camera-reel.mp4), [POV survival hands](../assets/series-lead/hands/pov-survival-sheet.png), and [dynamic movement reel](../assets/series-lead/anatomy-prototype/dynamic-movements-reel.mp4)). In an episode plan, prefix those paths with `../../`. Record the views, expression keys (`head-*`), hand parts (`hand-*` / `pov-*`), zoom/parallax camera motions, and any outfit or condition changes.
+- Reuse the [articulated series lead](../assets/series-lead/README.md) ([3-view turnaround](../assets/series-lead/reference-sheet.png), [8-angle perspective sheet](../assets/series-lead/angles-sheet.png), [universal actions](../assets/series-lead/universal-actions-sheet.png), [universal 5-finger hands](../assets/series-lead/hands/universal-hands-sheet.png), [special infected 3D cast](../assets/series-lead/infected-sheet.png), [front reactions](../assets/series-lead/reactions-front.png), [side reactions](../assets/series-lead/reactions-side.png), [face angles](../assets/series-lead/face-angles.png), [framing cheat sheet](../assets/series-lead/framing-cheatsheet.png), and [hybrid seam check](../assets/series-lead/hybrid-seam-check.png)). In an episode plan, prefix those paths with `../../`. Record the rig (`--rig`), camera preset, action/hand-pose preset, lighting mood, expression keys (`head-*`), and any outfit or condition changes.
 - OpenToonz cutout layers, shot pose tracks, and how the episode render command calls the shared renderer for the preview and final
 - Short action previews and optional review reel. Start with roughly 3–5 previews of 2–6 seconds for a minute-long episode.
 - Remotion edit manifest, clean picture master, local audio, and caption cue file
