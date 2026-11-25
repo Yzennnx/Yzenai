@@ -491,11 +491,13 @@ PRESETS = {
     },
 }
 
-# Standard camera rigs matching our series cinematography rules (zero 3/4 turnarounds!)
+# Standard camera rigs matching our Hybrid 3D-to-2D cinematography rules (including 3/4 views)
 CAMERAS = {
     "side": {"pos": (4.2, 0.0, 1.0), "target": (0.0, 0.0, 0.92), "lens": 55},
     "front": {"pos": (0.0, -4.0, 1.05), "target": (0.0, 0.0, 0.95), "lens": 55},
     "back": {"pos": (0.0, 4.0, 1.05), "target": (0.0, 0.0, 0.95), "lens": 55},
+    "3q-front": {"pos": (1.6, -3.1, 1.05), "target": (0.0, 0.0, 0.92), "lens": 45},
+    "3q-back": {"pos": (-1.5, 3.0, 1.15), "target": (0.0, 0.0, 0.95), "lens": 45},
     "ots": {"pos": (-1.1, 2.3, 1.48), "target": (0.2, -1.5, 1.05), "lens": 42},
     "low-angle": {"pos": (0.0, -3.2, 0.38), "target": (0.0, 0.0, 1.15), "lens": 38},
     "high-angle": {"pos": (0.0, -3.1, 2.75), "target": (0.0, 0.0, 0.72), "lens": 42},

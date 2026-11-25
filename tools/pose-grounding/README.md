@@ -2,13 +2,12 @@
 
 Eliminates awkward hand-guessed poses across all episodes by combining:
 
-1. **Layer 1 — Headless Blender 3D-to-2D Mannequin Projector (`project-pose.py`)**
-   - Poses an anatomically proportioned 3D rig (`lead`, `witch`, `charger`, `tank`) with strict human joint limits from any camera angle (`side`, `front`, `back`, `ots`, `low-angle`, `high-angle`).
-   - Saves exact 2D projected joint coordinates + a mannequin silhouette SVG into `assets/series-lead/pose-library/`.
+1. **Layer 1 — Ad-Hoc Headless Blender 3D-to-2D Mannequin Projector (`project-pose.py`)**
+   - *Note:* The Series Lead (`lead-rig.blend`) and 5 Special Infected (`rig-3d/infected/*.blend`) now render directly as cel-shaded 3D rigs via [tools/blender-rig/render-shot.mjs](../blender-rig/render-shot.mjs). Use `project-pose.py` as an ad-hoc anatomical grounding fallback for one-off non-rigged 2D guest characters or creatures at any camera angle (`side`, `front`, `back`, `3q-front`, `3q-back`, `ots`, `low-angle`, `high-angle`).
    ```bash
    blender --background --python tools/pose-grounding/project-pose.py -- \
-     --preset lead-crouch-stealth --camera side \
-     --out assets/series-lead/pose-library/lead-crouch-stealth
+     --preset lead-crouch-stealth --camera 3q-front \
+     --out /tmp/guest-pose-guide
    ```
 
 2. **Layer 2 — Automated Biomechanical Validator (`validate-pose.mjs`)**

@@ -1,0 +1,619 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "fps": 24,
+    "armature": "InfectedArmature",
+    "rigs": ["hunter", "smoker", "witch", "charger", "tank"],
+    "convention": "Identical to actions.json. Bone rotations are local XYZ Euler degrees. Pelvis/spine/chest/neck/head: +X pitches forward, +Y yaws left (+X), +Z tilts. Arms: -X swings forward, -Z abducts Left outward, +Z abducts Right outward; forearm -X bends elbow forward. Legs: thigh -X raises leg forward, -Z abducts Left outward, +Z abducts Right outward; shin +X bends knee backward. All actions default to FK (ik=0) with automatic z=0 grounding."
+  },
+  "infected-idle": {
+    "category": "universal",
+    "description": "Menacing hunched 3/4 stance with subtle predatory breathing sway; works cleanly across all 5 infected rigs",
+    "cycle": true,
+    "length": 48,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, 0.0, -0.08],
+        "bones": {
+          "pelvis": [10, -8, 0],
+          "spine": [14, 5, 0],
+          "chest": [12, 4, 0],
+          "neck": [-14, -3, 0],
+          "head": [-14, -4, 4],
+          "upper_arm_L": [-22, 8, -14],
+          "forearm_L": [-46, 0, 0],
+          "hand_L": [14, 0, -6],
+          "upper_arm_R": [-28, -8, 14],
+          "forearm_R": [-52, 0, 0],
+          "hand_R": [16, 0, 6],
+          "thigh_L": [-24, 0, -8],
+          "shin_L": [32, 0, 0],
+          "foot_L": [-8, 0, 0],
+          "thigh_R": [8, 0, 8],
+          "shin_R": [18, 0, 0],
+          "foot_R": [-16, 0, 0]
+        }
+      },
+      {
+        "frame": 25,
+        "pelvis_loc": [0.0, 0.0, -0.05],
+        "bones": {
+          "pelvis": [8, -6, 0],
+          "spine": [11, 4, 0],
+          "chest": [9, 3, 0],
+          "neck": [-11, -2, 0],
+          "head": [-11, -2, 2],
+          "upper_arm_L": [-25, 8, -16],
+          "forearm_L": [-50, 0, 0],
+          "hand_L": [16, 0, -6],
+          "upper_arm_R": [-32, -8, 16],
+          "forearm_R": [-56, 0, 0],
+          "hand_R": [18, 0, 6],
+          "thigh_L": [-20, 0, -8],
+          "shin_L": [28, 0, 0],
+          "foot_L": [-8, 0, 0],
+          "thigh_R": [6, 0, 8],
+          "shin_R": [16, 0, 0],
+          "foot_R": [-14, 0, 0]
+        }
+      },
+      {
+        "frame": 48,
+        "pelvis_loc": [0.0, 0.0, -0.08],
+        "bones": {
+          "pelvis": [10, -8, 0],
+          "spine": [14, 5, 0],
+          "chest": [12, 4, 0],
+          "neck": [-14, -3, 0],
+          "head": [-14, -4, 4],
+          "upper_arm_L": [-22, 8, -14],
+          "forearm_L": [-46, 0, 0],
+          "hand_L": [14, 0, -6],
+          "upper_arm_R": [-28, -8, 14],
+          "forearm_R": [-52, 0, 0],
+          "hand_R": [16, 0, 6],
+          "thigh_L": [-24, 0, -8],
+          "shin_L": [32, 0, 0],
+          "foot_L": [-8, 0, 0],
+          "thigh_R": [8, 0, 8],
+          "shin_R": [18, 0, 0],
+          "foot_R": [-16, 0, 0]
+        }
+      }
+    ]
+  },
+  "hunter-crouch-perch": {
+    "category": "hunter",
+    "description": "Coiled low awning perch crouch with wide knees, hunched hoodie silhouette, and clawed hands poised to spring",
+    "cycle": true,
+    "length": 48,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, 0.0, -0.34],
+        "bones": {
+          "pelvis": [26, -4, 0],
+          "spine": [22, 3, 0],
+          "chest": [18, 2, 0],
+          "neck": [-24, -2, 0],
+          "head": [-24, -2, 3],
+          "upper_arm_L": [-46, 12, -18],
+          "forearm_L": [-74, 0, 0],
+          "hand_L": [24, 0, -10],
+          "upper_arm_R": [-52, -12, 18],
+          "forearm_R": [-68, 0, 0],
+          "hand_R": [26, 0, 10],
+          "thigh_L": [-88, 0, -20],
+          "shin_L": [112, 0, 0],
+          "foot_L": [-24, 0, 0],
+          "thigh_R": [-82, 0, 20],
+          "shin_R": [108, 0, 0],
+          "foot_R": [-26, 0, 0]
+        }
+      },
+      {
+        "frame": 25,
+        "pelvis_loc": [0.0, 0.0, -0.37],
+        "bones": {
+          "pelvis": [29, -4, 0],
+          "spine": [24, 3, 0],
+          "chest": [20, 2, 0],
+          "neck": [-26, -2, 0],
+          "head": [-26, 0, -2],
+          "upper_arm_L": [-50, 14, -20],
+          "forearm_L": [-78, 0, 0],
+          "hand_L": [28, 0, -10],
+          "upper_arm_R": [-56, -14, 20],
+          "forearm_R": [-72, 0, 0],
+          "hand_R": [28, 0, 10],
+          "thigh_L": [-92, 0, -22],
+          "shin_L": [116, 0, 0],
+          "foot_L": [-24, 0, 0],
+          "thigh_R": [-86, 0, 22],
+          "shin_R": [112, 0, 0],
+          "foot_R": [-26, 0, 0]
+        }
+      },
+      {
+        "frame": 48,
+        "pelvis_loc": [0.0, 0.0, -0.34],
+        "bones": {
+          "pelvis": [26, -4, 0],
+          "spine": [22, 3, 0],
+          "chest": [18, 2, 0],
+          "neck": [-24, -2, 0],
+          "head": [-24, -2, 3],
+          "upper_arm_L": [-46, 12, -18],
+          "forearm_L": [-74, 0, 0],
+          "hand_L": [24, 0, -10],
+          "upper_arm_R": [-52, -12, 18],
+          "forearm_R": [-68, 0, 0],
+          "hand_R": [26, 0, 10],
+          "thigh_L": [-88, 0, -20],
+          "shin_L": [112, 0, 0],
+          "foot_L": [-24, 0, 0],
+          "thigh_R": [-82, 0, 20],
+          "shin_R": [108, 0, 0],
+          "foot_R": [-26, 0, 0]
+        }
+      }
+    ]
+  },
+  "hunter-pounce-launch": {
+    "category": "hunter",
+    "description": "Explosive diagonal forward lunge with clawed arms reaching forward and hind legs driving back",
+    "cycle": false,
+    "length": 24,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, -0.08, 0.04],
+        "bones": {
+          "pelvis": [46, -6, 0],
+          "spine": [16, 4, 0],
+          "chest": [12, 4, 0],
+          "neck": [-32, -2, 0],
+          "head": [-30, -2, 0],
+          "upper_arm_L": [-116, 10, -18],
+          "forearm_L": [-28, 0, 0],
+          "hand_L": [-18, 0, -12],
+          "upper_arm_R": [-124, -10, 18],
+          "forearm_R": [-24, 0, 0],
+          "hand_R": [-20, 0, 12],
+          "thigh_L": [26, 0, -10],
+          "shin_L": [36, 0, 0],
+          "foot_L": [-32, 0, 0],
+          "thigh_R": [42, 0, 10],
+          "shin_R": [22, 0, 0],
+          "foot_R": [-38, 0, 0]
+        }
+      },
+      {
+        "frame": 12,
+        "pelvis_loc": [0.0, -0.14, 0.08],
+        "bones": {
+          "pelvis": [52, -4, 0],
+          "spine": [18, 3, 0],
+          "chest": [14, 3, 0],
+          "neck": [-36, -2, 0],
+          "head": [-32, 0, 0],
+          "upper_arm_L": [-126, 8, -16],
+          "forearm_L": [-20, 0, 0],
+          "hand_L": [-22, 0, -10],
+          "upper_arm_R": [-132, -8, 16],
+          "forearm_R": [-18, 0, 0],
+          "hand_R": [-24, 0, 10],
+          "thigh_L": [38, 0, -8],
+          "shin_L": [26, 0, 0],
+          "foot_L": [-36, 0, 0],
+          "thigh_R": [48, 0, 8],
+          "shin_R": [18, 0, 0],
+          "foot_R": [-42, 0, 0]
+        }
+      }
+    ]
+  },
+  "hunter-ground-pin": {
+    "category": "hunter",
+    "description": "Low straddling ground-pin crouch leaning forward with aggressive right-claw slash",
+    "cycle": false,
+    "length": 24,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, 0.0, -0.38],
+        "bones": {
+          "pelvis": [32, -10, 0],
+          "spine": [24, 10, 0],
+          "chest": [18, 12, 0],
+          "neck": [-18, -6, 0],
+          "head": [-16, -6, 6],
+          "upper_arm_L": [-56, 16, -20],
+          "forearm_L": [-44, 0, 0],
+          "hand_L": [32, 0, -8],
+          "upper_arm_R": [-92, -26, 24],
+          "forearm_R": [-56, 0, 0],
+          "hand_R": [18, 0, 14],
+          "thigh_L": [-84, 0, -24],
+          "shin_L": [110, 0, 0],
+          "foot_L": [-26, 0, 0],
+          "thigh_R": [-80, 0, 24],
+          "shin_R": [106, 0, 0],
+          "foot_R": [-26, 0, 0]
+        }
+      },
+      {
+        "frame": 12,
+        "pelvis_loc": [0.0, -0.04, -0.40],
+        "bones": {
+          "pelvis": [36, 12, 0],
+          "spine": [26, -12, 0],
+          "chest": [20, -14, 0],
+          "neck": [-20, 8, 0],
+          "head": [-18, 6, -6],
+          "upper_arm_L": [-62, 18, -18],
+          "forearm_L": [-48, 0, 0],
+          "hand_L": [34, 0, -8],
+          "upper_arm_R": [-72, 22, 10],
+          "forearm_R": [-38, 0, 0],
+          "hand_R": [-14, 0, 12],
+          "thigh_L": [-86, 0, -24],
+          "shin_L": [112, 0, 0],
+          "foot_L": [-26, 0, 0],
+          "thigh_R": [-82, 0, 24],
+          "shin_R": [108, 0, 0],
+          "foot_R": [-26, 0, 0]
+        }
+      }
+    ]
+  },
+  "smoker-rooftop-snare": {
+    "category": "smoker",
+    "description": "Tall gaunt hunched rooftop silhouette with neck craned forward and arms bracing tongue tension",
+    "cycle": true,
+    "length": 48,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, 0.0, -0.05],
+        "bones": {
+          "pelvis": [8, -10, 0],
+          "spine": [20, 6, 0],
+          "chest": [24, 6, 0],
+          "neck": [24, -4, 0],
+          "head": [-30, -4, 6],
+          "upper_arm_L": [-28, 12, -20],
+          "forearm_L": [-62, 0, 0],
+          "hand_L": [20, 0, -10],
+          "upper_arm_R": [-42, -14, 22],
+          "forearm_R": [-54, 0, 0],
+          "hand_R": [18, 0, 12],
+          "thigh_L": [-26, 0, -10],
+          "shin_L": [34, 0, 0],
+          "foot_L": [-8, 0, 0],
+          "thigh_R": [18, 0, 10],
+          "shin_R": [16, 0, 0],
+          "foot_R": [-20, 0, 0]
+        }
+      },
+      {
+        "frame": 25,
+        "pelvis_loc": [0.0, 0.02, -0.07],
+        "bones": {
+          "pelvis": [4, -10, 0],
+          "spine": [18, 6, 0],
+          "chest": [22, 6, 0],
+          "neck": [28, -4, 0],
+          "head": [-34, -2, 8],
+          "upper_arm_L": [-34, 14, -22],
+          "forearm_L": [-68, 0, 0],
+          "hand_L": [24, 0, -10],
+          "upper_arm_R": [-48, -16, 24],
+          "forearm_R": [-60, 0, 0],
+          "hand_R": [22, 0, 12],
+          "thigh_L": [-28, 0, -10],
+          "shin_L": [38, 0, 0],
+          "foot_L": [-10, 0, 0],
+          "thigh_R": [20, 0, 10],
+          "shin_R": [18, 0, 0],
+          "foot_R": [-22, 0, 0]
+        }
+      },
+      {
+        "frame": 48,
+        "pelvis_loc": [0.0, 0.0, -0.05],
+        "bones": {
+          "pelvis": [8, -10, 0],
+          "spine": [20, 6, 0],
+          "chest": [24, 6, 0],
+          "neck": [24, -4, 0],
+          "head": [-30, -4, 6],
+          "upper_arm_L": [-28, 12, -20],
+          "forearm_L": [-62, 0, 0],
+          "hand_L": [20, 0, -10],
+          "upper_arm_R": [-42, -14, 22],
+          "forearm_R": [-54, 0, 0],
+          "hand_R": [18, 0, 12],
+          "thigh_L": [-26, 0, -10],
+          "shin_L": [34, 0, 0],
+          "foot_L": [-8, 0, 0],
+          "thigh_R": [18, 0, 10],
+          "shin_R": [16, 0, 0],
+          "foot_R": [-20, 0, 0]
+        }
+      }
+    ]
+  },
+  "witch-sobbing": {
+    "category": "witch",
+    "description": "Deep crouched weep with head buried downward and elongated clawed hands covering face",
+    "cycle": true,
+    "length": 48,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, 0.0, -0.44],
+        "bones": {
+          "pelvis": [16, 0, 0],
+          "spine": [26, 0, 0],
+          "chest": [24, 0, 0],
+          "neck": [24, 0, 0],
+          "head": [28, 0, 4],
+          "upper_arm_L": [-58, 22, -10],
+          "forearm_L": [-124, 0, 0],
+          "hand_L": [22, 16, -8],
+          "upper_arm_R": [-60, -22, 10],
+          "forearm_R": [-126, 0, 0],
+          "hand_R": [22, -16, 8],
+          "thigh_L": [-106, 0, -10],
+          "shin_L": [122, 0, 0],
+          "foot_L": [-16, 0, 0],
+          "thigh_R": [-104, 0, 10],
+          "shin_R": [120, 0, 0],
+          "foot_R": [-16, 0, 0]
+        }
+      },
+      {
+        "frame": 25,
+        "pelvis_loc": [0.0, 0.0, -0.45],
+        "bones": {
+          "pelvis": [18, 0, 0],
+          "spine": [30, 0, 2],
+          "chest": [28, 0, -2],
+          "neck": [26, 0, 0],
+          "head": [32, 0, -4],
+          "upper_arm_L": [-62, 24, -8],
+          "forearm_L": [-128, 0, 0],
+          "hand_L": [24, 18, -8],
+          "upper_arm_R": [-64, -24, 8],
+          "forearm_R": [-130, 0, 0],
+          "hand_R": [24, -18, 8],
+          "thigh_L": [-108, 0, -10],
+          "shin_L": [124, 0, 0],
+          "foot_L": [-16, 0, 0],
+          "thigh_R": [-106, 0, 10],
+          "shin_R": [122, 0, 0],
+          "foot_R": [-16, 0, 0]
+        }
+      },
+      {
+        "frame": 48,
+        "pelvis_loc": [0.0, 0.0, -0.44],
+        "bones": {
+          "pelvis": [16, 0, 0],
+          "spine": [26, 0, 0],
+          "chest": [24, 0, 0],
+          "neck": [24, 0, 0],
+          "head": [28, 0, 4],
+          "upper_arm_L": [-58, 22, -10],
+          "forearm_L": [-124, 0, 0],
+          "hand_L": [22, 16, -8],
+          "upper_arm_R": [-60, -22, 10],
+          "forearm_R": [-126, 0, 0],
+          "hand_R": [22, -16, 8],
+          "thigh_L": [-106, 0, -10],
+          "shin_L": [122, 0, 0],
+          "foot_L": [-16, 0, 0],
+          "thigh_R": [-104, 0, 10],
+          "shin_R": [120, 0, 0],
+          "foot_R": [-16, 0, 0]
+        }
+      }
+    ]
+  },
+  "witch-alert-lift": {
+    "category": "witch",
+    "description": "Startled crouch-rise with head snapped up toward camera and elongated clawed forearms raised defensively",
+    "cycle": false,
+    "length": 24,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, 0.0, -0.22],
+        "bones": {
+          "pelvis": [14, -6, 0],
+          "spine": [12, 4, 0],
+          "chest": [8, 4, 0],
+          "neck": [-16, -2, 0],
+          "head": [-18, -2, 9],
+          "upper_arm_L": [-62, -16, -34],
+          "forearm_L": [-52, 0, 0],
+          "hand_L": [-16, 0, -18],
+          "upper_arm_R": [-62, 16, 34],
+          "forearm_R": [-52, 0, 0],
+          "hand_R": [-16, 0, 18],
+          "thigh_L": [-62, 0, -14],
+          "shin_L": [74, 0, 0],
+          "foot_L": [-12, 0, 0],
+          "thigh_R": [-54, 0, 14],
+          "shin_R": [66, 0, 0],
+          "foot_R": [-12, 0, 0]
+        }
+      },
+      {
+        "frame": 16,
+        "pelvis_loc": [0.0, 0.0, -0.10],
+        "bones": {
+          "pelvis": [10, -4, 0],
+          "spine": [8, 3, 0],
+          "chest": [6, 3, 0],
+          "neck": [-12, -2, 0],
+          "head": [-14, -2, 11],
+          "upper_arm_L": [-68, 12, -32],
+          "forearm_L": [-76, 0, 0],
+          "hand_L": [-20, 0, -18],
+          "upper_arm_R": [-74, -12, 32],
+          "forearm_R": [-80, 0, 0],
+          "hand_R": [-22, 0, 18],
+          "thigh_L": [-38, 0, -12],
+          "shin_L": [46, 0, 0],
+          "foot_L": [-8, 0, 0],
+          "thigh_R": [-32, 0, 12],
+          "shin_R": [40, 0, 0],
+          "foot_R": [-8, 0, 0]
+        }
+      }
+    ]
+  },
+  "charger-bull-charge": {
+    "category": "charger",
+    "description": "Heavy forward-leaning bull rush with massive right shoulder/arm cocked forward and shriveled left arm swept back",
+    "cycle": true,
+    "length": 24,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, -0.04, -0.12],
+        "bones": {
+          "pelvis": [24, -14, 0],
+          "spine": [18, -8, 0],
+          "chest": [16, -10, 4],
+          "neck": [-18, 14, 0],
+          "head": [-16, 12, -4],
+          "upper_arm_L": [38, 8, -14],
+          "forearm_L": [-36, 0, 0],
+          "hand_L": [10, 0, 0],
+          "upper_arm_R": [-68, -22, 14],
+          "forearm_R": [-64, 0, 0],
+          "hand_R": [18, 0, 10],
+          "thigh_L": [-48, 0, -10],
+          "shin_L": [52, 0, 0],
+          "foot_L": [-4, 0, 0],
+          "thigh_R": [24, 0, 10],
+          "shin_R": [28, 0, 0],
+          "foot_R": [-18, 0, 0]
+        }
+      },
+      {
+        "frame": 13,
+        "pelvis_loc": [0.0, -0.04, -0.10],
+        "bones": {
+          "pelvis": [26, -10, 0],
+          "spine": [20, -10, 0],
+          "chest": [18, -12, 4],
+          "neck": [-20, 14, 0],
+          "head": [-18, 12, -4],
+          "upper_arm_L": [44, 10, -16],
+          "forearm_L": [-42, 0, 0],
+          "hand_L": [12, 0, 0],
+          "upper_arm_R": [-74, -24, 16],
+          "forearm_R": [-68, 0, 0],
+          "hand_R": [20, 0, 10],
+          "thigh_L": [30, 0, -10],
+          "shin_L": [44, 0, 0],
+          "foot_L": [-26, 0, 0],
+          "thigh_R": [-50, 0, 10],
+          "shin_R": [54, 0, 0],
+          "foot_R": [-4, 0, 0]
+        }
+      },
+      {
+        "frame": 24,
+        "pelvis_loc": [0.0, -0.04, -0.12],
+        "bones": {
+          "pelvis": [24, -14, 0],
+          "spine": [18, -8, 0],
+          "chest": [16, -10, 4],
+          "neck": [-18, 14, 0],
+          "head": [-16, 12, -4],
+          "upper_arm_L": [38, 8, -14],
+          "forearm_L": [-36, 0, 0],
+          "hand_L": [10, 0, 0],
+          "upper_arm_R": [-68, -22, 14],
+          "forearm_R": [-64, 0, 0],
+          "hand_R": [18, 0, 10],
+          "thigh_L": [-48, 0, -10],
+          "shin_L": [52, 0, 0],
+          "foot_L": [-4, 0, 0],
+          "thigh_R": [24, 0, 10],
+          "shin_R": [28, 0, 0],
+          "foot_R": [-18, 0, 0]
+        }
+      }
+    ]
+  },
+  "tank-slab-heave": {
+    "category": "tank",
+    "description": "Wide planted power stance with both massive arms raised overhead gripping a concrete slab",
+    "cycle": false,
+    "length": 24,
+    "auto_ground": true,
+    "keyframes": [
+      {
+        "frame": 1,
+        "pelvis_loc": [0.0, 0.0, -0.10],
+        "bones": {
+          "pelvis": [8, -6, 0],
+          "spine": [-6, 4, 0],
+          "chest": [-10, 4, 0],
+          "neck": [8, -2, 0],
+          "head": [10, -2, 0],
+          "upper_arm_L": [-152, 16, -18],
+          "forearm_L": [-34, 0, 0],
+          "hand_L": [16, 14, -10],
+          "upper_arm_R": [-152, -16, 18],
+          "forearm_R": [-34, 0, 0],
+          "hand_R": [16, -14, 10],
+          "thigh_L": [-24, 0, -18],
+          "shin_L": [34, 0, 0],
+          "foot_L": [-10, 0, 0],
+          "thigh_R": [-18, 0, 18],
+          "shin_R": [28, 0, 0],
+          "foot_R": [-10, 0, 0]
+        }
+      },
+      {
+        "frame": 14,
+        "pelvis_loc": [0.0, -0.06, -0.14],
+        "bones": {
+          "pelvis": [18, -4, 0],
+          "spine": [12, 3, 0],
+          "chest": [14, 3, 0],
+          "neck": [-10, -2, 0],
+          "head": [-8, -2, 0],
+          "upper_arm_L": [-98, 12, -14],
+          "forearm_L": [-22, 0, 0],
+          "hand_L": [-12, 10, -8],
+          "upper_arm_R": [-98, -12, 14],
+          "forearm_R": [-22, 0, 0],
+          "hand_R": [-12, -10, 8],
+          "thigh_L": [-34, 0, -18],
+          "shin_L": [44, 0, 0],
+          "foot_L": [-10, 0, 0],
+          "thigh_R": [-12, 0, 18],
+          "shin_R": [24, 0, 0],
+          "foot_R": [-12, 0, 0]
+        }
+      }
+    ]
+  }
+}

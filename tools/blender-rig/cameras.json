@@ -1,0 +1,112 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "default_resolution": [1080, 1920],
+    "character_height_m": 1.70,
+    "character_facing": "-Y",
+    "up_axis": "+Z",
+    "notes": "All 10 universal camera presets calibrated for 9:16 portrait framing (1080x1920) with configurable width/height overrides."
+  },
+  "side": {
+    "description": "Classic profile action & parity check against legacy 2D side rig",
+    "lens": 55.0,
+    "sensor_width": 36.0,
+    "pos": [3.55, 0.0, 0.92],
+    "target": [0.0, 0.0, 0.88],
+    "roll_deg": 0.0,
+    "lineart_radius": 0.0075,
+    "sway": {"amp_pos": 0.0, "amp_rot_deg": 0.0, "freq": 0.0}
+  },
+  "3q-front": {
+    "description": "Hero 3/4 diagonal walk/approach; breaks symmetrical front-view stiffness",
+    "lens": 45.0,
+    "sensor_width": 36.0,
+    "pos": [1.45, -2.85, 1.02],
+    "target": [0.0, 0.0, 0.88],
+    "roll_deg": 0.0,
+    "lineart_radius": 0.0075,
+    "sway": {"amp_pos": 0.008, "amp_rot_deg": 0.25, "freq": 0.6}
+  },
+  "3q-back-ots": {
+    "description": "Over-the-shoulder 3/4 back framing cheek/jaw + right shoulder on rule-of-thirds edge looking down corridor",
+    "lens": 38.0,
+    "sensor_width": 36.0,
+    "pos": [-0.52, 0.86, 1.54],
+    "target": [0.16, -2.2, 1.24],
+    "roll_deg": 0.0,
+    "lineart_radius": 0.0055,
+    "sway": {"amp_pos": 0.006, "amp_rot_deg": 0.35, "freq": 0.55}
+  },
+  "low-24mm": {
+    "description": "Dramatic 24mm worm's-eye / looming confrontation / knockdown perspective",
+    "lens": 24.0,
+    "sensor_width": 36.0,
+    "pos": [0.58, -1.78, 0.34],
+    "target": [0.0, 0.0, 1.08],
+    "roll_deg": -2.5,
+    "lineart_radius": 0.0068,
+    "sway": {"amp_pos": 0.006, "amp_rot_deg": 0.3, "freq": 0.5}
+  },
+  "high-cornered": {
+    "description": "High corner camera tilting down; floor dominates frame to sell vulnerability",
+    "lens": 32.0,
+    "sensor_width": 36.0,
+    "pos": [1.18, -2.05, 2.58],
+    "target": [0.0, 0.0, 0.72],
+    "roll_deg": 3.0,
+    "lineart_radius": 0.0072,
+    "sway": {"amp_pos": 0.004, "amp_rot_deg": 0.2, "freq": 0.4}
+  },
+  "overhead": {
+    "description": "Top-down geography reset, bed trap, floor clue, or room layout",
+    "lens": 35.0,
+    "sensor_width": 36.0,
+    "pos": [0.0, -0.18, 3.65],
+    "target": [0.0, 0.0, 0.80],
+    "roll_deg": 0.0,
+    "lineart_radius": 0.008,
+    "sway": {"amp_pos": 0.0, "amp_rot_deg": 0.0, "freq": 0.0}
+  },
+  "pov-arms": {
+    "description": "Grounded first-person view with right sleeve & held prop anchored cleanly from bottom-right edge",
+    "lens": 30.0,
+    "sensor_width": 36.0,
+    "pos": [-0.08, -0.14, 1.50],
+    "target": [-0.18, -1.55, 1.24],
+    "roll_deg": 0.0,
+    "hide_head": true,
+    "lineart_radius": 0.0040,
+    "sway": {"amp_pos": 0.012, "amp_rot_deg": 0.7, "freq": 0.85}
+  },
+  "pov-peek": {
+    "description": "Lean-out peek around doorframe/wall with foreground occluder on left edge",
+    "lens": 35.0,
+    "sensor_width": 36.0,
+    "pos": [-0.14, -0.12, 1.50],
+    "target": [-0.28, -1.75, 1.18],
+    "roll_deg": -5.5,
+    "hide_head": true,
+    "lineart_radius": 0.0048,
+    "sway": {"amp_pos": 0.010, "amp_rot_deg": 0.55, "freq": 0.7}
+  },
+  "floor-level": {
+    "description": "Under-bed / under-car / low hallway shot framing boots and lower legs",
+    "lens": 28.0,
+    "sensor_width": 36.0,
+    "pos": [0.62, -1.25, 0.14],
+    "target": [0.0, 0.0, 0.32],
+    "roll_deg": 0.0,
+    "lineart_radius": 0.0058,
+    "sway": {"amp_pos": 0.003, "amp_rot_deg": 0.15, "freq": 0.4}
+  },
+  "cctv-wide": {
+    "description": "High corner surveillance / security-cam wide angle",
+    "lens": 24.0,
+    "sensor_width": 36.0,
+    "pos": [-1.85, -2.55, 2.85],
+    "target": [0.0, 0.0, 0.78],
+    "roll_deg": -4.0,
+    "lineart_radius": 0.0085,
+    "sway": {"amp_pos": 0.0, "amp_rot_deg": 0.0, "freq": 0.0}
+  }
+}

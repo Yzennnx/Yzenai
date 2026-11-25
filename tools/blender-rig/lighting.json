@@ -1,0 +1,170 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "notes": "6 flat-cel toon lighting moods. Key energy/direction drives the 2-tone cel shadow cut; rim & tint integrate the character into any room lighting."
+  },
+  "neutral-day": {
+    "description": "Clean daylight key + soft warm bounce (science/domestic episodes)",
+    "cel_threshold": 0.35,
+    "light_tint_mix": 0.05,
+    "world_color": [0.05, 0.05, 0.05],
+    "world_strength": 1.0,
+    "key": {
+      "type": "SUN",
+      "energy": 2.4,
+      "color": [1.0, 0.99, 0.97],
+      "dir": [-0.45, 0.72, -0.52],
+      "angle_deg": 1.5,
+      "use_shadow": true
+    },
+    "fill": {
+      "type": "SUN",
+      "energy": 0.22,
+      "color": [0.88, 0.93, 1.0],
+      "dir": [0.65, -0.45, 0.35],
+      "use_shadow": false
+    },
+    "rim": null
+  },
+  "horror-dark-rim": {
+    "description": "Deep cool shadow fill + sharp rim highlight (night hallways/survival)",
+    "cel_threshold": 0.54,
+    "light_tint_mix": 0.32,
+    "world_color": [0.015, 0.025, 0.04],
+    "world_strength": 0.6,
+    "key": {
+      "type": "SUN",
+      "energy": 1.15,
+      "color": [0.58, 0.72, 0.95],
+      "dir": [-0.62, 0.52, -0.58],
+      "angle_deg": 1.0,
+      "use_shadow": true
+    },
+    "fill": {
+      "type": "SUN",
+      "energy": 0.08,
+      "color": [0.22, 0.32, 0.48],
+      "dir": [0.5, 0.5, 0.2],
+      "use_shadow": false
+    },
+    "rim": {
+      "type": "SPOT",
+      "energy": 180.0,
+      "color": [0.65, 0.85, 1.0],
+      "pos": [1.4, 1.6, 2.0],
+      "target": [0.0, 0.0, 1.1],
+      "spot_size_deg": 55.0,
+      "spot_blend": 0.25
+    }
+  },
+  "overhead-fluorescent": {
+    "description": "Harsh top-down sterile office/hospital/station lighting",
+    "cel_threshold": 0.42,
+    "light_tint_mix": 0.18,
+    "world_color": [0.04, 0.05, 0.048],
+    "world_strength": 0.9,
+    "key": {
+      "type": "SUN",
+      "energy": 2.6,
+      "color": [0.90, 1.0, 0.94],
+      "dir": [-0.12, 0.18, -0.97],
+      "angle_deg": 2.0,
+      "use_shadow": true
+    },
+    "fill": {
+      "type": "SUN",
+      "energy": 0.16,
+      "color": [0.76, 0.88, 0.85],
+      "dir": [0.3, -0.4, 0.5],
+      "use_shadow": false
+    },
+    "rim": null
+  },
+  "warm-underlight": {
+    "description": "Orange/red glow from below (lava, fire, explosion, phone/monitor underglow)",
+    "cel_threshold": 0.38,
+    "light_tint_mix": 0.38,
+    "world_color": [0.04, 0.015, 0.01],
+    "world_strength": 0.7,
+    "key": {
+      "type": "SUN",
+      "energy": 2.5,
+      "color": [1.0, 0.48, 0.18],
+      "dir": [-0.25, 0.65, 0.72],
+      "angle_deg": 3.0,
+      "use_shadow": true
+    },
+    "fill": {
+      "type": "SUN",
+      "energy": 0.18,
+      "color": [0.42, 0.18, 0.12],
+      "dir": [0.4, -0.4, -0.6],
+      "use_shadow": false
+    },
+    "rim": {
+      "type": "SPOT",
+      "energy": 140.0,
+      "color": [1.0, 0.62, 0.24],
+      "pos": [0.0, -1.6, 0.25],
+      "target": [0.0, 0.0, 1.15],
+      "spot_size_deg": 65.0,
+      "spot_blend": 0.35
+    }
+  },
+  "cold-blue": {
+    "description": "Icy desaturated cyan-blue rim + crisp shadow (freezer, winter, underwater)",
+    "cel_threshold": 0.44,
+    "light_tint_mix": 0.34,
+    "world_color": [0.02, 0.04, 0.06],
+    "world_strength": 0.8,
+    "key": {
+      "type": "SUN",
+      "energy": 2.0,
+      "color": [0.70, 0.90, 1.0],
+      "dir": [-0.50, 0.60, -0.62],
+      "angle_deg": 1.8,
+      "use_shadow": true
+    },
+    "fill": {
+      "type": "SUN",
+      "energy": 0.20,
+      "color": [0.45, 0.68, 0.88],
+      "dir": [0.55, -0.40, 0.40],
+      "use_shadow": false
+    },
+    "rim": {
+      "type": "SPOT",
+      "energy": 160.0,
+      "color": [0.78, 0.96, 1.0],
+      "pos": [-1.4, 1.4, 1.9],
+      "target": [0.0, 0.0, 1.0],
+      "spot_size_deg": 55.0,
+      "spot_blend": 0.3
+    }
+  },
+  "flashlight-spot": {
+    "description": "Focused cone light casting strong directional horror contrast",
+    "cel_threshold": 0.48,
+    "light_tint_mix": 0.25,
+    "world_color": [0.008, 0.01, 0.015],
+    "world_strength": 0.4,
+    "key": {
+      "type": "SPOT",
+      "energy": 320.0,
+      "color": [1.0, 0.95, 0.82],
+      "pos": [0.95, -2.15, 1.35],
+      "target": [0.0, 0.0, 1.15],
+      "spot_size_deg": 38.0,
+      "spot_blend": 0.18,
+      "use_shadow": true
+    },
+    "fill": {
+      "type": "SUN",
+      "energy": 0.06,
+      "color": [0.25, 0.32, 0.45],
+      "dir": [0.4, 0.6, -0.4],
+      "use_shadow": false
+    },
+    "rim": null
+  }
+}

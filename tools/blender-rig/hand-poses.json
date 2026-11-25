@@ -1,0 +1,590 @@
+{
+  "_meta": {
+    "version": "1.1",
+    "convention": "Right hand in natural rest pose (forearm along -Y, palm along +Y, back of hand +Z, thumb -X). Negative X bone rotation (-rx) curls fingers inward into the palm (-Z)."
+  },
+  "pov-flashlight": {
+    "description": "Classic first-person barrel-grip flashlight (thumb on top switch, 4 fingers curled underneath, flared bezel aimed forward)",
+    "prop": "flashlight",
+    "camera": {
+      "pos": [
+        -0.14,
+        -0.22,
+        0.14
+      ],
+      "target": [
+        -0.01,
+        0.16,
+        0.01
+      ],
+      "lens": 34.0,
+      "roll_deg": -5.0,
+      "lineart_radius": 0.002
+    },
+    "bones": {
+      "wrist": [
+        8,
+        72,
+        6
+      ],
+      "thumb_01": [
+        -14,
+        -14,
+        -22
+      ],
+      "thumb_02": [
+        -18,
+        0,
+        0
+      ],
+      "thumb_03": [
+        -12,
+        0,
+        0
+      ],
+      "index_01": [
+        -68,
+        0,
+        0
+      ],
+      "index_02": [
+        -78,
+        0,
+        0
+      ],
+      "index_03": [
+        -42,
+        0,
+        0
+      ],
+      "middle_01": [
+        -72,
+        0,
+        0
+      ],
+      "middle_02": [
+        -82,
+        0,
+        0
+      ],
+      "middle_03": [
+        -44,
+        0,
+        0
+      ],
+      "ring_01": [
+        -74,
+        0,
+        0
+      ],
+      "ring_02": [
+        -84,
+        0,
+        0
+      ],
+      "ring_03": [
+        -44,
+        0,
+        0
+      ],
+      "pinky_01": [
+        -76,
+        0,
+        0
+      ],
+      "pinky_02": [
+        -84,
+        0,
+        0
+      ],
+      "pinky_03": [
+        -42,
+        0,
+        0
+      ]
+    }
+  },
+  "cup-bottle-grip": {
+    "description": "Natural 5-finger wrap around a mug, glass, or chemical bottle (thumb on top, all 4 fingers clearly visible around front)",
+    "prop": "mug",
+    "camera": {"pos": [-0.26, 0.17, 0.10], "target": [-0.01, 0.04, -0.01], "lens": 44.0, "roll_deg": 0.0, "lineart_radius": 0.0020},
+    "bones": {
+      "wrist": [4, 78, 0],
+      "thumb_01": [-70, -40, 80],
+      "thumb_02": [
+        -22,
+        0,
+        0
+      ],
+      "thumb_03": [
+        -16,
+        0,
+        0
+      ],
+      "index_01": [
+        -38,
+        0,
+        0
+      ],
+      "index_02": [
+        -48,
+        0,
+        0
+      ],
+      "index_03": [
+        -28,
+        0,
+        0
+      ],
+      "middle_01": [
+        -40,
+        0,
+        0
+      ],
+      "middle_02": [
+        -50,
+        0,
+        0
+      ],
+      "middle_03": [
+        -28,
+        0,
+        0
+      ],
+      "ring_01": [
+        -40,
+        0,
+        0
+      ],
+      "ring_02": [
+        -48,
+        0,
+        0
+      ],
+      "ring_03": [
+        -26,
+        0,
+        0
+      ],
+      "pinky_01": [
+        -24,
+        0,
+        12
+      ],
+      "pinky_02": [
+        -34,
+        0,
+        0
+      ],
+      "pinky_03": [
+        -20,
+        0,
+        0
+      ]
+    }
+  },
+  "pinch-pick": {
+    "description": "Precision tip-to-tip index & thumb pinch holding a small object (pellet, key, pill, ticket)",
+    "prop": "pellet",
+    "camera": {
+      "pos": [
+        -0.28,
+        0.12,
+        0.08
+      ],
+      "target": [
+        -0.02,
+        0.08,
+        -0.02
+      ],
+      "lens": 48.0,
+      "roll_deg": 0.0,
+      "lineart_radius": 0.0018
+    },
+    "bones": {
+      "wrist": [
+        6,
+        -12,
+        0
+      ],
+      "thumb_01": [
+        -18,
+        -22,
+        -46
+      ],
+      "thumb_02": [
+        -22,
+        0,
+        0
+      ],
+      "thumb_03": [
+        -18,
+        0,
+        0
+      ],
+      "index_01": [
+        -38,
+        0,
+        -4
+      ],
+      "index_02": [
+        -48,
+        0,
+        0
+      ],
+      "index_03": [
+        -34,
+        0,
+        0
+      ],
+      "middle_01": [
+        -72,
+        0,
+        0
+      ],
+      "middle_02": [
+        -80,
+        0,
+        0
+      ],
+      "middle_03": [
+        -44,
+        0,
+        0
+      ],
+      "ring_01": [
+        -78,
+        0,
+        0
+      ],
+      "ring_02": [
+        -84,
+        0,
+        0
+      ],
+      "ring_03": [
+        -44,
+        0,
+        0
+      ],
+      "pinky_01": [
+        -82,
+        0,
+        0
+      ],
+      "pinky_02": [
+        -86,
+        0,
+        0
+      ],
+      "pinky_03": [
+        -44,
+        0,
+        0
+      ]
+    }
+  },
+  "knob-handle-turn": {
+    "description": "Cupped 5-finger grasp wrapping naturally around a round brass doorknob or deadbolt",
+    "prop": "doorknob",
+    "camera": {
+      "pos": [
+        -0.02,
+        -0.08,
+        0.34
+      ],
+      "target": [
+        0.0,
+        0.06,
+        -0.02
+      ],
+      "lens": 48.0,
+      "roll_deg": 0.0,
+      "lineart_radius": 0.002
+    },
+    "bones": {
+      "wrist": [
+        6,
+        0,
+        0
+      ],
+      "thumb_01": [
+        -22,
+        22,
+        26
+      ],
+      "thumb_02": [
+        -32,
+        0,
+        0
+      ],
+      "thumb_03": [
+        -22,
+        0,
+        0
+      ],
+      "index_01": [
+        -44,
+        0,
+        4
+      ],
+      "index_02": [
+        -48,
+        0,
+        0
+      ],
+      "index_03": [
+        -34,
+        0,
+        0
+      ],
+      "middle_01": [
+        -46,
+        0,
+        0
+      ],
+      "middle_02": [
+        -52,
+        0,
+        0
+      ],
+      "middle_03": [
+        -34,
+        0,
+        0
+      ],
+      "ring_01": [
+        -46,
+        0,
+        -4
+      ],
+      "ring_02": [
+        -50,
+        0,
+        0
+      ],
+      "ring_03": [
+        -34,
+        0,
+        0
+      ],
+      "pinky_01": [
+        -50,
+        0,
+        -8
+      ],
+      "pinky_02": [
+        -52,
+        0,
+        0
+      ],
+      "pinky_03": [
+        -32,
+        0,
+        0
+      ]
+    }
+  },
+  "button-switch-press": {
+    "description": "Natural slightly-extended wrist with soft micro-bent index fingertip pressing red wall/elevator button, progressive organic finger curl",
+    "prop": "button",
+    "camera": {
+      "pos": [
+        -0.3,
+        0.03,
+        0.09
+      ],
+      "target": [
+        -0.02,
+        0.09,
+        0.0
+      ],
+      "lens": 42.0,
+      "roll_deg": 0.0,
+      "lineart_radius": 0.002
+    },
+    "bones": {
+      "wrist": [
+        12,
+        -26,
+        0
+      ],
+      "thumb_01": [
+        -18,
+        -16,
+        -34
+      ],
+      "thumb_02": [
+        -22,
+        0,
+        0
+      ],
+      "thumb_03": [
+        -14,
+        0,
+        0
+      ],
+      "index_01": [
+        -6,
+        0,
+        0
+      ],
+      "index_02": [
+        -14,
+        0,
+        0
+      ],
+      "index_03": [
+        -10,
+        0,
+        0
+      ],
+      "middle_01": [
+        -56,
+        0,
+        0
+      ],
+      "middle_02": [
+        -66,
+        0,
+        0
+      ],
+      "middle_03": [
+        -34,
+        0,
+        0
+      ],
+      "ring_01": [
+        -66,
+        0,
+        0
+      ],
+      "ring_02": [
+        -74,
+        0,
+        0
+      ],
+      "ring_03": [
+        -40,
+        0,
+        0
+      ],
+      "pinky_01": [
+        -76,
+        0,
+        0
+      ],
+      "pinky_02": [
+        -82,
+        0,
+        0
+      ],
+      "pinky_03": [
+        -44,
+        0,
+        0
+      ]
+    }
+  },
+  "open-reach-tremble": {
+    "description": "Splayed open reaching/defensive hand (shock, frostbite, heat/burn, waking up)",
+    "prop": "none",
+    "camera": {
+      "pos": [
+        0.0,
+        0.04,
+        -0.36
+      ],
+      "target": [
+        0.0,
+        0.06,
+        0.0
+      ],
+      "lens": 48.0,
+      "roll_deg": 180.0,
+      "lineart_radius": 0.002
+    },
+    "bones": {
+      "wrist": [
+        8,
+        0,
+        0
+      ],
+      "thumb_01": [
+        4,
+        -8,
+        -10
+      ],
+      "thumb_02": [
+        -6,
+        0,
+        0
+      ],
+      "thumb_03": [
+        -6,
+        0,
+        0
+      ],
+      "index_01": [
+        -6,
+        0,
+        10
+      ],
+      "index_02": [
+        -8,
+        0,
+        0
+      ],
+      "index_03": [
+        -6,
+        0,
+        0
+      ],
+      "middle_01": [
+        -4,
+        0,
+        2
+      ],
+      "middle_02": [
+        -8,
+        0,
+        0
+      ],
+      "middle_03": [
+        -6,
+        0,
+        0
+      ],
+      "ring_01": [
+        -6,
+        0,
+        -6
+      ],
+      "ring_02": [
+        -10,
+        0,
+        0
+      ],
+      "ring_03": [
+        -6,
+        0,
+        0
+      ],
+      "pinky_01": [
+        -8,
+        0,
+        -14
+      ],
+      "pinky_02": [
+        -12,
+        0,
+        0
+      ],
+      "pinky_03": [
+        -8,
+        0,
+        0
+      ]
+    }
+  }
+}
