@@ -171,16 +171,39 @@ def setup_camera(scene, cam_cfg, width, height, frame=1, push_in=0.0, rig="lead"
 
     cam_data = cam_obj.data
     cam_data.lens = float(cam_cfg.get("lens", 45.0))
-    cam_data.sensor_width = float(cam_cfg.get("sensor_width", 36.0))
-    cam_data.sensor_fit = "AUTO"
+    sensor_mm = float(cam_cfg.get("sensor_width", 36.0))
+    if width > height:
+        # Preserve exact 9:16 vertical FOV in widescreen (16:9) so heads/boots are never sliced off
+        cam_data.sensor_fit = "VERTICAL"
+        cam_data.sensor_height = sensor_mm
+    else:
+        cam_data.sensor_fit = "AUTO"
+        cam_data.sensor_width = sensor_mm
     cam_data.clip_start = 0.04
     cam_data.clip_end = 100.0
 
     orig_pos = Vector(cam_cfg["pos"])
     orig_target = Vector(cam_cfg["target"])
-    dist_scale, target_dz = RIG_CAMERA_FRAMING.get(rig, (1.0, 0.0))
-    target = orig_target + Vector((0.0, 0.0, target_dz))
-    base_pos = target + (orig_pos - orig_target) * dist_scale
+    track_bone = cam_cfg.get("track_bone")
+    if track_bone:
+        arm_ref = bpy.data.objects.get("LeadArmature") or bpy.data.objects.get("InfectedArmature")
+        pb_t = arm_ref.pose.bones.get(track_bone) if arm_ref else None
+        if pb_t is not None:
+            head_center = arm_ref.matrix_world @ ((pb_t.head + pb_t.tail) * 0.5)
+            off = Vector(cam_cfg.get("offset", [0.24, -0.76, 0.02]))
+            if rig == "tank":
+                off = off * 1.28
+            elif rig == "charger":
+                off = off * 1.12
+            target = head_center + Vector((0.0, 0.0, -0.01))
+            base_pos = head_center + off
+        else:
+            target = orig_target
+            base_pos = orig_pos
+    else:
+        dist_scale, target_dz = RIG_CAMERA_FRAMING.get(rig, (1.0, 0.0))
+        target = orig_target + Vector((0.0, 0.0, target_dz))
+        base_pos = target + (orig_pos - orig_target) * dist_scale
     if push_in != 0.0:
         base_pos = base_pos.lerp(target, push_in)
 
@@ -424,7 +447,11 @@ def parse_args():
     ap.add_argument("--condition", default="clean", choices=["clean", "sweat", "frost", "scorch", "dusty"])
     ap.add_argument("--hand-pose", default="auto", choices=["auto", "relaxed", "grip", "open-flat"])
     ap.add_argument("--prop", default="none", choices=["none", "flashlight", "pipe", "mug", "phone"])
-    ap.add_argument("--fps", type=int, default=24, choices=[12, 24])
+    ap.add_argument("--env", default="none", choices=["none", "civic-plaza"], help="3D cel-shaded ground & architecture set")
+    ap.add_argument("--travel", type=float, default=0.0, help="Forward world-space -Y travel distance (meters) over sequence")
+    ap.add_argument("--floor-prop", default="none", choices=["none", "glass-shard"], help="3D z=0 contact prop placed under stepping boot")
+    ap.add_argument("--impact-frame", type=int, default=18, help="Frame index when boot crushes --floor-prop")
+    ap.add_argument("--fps", type=int, default=24, choices=[12, 24, 30])
     ap.add_argument("--frame", type=int, default=None, help="Render single still frame")
     ap.add_argument("--start", type=int, default=1)
     ap.add_argument("--end", type=int, default=1)
@@ -433,8 +460,131 @@ def parse_args():
     ap.add_argument("--samples", type=int, default=8)
     ap.add_argument("--push-in", type=float, default=0.0, help="Camera push-in fraction (0..0.35) over sequence")
     ap.add_argument("--export-guide", default=None, help="Path for transparent horizon/floor-grid PNG")
+    ap.add_argument("--export-tracks", default=None, help="Path for per-frame 2D bone screen-space coordinates JSON")
     ap.add_argument("--out", required=True, help="Output PNG path (still) or directory (sequence)")
     return ap.parse_args(argv)
+
+
+def _make_glass_cel_mat():
+    mat = bpy.data.materials.get("Mat_FloorGlassShard")
+    if mat:
+        return mat
+    mat = bpy.data.materials.new("Mat_FloorGlassShard")
+    mat.use_nodes = True
+    nt = mat.node_tree
+    nt.nodes.clear()
+    out = nt.nodes.new("ShaderNodeOutputMaterial")
+    em = nt.nodes.new("ShaderNodeEmission")
+    em.inputs["Color"].default_value = (0.58, 0.88, 0.96, 1.0)
+    em.inputs["Strength"].default_value = 0.92
+    nt.links.new(em.outputs["Emission"], out.inputs["Surface"])
+    return mat
+
+
+def setup_floor_prop(scene, arm_obj, prop_kind, impact_frame):
+    """Create a 3D cel-shaded inked z=0 floor prop directly under the stepping boot."""
+    if not prop_kind or prop_kind == "none":
+        return None
+    if prop_kind != "glass-shard":
+        return None
+
+    import bmesh
+
+    # Find exact world (x, y) under the lowest foot at impact_frame
+    scene.frame_set(impact_frame)
+    bpy.context.view_layer.update()
+    best_pt = Vector((0.0, 0.0, 0.0))
+    best_z = 999.0
+    for bname in ("foot_R", "foot_L"):
+        pb = arm_obj.pose.bones.get(bname)
+        if pb:
+            mid = arm_obj.matrix_world @ ((pb.head + pb.tail) * 0.5)
+            if mid.z < best_z:
+                best_z = mid.z
+                best_pt = Vector((mid.x, mid.y, 0.0))
+
+    col = bpy.data.collections.get("LeadMeshes") or bpy.data.collections.get("RigMeshes") or scene.collection
+    mat = _make_glass_cel_mat()
+
+    # Build 6 faceted 3D glass wedge shards (2 hero wedges under sole + 4 outer splinters)
+    shard_specs = [
+        # (name, dx, dy, sx, sy, sz, rot_z, vx, vy, vz, spin_z)
+        ("FloorGlass_HeroA", -0.012, -0.015, 0.085, 0.048, 0.011, 0.25, -0.14, -0.11, 0.06, 2.6),
+        ("FloorGlass_HeroB", 0.024, 0.018, 0.072, 0.042, 0.010, -0.65, 0.16, 0.09, 0.05, -3.1),
+        ("FloorGlass_Chip1", -0.055, 0.032, 0.045, 0.026, 0.008, 1.10, -0.22, 0.14, 0.09, 4.2),
+        ("FloorGlass_Chip2", 0.062, -0.028, 0.040, 0.024, 0.008, -1.45, 0.24, -0.15, 0.11, -4.8),
+        ("FloorGlass_Chip3", 0.005, -0.068, 0.036, 0.022, 0.007, 0.85, 0.06, -0.26, 0.08, 3.8),
+        ("FloorGlass_Chip4", -0.022, 0.064, 0.034, 0.020, 0.007, -0.35, -0.09, 0.22, 0.07, -3.5),
+    ]
+    created = []
+    for sname, dx, dy, sx, sy, sz, rz, vx, vy, vz, spin in shard_specs:
+        me = bpy.data.meshes.new(sname + "_Mesh")
+        bm = bmesh.new()
+        # Sharp asymmetric triangular glass prism
+        v0 = bm.verts.new((-sx * 0.55, -sy * 0.45, 0.0))
+        v1 = bm.verts.new((sx * 0.65, -sy * 0.10, 0.0))
+        v2 = bm.verts.new((-sx * 0.15, sy * 0.60, 0.0))
+        v3 = bm.verts.new((-sx * 0.45, -sy * 0.35, sz))
+        v4 = bm.verts.new((sx * 0.50, -sy * 0.08, sz * 0.85))
+        v5 = bm.verts.new((-sx * 0.10, sy * 0.48, sz * 0.90))
+        bm.faces.new((v0, v2, v1))
+        bm.faces.new((v3, v4, v5))
+        bm.faces.new((v0, v1, v4, v3))
+        bm.faces.new((v1, v2, v5, v4))
+        bm.faces.new((v2, v0, v3, v5))
+        bm.normal_update()
+        bm.to_mesh(me)
+        bm.free()
+
+        obj = bpy.data.objects.new(sname, me)
+        obj.data.materials.append(mat)
+        col.objects.link(obj)
+        base_loc = Vector((best_pt.x + dx, best_pt.y + dy, 0.004))
+        obj.location = base_loc
+        obj.rotation_euler = (0.0, 0.0, rz)
+        created.append((obj, base_loc, rz, vx, vy, vz, spin))
+
+    def update_for_frame(f):
+        dt = max(0.0, (f - impact_frame) / 24.0)
+        for obj, base_loc, rz, vx, vy, vz, spin in created:
+            if dt <= 0.0:
+                obj.location = base_loc
+                obj.rotation_euler = (0.0, 0.0, rz)
+            else:
+                # Quick damped scatter burst along z=0 floor plane
+                t_eff = min(dt, 0.42)
+                drag = 1.0 - math.exp(-t_eff * 6.5)
+                hop = max(0.0, vz * t_eff * 3.2 - 0.5 * 1.8 * (t_eff ** 2))
+                obj.location = Vector((
+                    base_loc.x + vx * drag,
+                    base_loc.y + vy * drag,
+                    0.004 + hop,
+                ))
+                obj.rotation_euler = (hop * 4.5, -hop * 3.0, rz + spin * drag)
+
+    return {"update": update_for_frame, "impact_world": [best_pt.x, best_pt.y, 0.0]}
+
+
+def sample_bone_tracks(scene, cam_obj, arm_obj, width, height):
+    """Project key bone landmarks into 2D pixel space for pixel-locked 2D FX & contact shadows."""
+    pts = {}
+    for bname, use_tail in (
+        ("foot_L", True),
+        ("foot_R", True),
+        ("hand_L", True),
+        ("hand_R", True),
+        ("head", False),
+        ("pelvis", False),
+    ):
+        pb = arm_obj.pose.bones.get(bname)
+        if not pb:
+            continue
+        wpt = arm_obj.matrix_world @ (pb.tail if use_tail else pb.head)
+        co = world_to_camera_view(scene, cam_obj, wpt)
+        px = round(co.x * width, 1)
+        py = round((1.0 - co.y) * height, 1)
+        pts[bname] = {"x": px, "y": py, "z_cam": round(co.z, 3), "world_z": round(wpt.z, 4)}
+    return pts
 
 
 def main():
@@ -458,7 +608,7 @@ def main():
     scene.render.engine = "BLENDER_EEVEE"
     scene.eevee.taa_render_samples = args.samples
     scene.render.film_transparent = True
-    scene.render.fps = 24
+    scene.render.fps = args.fps if args.fps in (24, 30) else 24
     scene.render.image_settings.file_format = "PNG"
     scene.render.image_settings.color_mode = "RGBA"
     scene.render.image_settings.color_depth = "8"
@@ -492,6 +642,10 @@ def main():
         )
         attach_simple_prop(scene, args.prop, hex_to_lin)
 
+    if args.env and args.env != "none":
+        import env_sets
+        env_sets.setup_environment(scene, args.env)
+
     setup_lighting(scene, lightings[args.lighting])
 
     is_still = args.frame is not None
@@ -500,16 +654,44 @@ def main():
     step = 2 if (not is_still and args.fps == 12) else 1
 
     setup_action(scene, arm_obj, action_cfg, start_f, end_f)
+    floor_prop = setup_floor_prop(scene, arm_obj, args.floor_prop, args.impact_frame)
+
+    FULL_BODY_CAMERAS = {"3q-front", "side", "low-24mm", "high-cornered", "cctv-wide"}
+
+    def _warn_if_top_clipped(png_path):
+        if args.camera not in FULL_BODY_CAMERAS or (args.env and args.env != "none"):
+            return
+        try:
+            im = Image.open(png_path).convert("RGBA")
+            top_row = im.crop((0, 0, im.width, 2)).getchannel("A")
+            if top_row.getextrema()[1] > 32:
+                print(f"[WARN] Character pixels touch top edge (y=0) in {png_path} (cam={args.camera}, {args.width}x{args.height}) — check headroom!")
+        except Exception:
+            pass
+
+    if not is_still and bool(action_cfg.get("cycle", False)):
+        cycle_len = int(action_cfg.get("length", 24))
+        span = end_f - start_f + 1
+        if span < cycle_len:
+            print(f"[WARN] Cycling action '{action_name}' has length={cycle_len}, but requested span is {span} frames ({start_f}..{end_f}) — looping will snap mid-stride!")
 
     out_path = Path(args.out)
+    tracks_data = {"width": args.width, "height": args.height, "camera": args.camera, "rig": args.rig, "action": action_name, "frames": []}
     if is_still:
         scene.frame_set(start_f)
+        if floor_prop:
+            floor_prop["update"](start_f)
         cam_obj = setup_camera(scene, cameras[args.camera], args.width, args.height, frame=start_f, push_in=args.push_in, rig=args.rig)
         bpy.context.view_layer.update()
         target_file = out_path if out_path.suffix.lower() == ".png" else (out_path / f"frame-{start_f:05d}.png")
         target_file.parent.mkdir(parents=True, exist_ok=True)
         scene.render.filepath = str(target_file)
         bpy.ops.render.render(write_still=True)
+        _warn_if_top_clipped(target_file)
+        if args.export_tracks:
+            tracks_data["frames"].append({"frame": start_f, "bones": sample_bone_tracks(scene, cam_obj, arm_obj, args.width, args.height)})
+            Path(args.export_tracks).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.export_tracks).write_text(json.dumps(tracks_data, indent=2), encoding="utf-8")
         if args.export_guide:
             export_horizon_guide(scene, cam_obj, args.export_guide, args.width, args.height)
         print(f"Rendered still ({args.rig}) -> {target_file}")
@@ -518,16 +700,36 @@ def main():
         frame_list = list(range(start_f, end_f + 1, step))
         total = max(1, len(frame_list) - 1)
         first_cam = None
+        first_file = None
+        env_col = bpy.data.collections.get("EnvMeshes")
+        env_base_y = [(o, o.location.y) for o in env_col.objects] if (env_col and args.travel) else []
         for idx, f in enumerate(frame_list):
             scene.frame_set(f)
-            frac = (idx / total) * args.push_in if args.push_in else 0.0
+            frac_all = (idx / total) if total > 0 else 0.0
+            if env_base_y:
+                # Shift 3D environment backward (+Y) while keeping rig at origin (0,0,0) — zero double-transform tearing!
+                shift_y = args.travel * frac_all
+                for o, by in env_base_y:
+                    o.location.y = by + shift_y
+            if floor_prop:
+                floor_prop["update"](f)
+            frac = frac_all * args.push_in if args.push_in else 0.0
             cam_obj = setup_camera(scene, cameras[args.camera], args.width, args.height, frame=f, push_in=frac, rig=args.rig)
             if first_cam is None:
                 first_cam = cam_obj
             bpy.context.view_layer.update()
+            if args.export_tracks:
+                tracks_data["frames"].append({"frame": f, "bones": sample_bone_tracks(scene, cam_obj, arm_obj, args.width, args.height)})
             out_file = out_path / f"frame-{idx + 1:05d}.png"
+            if first_file is None:
+                first_file = out_file
             scene.render.filepath = str(out_file)
             bpy.ops.render.render(write_still=True)
+        if first_file is not None:
+            _warn_if_top_clipped(first_file)
+        if args.export_tracks:
+            Path(args.export_tracks).parent.mkdir(parents=True, exist_ok=True)
+            Path(args.export_tracks).write_text(json.dumps(tracks_data, indent=2), encoding="utf-8")
         if args.export_guide and first_cam is not None:
             scene.frame_set(start_f)
             setup_camera(scene, cameras[args.camera], args.width, args.height, frame=start_f, push_in=0.0, rig=args.rig)

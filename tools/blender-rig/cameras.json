@@ -99,6 +99,16 @@
     "lineart_radius": 0.0058,
     "sway": {"amp_pos": 0.003, "amp_rot_deg": 0.15, "freq": 0.4}
   },
+  "boot-macro": {
+    "description": "Tight ground-level macro framing the stepping boot sole and z=0 floor prop (glass shard, puddle, tripwire)",
+    "lens": 42.0,
+    "sensor_width": 36.0,
+    "pos": [0.46, -0.62, 0.11],
+    "target": [0.02, -0.05, 0.08],
+    "roll_deg": 0.0,
+    "lineart_radius": 0.0028,
+    "sway": {"amp_pos": 0.001, "amp_rot_deg": 0.08, "freq": 0.35}
+  },
   "cctv-wide": {
     "description": "High corner surveillance / security-cam wide angle",
     "lens": 24.0,
@@ -108,5 +118,17 @@
     "roll_deg": -4.0,
     "lineart_radius": 0.0085,
     "sway": {"amp_pos": 0.0, "amp_rot_deg": 0.0, "freq": 0.0}
+  },
+  "face-closeup": {
+    "description": "Tight horror facial close-up auto-tracking the head bone across Lead and all 5 Infected",
+    "lens": 68.0,
+    "sensor_width": 36.0,
+    "track_bone": "head",
+    "offset": [0.24, -0.76, 0.02],
+    "pos": [0.24, -0.76, 1.56],
+    "target": [0.0, 0.0, 1.54],
+    "roll_deg": -2.5,
+    "lineart_radius": 0.0022,
+    "sway": {"amp_pos": 0.002, "amp_rot_deg": 0.15, "freq": 0.65}
   }
 }
