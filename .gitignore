@@ -2,3 +2,7 @@
 /assets/series-lead/anatomy-prototype/*.mp4
 /references/long-form-camera-voice/excerpts/
 /references/long-form-camera-voice/overviews/
+
+# Blender backups & temporary 3D render frames
+*.blend1
+hybrid-preview-3d/

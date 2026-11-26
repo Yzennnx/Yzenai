@@ -85,6 +85,10 @@ export async function renderRigShot({
   condition = 'clean',
   handPose = 'auto',
   prop = 'none',
+  env = 'none',
+  travel = 0,
+  floorProp = 'none',
+  impactFrame = 18,
   fps = 24,
   frame = null,
   startFrame = 1,
@@ -94,13 +98,14 @@ export async function renderRigShot({
   samples = 8,
   pushIn = 0,
   exportGuide = null,
+  exportTracks = null,
 } = {}) {
   assert(VALID_RIGS.includes(rig), `Unknown rig '${rig}'. Valid: ${VALID_RIGS.join(', ')}`);
   const resolvedBlend = blendFile || resolveBlendFile(rig);
   const resolvedAction = action || (rig === 'lead' ? 'idle-alert' : 'infected-idle');
 
   assert(existsSync(resolvedBlend), `Missing ${rig} rig blend file: ${resolvedBlend}`);
-  assert(fps === 12 || fps === 24, `fps must be 12 or 24, got ${fps}`);
+  assert(fps === 12 || fps === 24 || fps === 30, `fps must be 12, 24, or 30, got ${fps}`);
   assert(Number.isInteger(width) && width > 0, `Invalid width: ${width}`);
   assert(Number.isInteger(height) && height > 0, `Invalid height: ${height}`);
 
@@ -135,7 +140,11 @@ export async function renderRigShot({
   ];
 
   if (expression) args.push('--expression', expression);
+  if (env && env !== 'none') args.push('--env', env);
+  if (travel) args.push('--travel', String(travel));
+  if (floorProp && floorProp !== 'none') args.push('--floor-prop', floorProp, '--impact-frame', String(impactFrame));
   if (exportGuide) args.push('--export-guide', exportGuide);
+  if (exportTracks) args.push('--export-tracks', exportTracks);
 
   const isStill = frame !== null && frame !== undefined;
   if (isStill) {
@@ -203,6 +212,10 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     else if (a === '--condition') { opts.condition = next; i++; }
     else if (a === '--hand-pose') { opts.handPose = next; i++; }
     else if (a === '--prop') { opts.prop = next; i++; }
+    else if (a === '--env') { opts.env = next; i++; }
+    else if (a === '--travel') { opts.travel = Number(next); i++; }
+    else if (a === '--floor-prop') { opts.floorProp = next; i++; }
+    else if (a === '--impact-frame') { opts.impactFrame = Number(next); i++; }
     else if (a === '--fps') { opts.fps = Number(next); i++; }
     else if (a === '--frame') { opts.frame = Number(next); i++; }
     else if (a === '--start') { opts.startFrame = Number(next); i++; }
@@ -212,6 +225,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     else if (a === '--samples') { opts.samples = Number(next); i++; }
     else if (a === '--push-in') { opts.pushIn = Number(next); i++; }
     else if (a === '--export-guide') { opts.exportGuide = next; i++; }
+    else if (a === '--export-tracks') { opts.exportTracks = next; i++; }
     else if (a === '--out') { opts.out = next; i++; }
     else if (a === '--work') { opts.work = next; i++; }
   }

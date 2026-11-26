@@ -155,6 +155,88 @@ def build_cel_material(name: str, base_hex: str, shadow_hex: str, threshold: flo
     return mat
 
 
+def build_horror_cel_material(
+    name: str,
+    base_hex: str,
+    shadow_hex: str,
+    grime_hex: str = "#381418",
+    rim_hex: str = "#7ac4d4",
+    grime_cutoff: float = 0.64,
+    grime_scale: float = 9.5,
+    rim_strength: float = 0.42,
+    threshold: float = 0.38,
+    light_tint_mix: float = 0.06,
+):
+    """3-tone horror cel shader: Cel2Tone base + quantized procedural grime/blood + eerie Fresnel rim."""
+    mat = bpy.data.materials.new(name)
+    mat.use_nodes = True
+    nt = mat.node_tree
+    nt.nodes.clear()
+
+    out = nt.nodes.new("ShaderNodeOutputMaterial")
+    out.location = (760, 0)
+    em = nt.nodes.new("ShaderNodeEmission")
+    em.inputs["Strength"].default_value = 1.0
+    em.location = (560, 0)
+
+    cel = nt.nodes.new("ShaderNodeGroup")
+    cel.name = "Cel2Tone"
+    cel.node_tree = bpy.data.node_groups["Cel2Tone"]
+    cel.inputs["BaseColor"].default_value = hex_to_lin(base_hex)
+    cel.inputs["ShadowColor"].default_value = hex_to_lin(shadow_hex)
+    cel.inputs["Threshold"].default_value = threshold
+    cel.inputs["LightTintMix"].default_value = light_tint_mix
+    cel.location = (-120, 80)
+
+    tex_coord = nt.nodes.new("ShaderNodeTexCoord")
+    tex_coord.location = (-560, -180)
+    noise = nt.nodes.new("ShaderNodeTexNoise")
+    noise.inputs["Scale"].default_value = grime_scale
+    noise.inputs["Detail"].default_value = 4.5
+    noise.inputs["Roughness"].default_value = 0.65
+    noise.location = (-360, -180)
+    nt.links.new(tex_coord.outputs["Object"], noise.inputs["Vector"])
+
+    grime_ramp = nt.nodes.new("ShaderNodeValToRGB")
+    grime_ramp.color_ramp.interpolation = "CONSTANT"
+    grime_ramp.color_ramp.elements[0].position = 0.0
+    grime_ramp.color_ramp.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+    grime_ramp.color_ramp.elements[1].position = grime_cutoff
+    grime_ramp.color_ramp.elements[1].color = (1.0, 1.0, 1.0, 1.0)
+    grime_ramp.location = (-140, -180)
+    nt.links.new(noise.outputs["Fac"], grime_ramp.inputs["Fac"])
+
+    mix_grime = nt.nodes.new("ShaderNodeMix")
+    mix_grime.data_type = "RGBA"
+    mix_grime.location = (140, 20)
+    nt.links.new(grime_ramp.outputs["Color"], mix_grime.inputs[0])
+    nt.links.new(cel.outputs["Color"], mix_grime.inputs[6])
+    mix_grime.inputs[7].default_value = hex_to_lin(grime_hex)
+
+    lw = nt.nodes.new("ShaderNodeLayerWeight")
+    lw.inputs["Blend"].default_value = 0.28
+    lw.location = (-120, -380)
+    rim_ramp = nt.nodes.new("ShaderNodeValToRGB")
+    rim_ramp.color_ramp.interpolation = "CONSTANT"
+    rim_ramp.color_ramp.elements[0].position = 0.0
+    rim_ramp.color_ramp.elements[0].color = (0.0, 0.0, 0.0, 1.0)
+    rim_ramp.color_ramp.elements[1].position = 0.72
+    rim_ramp.color_ramp.elements[1].color = (rim_strength, rim_strength, rim_strength, 1.0)
+    rim_ramp.location = (100, -380)
+    nt.links.new(lw.outputs["Facing"], rim_ramp.inputs["Fac"])
+
+    mix_rim = nt.nodes.new("ShaderNodeMix")
+    mix_rim.data_type = "RGBA"
+    mix_rim.location = (350, 0)
+    nt.links.new(rim_ramp.outputs["Color"], mix_rim.inputs[0])
+    nt.links.new(mix_grime.outputs[2], mix_rim.inputs[6])
+    mix_rim.inputs[7].default_value = hex_to_lin(rim_hex)
+
+    nt.links.new(mix_rim.outputs[2], em.inputs["Color"])
+    nt.links.new(em.outputs["Emission"], out.inputs["Surface"])
+    return mat
+
+
 def build_emissive_material(name: str, hex_color: str, strength: float = 1.8):
     mat = bpy.data.materials.new(name)
     mat.use_nodes = True
@@ -1264,9 +1346,12 @@ def build_hunter_hood_cowl(col_meshes, arm_obj, spec, joints, hoodie_mat, inner_
         outer_rings.append(o_r)
         inner_rings.append(i_r)
 
+    front_open_segs = {0, 1, n_ang - 2, n_ang - 1}
     for r_i in range(len(outer_rings) - 1):
         r0, r1 = outer_rings[r_i], outer_rings[r_i + 1]
         for i in range(n_ang):
+            if r_i in (1, 2) and i in front_open_segs:
+                continue
             ni = (i + 1) % n_ang
             bm.faces.new((r0[i], r0[ni], r1[ni], r1[i])).material_index = 0
     bm.faces.new(outer_rings[-1]).material_index = 0
@@ -1274,6 +1359,8 @@ def build_hunter_hood_cowl(col_meshes, arm_obj, spec, joints, hoodie_mat, inner_
     for r_i in range(len(inner_rings) - 1):
         r0, r1 = inner_rings[r_i], inner_rings[r_i + 1]
         for i in range(n_ang):
+            if r_i in (1, 2) and i in front_open_segs:
+                continue
             ni = (i + 1) % n_ang
             bm.faces.new((r1[i], r1[ni], r0[ni], r0[i])).material_index = 1
     bm.faces.new(list(reversed(inner_rings[-1]))).material_index = 1
@@ -1457,24 +1544,107 @@ def build_charger_overalls_bib(col_meshes, arm_obj, spec, joints, denim_mat, buc
 
 
 # ---------------------------------------------------------------------------
+# Shared Horror Facial Features (Sunken Sockets, Glowing Eyes, Jagged Teeth, Tongue)
+# ---------------------------------------------------------------------------
+def build_monster_face_features(
+    col_meshes, arm_obj, spec, joints, socket_mat, eye_mat, teeth_mat, tongue_mat=None, species="hunter",
+):
+    bm = bmesh.new()
+    vw = {}
+    hr = spec["head_r"]
+    ntz = joints["neck_top_z"]
+    hy = joints["head_y"]
+
+    eye_z = ntz + spec["head_len"] * 0.56
+    mouth_z = ntz + spec["head_len"] * 0.25
+    front_y = hy - hr * 0.92
+
+    # 1. Deep sunken dark eye sockets + glowing/feral monster eyes
+    for sx in (-1.0, 1.0):
+        ex = sx * hr * 0.34
+        # Sunken dark socket recess
+        sock_rings = [
+            [(ex + math.cos(2 * math.pi * i / 8) * hr * 0.24, front_y + 0.010, eye_z + math.sin(2 * math.pi * i / 8) * hr * 0.14) for i in range(8)],
+            [(ex + math.cos(2 * math.pi * i / 8) * hr * 0.18, front_y - 0.006, eye_z + math.sin(2 * math.pi * i / 8) * hr * 0.10) for i in range(8)],
+        ]
+        add_loft_rings(bm, sock_rings, closed_ends=True, mat_idx=0, vert_weights=vw, ring_weights=[{"head": 1.0}] * 2)
+        # Glowing pinpoint iris inside dark socket
+        er = hr * (0.085 if species == "tank" else 0.075)
+        eye_rings = [
+            [(ex + math.cos(2 * math.pi * i / 6) * er, front_y - 0.005, eye_z + math.sin(2 * math.pi * i / 6) * er * 0.65) for i in range(6)],
+            [(ex + math.cos(2 * math.pi * i / 6) * er * 0.65, front_y - 0.011, eye_z + math.sin(2 * math.pi * i / 6) * er * 0.45) for i in range(6)],
+        ]
+        add_loft_rings(bm, eye_rings, closed_ends=True, mat_idx=1, vert_weights=vw, ring_weights=[{"head": 1.0}] * 2)
+
+    # 2. Gaping dark snarling mouth cavity
+    mw = hr * (0.44 if species in ("tank", "charger") else 0.36)
+    mh = hr * (0.24 if species == "smoker" else 0.19)
+    m_rings = [
+        [(math.cos(2 * math.pi * i / 10) * mw, front_y + 0.012, mouth_z + math.sin(2 * math.pi * i / 10) * mh) for i in range(10)],
+        [(math.cos(2 * math.pi * i / 10) * mw * 0.85, front_y - 0.008, mouth_z + math.sin(2 * math.pi * i / 10) * mh * 0.80) for i in range(10)],
+    ]
+    add_loft_rings(bm, m_rings, closed_ends=True, mat_idx=0, vert_weights=vw, ring_weights=[{"head": 1.0}] * 2)
+
+    # 3. Jagged upper & lower teeth/fangs
+    for ti in (-2, -1, 0, 1, 2):
+        tx = ti * mw * 0.32
+        t_sz = 0.007 if species in ("tank", "charger") else 0.005
+        # Upper fang
+        u_rings = [
+            ellipse_ring(tx, front_y - 0.009, mouth_z + mh * 0.68, t_sz, t_sz * 0.7, 4),
+            ellipse_ring(tx, front_y - 0.011, mouth_z + mh * (0.05 if ti % 2 == 0 else 0.20), t_sz * 0.3, t_sz * 0.3, 4),
+        ]
+        add_loft_rings(bm, u_rings, closed_ends=True, mat_idx=2, vert_weights=vw, ring_weights=[{"head": 1.0}] * 2)
+        # Lower fang
+        if ti in (-2, 0, 2):
+            l_rings = [
+                ellipse_ring(tx, front_y - 0.009, mouth_z - mh * 0.66, t_sz * 0.9, t_sz * 0.7, 4),
+                ellipse_ring(tx, front_y - 0.011, mouth_z - mh * 0.15, t_sz * 0.3, t_sz * 0.3, 4),
+            ]
+            add_loft_rings(bm, l_rings, closed_ends=True, mat_idx=2, vert_weights=vw, ring_weights=[{"head": 1.0}] * 2)
+
+    # 4. Smoker protruding coiled fleshy tongue emerging from gaping mouth
+    mats = [socket_mat, eye_mat, teeth_mat]
+    if tongue_mat is not None:
+        mats.append(tongue_mat)
+        t_rings = [
+            ellipse_ring(0.0, front_y - 0.006, mouth_z - 0.005, 0.014, 0.012, 6),
+            ellipse_ring(0.014, front_y - 0.045, mouth_z - 0.025, 0.011, 0.010, 6),
+            ellipse_ring(-0.008, front_y - 0.088, mouth_z - 0.060, 0.009, 0.008, 6),
+            ellipse_ring(0.006, front_y - 0.115, mouth_z - 0.095, 0.005, 0.005, 6),
+        ]
+        add_loft_rings(bm, t_rings, closed_ends=True, mat_idx=3, vert_weights=vw, ring_weights=[{"head": 1.0}] * 4)
+
+    bm.verts.index_update()
+    idx_w = {v.index: w for v, w in vw.items()}
+    obj = new_mesh_object(f"{species.title()}_HorrorFace", bm, col_meshes, mats, smooth=False)
+    add_armature_modifier(obj, arm_obj)
+    apply_vert_weights(obj, idx_w, ("head",))
+    return obj
+
+
+# ---------------------------------------------------------------------------
 # Individual Species Assembly Functions
 # ---------------------------------------------------------------------------
 def build_hunter(col_meshes, col_rig, spec, joints):
     mats = {
-        "hoodie": build_cel_material("Mat_Hunter_Hoodie", "#445a6e", "#2c3d4c"),
-        "hood_in": build_cel_material("Mat_Hunter_HoodInner", "#1c2630", "#121820"),
-        "skin": build_cel_material("Mat_Hunter_Skin", "#b8b5ab", "#8f8c82"),
-        "tape": build_cel_material("Mat_Hunter_Tape", "#d8d0be", "#ada594"),
-        "trousers": build_cel_material("Mat_Hunter_Trousers", "#3e464e", "#292f36"),
-        "boots": build_cel_material("Mat_Hunter_Boots", "#222629", "#14171a"),
-        "claws": build_cel_material("Mat_Hunter_Claws", "#7d7970", "#54514a"),
+        "hoodie": build_horror_cel_material("Mat_Hunter_Hoodie", "#3e5266", "#212e3a", grime_hex="#2e1418", rim_hex="#7bc8d8", grime_cutoff=0.66, grime_scale=10.0, rim_strength=0.45),
+        "hood_in": build_cel_material("Mat_Hunter_HoodInner", "#0b1015", "#05070a"),
+        "skin": build_horror_cel_material("Mat_Hunter_Skin", "#b0aca2", "#75726a", grime_hex="#4a181c", rim_hex="#88cedc", grime_cutoff=0.62, grime_scale=11.0, rim_strength=0.42),
+        "tape": build_horror_cel_material("Mat_Hunter_Tape", "#d0c8b4", "#918a7a", grime_hex="#591a1f", rim_hex="#88cedc", grime_cutoff=0.64, grime_scale=14.0, rim_strength=0.35),
+        "trousers": build_horror_cel_material("Mat_Hunter_Trousers", "#363e46", "#1d2228", grime_hex="#241517", rim_hex="#6898a8", grime_cutoff=0.68, grime_scale=10.0, rim_strength=0.32),
+        "boots": build_cel_material("Mat_Hunter_Boots", "#1e2226", "#101316"),
+        "claws": build_horror_cel_material("Mat_Hunter_Claws", "#80282e", "#451216", grime_hex="#24080a", rim_hex="#d95252", grime_cutoff=0.58, grime_scale=16.0, rim_strength=0.55),
+        "socket": build_cel_material("Mat_Hunter_Socket", "#090c0f", "#040507"),
+        "eyes": build_emissive_material("Mat_Hunter_Eyes", "#d8f0ff", strength=2.2),
+        "teeth": build_cel_material("Mat_Hunter_Teeth", "#d6ceb4", "#948c74"),
     }
     arm_obj = build_armature(col_rig, spec, joints)
-    build_sculpted_torso(col_meshes, arm_obj, spec, joints, mats["hoodie"], waist_scale=0.90, chest_scale=1.10, hem_tatter=0.018, name="Hunter_Torso")
+    build_sculpted_torso(col_meshes, arm_obj, spec, joints, mats["hoodie"], waist_scale=0.90, chest_scale=1.10, hem_tatter=0.024, name="Hunter_Torso")
     build_sculpted_arms_and_hands(
         col_meshes, arm_obj, spec, joints,
         upper_mat=mats["hoodie"], forearm_mat=mats["hoodie"], hand_mat=mats["skin"],
-        claw_mat=mats["claws"], sleeve_frac=0.95, hand_style="clawed", claw_len=0.055,
+        claw_mat=mats["claws"], sleeve_frac=0.95, hand_style="clawed", claw_len=0.068,
         tape_mat=mats["tape"], name="Hunter_Arms",
     )
     build_sculpted_legs_and_feet(
@@ -1484,27 +1654,32 @@ def build_hunter(col_meshes, col_rig, spec, joints):
     )
     build_sculpted_head_and_neck(
         col_meshes, arm_obj, spec, joints, mats["skin"],
-        jaw_width=0.74, jaw_jut=0.008, brow_heavy=0.012, cheek_hollow=0.14, name_prefix="Hunter",
+        jaw_width=0.72, jaw_jut=0.012, brow_heavy=0.016, cheek_hollow=0.22, name_prefix="Hunter",
     )
     build_hunter_hood_cowl(col_meshes, arm_obj, spec, joints, mats["hoodie"], mats["hood_in"])
+    build_monster_face_features(col_meshes, arm_obj, spec, joints, mats["socket"], mats["eyes"], mats["teeth"], species="hunter")
     return arm_obj
 
 
 def build_smoker(col_meshes, col_rig, spec, joints):
     mats = {
-        "skin": build_cel_material("Mat_Smoker_Skin", "#9da38f", "#767c6a"),
-        "shirt": build_cel_material("Mat_Smoker_Shirt", "#575c48", "#3e4233"),
-        "boils": build_cel_material("Mat_Smoker_Boils", "#6e7a52", "#4d5739"),
-        "trousers": build_cel_material("Mat_Smoker_Trousers", "#2e312b", "#1e201c"),
-        "boots": build_cel_material("Mat_Smoker_Boots", "#262420", "#171614"),
-        "claws": build_cel_material("Mat_Smoker_Claws", "#6d7360", "#4b4f41"),
+        "skin": build_horror_cel_material("Mat_Smoker_Skin", "#949c82", "#5e6452", grime_hex="#3e4d26", rim_hex="#9cd46c", grime_cutoff=0.58, grime_scale=10.5, rim_strength=0.45),
+        "shirt": build_horror_cel_material("Mat_Smoker_Shirt", "#4f5440", "#2f3326", grime_hex="#29331c", rim_hex="#86b860", grime_cutoff=0.64, grime_scale=11.0, rim_strength=0.35),
+        "boils": build_horror_cel_material("Mat_Smoker_Boils", "#7b8c4e", "#49542b", grime_hex="#a6c454", rim_hex="#c8ed68", grime_cutoff=0.62, grime_scale=14.0, rim_strength=0.55),
+        "trousers": build_horror_cel_material("Mat_Smoker_Trousers", "#2a2e28", "#171a16", grime_hex="#1f2918", rim_hex="#688854", grime_cutoff=0.68, grime_scale=10.0, rim_strength=0.28),
+        "boots": build_cel_material("Mat_Smoker_Boots", "#22201c", "#12110f"),
+        "claws": build_horror_cel_material("Mat_Smoker_Claws", "#6d7558", "#3e4432", grime_hex="#2e381c", rim_hex="#a8d46e", grime_cutoff=0.60, grime_scale=14.0, rim_strength=0.45),
+        "socket": build_cel_material("Mat_Smoker_Socket", "#0b0e09", "#050704"),
+        "eyes": build_emissive_material("Mat_Smoker_Eyes", "#d6ff4d", strength=2.4),
+        "teeth": build_cel_material("Mat_Smoker_Teeth", "#c8c496", "#878460"),
+        "tongue": build_horror_cel_material("Mat_Smoker_Tongue", "#a6424c", "#662028", grime_hex="#451016", rim_hex="#e8747e", grime_cutoff=0.62, grime_scale=15.0, rim_strength=0.50),
     }
     arm_obj = build_armature(col_rig, spec, joints)
-    build_sculpted_torso(col_meshes, arm_obj, spec, joints, mats["shirt"], waist_scale=0.76, chest_scale=1.06, depth_ratio=0.68, hem_tatter=0.022, name="Smoker_Torso")
+    build_sculpted_torso(col_meshes, arm_obj, spec, joints, mats["shirt"], waist_scale=0.72, chest_scale=1.06, depth_ratio=0.66, hem_tatter=0.026, name="Smoker_Torso")
     build_sculpted_arms_and_hands(
         col_meshes, arm_obj, spec, joints,
         upper_mat=mats["shirt"], forearm_mat=mats["skin"], hand_mat=mats["skin"],
-        claw_mat=mats["claws"], sleeve_frac=0.45, hand_style="clawed", claw_len=0.058, name="Smoker_Arms",
+        claw_mat=mats["claws"], sleeve_frac=0.45, hand_style="clawed", claw_len=0.068, name="Smoker_Arms",
     )
     build_sculpted_legs_and_feet(
         col_meshes, arm_obj, spec, joints,
@@ -1512,9 +1687,10 @@ def build_smoker(col_meshes, col_rig, spec, joints):
     )
     build_sculpted_head_and_neck(
         col_meshes, arm_obj, spec, joints, mats["skin"],
-        jaw_width=0.68, jaw_jut=0.016, brow_heavy=0.010, cheek_hollow=0.22, neck_thick=0.88, name_prefix="Smoker",
+        jaw_width=0.66, jaw_jut=0.020, brow_heavy=0.014, cheek_hollow=0.28, neck_thick=0.84, name_prefix="Smoker",
     )
     build_smoker_boils(col_meshes, arm_obj, spec, joints, mats["boils"])
+    build_monster_face_features(col_meshes, arm_obj, spec, joints, mats["socket"], mats["eyes"], mats["teeth"], tongue_mat=mats["tongue"], species="smoker")
 
     # Tongue socket bone-parented to head at mouth position
     mouth_world = Vector((0.0, joints["head_y"] - spec["head_r"] * 1.02, joints["neck_top_z"] + spec["head_len"] * 0.24))
@@ -1522,20 +1698,156 @@ def build_smoker(col_meshes, col_rig, spec, joints):
     return arm_obj
 
 
+def build_witch_horror_details(col_meshes, arm_obj, spec, joints, socket_mat, teeth_mat, blood_mat, bone_mat, cloth_mat):
+    """Add terrifying gaunt horror anatomy to Witch: sunken dark eye sockets, gaping toothed mouth,
+    protruding bony ribs/collarbones/spine, jagged shredded dress strips, and blood-dipped extra talons."""
+    bm = bmesh.new()
+    vw = {}
+    hr = spec["head_r"]
+    ntz = joints["neck_top_z"]
+    hy = joints["head_y"]
+    ctz = joints["chest_top_z"]
+    pz = joints["pelvis_z"]
+    tr = spec["torso_r"]
+
+    # 1. Deep sunken black eye-socket recesses (behind glowing crimson eyes so they burn out of shadow)
+    eye_z = ntz + 0.118
+    for sx in (-1.0, 1.0):
+        ex = sx * hr * 0.34
+        ey = hy - hr * 0.90
+        r0 = ellipse_ring(ex, ey, eye_z, hr * 0.24, hr * 0.16, 8)
+        r1 = ellipse_ring(ex, ey - 0.012, eye_z, hr * 0.20, hr * 0.12, 8)
+        # Rotate ring slightly into XZ plane by building a thin ellipsoid cap on front of face
+        cap_rings = [
+            [(ex + math.cos(2 * math.pi * i / 8) * hr * 0.22, ey + 0.008, eye_z + math.sin(2 * math.pi * i / 8) * hr * 0.14) for i in range(8)],
+            [(ex + math.cos(2 * math.pi * i / 8) * hr * 0.17, ey - 0.006, eye_z + math.sin(2 * math.pi * i / 8) * hr * 0.10) for i in range(8)],
+        ]
+        add_loft_rings(bm, cap_rings, closed_ends=True, mat_idx=0, vert_weights=vw, ring_weights=[{"head": 1.0}] * 2)
+
+    # 2. Gaping hollow screaming mouth cavity + jagged pale upper/lower teeth
+    mouth_z = ntz + 0.052
+    mouth_y = hy - hr * 0.89
+    m_rings = [
+        [(math.cos(2 * math.pi * i / 10) * hr * 0.34, mouth_y + 0.012, mouth_z + math.sin(2 * math.pi * i / 10) * hr * 0.22) for i in range(10)],
+        [(math.cos(2 * math.pi * i / 10) * hr * 0.28, mouth_y - 0.008, mouth_z + math.sin(2 * math.pi * i / 10) * hr * 0.17) for i in range(10)],
+    ]
+    add_loft_rings(bm, m_rings, closed_ends=True, mat_idx=0, vert_weights=vw, ring_weights=[{"head": 1.0}] * 2)
+
+    # Jagged upper teeth fangs inside mouth cavity
+    for ti in (-2, -1, 0, 1, 2):
+        tx = ti * hr * 0.11
+        tz_top = mouth_z + hr * 0.14
+        tz_tip = mouth_z + hr * (0.01 if ti % 2 == 0 else 0.04)
+        tooth_rings = [
+            ellipse_ring(tx, mouth_y - 0.009, tz_top, 0.0055, 0.004, 4),
+            ellipse_ring(tx, mouth_y - 0.011, tz_tip, 0.0018, 0.0018, 4),
+        ]
+        add_loft_rings(bm, tooth_rings, closed_ends=True, mat_idx=1, vert_weights=vw, ring_weights=[{"head": 1.0}] * 2)
+
+    # 3. Protruding gaunt collarbones & 4 pairs of bony ribs + hunched vertebrae ridge
+    for sx in (-1.0, 1.0):
+        # Sharp collarbone ridge
+        cb_rings = [
+            ellipse_ring(sx * 0.018, -tr * 0.56, ctz - 0.018, 0.012, 0.010, 6),
+            ellipse_ring(sx * 0.082, -tr * 0.48, ctz - 0.010, 0.014, 0.011, 6),
+            ellipse_ring(sx * 0.138, -tr * 0.22, ctz - 0.016, 0.010, 0.009, 6),
+        ]
+        add_loft_rings(bm, cb_rings, closed_ends=True, mat_idx=3, vert_weights=vw, ring_weights=[{"chest": 1.0}] * 3)
+
+        # 4 bony protruding ribs along gaunt ribcage
+        for r_idx in range(4):
+            rz = ctz - 0.095 - r_idx * 0.048
+            rx_mid = tr * (0.94 - r_idx * 0.06)
+            rib_rings = [
+                ellipse_ring(sx * 0.025, -tr * 0.64, rz + 0.006, 0.009, 0.008, 6),
+                ellipse_ring(sx * rx_mid, -tr * 0.36, rz - 0.004, 0.011, 0.009, 6),
+                ellipse_ring(sx * rx_mid * 0.82, tr * 0.25, rz + 0.008, 0.009, 0.008, 6),
+            ]
+            w_rib = {"chest": 0.75, "spine": 0.25} if r_idx < 2 else {"chest": 0.35, "spine": 0.65}
+            add_loft_rings(bm, rib_rings, closed_ends=True, mat_idx=3, vert_weights=vw, ring_weights=[w_rib] * 3)
+
+    # Bony spine vertebrae bumps down the upper back
+    for vi in range(5):
+        vz = ctz - 0.03 - vi * 0.055
+        vy = tr * 0.66
+        v_rings = [
+            ellipse_ring(0.0, vy, vz + 0.012, 0.014, 0.014, 6),
+            ellipse_ring(0.0, vy + 0.014, vz, 0.012, 0.012, 6),
+            ellipse_ring(0.0, vy, vz - 0.012, 0.010, 0.010, 6),
+        ]
+        w_v = {"chest": 1.0} if vi < 3 else {"spine": 1.0}
+        add_loft_rings(bm, v_rings, closed_ends=True, mat_idx=3, vert_weights=vw, ring_weights=[w_v] * 3)
+
+    # 4. Jagged shredded dress/tank cloth strips hanging from torso hem
+    for si in range(7):
+        ang = -2.4 + si * 0.8
+        sx_h = math.sin(ang) * tr * 0.82
+        sy_h = -math.cos(ang) * tr * 0.62
+        drop = 0.09 + (si % 3) * 0.045
+        strip_rings = [
+            ellipse_ring(sx_h, sy_h, pz + 0.03, 0.020, 0.006, 4),
+            ellipse_ring(sx_h * 1.08, sy_h * 1.08, pz + 0.03 - drop * 0.55, 0.015, 0.005, 4),
+            ellipse_ring(sx_h * 1.14, sy_h * 1.12, pz + 0.03 - drop, 0.003, 0.003, 4),
+        ]
+        add_loft_rings(bm, strip_rings, closed_ends=True, mat_idx=4, vert_weights=vw, ring_weights=[{"pelvis": 1.0}] * 3)
+
+    # 5. Blood-drenched extra hooked side-talons on both hands (makes claws unmistakably terrifying!)
+    for side, sgn in (("L", 1.0), ("R", -1.0)):
+        ht = joints[f"hand_tip_{side}"]
+        hx, hz = ht.x, ht.z + 0.02
+        b_hand = f"hand_{side}"
+        for ci, (dx, dy, clen) in enumerate([(-0.024, -0.014, 0.145), (0.0, -0.020, 0.165), (0.024, -0.012, 0.140)]):
+            c_rings = [
+                ellipse_ring(hx + dx, dy, hz, 0.009, 0.007, 5),
+                ellipse_ring(hx + dx * 1.35, dy - 0.024, hz - clen * 0.55, 0.006, 0.005, 5),
+                ellipse_ring(hx + dx * 1.15, dy - 0.052, hz - clen, 0.0018, 0.0018, 5),
+            ]
+            add_loft_rings(bm, c_rings, closed_ends=True, mat_idx=2, vert_weights=vw, ring_weights=[{b_hand: 1.0}] * 3)
+
+    bm.verts.index_update()
+    idx_w = {v.index: w for v, w in vw.items()}
+    obj = new_mesh_object(
+        "Witch_HorrorDetails", bm, col_meshes,
+        [socket_mat, teeth_mat, blood_mat, bone_mat, cloth_mat],
+        smooth=False,
+    )
+    add_armature_modifier(obj, arm_obj)
+    apply_vert_weights(obj, idx_w, ("head", "chest", "spine", "pelvis", "hand_L", "hand_R"))
+    return obj
+
+
 def build_witch(col_meshes, col_rig, spec, joints):
     mats = {
-        "skin": build_cel_material("Mat_Witch_Skin", "#cfc9c2", "#a39d96"),
-        "hair": build_cel_material("Mat_Witch_Hair", "#a8a49c", "#7d7a73"),
-        "claws": build_cel_material("Mat_Witch_Claws", "#6e2329", "#4a151a"),
-        "cloth": build_cel_material("Mat_Witch_Cloth", "#3b3d42", "#26282c"),
-        "eyes": build_emissive_material("Mat_Witch_Eyes", "#d92626", strength=1.8),
+        "skin": build_horror_cel_material(
+            "Mat_Witch_Skin", "#c4beb8", "#807a76",
+            grime_hex="#4d1e22", rim_hex="#7bc8d8", grime_cutoff=0.63, grime_scale=11.0, rim_strength=0.45,
+        ),
+        "hair": build_horror_cel_material(
+            "Mat_Witch_Hair", "#8f8b85", "#4c4946",
+            grime_hex="#262424", rim_hex="#7bc8d8", grime_cutoff=0.58, grime_scale=14.0, rim_strength=0.35,
+        ),
+        "claws": build_horror_cel_material(
+            "Mat_Witch_Claws", "#a8242e", "#521016",
+            grime_hex="#290609", rim_hex="#f26666", grime_cutoff=0.58, grime_scale=16.0, rim_strength=0.72,
+        ),
+        "cloth": build_horror_cel_material(
+            "Mat_Witch_Cloth", "#2c2e34", "#16181c",
+            grime_hex="#42171b", rim_hex="#6898a8", grime_cutoff=0.68, grime_scale=12.0, rim_strength=0.30,
+        ),
+        "eyes": build_emissive_material("Mat_Witch_Eyes", "#ff2222", strength=2.6),
+        "socket": build_cel_material("Mat_Witch_Socket", "#0b0d10", "#050608"),
+        "teeth": build_cel_material("Mat_Witch_Teeth", "#d9d1b8", "#9c9379"),
+        "bone": build_horror_cel_material(
+            "Mat_Witch_Bone", "#b5aea7", "#6f6965",
+            grime_hex="#42181c", rim_hex="#7bc8d8", grime_cutoff=0.60, grime_scale=12.0, rim_strength=0.42,
+        ),
     }
     arm_obj = build_armature(col_rig, spec, joints)
-    build_sculpted_torso(col_meshes, arm_obj, spec, joints, mats["cloth"], waist_scale=0.74, chest_scale=0.98, depth_ratio=0.66, hem_tatter=0.016, name="Witch_Torso")
+    build_sculpted_torso(col_meshes, arm_obj, spec, joints, mats["cloth"], waist_scale=0.68, chest_scale=0.96, depth_ratio=0.62, hem_tatter=0.022, name="Witch_Torso")
     build_sculpted_arms_and_hands(
         col_meshes, arm_obj, spec, joints,
-        upper_mat=mats["skin"], forearm_mat=mats["skin"], hand_mat=mats["skin"],
-        claw_mat=mats["claws"], sleeve_frac=0.0, hand_style="clawed", claw_len=0.115, name="Witch_Arms",
+        upper_mat=mats["skin"], forearm_mat=mats["skin"], hand_mat=mats["claws"],
+        claw_mat=mats["claws"], sleeve_frac=0.0, hand_style="clawed", claw_len=0.145, name="Witch_Arms",
     )
     build_sculpted_legs_and_feet(
         col_meshes, arm_obj, spec, joints,
@@ -1544,24 +1856,31 @@ def build_witch(col_meshes, col_rig, spec, joints):
     )
     build_sculpted_head_and_neck(
         col_meshes, arm_obj, spec, joints, mats["skin"],
-        jaw_width=0.64, jaw_jut=0.004, brow_heavy=0.008, cheek_hollow=0.20,
-        neck_thick=0.78, eye_glow_mat=mats["eyes"], name_prefix="Witch",
+        jaw_width=0.58, jaw_jut=0.008, brow_heavy=0.014, cheek_hollow=0.28,
+        neck_thick=0.70, eye_glow_mat=mats["eyes"], name_prefix="Witch",
     )
     build_witch_hair_drape(col_meshes, arm_obj, spec, joints, mats["hair"])
+    build_witch_horror_details(
+        col_meshes, arm_obj, spec, joints,
+        mats["socket"], mats["teeth"], mats["claws"], mats["bone"], mats["cloth"],
+    )
     return arm_obj
 
 
 def build_charger(col_meshes, col_rig, spec, joints):
     mats = {
-        "skin": build_cel_material("Mat_Charger_Skin", "#b89b88", "#8c7262"),
-        "denim": build_cel_material("Mat_Charger_Denim", "#3c4e63", "#293747"),
+        "skin": build_horror_cel_material("Mat_Charger_Skin", "#b0907d", "#735849", grime_hex="#4d1c20", rim_hex="#d4a088", grime_cutoff=0.60, grime_scale=9.5, rim_strength=0.45),
+        "denim": build_horror_cel_material("Mat_Charger_Denim", "#36485e", "#1f2b3a", grime_hex="#36181c", rim_hex="#7498b8", grime_cutoff=0.65, grime_scale=11.0, rim_strength=0.35),
         "buckle": build_cel_material("Mat_Charger_Buckle", "#b5924c", "#7d6332"),
-        "boots": build_cel_material("Mat_Charger_Boots", "#382c26", "#241c18"),
+        "boots": build_cel_material("Mat_Charger_Boots", "#302520", "#1c1512"),
+        "socket": build_cel_material("Mat_Charger_Socket", "#0c0a0a", "#050404"),
+        "eyes": build_emissive_material("Mat_Charger_Eyes", "#ffaa38", strength=2.2),
+        "teeth": build_cel_material("Mat_Charger_Teeth", "#d6ccb0", "#948b72"),
     }
     arm_obj = build_armature(col_rig, spec, joints)
     build_sculpted_torso(
         col_meshes, arm_obj, spec, joints, mats["skin"],
-        waist_scale=0.84, chest_scale=1.22, depth_ratio=0.78, trap_bulge=0.032, name="Charger_Torso",
+        waist_scale=0.84, chest_scale=1.22, depth_ratio=0.78, trap_bulge=0.036, name="Charger_Torso",
     )
     build_sculpted_arms_and_hands(
         col_meshes, arm_obj, spec, joints,
@@ -1574,21 +1893,25 @@ def build_charger(col_meshes, col_rig, spec, joints):
     )
     build_sculpted_head_and_neck(
         col_meshes, arm_obj, spec, joints, mats["skin"],
-        jaw_width=0.92, jaw_jut=0.022, brow_heavy=0.018, neck_thick=1.35, name_prefix="Charger",
+        jaw_width=0.92, jaw_jut=0.024, brow_heavy=0.022, neck_thick=1.35, name_prefix="Charger",
     )
     build_charger_overalls_bib(col_meshes, arm_obj, spec, joints, mats["denim"], mats["buckle"])
+    build_monster_face_features(col_meshes, arm_obj, spec, joints, mats["socket"], mats["eyes"], mats["teeth"], species="charger")
     return arm_obj
 
 
 def build_tank(col_meshes, col_rig, spec, joints):
     mats = {
-        "skin": build_cel_material("Mat_Tank_Skin", "#a88a82", "#7d635c"),
-        "trousers": build_cel_material("Mat_Tank_Trousers", "#333840", "#202429"),
+        "skin": build_horror_cel_material("Mat_Tank_Skin", "#a38078", "#694d47", grime_hex="#4d181e", rim_hex="#d4968c", grime_cutoff=0.58, grime_scale=8.5, rim_strength=0.48),
+        "trousers": build_horror_cel_material("Mat_Tank_Trousers", "#2e333b", "#191c22", grime_hex="#38161a", rim_hex="#687a8c", grime_cutoff=0.66, grime_scale=10.0, rim_strength=0.32),
+        "socket": build_cel_material("Mat_Tank_Socket", "#0b0909", "#040303"),
+        "eyes": build_emissive_material("Mat_Tank_Eyes", "#ffe666", strength=2.6),
+        "teeth": build_cel_material("Mat_Tank_Teeth", "#dbd2b8", "#968e74"),
     }
     arm_obj = build_armature(col_rig, spec, joints)
     build_sculpted_torso(
         col_meshes, arm_obj, spec, joints, mats["skin"],
-        waist_scale=0.72, chest_scale=1.36, depth_ratio=0.84, trap_bulge=0.065, name="Tank_Torso",
+        waist_scale=0.72, chest_scale=1.36, depth_ratio=0.84, trap_bulge=0.072, name="Tank_Torso",
     )
     build_sculpted_arms_and_hands(
         col_meshes, arm_obj, spec, joints,
@@ -1602,8 +1925,9 @@ def build_tank(col_meshes, col_rig, spec, joints):
     )
     build_sculpted_head_and_neck(
         col_meshes, arm_obj, spec, joints, mats["skin"],
-        jaw_width=1.06, jaw_jut=0.028, brow_heavy=0.026, cranium_tall=0.94, neck_thick=1.65, name_prefix="Tank",
+        jaw_width=1.08, jaw_jut=0.030, brow_heavy=0.028, cranium_tall=0.94, neck_thick=1.65, name_prefix="Tank",
     )
+    build_monster_face_features(col_meshes, arm_obj, spec, joints, mats["socket"], mats["eyes"], mats["teeth"], species="tank")
 
     # Concrete slab socket bone-parented to hand_R at palm center
     wr_r = joints["wrist_R"]

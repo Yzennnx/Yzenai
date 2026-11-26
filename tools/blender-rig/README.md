@@ -70,3 +70,11 @@ Load the guide PNG as a temporary alignment layer while coding your 2D Canvas/SV
 - **Special Infected actions (9):** `tools/blender-rig/infected-actions.json`
 - **Toon lighting moods (6):** `tools/blender-rig/lighting.json`
 - **Important:** Always run heavy Blender renders **serially** (one process at a time) on local hardware.
+
+## Mandatory Production Guardrails (Prevent Recurring Defects)
+
+1. **Automatic `16:9` / `9:16` Framing & Headroom Check:** `render-shot.py` automatically switches to `sensor_fit = "VERTICAL"` (`36 mm`) whenever `width > height` (`1920 × 1080` widescreen) so every `cameras.json` preset preserves full headroom and grounded boots. Full-body renders (`--env none`) also emit a `[WARN]` if character pixels touch `y == 0`.
+2. **Native `30 fps` (or `24 fps`) Hero Motion & Exact Cycle Lengths:** Render hero 3D action shots at **native `30 fps`** (`--fps 30 --samples 4`, or `--fps 24` for legacy 24 fps chapters) matching the exact shot frame count so motion stays silky with zero judder. Never stretch 12 frames over 3+ seconds and never truncate a cycling action shorter than its JSON `length` (`render-shot.py` warns if `span < length`).
+3. **True 3D Ground & Core Structures (`--env` + `--travel` + `--push-in`):** Never zoom a 3D character PNG over a static 2D wallpaper or slide an in-place walk PNG sideways (`dx`). Use `--env <set>` (`tools/blender-rig/env_sets.py`, e.g. `civic-plaza`) so the character physically walks on 3D cel-shaded flagstones/structures (`--travel <meters>`) while Blender's real 3D camera executes `--push-in` with 100% perspective parallax. Composite only distant sky, skyline beacon, volumetric fog, rain glow, paper grain, and 2D facial ECUs behind the transparent sky.
+4. **Grounded Physical Contact FX (`boot-macro` + `--floor-prop` + `--export-tracks`):** For hero foot/hand contact impacts (stepping on glass, puddles, rubble, shell casings), use `boot-macro` + `--floor-prop glass-shard --impact-frame <n>` for true 3D occlusion/shatter, and pass `--export-tracks <json>` to lock 2D contact shadows, impact star-glints, and micro-splinters to the exact bone pixel on every frame.
+5. **Composite Still QA Gate:** Before rendering a full multi-second sequence, inspect a 1-frame composited contact sheet (character + 3D set + sky/fog + caption) for every distinct shot setup.

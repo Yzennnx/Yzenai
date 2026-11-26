@@ -39,6 +39,7 @@ SHEET_ROWS = [
             ("3/4 Front Stance", "3q-front", "infected-idle", "neutral-day"),
             ("Side Perch Crouch", "side", "hunter-crouch-perch", "neutral-day"),
             ("Low-24mm Pounce Launch", "low-24mm", "hunter-pounce-launch", "horror-dark-rim"),
+            ("Horror Face Close-Up", "face-closeup", "infected-idle", "horror-dark-rim"),
         ],
     ),
     (
@@ -50,6 +51,7 @@ SHEET_ROWS = [
             ("3/4 Front Stance", "3q-front", "infected-idle", "neutral-day"),
             ("Side Rooftop Snare", "side", "smoker-rooftop-snare", "neutral-day"),
             ("Low-24mm Rooftop Snare", "low-24mm", "smoker-rooftop-snare", "horror-dark-rim"),
+            ("Horror Face Close-Up", "face-closeup", "infected-idle", "horror-dark-rim"),
         ],
     ),
     (
@@ -61,6 +63,7 @@ SHEET_ROWS = [
             ("3/4 Front Sobbing", "3q-front", "witch-sobbing", "neutral-day"),
             ("Side Sobbing", "side", "witch-sobbing", "neutral-day"),
             ("3/4 Front Alert Lift", "3q-front", "witch-alert-lift", "horror-dark-rim"),
+            ("Horror Face Close-Up", "face-closeup", "witch-alert-lift", "horror-dark-rim"),
         ],
     ),
     (
@@ -72,6 +75,7 @@ SHEET_ROWS = [
             ("3/4 Front Stance", "3q-front", "infected-idle", "neutral-day"),
             ("Side Bull Charge", "side", "charger-bull-charge", "neutral-day"),
             ("Low-24mm Bull Charge", "low-24mm", "charger-bull-charge", "horror-dark-rim"),
+            ("Horror Face Close-Up", "face-closeup", "infected-idle", "horror-dark-rim"),
         ],
     ),
     (
@@ -83,6 +87,7 @@ SHEET_ROWS = [
             ("3/4 Front Stance", "3q-front", "infected-idle", "neutral-day"),
             ("Side Slab Heave", "side", "tank-slab-heave", "neutral-day"),
             ("Low-24mm Slab Heave", "low-24mm", "tank-slab-heave", "horror-dark-rim"),
+            ("Horror Face Close-Up", "face-closeup", "infected-idle", "horror-dark-rim"),
         ],
     ),
 ]
@@ -181,8 +186,8 @@ def build_infected_sheet(out_path: Path, samples: int = 6, render_w: int = 540, 
     blender_bin = resolve_blender()
     print(f"=== Generating {out_path} (5x3 = 15 panels via {blender_bin}) ===")
 
-    # Exact cream paper backdrop (#f4efe6) and card styling matching angles-sheet.png
-    W, H = 2220, 3260
+    # Exact cream paper backdrop (#f4efe6) and 5x4 card styling matching angles-sheet.png
+    W, H = 2940, 3260
     sheet = Image.new("RGBA", (W, H), (244, 239, 230, 255))
     d = ImageDraw.Draw(sheet)
 
@@ -193,10 +198,10 @@ def build_infected_sheet(out_path: Path, samples: int = 6, render_w: int = 540, 
     f_lbl = get_font(21, bold=True)
     f_cap = get_font(16)
 
-    d.text((54, 34), "SPECIAL INFECTED CAST — 3D CEL-SHADED REFERENCE SHEET", fill=(37, 58, 59), font=f_title)
+    d.text((54, 34), "SPECIAL INFECTED CAST — 3D HORROR CEL-SHADED REFERENCE SHEET", fill=(37, 58, 59), font=f_title)
     d.text(
         (54, 92),
-        "Blender 5.2 flat 2-tone cel shader + GPv3 #253a3b ink outlines | Parity with Series Lead hybrid 3D-to-2D pipeline",
+        "Blender 5.2 3-tone horror cel shader + grime/rim + GPv3 #253a3b ink + face-closeup angle | Parity with Series Lead",
         fill=(90, 102, 100),
         font=f_sub,
     )
@@ -207,7 +212,7 @@ def build_infected_sheet(out_path: Path, samples: int = 6, render_w: int = 540, 
     col_gap = 24
     row_gap = 26
     row_hdr_h = 38
-    cols = 3
+    cols = 4
     rows = len(SHEET_ROWS)
 
     cw = (W - pad_x * 2 - col_gap * (cols - 1)) // cols
